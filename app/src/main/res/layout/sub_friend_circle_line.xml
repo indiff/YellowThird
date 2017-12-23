@@ -93,14 +93,6 @@
                     android:layout_gravity="center_vertical"
                     android:layout_alignParentRight="true"
                     >
-                    <!--点击进行评论-->
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="18dp"
-                        android:adjustViewBounds="true"
-                        android:maxWidth="9999dp"
-                        android:gravity="center_vertical"
-                        android:src="@drawable/_friend_tip_comment" />
 
                     <!--点赞和器数量数量-->
                     <LinearLayout
@@ -142,6 +134,31 @@
                 android:background="#f3f3f5"
                 />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center_vertical"
+                android:background="#f6f6f6"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                >
+                <EditText
+                    android:id="@+id/circleEt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:layout_weight="1"
+                    android:hint="说点什么..."
+                    />
+                <ImageView
+                    android:id="@+id/sendIv"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="4dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/friend_comment_send" />
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

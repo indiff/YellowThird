@@ -12,8 +12,6 @@ import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.adapter.abstracts.BaseRecycleViewAdapter;
 import com.pear.yellowthird.vo.databases.FriendsVo;
 
-import java.util.List;
-
 /**
  * 朋友圈的适配器
  */
@@ -26,7 +24,7 @@ public class FriendsAdapter extends BaseRecycleViewAdapter {
     public final static int TYPE_IMAGE = 2;
 
     /**只有一条头部的用户属性*/
-    public static final int HEADVIEW_SIZE = 1;
+    public static final int HEAD_VIEW_SIZE = 1;
 
     private Context context;
 
@@ -62,7 +60,7 @@ public class FriendsAdapter extends BaseRecycleViewAdapter {
         if(getItemViewType(position)==TYPE_HEAD){
             HeaderViewHolder holder = (HeaderViewHolder) viewHolder;
         }else{
-            final int circlePosition = position - HEADVIEW_SIZE;
+            final int circlePosition = position - HEAD_VIEW_SIZE;
             final CircleViewHolder holder = (CircleViewHolder) viewHolder;
 
             FriendsVo friendData = (FriendsVo) datas.get(circlePosition);
@@ -97,7 +95,6 @@ public class FriendsAdapter extends BaseRecycleViewAdapter {
 
     public class CircleViewHolder extends RecyclerView.ViewHolder{
 
-
         /** 图片*/
         public MultiImageView multiImageView;
 
@@ -108,8 +105,8 @@ public class FriendsAdapter extends BaseRecycleViewAdapter {
 
         public CircleViewHolder(View itemView, int viewType) {
             super(itemView);
-            multiImageView = itemView.findViewById(R.id.multi_image);
 
+            multiImageView = itemView.findViewById(R.id.multi_image);
             commentListView=itemView.findViewById(R.id.comment_list);
 
             commentAdapter=new FriendSimpleCommentAdapter(context);
