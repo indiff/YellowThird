@@ -13,6 +13,15 @@ import com.pear.yellowthird.activitys.R;
 public class CommonHeadActivity extends AppCompatActivity {
 
 
+    /**返回*/
+    protected View headBackView;
+
+    /**标题*/
+    protected TextView titleView;
+
+    /**右侧标题*/
+    protected TextView rightTitleView;
+
     /**
      * 初始化头部状态栏
      * @param title 标题
@@ -21,8 +30,8 @@ public class CommonHeadActivity extends AppCompatActivity {
 
         /**监听返回按钮*/
         {
-            View backView = findViewById(R.id.head_back);
-            backView.setOnClickListener(new View.OnClickListener() {
+            headBackView = findViewById(R.id.head_back);
+            headBackView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     finish();
@@ -32,7 +41,7 @@ public class CommonHeadActivity extends AppCompatActivity {
 
         /**标题*/
         {
-            TextView titleView = findViewById(R.id.head_title);
+            titleView = findViewById(R.id.head_title);
             titleView.setText(title);
         }
     }
@@ -49,7 +58,7 @@ public class CommonHeadActivity extends AppCompatActivity {
 
         /**右侧的标题*/
         {
-            TextView rightTitleView = findViewById(R.id.head_right);
+            rightTitleView = findViewById(R.id.head_right);
             rightTitleView.setText(rightTitle);
             rightTitleView.setOnClickListener(rightClick);
         }

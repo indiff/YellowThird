@@ -12,7 +12,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.testpic.BitmapCache.ImageCallback;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.activitys.published.Bimp;
 import com.pear.yellowthird.activitys.published.BitmapCache;
@@ -22,24 +21,45 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+
+/**
+ * 发表说说 的选择图片适配器
+ * */
 public class ChooseImageAdapter extends BaseAdapter {
 
-	private TextCallback textcallback = null;
 	final String TAG = getClass().getSimpleName();
-	Activity act;
+
+	/**选中项变动回调*/
+	private TextCallback textcallback = null;
+
+	/**活动中的activity*/
+	Activity activity;
+
+	/**当前目录下所拥有的所有图片*/
 	List<ImageItem> dataList;
-	Map<String, String> map = new HashMap<String, String>();
+
+
+	/**这个是什么鬼*/
+	public Map<String, String> map = new HashMap<String, String>();
+
+	/**图片缓存工厂*/
 	BitmapCache cache;
+
+	/**主线程的handle*/
 	private Handler mHandler;
+
+	/**已选中的所有图片总数*/
 	private int selectTotal = 0;
-	ImageCallback callback = new ImageCallback() {
+
+	BitmapCache.ImageCallback callback = new BitmapCache.ImageCallback() {
 		@Override
 		public void imageLoad(ImageView imageView, Bitmap bitmap,
 				Object... params) {
 			if (imageView != null && bitmap != null) {
 				String url = (String) params[0];
 				if (url != null && url.equals((String) imageView.getTag())) {
-					((ImageView) imageView).setImageBitmap(bitmap);
+					imageView.setImageBitmap(bitmap);
 				} else {
 					Log.e(TAG, "callback, bmp not match");
 				}
@@ -49,6 +69,8 @@ public class ChooseImageAdapter extends BaseAdapter {
 		}
 	};
 
+
+	/**已选择的张数监听接口*/
 	public static interface TextCallback {
 		public void onListen(int count);
 	}
@@ -58,7 +80,7 @@ public class ChooseImageAdapter extends BaseAdapter {
 	}
 
 	public ChooseImageAdapter(Activity act, List<ImageItem> list, Handler mHandler) {
-		this.act = act;
+		this.activity = act;
 		dataList = list;
 		cache = new BitmapCache();
 		this.mHandler = mHandler;
@@ -73,22 +95,18 @@ public class ChooseImageAdapter extends BaseAdapter {
 		return count;
 	}
 
-	@Override
-	public Object getItem(int position) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		return position;
-	}
 
 	class Holder {
-		private ImageView iv;
-		private ImageView selected;
-		private TextView text;
+
+		/**图片名称*/
+		private TextView nameView;
+
+		/**图片的略缩图*/
+		private ImageView imageView;
+
+		/**是否已选中当前的图片*/
+		private ImageView isSelectedView;
+
 	}
 
 	@Override
@@ -97,29 +115,29 @@ public class ChooseImageAdapter extends BaseAdapter {
 
 		if (convertView == null) {
 			holder = new Holder();
-			convertView = View.inflate(act, R.layout.item_image_grid, null);
-			holder.iv = (ImageView) convertView.findViewById(R.id.image);
-			holder.selected = (ImageView) convertView
-					.findViewById(R.id.isselected);
-			holder.text = (TextView) convertView
-					.findViewById(R.id.item_image_grid_text);
+			convertView = View.inflate(activity, R.layout.sub_published_choose_image_list_line, null);
+			holder.imageView =  convertView.findViewById(R.id.image);
+			holder.isSelectedView = convertView
+					.findViewById(R.id.is_selected);
+			holder.nameView = convertView
+					.findViewById(R.id.name);
 			convertView.setTag(holder);
 		} else {
 			holder = (Holder) convertView.getTag();
 		}
 		final ImageItem item = dataList.get(position);
 
-		holder.iv.setTag(item.imagePath);
-		cache.displayBmp(holder.iv, item.thumbnailPath, item.imagePath,
+		holder.nameView.setTag(item.imagePath);
+		cache.displayBmp(holder.imageView, item.thumbnailPath, item.imagePath,
 				callback);
 		if (item.isSelected) {
-			holder.selected.setImageResource(R.drawable.icon_data_select);  
-			holder.text.setBackgroundResource(R.drawable.bgd_relatly_line);
+			holder.isSelectedView.setImageResource(R.drawable._select_image_tip);
+			holder.nameView.setBackgroundResource(R.drawable.friend_image_select_name);
 		} else {
-			holder.selected.setImageResource(-1);
-			holder.text.setBackgroundColor(0x00000000);
+			holder.isSelectedView.setImageResource(-1);
+			holder.nameView.setBackgroundColor(0x00000000);
 		}
-		holder.iv.setOnClickListener(new OnClickListener() {
+		holder.imageView.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -128,17 +146,17 @@ public class ChooseImageAdapter extends BaseAdapter {
 				if ((Bimp.drr.size() + selectTotal) < 9) {
 					item.isSelected = !item.isSelected;
 					if (item.isSelected) {
-						holder.selected
-								.setImageResource(R.drawable.icon_data_select);
-						holder.text.setBackgroundResource(R.drawable.bgd_relatly_line);
+						holder.isSelectedView
+								.setImageResource(R.drawable._select_image_tip);
+						holder.nameView.setBackgroundResource(R.drawable.friend_image_select_name);
 						selectTotal++;
 						if (textcallback != null)
 							textcallback.onListen(selectTotal);
 						map.put(path, path);
 
 					} else if (!item.isSelected) {
-						holder.selected.setImageResource(-1);
-						holder.text.setBackgroundColor(0x00000000);
+						holder.isSelectedView.setImageResource(-1);
+						holder.nameView.setBackgroundColor(0x00000000);
 						selectTotal--;
 						if (textcallback != null)
 							textcallback.onListen(selectTotal);
@@ -147,7 +165,7 @@ public class ChooseImageAdapter extends BaseAdapter {
 				} else if ((Bimp.drr.size() + selectTotal) >= 9) {
 					if (item.isSelected == true) {
 						item.isSelected = !item.isSelected;
-						holder.selected.setImageResource(-1);
+						holder.isSelectedView.setImageResource(-1);
 						selectTotal--;
 						map.remove(path);
 
@@ -161,5 +179,17 @@ public class ChooseImageAdapter extends BaseAdapter {
 		});
 
 		return convertView;
+	}
+
+
+
+	@Override
+	public Object getItem(int position) {
+		return null;
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return position;
 	}
 }

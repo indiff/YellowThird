@@ -16,6 +16,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.pear.yellowthird.activitys.R;
+import com.pear.yellowthird.activitys.base.CommonHeadActivity;
 import com.pear.yellowthird.adapter.ChooseImageAdapter;
 import com.pear.yellowthird.vo.ImageItem;
 
@@ -26,14 +27,14 @@ import java.util.List;
 
 
 /**选择待发表的图片*/
-public class ChooseImageActivity extends Activity {
+public class ChooseImageActivity extends CommonHeadActivity {
 
 
 	/**当前目录下的图片集合*/
 	List<ImageItem> dataList;
 
 	/**列表视图*/
-	GridView gridView;
+	GridView imageListView;
 
 	/**自定义的列表适配器*/
 	ChooseImageAdapter adapter;
@@ -49,9 +50,8 @@ public class ChooseImageActivity extends Activity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				Toast.makeText(ImageGridActivity.this, "最多选择9张图片", 400).show();
+				Toast.makeText(ChooseImageActivity.this, "最多选择9张图片", 400).show();
 				break;
-
 			default:
 				break;
 			}
@@ -62,79 +62,72 @@ public class ChooseImageActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_image_grid);
+		setContentView(R.layout.sub_published_choose_image_list);
 
 		helper = AlbumHelper.getHelper();
 		helper.init(getApplicationContext());
 
 		dataList = (List<ImageItem>) getIntent().getSerializableExtra(
-				EXTRA_IMAGE_LIST);
+				ChooseCataloguePicActivity.EXTRA_IMAGE_LIST);
 
 		initView();
-		bt = (Button) findViewById(R.id.bt);
-		bt.setOnClickListener(new OnClickListener() {
-
-			public void onClick(View v) {
-				ArrayList<String> list = new ArrayList<String>();
-				Collection<String> c = adapter.map.values();
-				Iterator<String> it = c.iterator();
-				for (; it.hasNext();) {
-					list.add(it.next());
-				}
-
-				if (Bimp.act_bool) {
-					Intent intent = new Intent(ImageGridActivity.this,
-							PublishedActivity.class);
-					startActivity(intent);
-					Bimp.act_bool = false;
-				}
-				for (int i = 0; i < list.size(); i++) {
-					if (Bimp.drr.size() < 9) {
-						Bimp.drr.add(list.get(i));
-					}
-				}
-				finish();
-			}
-
-		});
+		initHeadBar("相册","完成",completeListener);
 	}
 
 	/**
-	 * 鍒濆鍖杤iew瑙嗗浘
+	 * 初始化待选择的视图
 	 */
 	private void initView() {
-		gridView = (GridView) findViewById(R.id.gridview);
-		gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-		adapter = new ImageGridAdapter(ImageGridActivity.this, dataList,
+		imageListView = findViewById(R.id.image_list);
+		imageListView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+		adapter = new ChooseImageAdapter(ChooseImageActivity.this, dataList,
 				mHandler);
-		gridView.setAdapter(adapter);
-		adapter.setTextCallback(new TextCallback() {
+		imageListView.setAdapter(adapter);
+
+		adapter.setTextCallback(new ChooseImageAdapter.TextCallback() {
 			public void onListen(int count) {
-				bt.setText("完成" + "(" + count + ")");
+				rightTitleView.setText("完成(" + count + ")");
 			}
 		});
 
-		gridView.setOnItemClickListener(new OnItemClickListener() {
+		imageListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				/**
-				 * 鏍规嵁position鍙傛暟锛屽彲浠ヨ幏寰楄窡GridView鐨勫瓙View鐩哥粦瀹氱殑瀹炰綋绫伙紝鐒跺悗鏍规嵁瀹冪殑isSelected鐘舵
-				 * �锛� 鏉ュ垽鏂槸鍚︽樉绀洪�涓晥鏋溿� 鑷充簬閫変腑鏁堟灉鐨勮鍒欙紝涓嬮潰閫傞厤鍣ㄧ殑浠ｇ爜涓細鏈夎鏄�
-				 */
-				// if(dataList.get(position).isSelected()){
-				// dataList.get(position).setSelected(false);
-				// }else{
-				// dataList.get(position).setSelected(true);
-				// }
-				/**
-				 * 閫氱煡閫傞厤鍣紝缁戝畾鐨勬暟鎹彂鐢熶簡鏀瑰彉锛屽簲褰撳埛鏂拌鍥�
-				 */
 				adapter.notifyDataSetChanged();
 			}
-
 		});
-
 	}
+
+
+
+	/**
+	 * 点击完成选择图片
+	 * */
+	View.OnClickListener completeListener= new OnClickListener() {
+		@Override
+		public void onClick(View view) {
+			ArrayList<String> list = new ArrayList<String>();
+			Collection<String> c = adapter.map.values();
+			Iterator<String> it = c.iterator();
+			for (; it.hasNext();) {
+				list.add(it.next());
+			}
+
+			if (Bimp.act_bool) {
+				Intent intent = new Intent(ChooseImageActivity.this,
+						PublishedActivity.class);
+				startActivity(intent);
+				Bimp.act_bool = false;
+			}
+			for (int i = 0; i < list.size(); i++) {
+				if (Bimp.drr.size() < 9) {
+					Bimp.drr.add(list.get(i));
+				}
+			}
+			finish();
+		}
+	};
+
 }
