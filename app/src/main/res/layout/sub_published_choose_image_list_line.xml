@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--说说目录下的图片集合单个图片的样式-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center" >
+
+
+    <!--图片名称-->
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="128dp"
+        android:layout_height="102dp"
+        android:layout_centerInParent="true" />
+
+    <!--图片略缩概要-->
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="128dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:layout_margin="1dp"
+        android:scaleType="centerCrop"
+         />
+
+    <!--是否已选中当前的图片-->
+    <ImageView
+        android:id="@+id/is_selected"
+        android:layout_margin="3dp"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
+
+</RelativeLayout>
