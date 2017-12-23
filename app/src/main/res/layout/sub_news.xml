@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--新闻介绍的子界面-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/news.title.margin.top"
+            android:layout_marginBottom="@dimen/news.title.margin.bottom"
+            android:textStyle="bold"
+            android:textSize="@dimen/title"
+            android:text="这里是标题"
+            />
+
+        <TextView
+            android:id="@+id/created_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/common.screen.margin"
+            android:textSize="@dimen/content.minor.text"
+            android:textColor="@color/colorCommentMinorContent"
+            android:text="7小时前"
+            />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/content.text"
+        android:text="日本副首相兼财务相麻生太郎在今天上午举行的参议院预算委员会上污蔑中国主导的亚洲基础设施投资银行(AIIB)是恶性“高利贷”，而麻生的“大嘴巴”遭到了在野党议员的批评。"
+        />
+
+    <!--android:maxHeight="32767dp" 设置图片安装宽度的最大值来自动等比例拉伸-->
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="32767dp"
+        android:layout_marginTop="@dimen/news.image.margin.top"
+        android:layout_marginBottom="@dimen/news.image.margin.bottom"
+        android:adjustViewBounds="true"
+        android:src="@drawable/_image_sample_horizontal"
+        />
+
+</LinearLayout>

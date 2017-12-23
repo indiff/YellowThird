@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/account.bill.sub.select.margin.top.bottom"
+        android:layout_marginLeft="@dimen/account.bill.sub.select.margin.left.right"
+        android:layout_marginRight="@dimen/account.bill.sub.select.margin.left.right"
+        android:layout_marginTop="@dimen/account.bill.sub.select.margin.top.bottom"
+        android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <!--一个好看的小图标，一个消费内容-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.3">
+
+                    <!--账单前面的一个点圈图标，纯粹是好看-->
+                    <ImageView
+                        android:layout_width="@dimen/account.bill.sub.select.embellish.icon"
+                        android:layout_height="@dimen/account.bill.sub.select.embellish.icon"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/_account_bill_icon" />
+
+                    <!--消费内容-->
+                    <TextView
+                        android:id="@+id/content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/common.screen.margin"
+                        android:gravity="center_vertical"
+                        android:text="播放苍老师的第一部电影"
+                        android:textColor="@color/colorTitle"
+                        android:textSize="@dimen/account.bill.sub.select.content" />
+                </LinearLayout>
+
+                <!--消费时间-->
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="@dimen/account.bill.sub.select.time.margin.left"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="12-01 22:21"
+                    android:textColor="@color/colorMinorTitle"
+                    android:textSize="@dimen/account.bill.sub.select.time" />
+            </LinearLayout>
+
+            <!--金额-->
+            <TextView
+                android:id="@+id/money"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="+100.00"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/account.bill.sub.select.money"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+    <!--头部的结束的分割线-->
+    <View
+        android:id="@+id/head_line"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/account.bill.sub.select.margin.left.right"
+        android:layout_height="1px"
+        android:background="@color/colorSubNavBackground" />
+</LinearLayout>

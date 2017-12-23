@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--投票的标题-->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/vote.content.common.margin"
+        android:gravity="center_vertical"
+        android:text="明日的电影投票"
+        android:textSize="@dimen/title"
+        android:textStyle="bold" />
+
+    <!--标题下面的分割线-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorSubNavBackground"
+        >
+    </View>
+
+    <!--当前的截止时间-->
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/vote.content.common.margin"
+        android:gravity="left|center_vertical"
+        android:text="2017-12-12 08:08:08 投票情况"
+        android:textSize="@dimen/vote.time.text" />
+
+    <!--标题下面的分割线-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorSubNavBackground"
+        >
+    </View>
+
+    <!--投票内容区-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/vote.content.common.margin"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:id="@+id/vote_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

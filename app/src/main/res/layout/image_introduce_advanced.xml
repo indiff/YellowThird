@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!--标题-->
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="大鸡鸡"
+                android:textColor="#8290AF"
+                android:textSize="15sp" />
+
+            <!--发表时间-->
+            <TextView
+                android:id="@+id/publish_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_marginLeft="10dp"
+                android:text="13分钟前"
+                android:textColor="@color/colorMinorContent"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip"
+            android:text="一老外在中国农村迷了路,看到一青年在田里插秧,就用生硬的中文问路,结果青年半天没听懂,最后青年说:CanyouspeakEnglish?老外大惊,于是用英文问了路,"
+            android:textColor="#232323"
+            android:textSize="14sp" />
+
+        <!-- 浏览次数 、 评论 点赞、-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <!--浏览次数-->
+            <TextView
+                android:id="@+id/browse_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="浏览52次"
+                android:textColor="@color/colorMinorContent"
+                android:textSize="12dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <!--点赞和器数量数量-->
+                <LinearLayout
+                    android:id="@+id/click_good"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="18dp"
+                    android:orientation="horizontal">
+
+                    <!--点赞图标-->
+                    <ImageView
+                        android:id="@+id/good_count_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="18dp"
+                        android:adjustViewBounds="true"
+                        android:maxWidth="9999dp"
+                        android:src="@drawable/click_good" />
+
+                    <!--点赞数量-->
+                    <TextView
+                        android:id="@+id/good_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:gravity="center_vertical"
+                        android:text="2048"
+                        android:textColor="@color/colorMinorContent"
+                        android:textSize="12dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!--图片集合-->
+        <com.pear.android.view.LGNineGrideView
+            android:id="@+id/multi_image"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="58dp"/>
+
+    </LinearLayout>
+</ScrollView>

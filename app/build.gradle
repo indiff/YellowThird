@@ -1,0 +1,60 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.pear.yellowthird.activitys"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildToolsVersion '26.0.2'
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'log4j:log4j:1.2.17'
+    compile 'de.mindpipe.android:android-logging-log4j:1.0.3'
+    /**界面滑动库*/
+    // https://mvnrepository.com/artifact/fr.baloomba/viewpagerindicator
+    //compile group: 'fr.baloomba', name: 'viewpagerindicator', version: '2.4.2'
+    /**电影播放条*/
+    compile 'com.github.ogapants:PlayerControlView:1.0.0'
+
+    /**超好用的json和object自转换库*/
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.2'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.2'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.2'
+
+    /**图片库*/
+    //compile group: 'com.github.bumptech.glide', name: 'glide', version: '4.3.1'
+    compile 'com.github.bumptech.glide:glide:4.3.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
+    /**图片特效*/
+    compile 'jp.wasabeef:glide-transformations:3.0.1'
+
+    /**更高级的listview*/
+    compile 'com.malinskiy:superrecyclerview:1.1.3'
+
+    /**java的异步请求库*/
+    // https://mvnrepository.com/artifact/io.reactivex/rxjava
+    compile group: 'io.reactivex', name: 'rxjava', version: '1.1.6'
+    compile group: 'io.reactivex', name: 'rxandroid', version: '1.2.1'
+
+
+    // https://mvnrepository.com/artifact/com.nostra13.universalimageloader/universal-image-loader
+    compile group: 'com.nostra13.universalimageloader', name: 'universal-image-loader', version: '1.9.5'
+
+
+}
+

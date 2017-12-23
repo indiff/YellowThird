@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <!--尾部分割线-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/common.screen.margin"
+            android:background="@color/colorSubNavBackground" />
+
+        <!--用户自定义属性的区域-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/account.user.custom.height">
+
+            <!--用户自定义头像和名称的背景图-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/_account_user_back_ground"
+                android:maxHeight="9999dp" />
+
+            <!--用户头像及名称-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <!--头像及刷新图标-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!--头像-->
+                    <ImageView
+                        android:id="@+id/user_head_icon"
+                        android:layout_width="@dimen/account.user.head.icon.size"
+                        android:layout_height="@dimen/account.user.head.icon.size"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/author_head" />
+
+                    <!--刷新头像-->
+                    <ImageView
+                        android:id="@+id/refresh_head_icon"
+                        android:layout_width="@dimen/account.user.head.refresh.icon.size"
+                        android:layout_height="@dimen/account.user.head.refresh.icon.size"
+                        android:layout_alignBottom="@+id/user_head_icon"
+                        android:layout_marginLeft="@dimen/account.refresh.icon.margin.left"
+                        android:layout_toRightOf="@+id/user_head_icon"
+                        android:src="@drawable/refresh" />
+
+                </RelativeLayout>
+
+                <!--用户名称和刷新名称-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/account.user.name.margin.top"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <!--用户名称-->
+                    <EditText
+                        android:id="@+id/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="大鸡鸡"
+                        android:textSize="@dimen/title"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!--功能区-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/account.function.first.margin.top"
+            android:background="@color/colorNavBackground"
+            android:orientation="vertical">
+
+            <!--集体右移动一下-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/account.function.content.left"
+                android:orientation="vertical">
+
+                <!--余额-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--余额图标-->
+                    <ImageView
+                        android:layout_width="@dimen/account.function.icon"
+                        android:layout_height="@dimen/account.function.icon"
+                        android:layout_gravity="center_vertical"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/_account_balance" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/account.function.each.top.bottom"
+                            android:layout_marginTop="@dimen/account.function.each.top.bottom">
+                            <!--余额标题-->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/common.screen.margin"
+                                android:gravity="center_vertical"
+                                android:text="余额"
+                                android:textColor="@color/colorTitle"
+                                android:textSize="@dimen/account.function.title" />
+
+                            <!--余额右定位-->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right|center_vertical">
+                                <!--余额-->
+                                <TextView
+                                    android:id="@+id/gold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="@dimen/account.function.real.balance.right"
+                                    android:gravity="center_vertical"
+                                    android:text="70绿币"
+                                    android:textColor="@color/colorMinorContent"
+                                    android:textSize="@dimen/account.function.content" />
+
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <!--标题下面的分割线-->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginLeft="@dimen/common.screen.margin"
+                            android:background="@color/colorSubNavBackground"></View>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <!--充值-->
+                <LinearLayout
+                    android:id="@+id/recharge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--充值图标-->
+                    <ImageView
+                        android:layout_width="@dimen/account.function.icon"
+                        android:layout_height="@dimen/account.function.icon"
+                        android:layout_gravity="center_vertical"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/_account_recharge" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/account.function.each.top.bottom"
+                            android:layout_marginTop="@dimen/account.function.each.top.bottom"
+
+                            >
+                            <!--充值标题-->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/common.screen.margin"
+                                android:gravity="center_vertical"
+                                android:text="充值"
+                                android:textColor="@color/colorTitle"
+                                android:textSize="@dimen/account.function.title" />
+
+                            <!--充值右定位-->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="right|center_vertical">
+                                <!--右导向图标-->
+                                <ImageView
+                                    android:layout_width="@dimen/account.function.right.direct.icon.width"
+                                    android:layout_height="@dimen/account.function.right.direct.icon.height"
+                                    android:layout_marginRight="@dimen/account.function.content.right"
+                                    android:layout_gravity="center_vertical"
+                                    android:scaleType="fitXY"
+                                    android:src="@drawable/_account_right_direct" />
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <!--标题下面的分割线-->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginLeft="@dimen/common.screen.margin"
+                            android:background="@color/colorSubNavBackground" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--账单-->
+                <LinearLayout
+                    android:id="@+id/bill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--账单图标-->
+                    <ImageView
+                        android:layout_width="@dimen/account.function.icon"
+                        android:layout_height="@dimen/account.function.icon"
+                        android:layout_gravity="center_vertical"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/_account_bill" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/account.function.each.top.bottom"
+                            android:layout_marginTop="@dimen/account.function.each.top.bottom"
+
+                            >
+                            <!--账单标题-->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/common.screen.margin"
+                                android:gravity="center_vertical"
+                                android:text="账单"
+                                android:textColor="@color/colorTitle"
+                                android:textSize="@dimen/account.function.title" />
+
+                            <!--账单右定位-->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="right|center_vertical">
+                                <!--右导向图标-->
+                                <ImageView
+                                    android:layout_width="@dimen/account.function.right.direct.icon.width"
+                                    android:layout_height="@dimen/account.function.right.direct.icon.height"
+                                    android:layout_marginRight="@dimen/account.function.content.right"
+                                    android:layout_gravity="center_vertical"
+                                    android:scaleType="fitXY"
+                                    android:src="@drawable/_account_right_direct" />
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--尾部的分割线-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/common.screen.margin"
+            android:background="@color/colorSubNavBackground" />
+
+    </LinearLayout>
+
+</ScrollView>

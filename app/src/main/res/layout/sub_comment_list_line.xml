@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="15dp"
+    >
+
+    <!--头部的结束的分割线-->
+    <View
+        android:id="@+id/head_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorSubNavBackground"
+        />
+
+    <!--真实的内容区域-->
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <!--需要把整个左侧高度填满-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <!--左侧用户头像-->
+            <ImageView
+                android:id="@+id/author_icon"
+                android:layout_width="@dimen/comment.author.icon.width"
+                android:layout_height="@dimen/comment.author.icon.height"
+                android:src="@drawable/author_head" />
+        </LinearLayout>
+
+        <!--右侧内容区-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="10dp">
+            <!--上侧的作者 点赞及点赞数量-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!--作者-->
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="chuang老师"
+                    android:textColor="@color/colorCommentMinorContent"
+                    android:textSize="@dimen/comment.minor" />
+
+                <!--点赞及点赞数量-->
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/comment.padding.right"
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/click_good"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:orientation="horizontal">
+
+                        <!--点赞-->
+                        <ImageView
+                            android:id="@+id/click_good_icon"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/click_good" />
+                        <!--点赞数量-->
+                        <TextView
+                            android:id="@+id/good_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/comment.content.padding_left"
+                            android:textColor="@color/colorCommentMinorContent"
+                            android:textSize="@dimen/comment.minor"/>
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!-- 发表时间 -->
+            <TextView
+                android:id="@+id/publish_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3分钟前"
+                android:textColor="@color/colorCommentMinorContent"
+                android:textSize="@dimen/comment.published.time" />
+
+            <!-- 用户的评论 -->
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/comment.content"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="@dimen/comment.padding.right"
+                android:text="无聊"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+

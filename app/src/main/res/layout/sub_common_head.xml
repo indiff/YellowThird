@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/common.head.bar.margin.top.bottom"
+        android:layout_marginTop="@dimen/common.head.bar.margin.top.bottom"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.head.bar.height">
+
+            <LinearLayout
+                android:id="@+id/head_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <!--返回图标-->
+                <ImageView
+                    android:layout_width="@dimen/common.head.bar.back.icon.width"
+                    android:layout_height="@dimen/common.head.bar.back.icon.height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/common.screen.margin"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/_head_back" />
+
+                <!--纯粹是为了扩大点击返回按钮的响应范围-->
+                <View
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <!--消费内容-->
+            <TextView
+                android:id="@+id/head_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/common.screen.margin"
+                android:gravity="center_vertical"
+                android:text="账单"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/account.bill.sub.select.content"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!--头部的结束的分割线-->
+    <!--1px 太短了，卡不见-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/colorSubNavBackground" />
+
+</LinearLayout>

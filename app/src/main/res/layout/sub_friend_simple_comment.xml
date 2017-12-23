@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<!--朋友圈里面的单项回复-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp"
+        android:orientation="horizontal">
+
+        <!-- 用户名称 -->
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="苏鸿良"
+            android:textColor="@color/friend.name"
+            android:textSize="@dimen/friend.simple.response" />
+
+        <!-- 评论前的:字符 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="："
+            android:textColor="@color/colorTitle"
+            android:textSize="@dimen/friend.simple.response" />
+
+        <!-- 用户的评论 -->
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="鸡蛋画画可爱图片"
+            android:textColor="@color/colorTitle"
+            android:textSize="@dimen/friend.simple.response" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

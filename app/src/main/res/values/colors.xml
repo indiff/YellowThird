@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <!--次要的标题-->
+    <color name="colorMinorTitle">#c2c2c2</color>
+
+    <!--很次要的内容-->
+    <color name="colorMinorContent">#c2c2c2</color>
+
+    <!--组件被选中-->
+    <color name="colorSelect">#1AAD19</color>
+
+    <!--标题的颜色-->
+    <color name="colorTitle">#141414</color>
+    <!--介绍内容的颜色-->
+    <color name="colorIntroduceContent">#c2c2c2</color>
+
+    <color name="colorNavBackground">#fafafa</color>
+
+
+    <color name="colorSubNavBackground">#dcdace</color>
+
+    <!--评分-->
+    <color name="colorGradleText">#f47155</color>
+
+    <color name="colorCommentMinorContent">#c2c2c2</color>
+
+
+    <!--图片上的文字-->
+    <color name="colorImageText">#fafafa</color>
+    <!--图片上的文字的背景色-->
+    <color name="colorImageTextBackground">#453e38</color>
+
+
+    <!--投票-->
+
+    <!--截止时间投票结果的背景-->
+    <color name="color.vote.time.background">#c2c2c2</color>
+    <!--待投票集合中的下标字体-->
+    <color name="vote.line.index.text">#f47155</color>
+    <!--待投票选取的介绍大小-->
+    <color name="vote.sub.select.introduce">#c2c2c2</color>
+
+
+    <!--朋友圈-->
+    <!--用户头像发白内边框-->
+    <color name="friend.head.icon.padding">#fafafa</color>
+
+    <!--用户头像发白内边框-->
+    <color name="friend.name">#8290AF</color>
+
+
+</resources>

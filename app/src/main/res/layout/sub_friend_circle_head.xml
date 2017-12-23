@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="30dp"
+    android:orientation="vertical"
+    >
+
+    <!--用户属性的区域-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/friend.user.background.margin.bottom"
+            >
+
+            <!--用户头像和名称的背景图-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/friend.head.background.height"
+                android:adjustViewBounds="true"
+                android:maxHeight="9999dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/_friend_circle_background" />
+
+            <!--点击拍照-->
+            <ImageView
+                android:layout_width="@dimen/friend.take.photo.width"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/common.screen.margin"
+                android:layout_marginRight="@dimen/common.screen.margin"
+                android:adjustViewBounds="true"
+                android:maxHeight="9999dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/_friend_take_picture" />
+
+        </RelativeLayout>
+        <!--头像及刷新图标-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--头像-->
+            <ImageView
+                android:id="@+id/user_head_icon"
+                android:layout_width="@dimen/friend.user.head.icon.size"
+                android:layout_height="@dimen/friend.user.head.icon.size"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/common.screen.margin"
+                android:background="@color/friend.head.icon.padding"
+                android:padding="@dimen/friend.user.head.padding"
+                android:src="@drawable/author_head" />
+
+            <!--用户名称-->
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/friend.user.name.margin.right"
+                android:layout_marginTop="@dimen/friend.user.name.margin.top"
+                android:layout_toLeftOf="@+id/user_head_icon"
+                android:gravity="bottom"
+                android:text="大鸡鸡"
+                android:textColor="@color/colorImageText"
+                android:textSize="@dimen/title"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <!--功能区-->
+</LinearLayout>

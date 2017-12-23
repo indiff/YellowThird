@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/vote.content.common.margin"
+    android:layout_marginRight="@dimen/vote.content.common.margin"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/vote.sub.select.margin.top.bottom"
+        android:orientation="horizontal">
+
+        <!--投票排名下标-->
+        <TextView
+            android:id="@+id/index"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="1"
+            android:textColor="@color/vote.line.index.text"
+            android:textSize="@dimen/vote.line.index.text"
+            android:textStyle="bold" />
+
+        <!--待投票内容的略缩概要图-->
+        <ImageView
+            android:id="@+id/content_icon"
+            android:layout_width="@dimen/vote.content.icon.width"
+            android:layout_height="@dimen/vote.content.icon.height"
+            android:layout_marginLeft="@dimen/vote.content.icon.margin.left"
+            android:layout_marginRight="@dimen/vote.content.icon.margin.right"
+            android:scaleType="centerInside"
+            android:src="@drawable/author_head" />
+
+        <!--标题，简介，投票率-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!--标题-->
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="苍老师的第一部作品"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/vote.sub.select.title" />
+            <!--简介-->
+            <TextView
+                android:id="@+id/introduce"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="清纯"
+                android:textColor="@color/vote.sub.select.introduce"
+                android:textSize="@dimen/vote.sub.select.introduce"
+                android:textStyle="bold" />
+
+            <!--投票百分比-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <!--图片的投票率的表达-->
+                <ImageView
+                    android:id="@+id/percentage_chart"
+                    android:layout_width="0dp"
+                    android:layout_height="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/_android_vote_progress_background"
+                    android:src="@drawable/_android_vote_progress"
+                    />
+
+                <!--文字的投票率的表达-->
+                <TextView
+                    android:id="@+id/percentage_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:minWidth="@dimen/vote.echo.percentage_text.width"
+                    android:layout_marginLeft="@dimen/vote.sub.select.percentage.text.margin.left.right"
+                    android:text="8689999" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--点击投票-->
+        <ImageView
+            android:id="@+id/vote_click"
+            android:layout_width="@dimen/vote.content.icon"
+            android:layout_height="@dimen/vote.content.icon"
+            android:scaleType="fitXY"
+            android:src="@drawable/vote_click" />
+
+    </LinearLayout>
+
+</LinearLayout>

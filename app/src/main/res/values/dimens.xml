@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!--通用的外边距-->
+    <!--跟屏幕最外面相关的边距-->
+    <dimen name="common.screen.margin">10dp</dimen>
+
+
+    <!--通用的字体大小-->
+    <dimen name="title" >22dp</dimen>
+    <dimen name="content.text">19dp</dimen>
+    <!--内容体中更次要的字体大小-->
+    <dimen name="content.minor.text">10dp</dimen>
+
+    <!--图片中上浮现的次要文字-->
+    <dimen name="image.in.minor.text">11dp</dimen>
+    <dimen name="icon.close">30dp</dimen>
+
+
+    <!--通用的头部栏-->
+    <!--总体高度-->
+    <dimen name="common.head.bar.height">30dp</dimen>
+    <!--标题-->
+    <dimen name="common.head.bar.title">20dp</dimen>
+    <!--上下外边距-->
+    <dimen name="common.head.bar.margin.top.bottom">4dp</dimen>
+
+    <!--返回图标按钮-->
+    <dimen name="common.head.bar.back.icon.width">10dp</dimen>
+    <dimen name="common.head.bar.back.icon.height">20dp</dimen>
+
+    <!--内容体中的标题-->
+    <integer name="content.video.title" >18</integer>
+    <integer name="content.video.content" >14</integer>
+
+    <integer name="content.padding.title.top">50</integer>
+    <integer name="content.padding.title.bottom">20</integer>
+    <integer name="content.padding.left">25</integer>
+    <integer name="content.padding.right">25</integer>
+
+    <integer name="content.padding.content.top">40</integer>
+    <integer name="content.padding.content.bottom">10</integer>
+
+    <integer name="content.padding.top">30</integer>
+    <integer name="content.padding.bottom">30</integer>
+
+
+
+
+
+
+
+    <!--评论相关-->
+    <dimen name="comment.padding.right">20dp</dimen>
+
+    <dimen name="comment.author.icon.width">30dp</dimen>
+    <dimen name="comment.author.icon.height">30dp</dimen>
+
+    <dimen name="comment.content">13dp</dimen>
+    <dimen name="comment.minor">12dp</dimen>
+    <dimen name="comment.published.time">9dp</dimen>
+    <dimen name="comment.content.padding_left">5dp</dimen>
+    <dimen name="comment.image.text">4dp</dimen>
+
+
+    <!--图片介绍相关相关-->
+
+    <!--开始浏览图片的播放按钮图标大小-->
+    <dimen name="image.introduce.play.icon">50dp</dimen>
+    <!--图片概要次要的文字大小-->
+    <dimen name="image.introduce.minor.text">15dp</dimen>
+
+    <!--图片中内容介绍字体大小-->
+    <dimen name="image.introduce.content.text">13dp</dimen>
+
+    <!--点赞图标的大小-->
+    <dimen name="image.introduce.click.good.size">15dp</dimen>
+
+    <!--标题的上面外边距-->
+    <dimen name="image.introduce.title.margin.top">10dp</dimen>
+    <!--概要介绍跟标题的上边距-->
+    <dimen name="image.introduce.minor.to.title.margin.top">5dp</dimen>
+    <!--图片中次要文字的外边距-->
+    <dimen name="image.introduce.image.in.minor.text.margin">10dp</dimen>
+
+
+
+
+    <!--新闻类-->
+    <!--标题的距离顶部的顶部外边距-->
+    <dimen name="news.title.margin.top">18dp</dimen>
+    <!--标题到内容体的底部外边距-->
+    <dimen name="news.title.margin.bottom">16dp</dimen>
+    <!--图片到内容体的顶部外边距-->
+    <dimen name="news.image.margin.top">10dp</dimen>
+    <dimen name="news.image.margin.bottom">5dp</dimen>
+
+
+
+
+
+    <!--投票-->
+
+    <!--投票的内容通用外边距-->
+    <dimen name="vote.content.common.margin">10dp</dimen>
+
+    <!--投票截止时间-->
+    <dimen name="vote.time.text">15dp</dimen>
+
+    <!--子选项之间的上下边距-->
+    <dimen name="vote.sub.select.margin.top.bottom">15dp</dimen>
+
+    <!--待投票集合中的下标字体大小-->
+    <dimen name="vote.line.index.text">30dp</dimen>
+
+    <!--待投票集合中的下标字体大小-->
+    <dimen name="vote.line.content.margin">20dp</dimen>
+
+    <!--待投票内容的略缩概要图-->
+    <dimen name="vote.content.icon">60dp</dimen>
+    <dimen name="vote.content.icon.width">85dp</dimen>
+    <dimen name="vote.content.icon.height">60dp</dimen>
+
+    <!--待投票内容的略缩概要图的左边距-->
+    <dimen name="vote.content.icon.margin.left">18dp</dimen>
+    <!--待投票内容的略缩概要图的右边距-->
+    <dimen name="vote.content.icon.margin.right">10dp</dimen>
+
+    <!--待投票选取的标题大小-->
+    <dimen name="vote.sub.select.title">13dp</dimen>
+    <!--待投票选取的介绍大小-->
+    <dimen name="vote.sub.select.introduce">9dp</dimen>
+
+    <!--待投票选取的百分比文字的左右边距-->
+    <dimen name="vote.sub.select.percentage.text.margin.left.right">10dp</dimen>
+
+    <!--待投票选取的百分比文字的宽度-->
+    <dimen name="vote.echo.percentage_text.width">35dp</dimen>
+
+    <!--每一个大的投票选项的底部外边距。相当于是每个投票之间的间隔-->
+    <dimen name="vote.echo.margin.bottom">30dp</dimen>
+
+
+
+
+
+    <!--账户界面-->
+
+    <!--用户自定义属性的高度-->
+    <dimen name="account.user.custom.height">360dp</dimen>
+
+    <!--头像大小-->
+    <dimen name="account.user.head.icon.size">90dp</dimen>
+    <!--刷新头像图标-->
+    <dimen name="account.user.head.refresh.icon.size">15dp</dimen>
+    <!--刷新图标左边距-->
+    <dimen name="account.refresh.icon.margin.left">0dp</dimen>
+
+    <!--用户名称和头像名称的顶部边距-->
+    <dimen name="account.user.name.margin.top">5dp</dimen>
+
+    <!--功能区的头部边距-->
+    <dimen name="account.function.first.margin.top">20dp</dimen>
+
+    <!--功能区的内容左右边距-->
+    <dimen name="account.function.content.left">17dp</dimen>
+    <dimen name="account.function.content.right">17dp</dimen>
+
+    <!--功能区的内容概要-->
+    <dimen name="account.function.each.top.bottom">12dp</dimen>
+
+    <!--功能区的图标大小-->
+    <dimen name="account.function.icon">25dp</dimen>
+    <!--功能区的标题-->
+    <dimen name="account.function.title">17dp</dimen>
+    <!--功能区的内容概要-->
+    <dimen name="account.function.content">12dp</dimen>
+    <!--真实的余额数据的右边距-->
+    <dimen name="account.function.real.balance.right">30dp</dimen>
+
+    <!--右导线图箭头-->
+    <dimen name="account.function.right.direct.icon.width">10dp</dimen>
+    <dimen name="account.function.right.direct.icon.height">15dp</dimen>
+
+    <!--账单子选项之间的上下边距-->
+    <dimen name="account.bill.sub.select.margin.top.bottom">15dp</dimen>
+    <!--账单子选项的左右边距-->
+    <dimen name="account.bill.sub.select.margin.left.right">17dp</dimen>
+    <!--账单前面的一个点圈图标-->
+    <dimen name="account.bill.sub.select.embellish.icon">9dp</dimen>
+    <!--账单内容-->
+    <dimen name="account.bill.sub.select.content">14dp</dimen>
+    <!--账单时间-->
+    <dimen name="account.bill.sub.select.time">11dp</dimen>
+    <!--账单时间的左侧外面局-->
+    <dimen name="account.bill.sub.select.time.margin.left">19dp</dimen>
+    <!--消费具体金额-->
+    <dimen name="account.bill.sub.select.money">17dp</dimen>
+
+
+
+
+    <!--朋友圈-->
+
+    <!--用户资料区的背景图高度-->
+    <dimen name="friend.head.background.height">230dp</dimen>
+    <!--头像大小-->
+    <dimen name="friend.user.head.icon.size">60dp</dimen>
+    <!--头像的内边距-->
+    <dimen name="friend.user.head.padding">2dp</dimen>
+    <!--用户区域的背景图的底部外边距-->
+    <dimen name="friend.user.background.margin.bottom">-43dp</dimen>
+    <!--用户区域的名称的右边距-->
+    <dimen name="friend.user.name.margin.right">20dp</dimen>
+    <!--用户区域的名称的头部边距-->
+    <dimen name="friend.user.name.margin.top">10dp</dimen>
+    <!--拍照图标的宽度-->
+    <dimen name="friend.take.photo.width">25dp</dimen>
+
+    <!--简单回复的文字-->
+    <dimen name="friend.simple.response">16dp</dimen>
+
+
+
+
+
+
+
+
+
+</resources>

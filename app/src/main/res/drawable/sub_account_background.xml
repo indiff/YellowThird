@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="#c2c2c2"
+    android:alpha="0.5"/>
+
+<!--android:src="#c2c2c2" 只能设置为image 而不能是color,后面再看看什么鬼问题-->
