@@ -50,7 +50,7 @@ public class PublishedImageAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         PublishedImageAdapter.ViewHolder holder = null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.sub_published_sub_image_list,
+            convertView = LayoutInflater.from(context).inflate(R.layout.sub_published_sub_image_list_line,
                     parent, false);
             holder = new PublishedImageAdapter.ViewHolder();
             holder.imageView =convertView
