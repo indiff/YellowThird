@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <!--引入通用的头标题栏-->
+    <include layout="@layout/sub_common_head" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"      
+        android:orientation="vertical" >
+
+        <GridView
+            android:id="@+id/image_list"
+            android:layout_width="match_parent"
+            android:layout_height="490dp"
+            android:layout_margin="8dp"
+            android:horizontalSpacing="8dp"
+            android:numColumns="3"
+            android:scrollbars="none"
+            android:verticalSpacing="8dp" >
+        </GridView>
+    </LinearLayout>
+
+</LinearLayout>

@@ -36,6 +36,11 @@
             android:textSize="18dp" />
     </RelativeLayout>
 
+    <!--目录头部栏-->
+
+    <!--引入通用的头标题栏-->
+    <include layout="@layout/sub_common_head" />
+
     <!--编写说说-->
     <EditText
         android:id="@+id/content"

@@ -39,7 +39,7 @@
 
             </LinearLayout>
 
-            <!--消费内容-->
+            <!--标题-->
             <TextView
                 android:id="@+id/head_title"
                 android:layout_width="wrap_content"
@@ -51,6 +51,22 @@
                 android:textColor="@color/colorTitle"
                 android:textSize="@dimen/account.bill.sub.select.content"
                 android:textStyle="bold" />
+
+
+            <!--右侧的按钮-->
+            <TextView
+                android:id="@+id/head_right"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/common.screen.margin"
+                android:gravity="center_vertical"
+                android:text="aa"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/account.bill.sub.select.content"
+                android:textStyle="bold"
+                android:visibility="gone"
+                />
 
         </RelativeLayout>
     </LinearLayout>
