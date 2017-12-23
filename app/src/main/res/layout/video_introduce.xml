@@ -239,6 +239,7 @@
             <!--Android取消EditText自动默认获取焦点行为-->
 
             <!--用户的输入评论框-->
+
             <EditText
                 android:id="@+id/input_comment"
                 android:layout_width="match_parent"
