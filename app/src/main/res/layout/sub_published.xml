@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--发表说说-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical" >
 
+    <!--头部栏-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="#ff495a" >
 
+        <!--标题-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -18,6 +22,7 @@
             android:textColor="@color/colorImageText"
             android:textSize="18dp" />
 
+        <!--发表说说-->
         <TextView
             android:id="@+id/send"
             android:layout_width="wrap_content"
@@ -31,6 +36,7 @@
             android:textSize="18dp" />
     </RelativeLayout>
 
+    <!--编写说说-->
     <EditText
         android:id="@+id/content"
         android:layout_width="fill_parent"
@@ -41,6 +47,7 @@
         android:background="@null" >
     </EditText>
 
+    <!--已选中的图片集合-->
     <GridView 
         android:id="@+id/image_list"
         android:layout_width="290dp"
