@@ -218,5 +218,21 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    @Override
+    public Observable<Boolean> publishFriendTalk(String content, List<String> images) {
+        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+            @Override
+            public void call(Subscriber<? super Boolean> subscriber) {
+                try {
+                    Thread.sleep(5*1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                subscriber.onNext(true);
+            }
+        }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread());
+    }
+
 
 }

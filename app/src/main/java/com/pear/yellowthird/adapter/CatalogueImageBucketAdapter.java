@@ -90,7 +90,7 @@ public class CatalogueImageBucketAdapter extends BaseAdapter {
 		Holder holder;
 		if (rootView == null) {
 			holder = new Holder();
-			rootView = View.inflate(act, R.layout.sub_published_catalogue_image_bucket_list, null);
+			rootView = View.inflate(act, R.layout.sub_published_catalogue_image_line, null);
 			holder.iv = (ImageView) rootView.findViewById(R.id.image);
 			holder.name = (TextView) rootView.findViewById(R.id.name);
 			holder.count = (TextView) rootView.findViewById(R.id.count);

@@ -71,7 +71,7 @@ public class ChooseImageActivity extends CommonHeadActivity {
 				ChooseCataloguePicActivity.EXTRA_IMAGE_LIST);
 
 		initView();
-		initHeadBar("相册","完成",completeListener);
+		initHeadBar("相册","完成");
 	}
 
 	/**
@@ -101,33 +101,37 @@ public class ChooseImageActivity extends CommonHeadActivity {
 	}
 
 
-
+	@Override
+	public void onClick(View v) {
+		switch (v.getId())
+		{
+			case R.id.head_right:
+				completeChoose();
+		}
+	}
 	/**
 	 * 点击完成选择图片
 	 * */
-	View.OnClickListener completeListener= new OnClickListener() {
-		@Override
-		public void onClick(View view) {
-			ArrayList<String> list = new ArrayList<String>();
-			Collection<String> c = adapter.map.values();
-			Iterator<String> it = c.iterator();
-			for (; it.hasNext();) {
-				list.add(it.next());
-			}
-
-			if (Bimp.act_bool) {
-				Intent intent = new Intent(ChooseImageActivity.this,
-						PublishedActivity.class);
-				startActivity(intent);
-				Bimp.act_bool = false;
-			}
-			for (int i = 0; i < list.size(); i++) {
-				if (Bimp.drr.size() < 9) {
-					Bimp.drr.add(list.get(i));
-				}
-			}
-			finish();
+	private void completeChoose() {
+		ArrayList<String> list = new ArrayList<String>();
+		Collection<String> c = adapter.map.values();
+		Iterator<String> it = c.iterator();
+		for (; it.hasNext();) {
+			list.add(it.next());
 		}
+		/***/
+		for (int i = 0; i < list.size(); i++) {
+			if (Bimp.drr.size() < 9) {
+				Bimp.drr.add(list.get(i));
+			}
+		}
+		if (Bimp.act_bool) {
+			//Intent intent = new Intent(ChooseImageActivity.this,PublishedActivity.class);
+			//startActivity(intent);
+			/**finish完也是回到发说说哪里了*/
+			Bimp.act_bool = false;
+		}
+		finish();
 	};
 
 }

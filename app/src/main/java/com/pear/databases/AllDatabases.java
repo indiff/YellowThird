@@ -29,7 +29,7 @@ public class AllDatabases {
                         }},
                         */
                         /**社区中的大类*/
-                        /*
+
                         new BottomNavigationMenuVo() {{
                             setTitle("社区");
                             setStyle(StyleFragmentFactory.SUB_TAB_MENU_STYLE);
@@ -74,7 +74,18 @@ public class AllDatabases {
 
                                                             }},
                                                                     new ArrayList<TalkComment>() {{
-                                                                        add(new TalkComment("女神女神，这么好看的主角", 121, 0));
+                                                                        add(new TalkComment("女神女神，这么好看的主角1", 121, 0));
+                                                                        add(new TalkComment("女神女神，这么好看的主角2", 121, 0));
+                                                                        add(new TalkComment("女神女神，这么好看的主角3", 121, 0));
+                                                                        add(new TalkComment("女神女神，这么好看的主角4", 121, 0));
+                                                                        add(new TalkComment("女神女神，这么好看的主角5", 121, 0));
+                                                                        add(new TalkComment("女神女神，这么好看的主角6", 121, 0));
+                                                                        add(new TalkComment("女神女神，这么好看的主角7", 121, 0));
+                                                                        add(new TalkComment("女神女神，这么好看的主角8", 121, 0));
+                                                                        add(new TalkComment("女神女神，这么好看的主角9", 121, 0));
+                                                                        add(new TalkComment("女神女神，这么好看的主角0", 121, 0));
+                                                                        add(new TalkComment("女神女神，这么好看的主角1", 121, 0));
+                                                                        add(new TalkComment("女神女神，这么好看的主角2", 121, 0));
                                                                     }}));
 
 
@@ -84,8 +95,8 @@ public class AllDatabases {
                                                             }},
 
                                                                     new ArrayList<TalkComment>() {{
-                                                                        add(new TalkComment("女神女神，这么好看的主角", 121, 0));
-                                                                        add(new TalkComment("女神很普通而已，女神没有那么好看", 411, 0));
+                                                                        add(new TalkComment("这么好看的主角", 121, 0));
+                                                                        add(new TalkComment("女神没有那么好看", 411, 0));
                                                                     }}));
 
                                                             add(new FriendsVo(new ArrayList<String>() {{
@@ -95,7 +106,11 @@ public class AllDatabases {
                                                                 add("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2634944918,1248270971&fm=27&gp=0.jpg");
 
 
-                                                            }}));
+                                                            }},
+
+                                                                    new ArrayList<TalkComment>() {{
+                                                                        add(new TalkComment("这么好看的主角", 121, 0));
+                                                                    }}));
 
                                                             add(new FriendsVo(new ArrayList<String>() {{
 
@@ -124,7 +139,7 @@ public class AllDatabases {
                                                             }}));
                                                         }}
                                                 ));
-                                            }},
+                                            }}/*,
                                             new SubTabMenuStyleDataVo() {{
                                                 setTitle("投票");
                                                 setStyle(StyleFragmentFactory.VOTE_STYLE);
@@ -148,12 +163,12 @@ public class AllDatabases {
                                                 setStyle(StyleFragmentFactory.TEXT_NEWS_STYLE);
                                                 setDataType("raw");
                                                 setData(JsonUtil.fromObjectToJson(CommunityDatabases.getIntroductionData()));
-                                            }}
+                                            }}*/
                                     };
                             setData(JsonUtil.fromObjectToJson(data));
 
                         }}
-                        */
+                        /**/
                         /*,
                         //账户中的大类
                         new BottomNavigationMenuVo() {{
@@ -164,7 +179,7 @@ public class AllDatabases {
                             setData("");
                         }},
                         */
-
+/*
                         //图片中的大类
                         new BottomNavigationMenuVo() {{
                             setTitle("图片");
@@ -193,7 +208,7 @@ public class AllDatabases {
                                                             }}
 
                                                     }));
-                        }}
+                        }}*/
                         //,
                         /*
                         //电影大类

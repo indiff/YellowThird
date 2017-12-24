@@ -2,6 +2,7 @@ package com.pear.yellowthird.adapter;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -12,11 +13,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.activitys.published.Bimp;
 import com.pear.yellowthird.activitys.published.BitmapCache;
 import com.pear.yellowthird.vo.ImageItem;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,17 +85,15 @@ public class ChooseImageAdapter extends BaseAdapter {
 	public ChooseImageAdapter(Activity act, List<ImageItem> list, Handler mHandler) {
 		this.activity = act;
 		dataList = list;
+		if(null==dataList)
+			dataList=new ArrayList<>();
 		cache = new BitmapCache();
 		this.mHandler = mHandler;
 	}
 
 	@Override
 	public int getCount() {
-		int count = 0;
-		if (dataList != null) {
-			count = dataList.size();
-		}
-		return count;
+		return dataList.size();
 	}
 
 
@@ -127,14 +128,15 @@ public class ChooseImageAdapter extends BaseAdapter {
 		}
 		final ImageItem item = dataList.get(position);
 
-		holder.nameView.setTag(item.imagePath);
-		cache.displayBmp(holder.imageView, item.thumbnailPath, item.imagePath,
-				callback);
+		holder.imageView.setTag(item.imagePath);
+		cache.displayBmp(holder.imageView, item.thumbnailPath, item.imagePath, callback);
+
+
 		if (item.isSelected) {
 			holder.isSelectedView.setImageResource(R.drawable._select_image_tip);
 			holder.nameView.setBackgroundResource(R.drawable.friend_image_select_name);
 		} else {
-			holder.isSelectedView.setImageResource(-1);
+			holder.isSelectedView.setImageResource(R.color.transparent);
 			holder.nameView.setBackgroundColor(0x00000000);
 		}
 		holder.imageView.setOnClickListener(new OnClickListener() {
@@ -155,7 +157,7 @@ public class ChooseImageAdapter extends BaseAdapter {
 						map.put(path, path);
 
 					} else if (!item.isSelected) {
-						holder.isSelectedView.setImageResource(-1);
+						holder.isSelectedView.setImageResource(R.color.transparent);
 						holder.nameView.setBackgroundColor(0x00000000);
 						selectTotal--;
 						if (textcallback != null)

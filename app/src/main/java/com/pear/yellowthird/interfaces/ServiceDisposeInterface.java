@@ -107,5 +107,12 @@ public interface ServiceDisposeInterface {
     Observable<Boolean> addImageClickGood(Integer id);
 
 
+    /**************************************朋友圈*************************************/
+    /**
+     * 发表说说
+     * */
+    Observable<Boolean> publishFriendTalk(String content,List<String> images);
+
+
 
 }

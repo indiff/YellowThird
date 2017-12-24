@@ -1,21 +1,28 @@
 package com.pear.yellowthird.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.pear.android.view.LinearLayoutLikeListView;
 import com.pear.android.view.MultiImageView;
 import com.pear.yellowthird.activitys.R;
+import com.pear.yellowthird.activitys.published.ChooseCataloguePicActivity;
+import com.pear.yellowthird.activitys.published.ChooseImageActivity;
+import com.pear.yellowthird.activitys.published.PublishedActivity;
 import com.pear.yellowthird.adapter.abstracts.BaseRecycleViewAdapter;
 import com.pear.yellowthird.vo.databases.FriendsVo;
+
+import java.io.Serializable;
 
 /**
  * 朋友圈的适配器
  */
-public class FriendsAdapter extends BaseRecycleViewAdapter {
+public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnClickListener{
 
     /**用户头部属性*/
     public final static int TYPE_HEAD = 0;
@@ -59,6 +66,7 @@ public class FriendsAdapter extends BaseRecycleViewAdapter {
 
         if(getItemViewType(position)==TYPE_HEAD){
             HeaderViewHolder holder = (HeaderViewHolder) viewHolder;
+            holder.addPublishView.setOnClickListener(this);
         }else{
             final int circlePosition = position - HEAD_VIEW_SIZE;
             final CircleViewHolder holder = (CircleViewHolder) viewHolder;
@@ -85,13 +93,29 @@ public class FriendsAdapter extends BaseRecycleViewAdapter {
         return datas.size()+1;//有head需要加1
     }
 
-    public class HeaderViewHolder extends RecyclerView.ViewHolder{
-
-        public HeaderViewHolder(View itemView) {
-            super(itemView);
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            /**转向发表说说的主页*/
+            case R.id.add_publish:
+            {
+                context.startActivity(new Intent(context,PublishedActivity.class));;
+                break;
+            }
         }
     }
 
+    public class HeaderViewHolder extends RecyclerView.ViewHolder{
+
+        /**添加新的说说*/
+        private ImageView addPublishView;
+
+        public HeaderViewHolder(View itemView) {
+            super(itemView);
+            addPublishView = itemView.findViewById(R.id.add_publish);
+        }
+    }
 
     public class CircleViewHolder extends RecyclerView.ViewHolder{
 

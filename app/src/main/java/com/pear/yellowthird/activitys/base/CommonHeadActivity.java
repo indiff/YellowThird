@@ -10,7 +10,7 @@ import com.pear.yellowthird.activitys.R;
  * 通用的头部状态栏
  */
 
-public class CommonHeadActivity extends AppCompatActivity {
+public class CommonHeadActivity extends AppCompatActivity implements View.OnClickListener{
 
 
     /**返回*/
@@ -46,23 +46,25 @@ public class CommonHeadActivity extends AppCompatActivity {
         }
     }
 
-
     /**
      * 初始化头部状态栏
      * @param title 标题
      * @param rightTitle 右侧的标题
-     * @param rightClick 右侧的标题
      */
-    protected void initHeadBar(String title,String rightTitle,View.OnClickListener rightClick) {
+    protected void initHeadBar(String title,String rightTitle) {
         initHeadBar(title);
 
         /**右侧的标题*/
         {
             rightTitleView = findViewById(R.id.head_right);
             rightTitleView.setText(rightTitle);
-            rightTitleView.setOnClickListener(rightClick);
+            rightTitleView.setOnClickListener(this);
+            rightTitleView.setVisibility(View.VISIBLE);
         }
 
     }
 
+    @Override
+    public void onClick(View v) {
+    }
 }

@@ -76,7 +76,7 @@ public class BitmapCache extends Activity {
 						thumb = revitionImageSize(sourcePath);											
 					}
 				} catch (Exception e) {	
-					
+					e.printStackTrace();
 				}
 				if (thumb == null) {
 					thumb = ChooseCataloguePicActivity.bimap;

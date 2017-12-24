@@ -80,7 +80,7 @@ public class ChooseCataloguePicActivity extends CommonHeadActivity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
  				Intent intent = new Intent(ChooseCataloguePicActivity.this,
-						null);
+						ChooseImageActivity.class);
 				intent.putExtra(EXTRA_IMAGE_LIST,
 						(Serializable) catalogueList.get(position).imageList);
 				startActivity(intent);

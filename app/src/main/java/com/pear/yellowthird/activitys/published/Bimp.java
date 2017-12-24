@@ -42,4 +42,13 @@ public class Bimp {
 		}
 		return bitmap;
 	}
+
+	/**清空已选的图片*/
+	public static void clear()
+	{
+		bmp.clear();
+		drr.clear();
+		max=0;
+	}
+
 }
