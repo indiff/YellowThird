@@ -55,6 +55,13 @@ dependencies {
     // https://mvnrepository.com/artifact/com.nostra13.universalimageloader/universal-image-loader
     compile group: 'com.nostra13.universalimageloader', name: 'universal-image-loader', version: '1.9.5'
 
+    /**android 权限管理模块*/
+    compile 'com.yanzhenjie:permission:1.0.8'
+
+    /**弹窗库*/
+    compile 'com.afollestad.material-dialogs:core:0.9.6.0'
+    compile 'com.afollestad.material-dialogs:commons:0.9.6.0'
+
 
 }
 
