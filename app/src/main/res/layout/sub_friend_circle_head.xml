@@ -27,8 +27,9 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/_friend_circle_background" />
 
-            <!--点击拍照-->
+            <!--点击拍照发表说说-->
             <ImageView
+                android:id="@+id/add_publish"
                 android:layout_width="@dimen/friend.take.photo.width"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"

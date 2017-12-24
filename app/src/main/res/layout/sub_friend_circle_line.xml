@@ -126,6 +126,7 @@
                 </LinearLayout>
             </RelativeLayout>
 
+            <!--所有图片-->
             <com.pear.android.view.LinearLayoutLikeListView
                 android:id="@+id/comment_list"
                 android:layout_width="match_parent"
@@ -134,32 +135,42 @@
                 android:background="#f3f3f5"
                 />
 
+            <!--用户的输入评论框-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:gravity="center_vertical"
-                android:background="#f6f6f6"
-                android:orientation="horizontal"
-                android:visibility="visible"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:orientation="vertical"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 >
+                <!--Android取消EditText自动默认获取焦点行为-->
+
+                <!--用户的输入评论框-->
                 <EditText
-                    android:id="@+id/circleEt"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/input_comment"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/style_edit_sharp"
+                    android:textSize="15dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:imeOptions="actionSend"
                     android:hint="说点什么..."
                     />
-                <ImageView
-                    android:id="@+id/sendIv"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginLeft="4dp"
-                    android:contentDescription="@null"
-                    android:src="@drawable/friend_comment_send" />
+
             </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
+
+    <!--头部的结束的分割线-->
+    <!--1px 太短了，卡不见-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorSubNavBackground" />
+
 </LinearLayout>

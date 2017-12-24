@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <!-- 透明 -->
+    <color name="transparent">#0000</color>
 
     <!--次要的标题-->
     <color name="colorMinorTitle">#c2c2c2</color>
