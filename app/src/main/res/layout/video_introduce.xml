@@ -3,7 +3,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="3dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -21,15 +20,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/_image_sample_horizontal" />
 
             <!--时长的背景-->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                >
+                android:layout_alignParentRight="true">
 
                 <!--时长-->
                 <TextView
@@ -38,13 +37,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:layout_marginRight="10dp"
-                    android:text="05:05"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:textSize="10dp"
-                    android:textColor="@color/colorImageText"
                     android:background="@drawable/style_image_text_background"
-                    />
+                    android:gravity="center"
+                    android:text="05:05"
+                    android:textColor="@color/colorImageText"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <!--开始播放-->
@@ -53,213 +51,217 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/video_play"
                 android:scaleType="fitCenter"
-                />
+                android:src="@drawable/video_play" />
 
         </RelativeLayout>
 
-        <!--标题-->
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:textStyle="bold"
-            android:textSize="30dp"
-            android:text="标题"
-            />
-
-        <!--评分 类别 播放量-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
 
-            <!--评分-->
+            <!--标题-->
             <TextView
-                android:id="@+id/grade"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="9.7"
-                android:textSize="10dp"
-                android:textColor="@color/colorGradleText"
-                />
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:text="标题"
+                android:textSize="15dp"
+                android:textStyle="bold" />
 
-            <!--类别-->
-            <TextView
-                android:id="@+id/type"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="•普通"
-                android:textSize="10dp"
-                android:textColor="@color/colorIntroduceContent"
-                />
-
-            <!--播放量-->
-            <TextView
-                android:id="@+id/all_play_count"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="•10次播放"
-                android:textSize="10dp"
-                android:textColor="@color/colorIntroduceContent"
-                />
-        </LinearLayout>
-
-
-        <!--点赞样式-->
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="35dp"
-            android:paddingBottom="20dp"
-            >
-            <!--评论好看的图标  多少个人评论了-->
+            <!--评分 类别 播放量-->
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
                 android:orientation="horizontal">
 
-                <!--评论好看的图标-->
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:src="@drawable/comment_message"
-                    />
-
-                <!--多少个人评论了-->
+                <!--评分-->
                 <TextView
-                    android:id="@+id/comment_count"
+                    android:id="@+id/grade"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="10评论"
-                    android:textSize="17dp"
-                    android:layout_marginRight="10dp"
-                    android:textColor="@color/colorTitle"
-                    android:gravity="center"
-                    />
+                    android:gravity="center_vertical"
+                    android:text="9.7"
+                    android:textColor="@color/colorGradleText"
+                    android:textSize="10dp" />
 
-            </LinearLayout>
-
-            <!--点赞,点赞人数-->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="right|center_vertical"
-                >
-
-                <!--点赞-->
-                <ImageView
-                    android:id="@+id/click_good"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/click_good"
-                    />
-
-                <!--多少个人点赞了-->
+                <!--类别-->
                 <TextView
-                    android:id="@+id/all_click_good"
+                    android:id="@+id/type"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="10"
-                    android:textSize="17dp"
-                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:text="•普通"
                     android:textColor="@color/colorIntroduceContent"
-                    android:gravity="center"
-                    />
+                    android:textSize="10dp" />
+
+                <!--播放量-->
+                <TextView
+                    android:id="@+id/all_play_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="•10次播放"
+                    android:textColor="@color/colorIntroduceContent"
+                    android:textSize="10dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <!--价格-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:text="$ "
+                    android:textColor="@color/colorPriceText"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:text="10"
+                    android:textColor="@color/colorPriceText"
+                    android:textSize="18dp" />
             </LinearLayout>
-        </FrameLayout>
 
-        <!--截图标题-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="截图"
-            android:textSize="17dp"
-            android:gravity="center"
-            android:textStyle="bold"
-            />
+            <!--点赞样式-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
+                <!--评论好看的图标  多少个人评论了-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:orientation="horizontal">
 
-        <!--这里是截图集合视图-->
-        <com.pear.android.view.LGNineGrideView
-            android:id="@+id/screen_shorts_list"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="18dp"/>
+                    <!--评论好看的图标-->
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/comment_message" />
 
-        <!--好看的分割线-->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="30dp"
-            android:background="@color/colorMinorTitle"
-            />
+                    <!--多少个人评论了-->
+                    <TextView
+                        android:id="@+id/comment_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center"
+                        android:text="10评论"
+                        android:textColor="@color/colorTitle"
+                        android:textSize="17dp" />
 
+                </LinearLayout>
 
-        <!--评论标题 ，评论总数-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="20dp"
-            >
+                <!--点赞,点赞人数-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true">
+
+                    <!--点赞-->
+                    <ImageView
+                        android:id="@+id/click_good"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/click_good" />
+
+                    <!--多少个人点赞了-->
+                    <TextView
+                        android:id="@+id/all_click_good"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center"
+                        android:text="10"
+                        android:textColor="@color/colorIntroduceContent"
+                        android:textSize="17dp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!--截图标题-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="截图"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <!--这里是截图集合视图-->
+            <!--
+            <com.pear.android.view.LGNineGrideView
+                android:id="@+id/screen_shorts_list"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="18dp"
+                android:layout_marginTop="10dp" />
+            -->
+
+            <!--好看的分割线-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/colorMinorTitle" />
 
             <!--评论标题-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
                 android:text="评论"
-                android:textSize="25dp"
-                android:gravity="center"
-                android:textStyle="bold"
-                />
-
-        </LinearLayout>
-
-        <!--用户的输入评论框-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            >
-            <!--Android取消EditText自动默认获取焦点行为-->
+                android:textSize="17dp"
+                android:textStyle="bold" />
 
             <!--用户的输入评论框-->
-            <EditText
-                android:id="@+id/input_comment"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:background="@drawable/style_edit_sharp"
-                android:text="15dp"
-                android:imeOptions="actionSend"
-                />
+                android:layout_marginTop="10dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
+                <!--Android取消EditText自动默认获取焦点行为-->
+
+                <!--用户的输入评论框-->
+                <EditText
+                    android:id="@+id/input_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:background="@drawable/style_edit_sharp"
+                    android:gravity="center_vertical"
+                    android:imeOptions="actionSend"
+                    android:text="15dp" />
+
+            </LinearLayout>
+
+            <!--评论列表-->
+            <com.pear.android.view.LinearLayoutLikeListView
+                android:id="@+id/comment_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp" />
 
         </LinearLayout>
 
-
-        <!--评论列表-->
-        <com.pear.android.view.LinearLayoutLikeListView
-            android:id="@+id/comment_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            />
-
-
     </LinearLayout>
-</ScrollView>
+
+ </ScrollView>
