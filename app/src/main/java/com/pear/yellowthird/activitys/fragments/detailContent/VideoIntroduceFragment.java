@@ -226,7 +226,7 @@ public class VideoIntroduceFragment extends Fragment {
                             0,
                             getResources().getInteger(R.integer.content_padding_right),
                             0);
-                    /**评分*/
+                    /**评分 */
                     {
                         TextView gradeLab = new TextView(getContext());
                         gradeLab.setLayoutParams(
