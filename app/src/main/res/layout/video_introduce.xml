@@ -75,6 +75,72 @@
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
+            <!--评分 类别 播放量-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:orientation="horizontal">
+
+                <!--评分-->
+                <TextView
+                    android:id="@+id/grade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="9.7"
+                    android:textColor="@color/colorGradleText"
+                    android:textSize="10dp" />
+
+                <!--类别-->
+                <TextView
+                    android:id="@+id/type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="•普通"
+                    android:textColor="@color/colorIntroduceContent"
+                    android:textSize="10dp" />
+
+                <!--播放量-->
+                <TextView
+                    android:id="@+id/all_play_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="•10次播放"
+                    android:textColor="@color/colorIntroduceContent"
+                    android:textSize="10dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <!--价格-->
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:text="10"
+                    android:textColor="@color/colorSelect"
+                    android:textSize="18dp" />
+
+                <!--价格单位-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:text=" 绿币"
+                    android:textColor="@color/colorSelect"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
 
             <!--点赞样式-->
             <RelativeLayout
