@@ -29,6 +29,8 @@
     <!--评分-->
     <color name="colorGradleText">#f47155</color>
 
+    <color name="colorPriceText">#e50008</color>
+
     <color name="colorCommentMinorContent">#c2c2c2</color>
 
 
