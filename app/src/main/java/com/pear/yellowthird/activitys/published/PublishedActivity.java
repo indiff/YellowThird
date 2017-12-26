@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -174,7 +173,5 @@ public class PublishedActivity extends CommonHeadActivity {
         // 完成上传服务器后 .........
         FileUtils.deleteDir();
     }
-
-    ;
 
 }
