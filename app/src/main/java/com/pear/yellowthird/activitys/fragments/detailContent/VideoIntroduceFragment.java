@@ -279,7 +279,7 @@ public class VideoIntroduceFragment extends Fragment {
     }
 
     /**
-     * 添加评论
+     * 添加评 论
      */
     void onAddTalkComment() {
         /**
