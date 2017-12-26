@@ -129,6 +129,7 @@
                     android:textColor="@color/colorSelect"
                     android:textSize="18dp" />
 
+
                 <!--价格单位-->
                 <TextView
                     android:layout_width="wrap_content"
