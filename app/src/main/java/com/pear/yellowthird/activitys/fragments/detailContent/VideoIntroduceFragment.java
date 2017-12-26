@@ -12,46 +12,37 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.pear.android.view.LinearLayoutLikeListView;
-import com.pear.android.view.ScrollListView;
-import com.pear.android.view.property.PropertySet;
 import com.pear.common.utils.strings.JsonUtil;
-import com.pear.yellowthird.activitys.FullImagePageActivity;
 import com.pear.yellowthird.activitys.FullVideoActivity;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.adapter.CommentListAdapter;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.style.factory.StyleFactory;
-import com.pear.yellowthird.style.vo.BottomNavigationMenuVo;
 import com.pear.yellowthird.vo.databases.TalkComment;
 import com.pear.yellowthird.vo.databases.UserVo;
 import com.pear.yellowthird.vo.databases.VideoIntroduceVo;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
-import jp.wasabeef.glide.transformations.CropTransformation;
-import rx.functions.Action1;
 
 import org.apache.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import rx.functions.Action1;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
@@ -244,7 +235,7 @@ public class VideoIntroduceFragment extends Fragment {
                         TextView typeView = new TextView(getContext());
                         typeView.setLayoutParams(
                                 new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
-                        typeView.setText("•" + mData.getTopic());
+                        typeView.setText("•" + mData.getTopic() ) ;
                         typeView.setTextSize(getResources().getInteger(R.integer.content_video_content));
                         typeView.setTextColor(getResources().getColor(R.color.colorIntroduceContent));
                         horizontalLayout.addView(typeView);
