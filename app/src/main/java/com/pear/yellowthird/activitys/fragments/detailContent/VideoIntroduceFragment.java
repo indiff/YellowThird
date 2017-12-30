@@ -288,8 +288,6 @@ public class VideoIntroduceFragment extends Fragment {
                 .subscribe(new Action1<UserVo>() {
                     @Override
                     public void call(UserVo user) {
-                        if (null == user)
-                            return;
                         Glide.with(getContext())
                                 .load(user.getThumb())
                                 .apply(bitmapTransform(new CropCircleTransformation()))

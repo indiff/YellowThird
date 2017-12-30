@@ -18,6 +18,7 @@ import com.pear.android.view.PColumn;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.style.vo.SubTabMenuStyleDataVo;
+import com.pear.yellowthird.vo.databases.UserVo;
 import com.pear.yellowthird.vo.databases.VoteVo;
 
 import java.util.ArrayList;
@@ -176,12 +177,7 @@ public class VoteFragment extends Fragment {
                 Glide.with(getContext())
                         .load(data.getImageUri())
                         /**圆形*/
-                        //.apply(bitmapTransform(new CropCircleTransformation()))
-                        /**边角圆形*/
-                        .apply(bitmapTransform(
-                                new RoundedCornersTransformation(
-                                DensityUtils.dipTopx(getContext(),10
-                                ),0)))
+                        .apply(bitmapTransform(new CropCircleTransformation()))
                         .into(contentIconView);
             }
 

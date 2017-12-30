@@ -119,7 +119,7 @@
 
     <!--待投票内容的略缩概要图-->
     <dimen name="vote.content.icon">60dp</dimen>
-    <dimen name="vote.content.icon.width">85dp</dimen>
+    <dimen name="vote.content.icon.width">60dp</dimen>
     <dimen name="vote.content.icon.height">60dp</dimen>
 
     <!--待投票内容的略缩概要图的左边距-->

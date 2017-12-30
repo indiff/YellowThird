@@ -129,7 +129,8 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void call(Subscriber<? super UserVo> subscriber) {
                 UserVo user=geUserVo(false);
-                subscriber.onNext(user);
+                if(null!=user)
+                    subscriber.onNext(user);
                 subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
@@ -142,7 +143,9 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void call(Subscriber<? super UserVo> subscriber) {
                 UserVo user=geUserVo(true);
-                subscriber.onNext(user);
+                if(null!=user)
+                    subscriber.onNext(user);
+                subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread());

@@ -31,6 +31,7 @@ public class AllDatabases {
                         */
                         /**社区中的大类*/
                         ///*
+                        /*
                         new BottomNavigationMenuVo() {{
                             setTitle("社区");
                             setStyle(StyleFragmentFactory.SUB_TAB_MENU_STYLE);
@@ -183,6 +184,7 @@ public class AllDatabases {
                                                 ));
                                             }}*/
                                             ///*,
+                                            /*
                                             new SubTabMenuStyleDataVo() {{
                                                 setTitle("投票");
                                                 setStyle(StyleFragmentFactory.VOTE_STYLE);
@@ -208,6 +210,7 @@ public class AllDatabases {
                                                 setData(JsonUtil.fromObjectToJson(CommunityDatabases.getIntroductionData()));
                                             }}*/
                                             ///*
+                        /*
                                     };
                             setData(JsonUtil.fromObjectToJson(data));
 
@@ -256,7 +259,7 @@ public class AllDatabases {
                                                     }));
                         }}*/
                         //,
-                        /*
+                        ///*
                         //电影大类
                         new BottomNavigationMenuVo() {{
                             setTitle("电影");
@@ -284,7 +287,7 @@ public class AllDatabases {
                                                                 setData(JsonUtil.fromObjectToJson(CommunityDatabases.getShareData()));
                                                             }}
                                                     }));
-                        }}*/
+                        }}//*/
 
                 };
 
