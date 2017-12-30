@@ -216,22 +216,21 @@
                 android:id="@+id/screen_shorts_list"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginBottom="18dp"
                 android:layout_marginTop="10dp" />
 
 
             <!--好看的分割线-->
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="15dp"
+                android:layout_height="1px"
+                android:layout_marginTop="12dp"
                 android:background="@color/colorMinorTitle" />
 
             <!--评论标题-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="28dp"
                 android:text="评论"
                 android:textSize="17dp"
                 android:textStyle="bold" />
@@ -243,8 +242,16 @@
                 android:layout_marginTop="10dp"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:orientation="vertical">
+                android:orientation="horizontal">
                 <!--Android取消EditText自动默认获取焦点行为-->
+
+                <!--左侧用户头像-->
+                <ImageView
+                    android:id="@+id/author_icon"
+                    android:layout_width="@dimen/comment.author.icon.width"
+                    android:layout_height="@dimen/comment.author.icon.height"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/author_head" />
 
                 <!--用户的输入评论框-->
                 <EditText
@@ -253,7 +260,7 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"
                     android:paddingBottom="3dp"
-                    android:background="@drawable/style_edit_sharp"
+                    android:background="@drawable/style_comment_input_sharp"
                     android:gravity="center_vertical"
                     android:textColor="@color/colorMinorContent"
                     android:imeOptions="actionSend"
@@ -262,6 +269,7 @@
             </LinearLayout>
 
             <!--评论列表-->
+
             <com.pear.android.view.LinearLayoutLikeListView
                 android:id="@+id/comment_list"
                 android:layout_width="match_parent"

@@ -97,7 +97,7 @@ public class BillActivity extends CommonHeadActivity {
             public void call(BillVo[] datas) {
                 adapter.setData(Arrays.asList(datas));
             }
-        });;
+        });
 
         /*
         mListView.setAdapter(new BillAdapter(this,

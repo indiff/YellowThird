@@ -35,7 +35,7 @@ public class VideoIntroducePageFragment extends Fragment{
     /**
      * 当前的整个内容视图
      * */
-    protected LinearLayout mContentView;
+    protected View mContentView;
 
     /**page 滑动的Id*/
     private int mPageId;
@@ -62,14 +62,10 @@ public class VideoIntroducePageFragment extends Fragment{
             return mContentView;
         }
 
-        LinePageIndicator indicator=new LinePageIndicator(getContext());
-        indicator.setPadding(15,15,15,15);
-        indicator.setLayoutParams(
-                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+        mContentView = inflater.inflate(R.layout.video_introduce_page, null);
 
-        ViewPager pager =new ViewPager(getContext());
-        pager.setLayoutParams(
-                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT));
+        LinePageIndicator indicator=mContentView.findViewById(R.id.indicator);
+        ViewPager pager = mContentView.findViewById(R.id.pager);
         pager.setId(mPageId);
 
         VideoIntroducePageAdapter adapter=new VideoIntroducePageAdapter(getFragmentManager(),mData);
@@ -77,18 +73,6 @@ public class VideoIntroducePageFragment extends Fragment{
 
         indicator.setViewPager(pager);
         indicator.setOnPageChangeListener(new RefreshPageChangeListener(adapter));
-
-        mContentView = new LinearLayout(getActivity());
-        mContentView.setLayoutParams(
-                new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT));
-
-        mContentView.setOrientation(LinearLayout.VERTICAL);
-
-        mContentView.addView(indicator);
-        mContentView.addView(pager);
-
         return mContentView;
     }
 

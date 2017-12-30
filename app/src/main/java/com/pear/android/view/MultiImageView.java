@@ -126,9 +126,6 @@ public class MultiImageView extends LinearLayout {
 	private void initView() {
 		this.setOrientation(VERTICAL);
 		this.removeAllViews();
-		TextView titleView=new TextView(getContext());
-		titleView.setText("cao");
-		addView(titleView,new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 		if(MAX_WIDTH == 0){
 			//为了触发onMeasure()来测量MultiImageView的最大宽度，MultiImageView的宽设置为match_parent
 			addView(new View(getContext()));

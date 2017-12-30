@@ -27,6 +27,7 @@ import com.pear.yellowthird.activitys.FullVideoActivity;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.adapter.CommentListAdapter;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
+import com.pear.yellowthird.vo.databases.BillVo;
 import com.pear.yellowthird.vo.databases.TalkComment;
 import com.pear.yellowthird.vo.databases.UserVo;
 import com.pear.yellowthird.vo.databases.VideoIntroduceVo;
@@ -80,10 +81,12 @@ public class VideoIntroduceFragment extends Fragment {
      * 作者的头像
      */
     ImageView authorIcon;
+
     /**
      * 用户的评论输入
      */
     EditText inputComment;
+
     /**
      * 评论列表
      */
@@ -183,6 +186,23 @@ public class VideoIntroduceFragment extends Fragment {
         {
             LGNineGrideView multiImageView = mRootView.findViewById(R.id.screen_shorts_list);
             multiImageView.setUrls(mData.getScreenShortUrls());
+        }
+
+        /**左侧用户头像*/
+        {
+            authorIcon = mRootView.findViewById(R.id.author_icon);
+            ServiceDisposeFactory.getInstance().getServiceDispose()
+                    .getUser()
+                    .subscribe(new Action1<UserVo>() {
+                        @Override
+                        public void call(UserVo user) {
+                            Glide.with(getContext())
+                                    .load(user.getThumb())
+                                    .apply(bitmapTransform(new CropCircleTransformation()))
+                                    .into(authorIcon);
+                        }
+                    });
+
         }
 
         /**用户的输入评论框*/
@@ -358,7 +378,8 @@ public class VideoIntroduceFragment extends Fragment {
             @Override
             protected void onPostExecute(String result) {
                 TalkComment[] datas = JsonUtil.write2Class(result, TalkComment[].class);
-                mCommentAdapter.setTalk(Arrays.asList(datas));
+                if (null != datas && datas.length > 0)
+                    mCommentAdapter.setTalk(Arrays.asList(datas));
             }
 
         }.execute();

@@ -28,7 +28,7 @@ public class LGNineGrideView extends ViewGroup {
     private float widthRatioToParent = DEFAULTWIDTHRELATIVETOPARENT;
     private int singleImageMode = SINGLE_IMAGE_MODE_SPECIFIED_RATIO;
 
-    private static final int DEFAULT_SPACING = 2;
+    private static final int DEFAULT_SPACING = 7;
     private static final int MAX_COUNT = 9;
     private int space = 0;
     private int grideWidth = 0;

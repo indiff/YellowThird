@@ -107,6 +107,14 @@ public class VoteVo {
             this.count = count;
         }
 
+        public SubSelect(String title, String keyWord, String imageUri, Integer count, boolean isAlreadyVote) {
+            this.title = title;
+            this.keyWord = keyWord;
+            this.imageUri = imageUri;
+            this.count = count;
+            this.isAlreadyVote = isAlreadyVote;
+        }
+
         public String getTitle() {
             return title;
         }

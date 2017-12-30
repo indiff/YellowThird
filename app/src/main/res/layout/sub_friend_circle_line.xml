@@ -11,8 +11,9 @@
         android:layout_margin="10dp"
         android:orientation="horizontal">
 
+        <!--用户头像-->
         <ImageView
-            android:id="@+id/headIv"
+            android:id="@+id/user_head"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginRight="10dip"
@@ -29,8 +30,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <!--用户名称-->
                 <TextView
-                    android:id="@+id/nameTv"
+                    android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -40,8 +42,9 @@
 
             </LinearLayout>
 
+            <!--说说内容-->
             <TextView
-                android:id="@+id/contentTv"
+                android:id="@+id/content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dip"
@@ -95,7 +98,9 @@
                     >
 
                     <!--点赞和器数量数量-->
+                    <!--点赞事件-->
                     <LinearLayout
+                        android:id="@+id/click_good_event"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -103,8 +108,9 @@
                         android:layout_gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <!--点赞-->
+                        <!--点赞图标-->
                         <ImageView
+                            android:id="@+id/click_good_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="18dp"
                             android:adjustViewBounds="true"
@@ -153,7 +159,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:background="@drawable/style_edit_sharp"
+                    android:background="@drawable/style_comment_input_sharp"
                     android:textSize="15dp"
                     android:paddingTop="3dp"
                     android:paddingBottom="3dp"

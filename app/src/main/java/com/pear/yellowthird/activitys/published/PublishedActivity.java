@@ -126,8 +126,10 @@ public class PublishedActivity extends CommonHeadActivity {
      */
     public void sendTalk() {
         if (TextUtils.isEmpty(contentEditView.getText())) {
-            Toast.makeText(this, "亲，你的说说都还没写呢", Toast.LENGTH_SHORT).show();
-            return;
+            //Toast.makeText(this, "亲，你的说说都还没写呢", Toast.LENGTH_SHORT).show();
+            //return;
+            //说说可以为空。微信是可以的
+            contentEditView.setText("");
         }
         if (Bimp.drr.isEmpty()) {
             Toast.makeText(this, "亲，赏两张照片呗", Toast.LENGTH_SHORT).show();
