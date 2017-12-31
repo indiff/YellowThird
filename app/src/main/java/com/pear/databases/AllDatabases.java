@@ -279,13 +279,13 @@ public class AllDatabases {
                                     JsonUtil.fromObjectToJson(
                                             new SubTabMenuStyleDataVo[]
                                                     {
-                                                            data,
+                                                            data/*,
                                                             new SubTabMenuStyleDataVo() {{
                                                                 setTitle("分享");
                                                                 setStyle(StyleFragmentFactory.TEXT_NEWS_STYLE);
                                                                 setDataType("raw");
                                                                 setData(JsonUtil.fromObjectToJson(CommunityDatabases.getShareData()));
-                                                            }}
+                                                            }}*/
                                                     }));
                         }}//*/
 

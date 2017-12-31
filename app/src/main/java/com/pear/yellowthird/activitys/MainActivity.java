@@ -108,6 +108,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
     /**
      * 底部大的菜单导航栏的数据填充适配器
      */

@@ -8,6 +8,7 @@ import com.pear.yellowthird.activitys.fragments.detailContent.VideoIntroduceFrag
 import com.pear.yellowthird.adapter.abstracts.CommonCacheAdapterAbstract;
 import com.pear.yellowthird.vo.databases.VideoIntroduceVo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class VideoIntroducePageAdapter  extends CommonCacheAdapterAbstract {
 
-    List<VideoIntroduceVo> mData;
+    List<VideoIntroduceVo> mData=new ArrayList<>();
 
     public VideoIntroducePageAdapter(FragmentManager fm, List<VideoIntroduceVo> data) {
         super(fm);

@@ -1,9 +1,11 @@
 package com.pear.yellowthird.activitys;
 
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.MediaController;
@@ -14,6 +16,8 @@ import com.github.ogapants.playercontrolview.PlayerControlView;
 import com.pear.android.listener.empty.EmptyOnPageChangeListener;
 import com.pear.yellowthird.adapter.FullImageAdapter;
 import com.pear.yellowthird.vo.databases.ImageIntroduceVo;
+import com.universalvideoview.UniversalMediaController;
+import com.universalvideoview.UniversalVideoView;
 import com.viewpagerindicator.PageIndicator;
 import com.viewpagerindicator.UnderlinePageIndicator;
 
@@ -22,85 +26,81 @@ import com.viewpagerindicator.UnderlinePageIndicator;
  */
 
 public class FullVideoActivity  extends AppCompatActivity {
+    private static final String TAG = "FullVideoActivity";
 
-    VideoView mVideoView;
+    /**播放的URI*/
     String mUrl;
+
+    /**标题*/
+    String mTitle;
+
+    UniversalVideoView mVideoView;
+
+    UniversalMediaController mMediaController;
+
+
+    /**上一次的播放进度*/
+    private int mSeekPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.video_full_play);
         mUrl = (String)getIntent().getSerializableExtra("url");
+        mTitle = (String)getIntent().getSerializableExtra("title");
 
-        RelativeLayout relativeLayout=new RelativeLayout(this);
-        relativeLayout.setLayoutParams(
-                new RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.MATCH_PARENT,
-                        RelativeLayout.LayoutParams.MATCH_PARENT));
+        mVideoView =  findViewById(R.id.video_view);
 
-        mVideoView=new VideoView(this);
-        mVideoView.setLayoutParams(new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.MATCH_PARENT));
-        //mVideoView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        mMediaController =  findViewById(R.id.media_controller);
+        mMediaController.setEnabled(false);
+        mMediaController.setTitle("Big Buck Bunny");
 
-        Button closeButton=new Button(this);
-        closeButton.setLayoutParams(new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT));
-        closeButton.setText("关闭");
-        onCloseListener(closeButton);
-
-        relativeLayout.addView(mVideoView);
-        relativeLayout.addView(closeButton);
-
-        setContentView(relativeLayout);
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        playVideo();
-    }
-
-    void playVideo()
-    {
-
-        //网络视频
-        Uri uri = Uri.parse(mUrl);
-
-        PlayerControlView playerControlView = new PlayerControlView(this);
-        playerControlView.attach(this);
-        //playerControlView.setPlayer(mVideoView);
-
-        //设置视频控制器
-        mVideoView.setMediaController(new MediaController(this));
-
-        //播放完成回调
-        //mVideoView.setOnCompletionListener( new MyPlayerOnCompletionListener());
-
-        //设置视频路径
-        mVideoView.setVideoURI(uri);
-
-        //开始播放视频
-        mVideoView.start();
-
-
-
-    }
-
-    /**
-     * 监听关闭按钮
-     */
-    void onCloseListener(final Button button)
-    {
-        button.setOnClickListener(new View.OnClickListener() {
+        /**
+         * 监听关闭按钮
+         */
+        mMediaController.setBackClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
+        mVideoView.setMediaController(mMediaController);
+        mVideoView.setVideoPath(mUrl);
+
+        mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                Log.d("rrr", "onCompletion ");
+            }
+        });
+
     }
+
+    /**开始播放*/
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mSeekPosition > 0) {
+            mVideoView.seekTo(mSeekPosition);
+        }
+        mVideoView.requestFocus();
+        mVideoView.start();
+    }
+
+
+    /**暂停播放*/
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause ");
+        if (mVideoView != null && mVideoView.isPlaying()) {
+            mSeekPosition = mVideoView.getCurrentPosition();
+            Log.d(TAG, "onPause mSeekPosition=" + mSeekPosition);
+            mVideoView.pause();
+        }
+    }
+
 
 
 }
