@@ -1,6 +1,7 @@
 package com.pear.yellowthird.interfaces;
 
 import com.pear.yellowthird.vo.databases.BillVo;
+import com.pear.yellowthird.vo.databases.FriendsVo;
 import com.pear.yellowthird.vo.databases.UserVo;
 
 import java.util.List;
@@ -56,7 +57,6 @@ public interface ServiceDisposeInterface {
 
 
 
-
     /**用户信息相关*/
     /**
      * 获取用户信息，可以去缓存的数据
@@ -108,10 +108,42 @@ public interface ServiceDisposeInterface {
 
 
     /**************************************朋友圈*************************************/
+
+
+    /**
+     *  查询朋友圈数据
+     *  @return
+     * */
+    Observable<FriendsVo[]> queryFriendList();
+
+    /**
+     *  下拉刷新更多的朋友圈数据
+     *  @return
+     * */
+    Observable<FriendsVo[]> queryMoreFriendList(Integer lastId);
+
+
+    /**
+     * 上拉刷新最新的朋友圈数据
+     *  @return
+     * */
+    Observable<FriendsVo[]> refreshNewHeadFriendList(Integer firstId);
+
     /**
      * 发表说说
      * */
     Observable<Boolean> publishFriendTalk(String content,List<String> images);
+
+    /**
+     * 对某条朋友圈点赞
+     * */
+    Observable<Boolean> friendClickGood(Integer id);
+
+
+    /**
+     * 给朋友圈添加评论
+     * */
+    Observable<Boolean> addFriendComment(Integer id,String content);
 
 
 

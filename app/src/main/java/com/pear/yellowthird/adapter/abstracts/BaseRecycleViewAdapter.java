@@ -20,6 +20,7 @@ public abstract class BaseRecycleViewAdapter<T,VH extends RecyclerView.ViewHolde
 
     public void setDatas(List<T> datas) {
         this.datas = datas;
+        this.notifyDataSetChanged();
     }
 
     public void setItemListener(RecycleViewItemListener listener){

@@ -21,6 +21,7 @@ import com.pear.yellowthird.vo.databases.UserVo;
 import com.pear.yellowthird.vo.databases.VideoIntroduceVo;
 import com.pear.yellowthird.vo.databases.VoteVo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import rx.functions.Action1;
@@ -82,14 +83,14 @@ public class StyleFragmentFactory {
                 .subscribe(new Action1<SubTabMenuStyleDataVo[]>() {
                                     @Override
                                     public void call(SubTabMenuStyleDataVo[] subs) {
-                                        fragment.setMenuData(Arrays.asList(subs));
+                                        fragment.setMenuData(new ArrayList<>(Arrays.asList(subs)));
                                     }
                                 });
                 return fragment;
             }
             case VIDEO_INTRODUCE_STYLE: {
                 VideoIntroduceVo[] vo = JsonUtil.write2Class(data, VideoIntroduceVo[].class);
-                return VideoIntroducePageFragment.newInstance(Arrays.asList(vo));
+                return VideoIntroducePageFragment.newInstance(new ArrayList<>(Arrays.asList(vo)));
             }
             case IMAGE_INTRODUCE_STYLE: {
                 final ImageIntroduceFragment fragment=ImageIntroduceFragment.newInstance();
@@ -112,7 +113,7 @@ public class StyleFragmentFactory {
                         .subscribe(new Action1<VoteVo[]>() {
                             @Override
                             public void call(VoteVo[] subs) {
-                                fragment.setDatas(Arrays.asList(subs));
+                                fragment.setDatas(new ArrayList<>(Arrays.asList(subs)));
                             }
                         });
                 return fragment;
@@ -121,10 +122,19 @@ public class StyleFragmentFactory {
                 UserVo vo = JsonUtil.write2Class(data, UserVo.class);
                 return AccountInfoFragment.newInstance(vo);
             }
-            case FRIEND_STYLE: {
-                FriendsVo[] datas= JsonUtil.write2Class(data, FriendsVo[].class);
-                return FriendFragment.newInstance(Arrays.asList(datas));
+            case FRIEND_STYLE:
+            {
+                final FriendFragment fragment=FriendFragment.newInstance();
+                JsonUtil.write2ClassAsync(data, FriendsVo[].class)
+                        .subscribe(new Action1<FriendsVo[]>() {
+                            @Override
+                            public void call(FriendsVo[] datas) {
+                                fragment.setDatas(new ArrayList<>(Arrays.asList(datas)));
+                            }
+                        });
+                return fragment;
             }
+
             default:
                 return CommonContentFragment.newInstance(style, data);
         }

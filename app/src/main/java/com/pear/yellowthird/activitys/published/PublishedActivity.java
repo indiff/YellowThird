@@ -167,13 +167,15 @@ public class PublishedActivity extends CommonHeadActivity {
                         "说说发表成功",
                         Toast.LENGTH_SHORT).show();
                 PublishedActivity.this.finish();
+
+                // 高清的压缩图片全部就在  list 路径里面了
+                // 高清的压缩过的 bmp 对象  都在 Bimp.bmp里面
+                // 完成上传服务器后 .........
+                FileUtils.deleteDir();
             }
         });
 
-        // 高清的压缩图片全部就在  list 路径里面了
-        // 高清的压缩过的 bmp 对象  都在 Bimp.bmp里面
-        // 完成上传服务器后 .........
-        FileUtils.deleteDir();
+
     }
 
 }

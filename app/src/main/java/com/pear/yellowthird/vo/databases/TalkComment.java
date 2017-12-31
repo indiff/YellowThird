@@ -34,6 +34,11 @@ public class TalkComment implements Serializable {
         this.goodCount=goodCount;
     }
 
+    public TalkComment(String content, UserVo user) {
+        this.content = content;
+        this.user = user;
+    }
+
     public String getContent() {
         return content;
     }

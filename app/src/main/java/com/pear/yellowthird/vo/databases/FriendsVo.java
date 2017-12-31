@@ -27,7 +27,7 @@ public class FriendsVo  implements Serializable {
     String publishTime="";
 
     /**浏览次数*/
-    Integer browseCount;
+    Integer showCount;
 
     /**是否已经点赞*/
     boolean isAlreadyClickGood;
@@ -58,7 +58,7 @@ public class FriendsVo  implements Serializable {
         this.user = user;
         this.content = content;
         this.publishTime = publishTime;
-        this.browseCount = browseCount;
+        this.showCount = browseCount;
         this.isAlreadyClickGood = isAlreadyClickGood;
         this.goodCount = goodCount;
         this.images = images;
@@ -89,12 +89,20 @@ public class FriendsVo  implements Serializable {
         this.publishTime = publishTime;
     }
 
-    public Integer getBrowseCount() {
-        return browseCount;
+    public Integer getShowCount() {
+        return showCount;
     }
 
-    public void setBrowseCount(Integer browseCount) {
-        this.browseCount = browseCount;
+    public void setShowCount(Integer showCount) {
+        this.showCount = showCount;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public boolean isAlreadyClickGood() {

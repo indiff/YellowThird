@@ -206,19 +206,5 @@ public class ImageIntroduceFragment extends Fragment {
         clickGoodLinear.setOnClickListener(null);
     }
 
-    /**
-     * 监听开始按钮
-     * 点击进入全屏浏览模式
-     */
-    void onStartListener(View button) {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), FullImagePageActivity.class);
-                intent.putExtra("image", data);
-                startActivity(intent);
-            }
-        });
-    }
 
 }

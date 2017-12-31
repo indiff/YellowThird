@@ -75,7 +75,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
                 <!--浏览次数-->
@@ -145,8 +145,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="2dp"
                 android:orientation="vertical"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
@@ -176,7 +176,7 @@
     <!--1px 太短了，卡不见-->
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="2px"
         android:background="@color/colorSubNavBackground" />
 
 </LinearLayout>

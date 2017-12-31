@@ -316,7 +316,7 @@ public class VideoIntroduceFragment extends Fragment {
 
                     addComment();
                 }
-                return false;
+                return true;
             }
 
             /**

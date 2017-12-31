@@ -1,16 +1,22 @@
 package com.pear.yellowthird.impl.net;
 
+import com.pear.common.utils.net.FileUploadUtils;
 import com.pear.common.utils.net.HttpRequest;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.yellowthird.interfaces.ServiceDisposeInterface;
 import com.pear.yellowthird.style.vo.BottomNavigationMenuVo;
 import com.pear.yellowthird.vo.databases.BillVo;
+import com.pear.yellowthird.vo.databases.FriendsVo;
 import com.pear.yellowthird.vo.databases.UserVo;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.List;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -222,16 +228,92 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     }
 
     @Override
-    public Observable<Boolean> publishFriendTalk(String content, List<String> images) {
+    public Observable<FriendsVo[]> queryFriendList() {
+        return Observable.create(new Observable.OnSubscribe<FriendsVo[]>() {
+            @Override
+            public void call(Subscriber<? super FriendsVo[]> subscriber) {
+                String data =  requestByService(gServiceHost + "redbook/api/friendsHome/listData?init=1");
+                FriendsVo[] datas = JsonUtil.write2Class(data, FriendsVo[].class);
+                subscriber.onNext(datas);
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<FriendsVo[]> queryMoreFriendList(final Integer lastId) {
+        return Observable.create(new Observable.OnSubscribe<FriendsVo[]>() {
+            @Override
+            public void call(Subscriber<? super FriendsVo[]> subscriber) {
+                String data =  requestByService(gServiceHost + "redbook/api/friendsHome/listData?orientation=1&id="+lastId);
+                FriendsVo[] datas = JsonUtil.write2Class(data, FriendsVo[].class);
+                subscriber.onNext(datas);
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<FriendsVo[]> refreshNewHeadFriendList(final Integer firstId) {
+        return Observable.create(new Observable.OnSubscribe<FriendsVo[]>() {
+            @Override
+            public void call(Subscriber<? super FriendsVo[]> subscriber) {
+                String data =  requestByService(gServiceHost + "redbook/api/friendsHome/listData?orientation=0&id="+firstId);
+                FriendsVo[] datas = JsonUtil.write2Class(data, FriendsVo[].class);
+                subscriber.onNext(datas);
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<Boolean> publishFriendTalk(final String content,final List<String> images) {
+        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+            @Override
+            public void call(final Subscriber<? super Boolean> subscriber) {
+                FileUploadUtils.uploadImg(
+                        gServiceHost + "redbook/api/friendsHome/add",
+                        content,
+                        gDeviceId,
+                        images,
+                        new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+                                subscriber.onError(e.getCause());
+                            }
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                subscriber.onNext(true);
+                            }
+                        }
+                        );
+            }
+        }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<Boolean> friendClickGood(final Integer id) {
         return Observable.create(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
-                try {
-                    Thread.sleep(5*1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                subscriber.onNext(true);
+                String result =  requestByService(gServiceHost + "redbook/api/friendsHome/goodCount?id="+id);
+                if("true".equals(result))
+                    subscriber.onNext(true);
+            }
+        }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<Boolean> addFriendComment(final Integer id,final String content) {
+        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+            @Override
+            public void call(Subscriber<? super Boolean> subscriber) {
+                String result =  requestByService(gServiceHost + "redbook/api/friendsHome/addComment?pid="+id+"&content="+content);
+                if("true".equals(result))
+                    subscriber.onNext(true);
             }
         }).subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread());
