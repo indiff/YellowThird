@@ -3,20 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginBottom="15dp"
+    android:layout_marginBottom="13dp"
     >
 
     <!--头部的结束的分割线-->
     <View
         android:id="@+id/head_line"
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/colorSubNavBackground"
+        android:layout_height="1.5px"
+        android:background="@color/colorMinorTitle"
+        android:alpha="0.5"
         />
 
     <!--真实的内容区域-->
     <LinearLayout
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="13dp"
         android:layout_marginBottom="15dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -53,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="chuang老师"
-                    android:textColor="@color/colorCommentMinorContent"
+                    android:textColor="@color/friend.name"
                     android:textSize="@dimen/comment.minor" />
 
                 <!--点赞及点赞数量-->
@@ -110,6 +111,7 @@
                 />
 
         </LinearLayout>
+
 
     </LinearLayout>
 

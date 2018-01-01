@@ -1,25 +1,12 @@
 package com.pear.yellowthird.activitys;
 
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.MediaController;
-import android.widget.RelativeLayout;
-import android.widget.VideoView;
-
-import com.github.ogapants.playercontrolview.PlayerControlView;
-import com.pear.android.listener.empty.EmptyOnPageChangeListener;
-import com.pear.yellowthird.adapter.FullImageAdapter;
-import com.pear.yellowthird.vo.databases.ImageIntroduceVo;
 import com.universalvideoview.UniversalMediaController;
 import com.universalvideoview.UniversalVideoView;
-import com.viewpagerindicator.PageIndicator;
-import com.viewpagerindicator.UnderlinePageIndicator;
 
 /**
  * 全屏播放电影

@@ -188,6 +188,12 @@ public class VideoIntroduceFragment extends Fragment {
         {
             LGNineGrideView multiImageView = mRootView.findViewById(R.id.screen_shorts_list);
             multiImageView.setUrls(mData.getScreenShortUrls());
+            multiImageView.setOnItemClickListener(new LGNineGrideView.OnItemClickListener() {
+                @Override
+                public void onClickItem(int position, View view) {
+
+                }
+            });
         }
 
         /**左侧用户头像*/

@@ -47,7 +47,12 @@ public interface ServiceDisposeInterface {
     /**
      * 给电影下的评论点赞
      * */
-    boolean addVideoUserCommentClickGood(Integer id);
+    Observable<Boolean> addVideoUserCommentClickGood(Integer id);
+
+    /**
+     * 请求播放电影
+     * */
+    Observable<String> requestPlayVideo(Integer id);
 
     /**
      * 根据Url 获取对应数据

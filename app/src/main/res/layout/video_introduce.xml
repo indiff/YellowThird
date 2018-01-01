@@ -3,8 +3,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    >
+    <!--Android取消EditText自动默认获取焦点行为-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -72,7 +73,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
                 android:text="标题"
-                android:textSize="15dp"
+                android:textSize="17dp"
+                android:textColor="@color/colorTitle"
                 android:textStyle="bold" />
 
             <!--评分 类别 播放量-->
@@ -90,7 +92,7 @@
                     android:gravity="center_vertical"
                     android:text="9.7"
                     android:textColor="@color/colorGradleText"
-                    android:textSize="10dp" />
+                    android:textSize="12dp" />
 
                 <!--类别-->
                 <TextView
@@ -100,7 +102,7 @@
                     android:gravity="center_vertical"
                     android:text="•普通"
                     android:textColor="@color/colorIntroduceContent"
-                    android:textSize="10dp" />
+                    android:textSize="12dp" />
 
                 <!--播放量-->
                 <TextView
@@ -110,7 +112,7 @@
                     android:gravity="center_vertical"
                     android:text="•10次播放"
                     android:textColor="@color/colorIntroduceContent"
-                    android:textSize="10dp" />
+                    android:textSize="12dp" />
 
                 <View
                     android:layout_width="0dp"
@@ -147,7 +149,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="18dp">
 
                 <!--评论好看的图标  多少个人评论了-->
                 <LinearLayout
@@ -158,8 +160,8 @@
 
                     <!--评论好看的图标-->
                     <ImageView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
                         android:src="@drawable/comment_message" />
 
                     <!--多少个人评论了-->
@@ -167,11 +169,11 @@
                         android:id="@+id/comment_count"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="7dp"
                         android:gravity="center"
                         android:text="10评论"
                         android:textColor="@color/colorTitle"
-                        android:textSize="17dp" />
+                        android:textSize="12dp" />
 
                 </LinearLayout>
 
@@ -185,8 +187,8 @@
                     <!--点赞-->
                     <ImageView
                         android:id="@+id/click_good"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
                         android:src="@drawable/click_good" />
 
                     <!--多少个人点赞了-->
@@ -194,21 +196,29 @@
                         android:id="@+id/all_click_good"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="7dp"
                         android:gravity="center"
                         android:text="10"
                         android:textColor="@color/colorIntroduceContent"
-                        android:textSize="17dp" />
+                        android:textSize="12dp" />
                 </LinearLayout>
             </RelativeLayout>
+
+            <!--好看的分割线-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="12dp"
+                android:background="@color/colorMinorTitle" />
 
             <!--截图标题-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="17dp"
                 android:text="截图"
                 android:textSize="17dp"
+                android:textColor="@color/colorTitle"
                 android:textStyle="bold" />
 
             <!--这里是截图集合视图-->
@@ -223,16 +233,17 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="17dp"
                 android:background="@color/colorMinorTitle" />
 
             <!--评论标题-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="22dp"
                 android:text="评论"
                 android:textSize="17dp"
+                android:textColor="@color/colorTitle"
                 android:textStyle="bold" />
 
             <!--用户的输入评论框-->
@@ -240,9 +251,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="12dp"
+                android:orientation="horizontal"
+
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:orientation="horizontal">
+                >
                 <!--Android取消EditText自动默认获取焦点行为-->
 
                 <!--左侧用户头像-->
@@ -260,11 +274,11 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"
                     android:paddingBottom="3dp"
-                    android:background="@drawable/style_comment_input_sharp"
+                    android:background="@drawable/style_video_comment_input_sharp"
                     android:gravity="center_vertical"
                     android:textColor="@color/colorMinorContent"
                     android:imeOptions="actionSend"
-                    android:hint="亲，快来说出你的看法呗..."/>
+                    android:hint="快来说说你的感想吧"/>
 
             </LinearLayout>
 

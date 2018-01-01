@@ -54,8 +54,8 @@
     <!--评论相关-->
     <dimen name="comment.padding.right">20dp</dimen>
 
-    <dimen name="comment.author.icon.width">30dp</dimen>
-    <dimen name="comment.author.icon.height">30dp</dimen>
+    <dimen name="comment.author.icon.width">33dp</dimen>
+    <dimen name="comment.author.icon.height">33dp</dimen>
 
     <dimen name="comment.content">13dp</dimen>
     <dimen name="comment.minor">12dp</dimen>

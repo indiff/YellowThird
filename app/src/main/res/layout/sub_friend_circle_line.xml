@@ -148,11 +148,12 @@
                 android:layout_marginTop="3dp"
                 android:layout_marginBottom="2dp"
                 android:orientation="vertical"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 >
                 <!--Android取消EditText自动默认获取焦点行为-->
-
+                <!--
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                -->
                 <!--用户的输入评论框-->
                 <EditText
                     android:id="@+id/input_comment"

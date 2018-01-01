@@ -22,9 +22,8 @@ import com.bumptech.glide.Glide;
 import com.pear.android.utils.SoftInputUtils;
 import com.pear.android.view.LinearLayoutLikeListView;
 import com.pear.android.view.MultiImageView;
+import com.pear.yellowthird.activitys.FullImagePageActivity;
 import com.pear.yellowthird.activitys.R;
-import com.pear.yellowthird.activitys.published.ChooseCataloguePicActivity;
-import com.pear.yellowthird.activitys.published.ChooseImageActivity;
 import com.pear.yellowthird.activitys.published.PublishedActivity;
 import com.pear.yellowthird.adapter.abstracts.BaseRecycleViewAdapter;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
@@ -94,7 +93,7 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
             final int circlePosition = position - HEAD_VIEW_SIZE;
             final CircleViewHolder holder = (CircleViewHolder) viewHolder;
 
-            FriendsVo friendData = (FriendsVo) datas.get(circlePosition);
+            final FriendsVo friendData = (FriendsVo) datas.get(circlePosition);
 
             Glide.with(context)
                     .load(friendData.getUser().getThumb())
@@ -125,9 +124,9 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
                     @Override
                     public void onItemClick(View view, int position) {
                         //imagesize是作为loading时的图片size
-                        //ImagePagerActivity.ImageSize imageSize = new ImagePagerActivity.ImageSize(view.getMeasuredWidth(), view.getMeasuredHeight());
-                        //ImagePagerActivity.startImagePagerActivity(context, photos, position, imageSize);
-                    }
+                        FullImagePageActivity.ImageSize imageSize = new FullImagePageActivity.ImageSize(view.getMeasuredWidth(), view.getMeasuredHeight());
+                        FullImagePageActivity.startImagePagerActivity(context, friendData.getImages(), position, imageSize);
+                     }
                 });
 
             holder.commentAdapter.setDatas(friendData.getComments());

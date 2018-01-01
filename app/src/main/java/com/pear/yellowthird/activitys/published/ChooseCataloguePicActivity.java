@@ -58,7 +58,7 @@ public class ChooseCataloguePicActivity extends CommonHeadActivity {
 	 * 初始化数据
 	 */
 	private void initData() {
-		catalogueList = helper.getImagesBucketList(false);
+		catalogueList = helper.getImagesBucketList(true);
 
 		bimap= BitmapFactory.decodeResource(
 				getResources(),
