@@ -171,6 +171,8 @@ public class VideoIntroduceFragment extends Fragment {
         /**点赞*/
         {
             videoClickGoodLinearLayout = mRootView.findViewById(R.id.click_good_line_view);
+
+            clickGoodIcon= mRootView.findViewById(R.id.click_good);
             onVideoClickGood(videoClickGoodLinearLayout);
             /**多少个人点赞了*/
             {

@@ -28,18 +28,11 @@ import rx.functions.Action1;
 
 public class MainActivity extends AppCompatActivity {
 
-    /*
-    private List<MenuTalVo> mData
-            =new ArrayList<MenuTalVo>(){{
-        add(new MenuTalVo( "电影",R.drawable.perm_group_calendar));
-        add(new MenuTalVo( "图片",R.drawable.perm_group_camera));
-        add(new MenuTalVo( "社区",R.drawable.perm_group_device_alarms));
-        add(new MenuTalVo( "账户",R.drawable.perm_group_location));
-    }};
-    */
-
+    /**底部菜单栏的适配器*/
     MainBottomMenuAdapter adapter;
 
+    /**底部菜单视图*/
+    MainNavPageIndicator indicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +49,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         adapter = new MainBottomMenuAdapter(getSupportFragmentManager());
-        NoScrollViewPager pager = (NoScrollViewPager) findViewById(R.id.pager);
+        NoScrollViewPager pager = findViewById(R.id.pager);
         pager.setAdapter(adapter);
 
-        MainNavPageIndicator indicator = (MainNavPageIndicator) findViewById(R.id.indicator);
+        indicator = findViewById(R.id.indicator);
         indicator.setViewPager(pager);
 
         indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -112,38 +105,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
     }
 
     /**
      * 底部大的菜单导航栏的数据填充适配器
      */
     class MainBottomMenuAdapter extends CommonCacheAdapterAbstract implements IconPagerAdapter {
-        /*
-                private Fragment videoFragment=VideoSubFragment.newInstance(VideoSubFragment.class,new ArrayList<MenuTalVo>(){{
-                    add(new MenuTalVo("美女",0));
-                    add(new MenuTalVo("搞笑",0));
-                    add(new MenuTalVo("直播",0));
-                }});
 
-                private Fragment imageFragment=ImageSubFragment.newInstance(ImageSubFragment.class,new ArrayList<MenuTalVo>(){{
-                    add(new MenuTalVo("趣图",0));
-                    add(new MenuTalVo("动物",0));
-                    add(new MenuTalVo("植物",0));
-                    add(new MenuTalVo("景色",0));
-                }});
-
-                private Fragment communityFragment= CommunitySubFragment.newInstance(CommunitySubFragment.class,new ArrayList<MenuTalVo>(){{
-                    add(new MenuTalVo("简介",0));
-                    add(new MenuTalVo("预告",0));
-                    add(new MenuTalVo("投票",0));
-                    add(new MenuTalVo("小说",0));
-                    add(new MenuTalVo("论坛",0));
-                    add(new MenuTalVo("问题",0));
-                    add(new MenuTalVo("分享",0));
-                }});
-                private Fragment accountFragment=AccountInfoFragment.newInstance();
-         */
         BottomNavigationMenuVo[] mData = new BottomNavigationMenuVo[0];
 
         public MainBottomMenuAdapter(FragmentManager fm) {
@@ -157,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
         public void setData(BottomNavigationMenuVo[] data) {
             this.mData = data;
             notifyDataSetChanged();
+            indicator.notifyDataSetChanged();
         }
 
         /**

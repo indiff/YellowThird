@@ -1,22 +1,16 @@
-package com.pear.yellowthird.activitys.fragments.mainSubFragments;
+package com.pear.yellowthird.activitys.fragments.detailContent;
 
-import android.database.DataSetObserver;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.CallSuper;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
-import com.pear.android.view.LinearLayoutLikeListView;
 import com.pear.yellowthird.activitys.R;
-import com.pear.yellowthird.adapter.FriendSimpleCommentAdapter;
 import com.pear.yellowthird.adapter.FriendsAdapter;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.vo.databases.FriendsVo;

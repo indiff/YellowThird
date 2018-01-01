@@ -99,7 +99,7 @@ public class FriendSimpleCommentAdapter extends BaseAdapter {
         else
         {
             UserCommentHolder userCommentHolder = new UserCommentHolder(convertView);
-            //userCommentHolder.userNameView.setText("" + currentData.getUser().getName());
+            userCommentHolder.userNameView.setText(currentData.getUser().getName());
             userCommentHolder.contentView.setText(currentData.getContent());
         }
         return convertView;
@@ -145,12 +145,16 @@ public class FriendSimpleCommentAdapter extends BaseAdapter {
 
 
     /**显示更多*/
-    class ShowMoreHolder extends RecyclerView.ViewHolder{
+    class ShowMoreHolder extends RecyclerView.ViewHolder
+    {
+
         /**显示更多*/
         public TextView showMoreLineView;
 
         /**用户评论界面*/
         public LinearLayout userCommentLineView;
+
+
         public ShowMoreHolder(View itemView) {
             super(itemView);
             showMoreLineView=itemView.findViewById(R.id.show_more_line);
