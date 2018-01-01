@@ -119,10 +119,10 @@ public abstract class CommonSubTabSubFragmentAbstract extends Fragment {
             return mContentView;
         }
 
-        indicator=new SubNavPageIndicator(getContext());
+        indicator=new SubNavPageIndicator(getActivity());
         indicator.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
 
-        ViewPager pager =new ViewPager(getContext());
+        ViewPager pager =new ViewPager(getActivity());
         pager.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,0,1));
         pager.setId(getPageId());
 

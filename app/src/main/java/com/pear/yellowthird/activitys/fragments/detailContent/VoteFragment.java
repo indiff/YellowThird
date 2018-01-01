@@ -76,7 +76,7 @@ public class VoteFragment extends Fragment {
         }
 
         /**万一投票很多，肯定需要滑动的*/
-        mContentView = new ScrollView(getContext());
+        mContentView = new ScrollView(getActivity());
         mContentView.setLayoutParams(
                 new ScrollView.LayoutParams(ScrollView.LayoutParams.MATCH_PARENT, ScrollView.LayoutParams.MATCH_PARENT));
 
@@ -90,7 +90,7 @@ public class VoteFragment extends Fragment {
     private void refreshViewByDataChange()
     {
         mContentView.removeAllViews();
-        LinearLayout rootView = new LinearLayout(getContext());
+        LinearLayout rootView = new LinearLayout(getActivity());
         rootView.setLayoutParams(
                 new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -107,7 +107,7 @@ public class VoteFragment extends Fragment {
         for (int i = 0; i < datas.size(); i++) {
 
             VoteVo voteVo = datas.get(i);
-            LinearLayout voteView = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.sub_vote_view, null);
+            LinearLayout voteView = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.sub_vote_view, null);
 
             /**这里需要动态设置 米格投票的类别之间的间隔*/
             {
@@ -116,7 +116,7 @@ public class VoteFragment extends Fragment {
                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                 LinearLayout.LayoutParams.MATCH_PARENT) {{
                             setMargins(0, 0, 0,
-                                    (int) getContext().getResources().getDimension(R.dimen.vote_echo_margin_bottom));
+                                    (int) getActivity().getResources().getDimension(R.dimen.vote_echo_margin_bottom));
                         }});
                 ViewGroup.LayoutParams layoutParams = voteView.getLayoutParams();
             }
@@ -158,7 +158,7 @@ public class VoteFragment extends Fragment {
         for (int subSelectIndex = 0; subSelectIndex < allSubSelects.size(); subSelectIndex++) {
             VoteVo.SubSelect data = allSubSelects.get(subSelectIndex);
 
-            LinearLayout lineView = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.sub_vote_list_line, null);
+            LinearLayout lineView = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.sub_vote_list_line, null);
 
             /**引入局部刷新，体验会好一点。不然屏幕闪络实在是太恶心了*/
             SubSelectVoteRefresh  subSelectVoteRefresh=new SubSelectVoteRefresh();
@@ -174,7 +174,7 @@ public class VoteFragment extends Fragment {
             /**内容略缩图*/
             {
                 ImageView contentIconView = lineView.findViewById(R.id.content_icon);
-                Glide.with(getContext())
+                Glide.with(getActivity())
                         .load(data.getImageUri())
                         /**圆形*/
                         .apply(bitmapTransform(new CropCircleTransformation()))
@@ -245,7 +245,7 @@ public class VoteFragment extends Fragment {
                             subSelectVoteRefresh.data.setCount(subSelectVoteRefresh.data.getCount()+1);
                             subSelectVoteRefresh.refreshView();
                             vote.setAlreadyVote(true);
-                            Toast.makeText(getContext(),"感谢亲的参与",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(),"感谢亲的参与",Toast.LENGTH_SHORT).show();
                         }
 
                         /**投票出错*/
@@ -253,7 +253,7 @@ public class VoteFragment extends Fragment {
                 }
                 else
                 {
-                    Toast.makeText(getContext(),"你已投过票咯，亲",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"你已投过票咯，亲",Toast.LENGTH_SHORT).show();
                     return;
                 }
             }

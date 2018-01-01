@@ -62,11 +62,11 @@ public class FriendFragment extends Fragment {
         mRootView = inflater.inflate(R.layout.sub_friends, null);
 
         recyclerView = mRootView.findViewById(R.id.recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.getMoreProgressView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
 
-        adapter = new FriendsAdapter(getContext());
+        adapter = new FriendsAdapter(getActivity());
         recyclerView.setAdapter(adapter);
 
         onListenerPullRefresh();

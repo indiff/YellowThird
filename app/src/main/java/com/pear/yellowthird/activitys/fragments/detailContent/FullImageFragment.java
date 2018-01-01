@@ -54,17 +54,17 @@ public class FullImageFragment extends Fragment {
             return mRootView;
         }
 
-        mRootView = LayoutInflater.from(getContext()).inflate(R.layout.sub_full_image, null);
+        mRootView = LayoutInflater.from(getActivity()).inflate(R.layout.sub_full_image, null);
 
 
         /**封面*/
-        ImageView cover = (ImageView) mRootView.findViewById(R.id.image);
-        Glide.with(getContext())
+        ImageView cover =  mRootView.findViewById(R.id.image);
+        Glide.with(getActivity())
                 .load(Uri.parse(mData.getUri()))
                 .into(cover);
 
         /**内容介绍*/
-        TextView contentView = (TextView) mRootView.findViewById(R.id.content);
+        TextView contentView = mRootView.findViewById(R.id.content);
         contentView.setText(mData.getSummary());
 
         /**

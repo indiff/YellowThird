@@ -82,7 +82,7 @@ public class NewsFragment extends Fragment {
             return mRootView;
         }
 
-        ScrollView scrollView = new ScrollView(getContext());
+        ScrollView scrollView = new ScrollView(getActivity());
 
         /**取消显示滚动条*/
         scrollView.setVerticalScrollBarEnabled(false);
@@ -110,7 +110,7 @@ public class NewsFragment extends Fragment {
     private void refreshViewByData()
     {
         mRootView.removeAllViews();
-        LinearLayout scrollLayout = new LinearLayout(getContext());
+        LinearLayout scrollLayout = new LinearLayout(getActivity());
 
         scrollLayout.setLayoutParams(
                 new LinearLayout.LayoutParams(
@@ -150,7 +150,7 @@ public class NewsFragment extends Fragment {
                 if (vo.getImageUri().isEmpty())
                     imageView.setVisibility(View.GONE);
                 else {
-                    Glide.with(getContext())
+                    Glide.with(getActivity())
                             .load(Uri.parse(vo.getImageUri()))
                             .into(imageView);
                 }

@@ -198,7 +198,7 @@ public class VideoIntroduceFragment extends Fragment {
                     .subscribe(new Action1<UserVo>() {
                         @Override
                         public void call(UserVo user) {
-                            Glide.with(getContext())
+                            Glide.with(getActivity())
                                     .load(user.getThumb())
                                     .apply(bitmapTransform(new CropCircleTransformation()))
                                     .into(authorIcon);
@@ -217,7 +217,7 @@ public class VideoIntroduceFragment extends Fragment {
             LinearLayoutLikeListView commentList = mRootView.findViewById(R.id.comment_list);
             commentList.setId(++gCommentListId);
 
-            mCommentAdapter = new CommentListAdapter(getContext());
+            mCommentAdapter = new CommentListAdapter(getActivity());
             commentList.setAdapter(mCommentAdapter);
         }
 
@@ -239,7 +239,7 @@ public class VideoIntroduceFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), FullVideoActivity.class);
+                Intent intent = new Intent(getActivity(), FullVideoActivity.class);
                 intent.putExtra("url", mData.getVideoUri());
                 startActivity(intent);
             }
@@ -290,7 +290,7 @@ public class VideoIntroduceFragment extends Fragment {
                 .subscribe(new Action1<UserVo>() {
                     @Override
                     public void call(UserVo user) {
-                        Glide.with(getContext())
+                        Glide.with(getActivity())
                                 .load(user.getThumb())
                                 .apply(bitmapTransform(new CropCircleTransformation()))
                                 .into(authorIcon);
@@ -327,7 +327,7 @@ public class VideoIntroduceFragment extends Fragment {
             void addComment() {
                 final String text = inputComment.getText().toString();
                 if (TextUtils.isEmpty(text) || text.trim().isEmpty()) {
-                    Toast.makeText(getContext(), "评论不能为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "评论不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 new AsyncTask<String, String, Boolean>() {
@@ -346,7 +346,7 @@ public class VideoIntroduceFragment extends Fragment {
                         inputComment.clearFocus();
 
                         hideSoftInput(getActivity(), inputComment);
-                        Toast.makeText(getContext(), "评论成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "评论成功", Toast.LENGTH_SHORT).show();
                         refreshComment();
                     }
 

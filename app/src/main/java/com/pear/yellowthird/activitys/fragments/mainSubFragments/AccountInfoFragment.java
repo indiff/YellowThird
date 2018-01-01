@@ -70,7 +70,7 @@ public class AccountInfoFragment extends Fragment {
         /**用户的头像*/
         {
             userHeadIcon = mRootView.findViewById(R.id.user_head_icon);
-            Glide.with(getContext())
+            Glide.with(getActivity())
                     .load(user.getThumb())
                     .apply(bitmapTransform(new CropCircleTransformation()))
                     .into(userHeadIcon);
@@ -102,7 +102,7 @@ public class AccountInfoFragment extends Fragment {
             rechargeView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(getContext(), RechargeActivity.class));
+                    startActivity(new Intent(getActivity(), RechargeActivity.class));
                 }
             });
         }
@@ -113,7 +113,7 @@ public class AccountInfoFragment extends Fragment {
             billView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(getContext(), BillActivity.class));
+                    startActivity(new Intent(getActivity(), BillActivity.class));
                 }
             });
         }
@@ -134,7 +134,7 @@ public class AccountInfoFragment extends Fragment {
                         .subscribe(new Action1<String>() {
                     @Override
                     public void call(String url) {
-                        Glide.with(getContext())
+                        Glide.with(getActivity())
                                 .load(url)
                                 .apply(bitmapTransform(new CropCircleTransformation()))
                                 .into(userHeadIcon);
@@ -177,12 +177,12 @@ public class AccountInfoFragment extends Fragment {
                 final String text=textView.getText().toString();
                 if(TextUtils.isEmpty(text)||text.trim().isEmpty())
                 {
-                    Toast.makeText(getContext(),"名称不能为空",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"名称不能为空",Toast.LENGTH_SHORT).show();
                     return ;
                 }
                 else if(text.length()>12)
                 {
-                    Toast.makeText(getContext(),"名称太长了",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"名称太长了",Toast.LENGTH_SHORT).show();
                     return ;
                 }
                 ServiceDisposeFactory.getInstance().getServiceDispose().changeUserName(text)
@@ -192,7 +192,7 @@ public class AccountInfoFragment extends Fragment {
                                 textView.clearFocus();
 
                                 hideSoftInput(getActivity(),textView);
-                                Toast.makeText(getContext(),"修改名称成功",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(),"修改名称成功",Toast.LENGTH_SHORT).show();
                             }
                         });
                 return ;

@@ -223,8 +223,9 @@
 
 
 
-
-
+    <!--全屏图片浏览-->
+    <!--菜单导航栏小图片-->
+    <dimen name="image_full_page_guide_view_height">6dp</dimen>
 
 
 

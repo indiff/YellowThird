@@ -53,14 +53,14 @@ public class CommonContentFragment extends Fragment {
             return cacheView;
         }
         System.out.println("mContent："+mContent+"created");
-        TextView text = new TextView(getContext());
+        TextView text = new TextView(getActivity());
         text.setGravity(Gravity.CENTER);
         text.setText(mContent+mType);
         text.setTextSize(20 * getResources().getDisplayMetrics().density);
         text.setPadding(20, 20, 20, 20);
         text.setTextColor(getResources().getColor(android.R.color.holo_purple));
 
-        LinearLayout layout = new LinearLayout(getContext());
+        LinearLayout layout = new LinearLayout(getActivity());
         layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
         layout.setGravity(Gravity.CENTER);
         layout.addView(text);

@@ -30,7 +30,7 @@ public class DefaultImageCreator implements LGNineGrideView.ImageCreator {
 
     @Override
     public ImageView createImageView(Context context) {
-        ImageView imageView = new ImageView(context);
+        ImageView imageView = new ColorFilterImageView(context);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         return imageView;
     }

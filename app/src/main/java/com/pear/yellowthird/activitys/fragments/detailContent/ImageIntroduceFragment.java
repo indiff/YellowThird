@@ -97,7 +97,7 @@ public class ImageIntroduceFragment extends Fragment {
             return mRootView;
         }
 
-        mRootView = LayoutInflater.from(getContext()).inflate(R.layout.image_introduce_advanced, null);
+        mRootView = LayoutInflater.from(getActivity()).inflate(R.layout.image_introduce_advanced, null);
         multiImageView = mRootView.findViewById(R.id.multi_image);
         refreshViewByDataData();
         return mRootView;
