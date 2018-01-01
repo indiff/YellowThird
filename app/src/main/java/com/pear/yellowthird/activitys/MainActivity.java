@@ -1,5 +1,6 @@
 package com.pear.yellowthird.activitys;
 
+import android.Manifest;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
@@ -11,11 +12,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.pear.android.listener.empty.EmptyRunnable;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.databases.AllDatabases;
+import com.pear.yellowthird.activitys.published.PublishedActivity;
 import com.pear.yellowthird.adapter.abstracts.CommonCacheAdapterAbstract;
 import com.pear.android.view.NoScrollViewPager;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
+import com.pear.yellowthird.impl.net.ServiceDisposeImpl;
+import com.pear.yellowthird.init.PermissionsRequestInit;
 import com.pear.yellowthird.interfaces.ServiceDisposeInterface;
 import com.pear.yellowthird.style.factory.StyleFactory;
 import com.pear.yellowthird.style.factory.StyleFragmentFactory;
@@ -28,16 +33,22 @@ import rx.functions.Action1;
 
 public class MainActivity extends AppCompatActivity {
 
-    /**底部菜单栏的适配器*/
+    /**
+     * 底部菜单栏的适配器
+     */
     MainBottomMenuAdapter adapter;
 
-    /**底部菜单视图*/
+    /**
+     * 底部菜单视图
+     */
     MainNavPageIndicator indicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ServiceDisposeImpl.initDeviceId(this);
         StyleFactory.init(this);
 
         /**全局背景色透明度设置*/
@@ -77,10 +88,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        requestPermissions();
+    }
+
+    /**
+     * 请求权限
+     */
+    void requestPermissions() {
+        /**申请权限*/
+        new AsyncTask<Object, Object, Object>() {
+            @Override
+            protected Object doInBackground(Object... objects) {
+                new PermissionsRequestInit(MainActivity.this, new String[]{
+                        Manifest.permission.INTERNET}
+                ).init(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshData();
+                    }
+                });
+                return null;
+            }
+        }.execute();
+    }
+
+    /**
+     * 刷新数据
+     */
+    void refreshData() {
         /**连接服务器测试*/
         boolean serviceTest = true;
-        if (serviceTest)
-        {
+        if (serviceTest) {
             ServiceDisposeFactory.getInstance().getServiceDispose().queryMainMenu()
                     .subscribe(new Action1<String>() {
                         @Override
@@ -95,12 +133,9 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                     });
-        }
-        else
+        } else
             adapter.setData(JsonUtil.write2Class(AllDatabases.getData(), BottomNavigationMenuVo[].class));
-
     }
-
 
     @Override
     protected void onDestroy() {
@@ -162,6 +197,8 @@ public class MainActivity extends AppCompatActivity {
             else if ("account".equals(iconType))
                 return R.drawable.main_nav_account;
 
+            else if ("introduction".equals(iconType))
+                return R.drawable.main_nav_introduction;
             //TODO
             //先统一弄一张死的图标
             return R.drawable.main_nav_account;

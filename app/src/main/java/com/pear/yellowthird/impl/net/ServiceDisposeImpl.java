@@ -1,5 +1,10 @@
 package com.pear.yellowthird.impl.net;
 
+import android.app.Activity;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.provider.Settings;
+
 import com.pear.common.utils.net.FileUploadUtils;
 import com.pear.common.utils.net.HttpRequest;
 import com.pear.common.utils.strings.JsonUtil;
@@ -32,12 +37,21 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     /**
      * 当前设备的唯一ID
      */
-    private static final String gDeviceId = "1";
+    private static String gDeviceId = "1";
 
     /**
      * 服务器的请求地址
      */
     private static final String gServiceHost = "http://192.168.0.104:10086/";
+
+    /**
+     *  初始化设备id
+     * */
+    public static void initDeviceId(Activity activity)
+    {
+        String androidID = Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
+        gDeviceId = androidID +"_"+ Build.SERIAL;
+    }
 
     /**
      * 缓存的用户信息
@@ -50,7 +64,6 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void call(Subscriber<? super String> subscriber) {
                 String response = requestByService(gServiceHost + "redbook/api/resourceType/list?1=1");
-                //String response="[{\"id\":7,\"pid\":0,\"title\":\"社区\",\"description\":\"社区\",\"icon\":\"community\",\"dataType\":\"raw\",\"style\":\"sub_tab_menu\",\"dataSource\":\"\",\"data\":\"[{\"data\":\"[{\"id\":1,\"title\":\"App简介与优势\",\"content\":\"Siri是苹果公司在其产品iPhone4S，iPad 3及以上版本手机和Mac上应用的一项智能语音控制功能。Siri可以令iPhone4S及以上手机（iPad 3以上平板）变身为一台智能化机器人，利用Siri用户可以通过手机读短信、介绍餐厅、询问天气、语音设置闹钟等。\\r\\n\",\"imageUri\":\"https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image\\u0026quality\\u003d100\\u0026size\\u003db4000_4000\\u0026sec\\u003d1511963508\\u0026di\\u003df2074431a404a274b5eb8b650a63e3d4\\u0026src\\u003dhttp://image.tianjimedia.com/uploadImages/2015/215/45/04L5VRR21C5W.jpg\"},{\"id\":2,\"title\":\"收费模式\",\"content\":\"\",\"imageUri\":\"https://timgsa.baidu.com/timg?image\\u0026quality\\u003d80\\u0026size\\u003db9999_10000\\u0026sec\\u003d1509558934456\\u0026di\\u003d26bd04cba698b74bf9e09521806492cc\\u0026imgtype\\u003d0\\u0026src\\u003dhttp%3A%2F%2Fimage.l99.com%2Fad8%2F1437453022715_5swgd5.jpg\"},{\"id\":3,\"title\":\"我要成为会员\",\"content\":\"您可以通过云网进行充值成为普通VIP会员，普通VIP会员申请不限制充值数额。可以通过缴纳30元会员费，直接升级成为新浪原创白金VIP会员\"}]\",\"dataSource\":\"raw\",\"dataType\":\"query_intro\",\"description\":\"简介\",\"id\":8,\"pid\":7,\"sql\":\"http://192.168.0.104:10086/redbook/api/news/list/8\",\"style\":\"news\",\"title\":\"简介\"}]\"}]";
                 subscriber.onNext(response);
                 subscriber.onCompleted();
             }
@@ -99,7 +112,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                String response = requestByServiceGetRaw(gServiceHost + "redbook/api/movie/play?id=" + id);
+                String response = requestByService(gServiceHost + "redbook/api/movie/play?id=" + id);
                 subscriber.onNext(response);
             }
         }).subscribeOn(Schedulers.io())
@@ -109,6 +122,18 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     @Override
     public String queryByUrl(String url) {
         return requestByService(url);
+    }
+
+    @Override
+    public Boolean addImageShowCount(final Integer id) {
+        new AsyncTask<Object, Object, Object>(){
+            @Override
+            protected Object doInBackground(Object... objects) {
+                requestByServiceGetRaw(gServiceHost + "redbook/api/picture/view?id=" + id);
+                return null;
+            }
+        }.execute();
+        return true;
     }
 
     /**
@@ -349,6 +374,18 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Boolean addFriendShowCount(final Integer id) {
+        new AsyncTask<Object, Object, Object>(){
+            @Override
+            protected Object doInBackground(Object... objects) {
+                requestByServiceGetRaw(gServiceHost + "redbook/api/friendsHome/showCount?id=" + id);
+                return null;
+            }
+        }.execute();
+        return true;
     }
 
 

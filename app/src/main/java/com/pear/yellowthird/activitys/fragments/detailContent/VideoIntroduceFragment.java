@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.pear.android.view.LGNineGrideView;
 import com.pear.android.view.LinearLayoutLikeListView;
 import com.pear.common.utils.strings.JsonUtil;
+import com.pear.yellowthird.activitys.FullImagePageActivity;
 import com.pear.yellowthird.activitys.FullVideoActivity;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.adapter.CommentListAdapter;
@@ -33,6 +34,8 @@ import com.pear.yellowthird.vo.databases.UserVo;
 import com.pear.yellowthird.vo.databases.VideoIntroduceVo;
 
 import org.apache.log4j.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -143,6 +146,12 @@ public class VideoIntroduceFragment extends Fragment {
             titleView.setText(mData.getTitle());
         }
 
+        /**发表时间*/
+        {
+            TextView publishTimeView = mRootView.findViewById(R.id.publish_time);
+            publishTimeView.setText(mData.getPublishTime());
+        }
+
         /**评分 */
         {
             TextView gradeLab = mRootView.findViewById(R.id.grade);
@@ -191,7 +200,8 @@ public class VideoIntroduceFragment extends Fragment {
             multiImageView.setOnItemClickListener(new LGNineGrideView.OnItemClickListener() {
                 @Override
                 public void onClickItem(int position, View view) {
-
+                    FullImagePageActivity.ImageSize imageSize = new FullImagePageActivity.ImageSize(view.getMeasuredWidth(), view.getMeasuredHeight());
+                    FullImagePageActivity.startImagePagerActivity(getActivity(), mData.getScreenShortUrls(), position, imageSize);
                 }
             });
         }
@@ -245,10 +255,39 @@ public class VideoIntroduceFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ServiceDisposeFactory.getInstance().getServiceDispose()
+                        .requestPlayVideo(mData.getId()).subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String data) {
+                        try {
+                            JSONObject json=new JSONObject(data);
+                            if(json.getBoolean("pay"))
+                            {
+                                Toast.makeText(getActivity(),json.getString("tip"),Toast.LENGTH_LONG).show();
+                                startPlay();
+                            }
+                            else{
+                                Toast.makeText(getActivity(),json.getString("tip"),Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+            }
+
+            /**
+             * 开始播放
+             * */
+            void startPlay()
+            {
                 Intent intent = new Intent(getActivity(), FullVideoActivity.class);
                 intent.putExtra("url", mData.getVideoUri());
+                intent.putExtra("title", mData.getTitle());
                 startActivity(intent);
             }
+
         });
     }
 

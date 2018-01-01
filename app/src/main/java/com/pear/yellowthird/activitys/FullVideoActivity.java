@@ -40,7 +40,7 @@ public class FullVideoActivity  extends AppCompatActivity {
 
         mMediaController =  findViewById(R.id.media_controller);
         mMediaController.setEnabled(false);
-        mMediaController.setTitle("Big Buck Bunny");
+        mMediaController.setTitle(mTitle);
 
         /**
          * 监听关闭按钮

@@ -66,16 +66,37 @@
             android:layout_marginRight="10dp"
             android:orientation="vertical">
 
-            <!--标题-->
-            <TextView
-                android:id="@+id/title"
+            <!--标题 ,发布时间-->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_marginTop="13dp"
-                android:text="标题"
-                android:textSize="17dp"
-                android:textColor="@color/colorTitle"
-                android:textStyle="bold" />
+                >
+                <!--标题-->
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="标题"
+                    android:textSize="17dp"
+                    android:textColor="@color/colorTitle"
+                    android:textStyle="bold" />
+
+                <!--发表时间-->
+                <TextView
+                    android:id="@+id/publish_time"
+                    android:layout_marginTop="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="top"
+                    android:layout_marginLeft="10dp"
+                    android:text="13分钟前"
+                    android:textColor="@color/colorMinorContent"
+                    android:textSize="11dp" />
+
+            </LinearLayout>
+
 
             <!--评分 类别 播放量-->
             <LinearLayout

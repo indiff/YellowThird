@@ -144,6 +144,15 @@ public class ImageIntroduceFragment extends Fragment {
         /**很多的图片略缩图*/
         {
             multiImageView.setUrls(data.getImages());
+            multiImageView.setOnItemClickListener(new LGNineGrideView.OnItemClickListener() {
+                @Override
+                public void onClickItem(int position, View view) {
+                    //添加浏览次数
+                    ServiceDisposeFactory.getInstance().getServiceDispose().addImageShowCount(data.getId());
+                    FullImagePageActivity.ImageSize imageSize = new FullImagePageActivity.ImageSize(view.getMeasuredWidth(), view.getMeasuredHeight());
+                    FullImagePageActivity.startImagePagerActivity(getActivity(), data.getImages(), position, imageSize);
+                }
+            });
         }
 
         /**浏览次数*/

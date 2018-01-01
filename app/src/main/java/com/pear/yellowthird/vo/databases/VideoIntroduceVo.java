@@ -20,6 +20,9 @@ public class VideoIntroduceVo  implements Serializable {
     /**标题*/
     String title;
 
+    /**发表时间*/
+    String publishTime="";
+
     /**封面*/
     String coverUri;
 
@@ -226,5 +229,13 @@ public class VideoIntroduceVo  implements Serializable {
 
     public void setAllTalkCount(Integer allTalkCount) {
         this.allTalkCount = allTalkCount;
+    }
+
+    public String getPublishTime() {
+        return publishTime;
+    }
+
+    public void setPublishTime(String publishTime) {
+        this.publishTime = publishTime;
     }
 }

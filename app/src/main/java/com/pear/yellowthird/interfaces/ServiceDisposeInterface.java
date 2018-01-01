@@ -60,6 +60,10 @@ public interface ServiceDisposeInterface {
      * */
     String queryByUrl(String url);
 
+    /**
+     * 添加图片浏览次数
+     * */
+    Boolean addImageShowCount(Integer id);
 
 
     /**用户信息相关*/
@@ -150,6 +154,9 @@ public interface ServiceDisposeInterface {
      * */
     Observable<Boolean> addFriendComment(Integer id,String content);
 
-
+    /**
+     * 添加图片浏览次数
+     * */
+    Boolean addFriendShowCount(Integer id);
 
 }

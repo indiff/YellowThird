@@ -20,15 +20,15 @@
 
     <!--通用的头部栏-->
     <!--总体高度-->
-    <dimen name="common.head.bar.height">30dp</dimen>
+    <dimen name="common.head.bar.height">40dp</dimen>
     <!--标题-->
     <dimen name="common.head.bar.title">20dp</dimen>
     <!--上下外边距-->
     <dimen name="common.head.bar.margin.top.bottom">4dp</dimen>
 
     <!--返回图标按钮-->
-    <dimen name="common.head.bar.back.icon.width">10dp</dimen>
-    <dimen name="common.head.bar.back.icon.height">20dp</dimen>
+    <dimen name="common.head.bar.back.icon.width">17dp</dimen>
+    <dimen name="common.head.bar.back.icon.height">25dp</dimen>
 
     <!--内容体中的标题-->
     <integer name="content.video.title" >18</integer>

@@ -27,7 +27,7 @@ public class PermissionsRequestInit {
     /**
      * 所有需要用到的权限
      * */
-    private final String[] mAllNeedPermissions = new String[]{
+    private String[] mAllNeedPermissions = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.INTERNET,
@@ -41,6 +41,12 @@ public class PermissionsRequestInit {
     public PermissionsRequestInit(Activity activity)
     {
         mActivity=activity;
+    }
+
+    public PermissionsRequestInit(Activity activity,String[] allNeedPermissions)
+    {
+        mActivity=activity;
+        mAllNeedPermissions=allNeedPermissions;
     }
 
     /**
@@ -125,7 +131,7 @@ public class PermissionsRequestInit {
             mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(mActivity, "请给我所有权限，我才能更好的工作", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, "请给我权限，给我权限请到设置界面设置", Toast.LENGTH_SHORT).show();
                 }
             });
 

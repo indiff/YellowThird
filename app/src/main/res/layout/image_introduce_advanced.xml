@@ -21,18 +21,20 @@
                 android:singleLine="true"
                 android:text="大鸡鸡"
                 android:textColor="#8290AF"
-                android:textSize="15sp" />
+                android:textSize="17dp"
+                android:textStyle="bold"/>
 
             <!--发表时间-->
             <TextView
                 android:id="@+id/publish_time"
+                android:layout_marginTop="3dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="top"
                 android:layout_marginLeft="10dp"
                 android:text="13分钟前"
                 android:textColor="@color/colorMinorContent"
-                android:textSize="12sp" />
+                android:textSize="11dp" />
 
         </LinearLayout>
 

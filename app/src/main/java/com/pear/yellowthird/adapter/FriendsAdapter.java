@@ -123,6 +123,8 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
             holder.multiImageView.setOnItemClickListener(new MultiImageView.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
+                        //添加浏览次数
+                        ServiceDisposeFactory.getInstance().getServiceDispose().addFriendShowCount(friendData.getId());
                         //imagesize是作为loading时的图片size
                         FullImagePageActivity.ImageSize imageSize = new FullImagePageActivity.ImageSize(view.getMeasuredWidth(), view.getMeasuredHeight());
                         FullImagePageActivity.startImagePagerActivity(context, friendData.getImages(), position, imageSize);

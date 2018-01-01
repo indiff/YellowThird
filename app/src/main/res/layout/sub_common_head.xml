@@ -8,8 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/common.head.bar.margin.top.bottom"
-        android:layout_marginTop="@dimen/common.head.bar.margin.top.bottom"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="0dp"
         android:orientation="vertical">
 
         <RelativeLayout

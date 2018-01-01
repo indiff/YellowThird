@@ -14,6 +14,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.vo.databases.NewsVo;
@@ -150,8 +152,10 @@ public class NewsFragment extends Fragment {
                 if (vo.getImageUri().isEmpty())
                     imageView.setVisibility(View.GONE);
                 else {
+                    /**这里不使用缓存，否则简介图片超级模糊，不知道为什么*/
                     Glide.with(getActivity())
-                            .load(Uri.parse(vo.getImageUri()))
+                            .load(vo.getImageUri())
+                            .apply(RequestOptions.skipMemoryCacheOf(true).diskCacheStrategy(DiskCacheStrategy.NONE) )
                             .into(imageView);
                 }
             }

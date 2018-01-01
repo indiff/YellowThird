@@ -8,7 +8,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="20dp"
         android:orientation="horizontal">
 
         <!--用户头像-->
@@ -177,7 +180,8 @@
     <!--1px 太短了，卡不见-->
     <View
         android:layout_width="match_parent"
-        android:layout_height="2px"
-        android:background="@color/colorSubNavBackground" />
+        android:layout_height="1.5px"
+        android:alpha="0.5"
+        android:background="@color/colorMinorTitle" />
 
 </LinearLayout>
