@@ -3,25 +3,22 @@ package com.pear.yellowthird.activitys;
 import android.Manifest;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.pear.android.listener.empty.EmptyRunnable;
+import com.pear.android.view.NoScrollViewPager;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.databases.AllDatabases;
-import com.pear.yellowthird.activitys.published.PublishedActivity;
 import com.pear.yellowthird.adapter.abstracts.CommonCacheAdapterAbstract;
-import com.pear.android.view.NoScrollViewPager;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.impl.net.ServiceDisposeImpl;
 import com.pear.yellowthird.init.PermissionsRequestInit;
-import com.pear.yellowthird.interfaces.ServiceDisposeInterface;
 import com.pear.yellowthird.style.factory.StyleFactory;
 import com.pear.yellowthird.style.factory.StyleFragmentFactory;
 import com.pear.yellowthird.style.vo.BottomNavigationMenuVo;
@@ -29,7 +26,11 @@ import com.pear.yellowthird.style.vo.StyleType;
 import com.viewpagerindicator.IconPagerAdapter;
 import com.viewpagerindicator.MainNavPageIndicator;
 
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
      */
     MainNavPageIndicator indicator;
 
+    /**
+     * 预加载的界面
+     */
+    LoadingView loadingView = new LoadingView();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         /**全局背景色透明度设置*/
         {
-            View backgroundView = findViewById(R.id.root);
+            View backgroundView = findViewById(R.id.root_view);
             Drawable backgroundDrawable = backgroundView.getBackground();
             /**几乎透明*/
             backgroundDrawable.setAlpha(40);
@@ -88,13 +94,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        requestPermissions();
+        requestPermissions(refreshDataRun);
+        loadingView.showPrepareLoadingView();
     }
 
     /**
      * 请求权限
      */
-    void requestPermissions() {
+    void requestPermissions(final Runnable refreshDataRun) {
         /**申请权限*/
         new AsyncTask<Object, Object, Object>() {
             @Override
@@ -104,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 ).init(new Runnable() {
                     @Override
                     public void run() {
-                        refreshData();
+                        refreshDataRun.run();
                     }
                 });
                 return null;
@@ -115,27 +122,31 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 刷新数据
      */
-    void refreshData() {
-        /**连接服务器测试*/
-        boolean serviceTest = true;
-        if (serviceTest) {
-            ServiceDisposeFactory.getInstance().getServiceDispose().queryMainMenu()
-                    .subscribe(new Action1<String>() {
-                        @Override
-                        public void call(String result) {
-                            JsonUtil.write2ClassAsync(result, BottomNavigationMenuVo[].class)
-                                    .subscribe(new Action1<BottomNavigationMenuVo[]>() {
-                                        @Override
-                                        public void call(BottomNavigationMenuVo[] menus) {
-                                            adapter.setData(menus);
-                                        }
-                                    });
+    Runnable refreshDataRun = new Runnable() {
+        @Override
+        public void run() {
 
-                        }
-                    });
-        } else
-            adapter.setData(JsonUtil.write2Class(AllDatabases.getData(), BottomNavigationMenuVo[].class));
-    }
+            /**连接服务器测试*/
+            boolean serviceTest = true;
+            if (serviceTest) {
+                ServiceDisposeFactory.getInstance().getServiceDispose().queryMainMenu()
+                        .subscribe(new Action1<String>() {
+                            @Override
+                            public void call(String result) {
+                                JsonUtil.write2ClassAsync(result, BottomNavigationMenuVo[].class)
+                                        .subscribe(new Action1<BottomNavigationMenuVo[]>() {
+                                            @Override
+                                            public void call(BottomNavigationMenuVo[] menus) {
+                                                adapter.setData(menus);
+                                            }
+                                        });
+
+                            }
+                        });
+            } else
+                adapter.setData(JsonUtil.write2Class(AllDatabases.getData(), BottomNavigationMenuVo[].class));
+        }
+    };
 
     @Override
     protected void onDestroy() {
@@ -207,6 +218,70 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             return mData.length;
+        }
+
+    }
+
+
+    /**
+     * 预加载的界面
+     */
+    class LoadingView {
+
+        /**
+         * 加载界面
+         */
+        RelativeLayout loadingLayout;
+
+        /**
+         * 倒计时
+         */
+        TextView timeDownView;
+
+        /**
+         * 主内容
+         */
+        RelativeLayout rootView;
+
+        /**
+         * 显示加载界面
+         * 显示倒计时，倒计时结束关闭加载图
+         */
+        void showPrepareLoadingView() {
+            loadingLayout = findViewById(R.id.loading_layout);
+            timeDownView = findViewById(R.id.time_down);
+            rootView = findViewById(R.id.root_view);
+
+            Observable.create(new Observable.OnSubscribe<Integer>() {
+
+                /**倒计时完毕退出*/
+                @Override
+                public void call(Subscriber<? super Integer> subscriber) {
+                    try {
+                        for (int timeDown = 5; timeDown >= 0; timeDown--) {
+                            Thread.sleep(800);
+                            subscriber.onNext(timeDown);
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<Integer>() {
+
+                        /**显示倒计时，倒计时结束关闭加载图*/
+                        @Override
+                        public void call(Integer timeDown) {
+                            /**倒计时为0了结束倒计时*/
+                            if (timeDown == 0) {
+                                loadingLayout.setVisibility(View.GONE);
+                                rootView.setVisibility(View.VISIBLE);
+                                return;
+                            }
+                            timeDownView.setText(String.valueOf(timeDown));
+                        }
+                    });
         }
 
     }
