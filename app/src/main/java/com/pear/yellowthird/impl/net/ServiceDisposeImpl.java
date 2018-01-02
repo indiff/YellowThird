@@ -505,5 +505,16 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         return true;
     }
 
+    @Override
+    public Observable<Boolean> sendAppCrashServer(final String data) {
+        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+            @Override
+            public void call(Subscriber<? super Boolean> subscriber) {
+                //TODO;
+            }
+        }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread());
+    }
+
 
 }

@@ -19,7 +19,7 @@ import java.util.TimerTask;
  * */
 public class PermissionsRequestInit {
 
-    private Logger logger = Logger.getLogger(this.getClass().getSimpleName());
+    private Logger log = Logger.getLogger(this.getClass().getSimpleName());
 
     /**权限申请结果回调标示码*/
     private static final int gDefaultRequestCoder=200;
@@ -86,7 +86,7 @@ public class PermissionsRequestInit {
 
         @Override
         public void onSucceed(int requestCode, List<String> grantedPermissions) {
-            logger.debug("onSucceed requestCode:" + requestCode
+            log.info("onSucceed requestCode:" + requestCode
                     +",grantedPermissions"+grantedPermissions.toString());
 
             if(requestCode != gDefaultRequestCoder)
@@ -96,7 +96,7 @@ public class PermissionsRequestInit {
 
         @Override
         public void onFailed(int requestCode, List<String> deniedPermissions) {
-            logger.debug("onFailed requestCode:" + requestCode
+            log.error("onFailed requestCode:" + requestCode
                     +",grantedPermissions"+deniedPermissions.toString());
 
             if(requestCode != gDefaultRequestCoder)
@@ -111,7 +111,7 @@ public class PermissionsRequestInit {
         void doingByRealPermission()
         {
             boolean result= AndPermission.hasPermission(mActivity,mAllNeedPermissions);
-            logger.debug("doingByRealPermission result:" + result);
+            log.debug("doingByRealPermission result:" + result);
             if(result)
                 successDoing();
             else
@@ -120,14 +120,14 @@ public class PermissionsRequestInit {
 
         void successDoing()
         {
-            logger.debug("successDoing");
+            log.debug("successDoing");
             mSuccessCallback.run();
         }
 
 
         void failedDoing()
         {
-            logger.debug("failedDoing");
+            log.error("failedDoing");
             mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

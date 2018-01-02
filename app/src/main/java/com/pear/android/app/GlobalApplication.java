@@ -3,6 +3,8 @@ package com.pear.android.app;
 import android.app.Application;
 import android.content.Context;
 
+import com.pear.common.lang.exceptionHandler.CrashHandler;
+
 /**
  * 编写自己的Application，管理全局状态信息，比如Context
  */
@@ -14,6 +16,8 @@ public class GlobalApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(context);
     }
 
     /**

@@ -150,4 +150,9 @@ public interface ServiceDisposeInterface {
      * */
     Boolean addFriendShowCount(Integer id);
 
+    /**
+     * 程序奔溃了，把日记发送到服务器
+     * */
+    Observable<Boolean> sendAppCrashServer(String content);
+
 }
