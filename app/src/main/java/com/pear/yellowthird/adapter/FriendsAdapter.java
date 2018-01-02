@@ -294,7 +294,6 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
 
                 });
             }
-
         }
 
 
