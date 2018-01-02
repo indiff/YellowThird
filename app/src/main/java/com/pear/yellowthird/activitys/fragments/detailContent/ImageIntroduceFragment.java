@@ -1,34 +1,24 @@
 package com.pear.yellowthird.activitys.fragments.detailContent;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.pear.android.view.LGNineGrideView;
-import com.pear.android.view.MultiImageView;
 import com.pear.yellowthird.activitys.FullImagePageActivity;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.vo.databases.ImageIntroduceVo;
-import com.pear.yellowthird.vo.databases.UserVo;
 
 import org.apache.log4j.Logger;
 
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import rx.functions.Action1;
-
-import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 
 /**
@@ -190,13 +180,13 @@ public class ImageIntroduceFragment extends Fragment {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /**先改样式，后通知服务器接口即可。体验好*/
+                setClickImageGoodIsSelect(data.getGoodCount()+1);
                 ServiceDisposeFactory.getInstance().getServiceDispose()
                         .addImageClickGood(data.getId())
                         .subscribe(new Action1<Boolean>() {
                     @Override
                     public void call(Boolean result) {
-                        if(result)
-                            setClickImageGoodIsSelect(data.getGoodCount()+1);
                     }
                 });
             }

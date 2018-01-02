@@ -28,7 +28,6 @@ import com.pear.yellowthird.activitys.FullVideoActivity;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.adapter.CommentListAdapter;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
-import com.pear.yellowthird.vo.databases.BillVo;
 import com.pear.yellowthird.vo.databases.TalkComment;
 import com.pear.yellowthird.vo.databases.UserVo;
 import com.pear.yellowthird.vo.databases.VideoIntroduceVo;
@@ -299,19 +298,15 @@ public class VideoIntroduceFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                /**先改样式，后通知服务器接口。体验好*/
+                setClickVideoGoodIsSelect(mData.getGoodCount() + 1);
                 /**Params, Progress, Result*/
                 new AsyncTask<String, String, Boolean>() {
                     @Override
                     protected Boolean doInBackground(String... strings) {
                         return ServiceDisposeFactory.getInstance().getServiceDispose().addVideoClickGoodById(mData.getId());
                     }
-
-                    @Override
-                    protected void onPostExecute(Boolean result) {
-                        if (result)
-                            setClickVideoGoodIsSelect(mData.getGoodCount() + 1);
-                    }
-                }.execute("");
+                }.execute();
             }
         });
     }

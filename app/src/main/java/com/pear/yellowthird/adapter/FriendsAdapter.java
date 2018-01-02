@@ -1,9 +1,7 @@
 package com.pear.yellowthird.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -11,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,10 +27,6 @@ import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.vo.databases.FriendsVo;
 import com.pear.yellowthird.vo.databases.TalkComment;
 import com.pear.yellowthird.vo.databases.UserVo;
-
-import org.w3c.dom.Text;
-
-import java.io.Serializable;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import rx.functions.Action1;
@@ -279,18 +272,26 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
                 clickGoodEventView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        /**先改样式，后通知服务器接口即可。体验好*/
+                        localSimulateGoodClick();
                         ServiceDisposeFactory.getInstance().getServiceDispose()
                                 .friendClickGood(friendData.getId())
                                 .subscribe(new Action1<Boolean>() {
                             @Override
                             public void call(Boolean result) {
-                                clickGoodEventView.setOnClickListener(null);
-                                friendData.setAlreadyClickGood(true);
-                                friendData.setGoodCount(friendData.getGoodCount()+1);
-                                updateClickGoodView(friendData.getGoodCount(),true);
                             }
                         });
                     }
+
+                    /**本地模拟点赞即可，不需要从服务器读取数据*/
+                    void localSimulateGoodClick()
+                    {
+                        clickGoodEventView.setOnClickListener(null);
+                        friendData.setAlreadyClickGood(true);
+                        friendData.setGoodCount(friendData.getGoodCount()+1);
+                        updateClickGoodView(friendData.getGoodCount(),true);
+                    }
+
                 });
             }
 
