@@ -1,6 +1,7 @@
 package com.pear.yellowthird.activitys;
 
 import android.Manifest;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -52,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
      */
     LoadingView loadingView = new LoadingView();
 
+    /**
+     * 上一次用户使用主界面的时间戳，用户超过一定时长，强制重新刷新。
+     * */
+    long lastUserUseMainViewTime=System.currentTimeMillis();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +106,23 @@ public class MainActivity extends AppCompatActivity {
         requestPermissions(refreshDataRun);
         loadingView.showPrepareLoadingView();
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        long alreadyPassTime=System.currentTimeMillis()-lastUserUseMainViewTime;
+        System.out.println("alreadyPassTime:"+alreadyPassTime);
+        /**重新强制刷新界面*/
+        int ONE_HOURS=1000*60*60;
+        if(alreadyPassTime>ONE_HOURS)
+        {
+            startActivity(new Intent(this,MainActivity.class));
+            finish();
+        }
+        lastUserUseMainViewTime=System.currentTimeMillis();
+    }
+
 
     /**
      * 请求权限
