@@ -259,7 +259,7 @@ public class AllDatabases {
                                                     }));
                         }}*/
                         //,
-                        ///*
+                        /*
                         //电影大类
                         new BottomNavigationMenuVo() {{
                             setTitle("电影");
@@ -285,8 +285,15 @@ public class AllDatabases {
                                                                 setStyle(StyleFragmentFactory.TEXT_NEWS_STYLE);
                                                                 setDataType("raw");
                                                                 setData(JsonUtil.fromObjectToJson(CommunityDatabases.getShareData()));
-                                                            }}*/
+                                                            }}
                                                     }));
+                        }}//*/
+                        new BottomNavigationMenuVo() {{
+                            setTitle("百度");
+                            setStyle(StyleFragmentFactory.WEB_STYLE);
+                            setIcon("111");
+                            setDataType("raw");
+                            setData("https://www.baidu.com/");
                         }}//*/
 
                 };

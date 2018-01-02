@@ -9,8 +9,9 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.pear.common.utils.files.LogFileTrim;
+import com.pear.common.utils.files.LogFileExtractUtils;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
+import com.pear.yellowthird.init.Log4JConfig;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -110,23 +111,24 @@ public class CrashHandler implements UncaughtExceptionHandler {
         //收集设备参数信息   
         collectDeviceInfo(mContext);
 
-        /**最近运行的日记*/
-        String lastSimpleLog=new LogFileTrim().getLastSimpleLog();
-
         //获取出错日记
         String crashMessage=getCrashInfo(ex);
+        sendCrashLogToService(crashMessage);
+        return true;  
+    }
+
+    /**
+     * 上传错误日记到服务器上
+     * */
+    private void sendCrashLogToService(String crashMessage){
+
+        /**最近运行的日记*/
+        String lastSimpleLog=LogFileExtractUtils.getLastSimpleLog(Log4JConfig.LOG_FILE,10);
         ServiceDisposeFactory.getInstance().getServiceDispose()
                 .sendAppCrashServer(
                         "lastSimpleLog:"+lastSimpleLog+"/n"
-                        +"crashMessage:"+crashMessage)
-                .subscribe(new Action1<Boolean>() {
-            @Override
-            public void call(Boolean result) {
-            }
-        });
-
-        return true;  
-    }  
+                                +"crashMessage:"+crashMessage);
+    }
       
     /** 
      * 收集设备参数信息 

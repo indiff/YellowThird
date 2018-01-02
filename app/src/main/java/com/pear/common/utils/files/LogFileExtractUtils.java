@@ -7,11 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class LogFileTrim {
-	
-	public final static String LOG_FILE="output/voiceHelper.log";
-	
-	public final static int MAX_LINE_COUT=20;
+/**
+ * 日记文件提取
+ * */
+public class LogFileExtractUtils {
  
 	/**
 	 * 倒叙读取文本内容
@@ -19,7 +18,7 @@ public class LogFileTrim {
 	 * @param maxLineCount 最多读取多少行
 	 * @return 返回读取的文本集合
 	 * */
-    List<String> readRollback(String filename,int maxLineCount)
+    private static List<String> readRollback(String filename,int maxLineCount)
     {
     	List<String> content=new ArrayList<String>();
     	RandomAccessFile rf = null;  
@@ -61,7 +60,7 @@ public class LogFileTrim {
         return content;
     }
     
-    StringBuffer listRollback2StingBuffer(List<String> list)
+    private static StringBuffer listRollback2StingBuffer(List<String> list)
     {
     	StringBuffer sb=new StringBuffer();
     	for(int i=list.size()-1;i>=0;i--)
@@ -74,16 +73,11 @@ public class LogFileTrim {
     /**
      * 获取最后一些简单的日记
      * */
-    public String getLastSimpleLog()
+    public static String getLastSimpleLog(String logFile,Integer lineCount)
     {
-    	List<String> list=readRollback(LOG_FILE,MAX_LINE_COUT) ;
+    	List<String> list=readRollback(logFile,lineCount) ;
         StringBuffer sb=listRollback2StingBuffer(list); 
         return sb.toString();
     }
 
-	public static void main111(String[] args) {
-		LogFileTrim log=new LogFileTrim();
-		//System.out.println(log.init());
-	}
-	
 }

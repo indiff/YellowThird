@@ -22,6 +22,8 @@ import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.Call;
@@ -56,9 +58,8 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     private Handler mainHandler;
 
 
-    public ServiceDisposeImpl()
-    {
-        mainHandler= new Handler(Looper.getMainLooper());
+    public ServiceDisposeImpl() {
+        mainHandler = new Handler(Looper.getMainLooper());
     }
 
     /**
@@ -77,7 +78,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         mainHandler.post(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(GlobalApplication.getContext(),"哎呀，刚才我失忆了，等一下再找我吧",Toast.LENGTH_SHORT).show();
+                Toast.makeText(GlobalApplication.getContext(), "哎呀，刚才我失忆了，等一下再找我吧", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -120,7 +121,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     }
 
     @Override
-    public Observable<Boolean> addVideoComment(final String id,final String content) {
+    public Observable<Boolean> addVideoComment(final String id, final String content) {
         return Observable.create(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
@@ -202,43 +203,6 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         return true;
     }
 
-    /**
-     * 向服务器请求数据
-     */
-    private String requestByService(String url) {
-        try {
-            String response = requestByServiceGetRaw(url);
-            log.info("response:" + response);
-            JSONObject jsonObject = new JSONObject(response);
-            int code = jsonObject.getInt("code");
-
-            if (code == 200)
-                return jsonObject.get("data").toString();
-            log.error("response error " + jsonObject.get("msg").toString());
-            return "";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "";
-        }
-    }
-
-    /**
-     * 从重复器请求数据，并且不处理结果。直接返回
-     */
-    private String requestByServiceGetRaw(String url) {
-        try {
-            /**每一个请求都会全局加上deviceID*/
-            boolean hasParam = url.contains("?");
-            url += (hasParam ? "&" : "?") + "deviceId=" + gDeviceId;
-            log.info("url:" + url);
-            String response = HttpRequest.sendGet(url);
-            log.info("response:" + response);
-            return response;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "";
-        }
-    }
 
     /**
      * 获取用户数据
@@ -249,7 +213,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         if (!forceNew && null != cacheUserVo)
             return cacheUserVo;
         String response = requestByService(gServiceHost + "redbook/api/user/add?1=1");
-        if(!TextUtils.isEmpty(response))
+        if (!TextUtils.isEmpty(response))
             cacheUserVo = JsonUtil.write2Class(response, UserVo.class);
 
         return cacheUserVo;
@@ -330,12 +294,10 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void call(Subscriber<? super BillVo[]> subscriber) {
                 String data = requestByService(gServiceHost + "redbook/api/user/listOrder");
-                if (!TextUtils.isEmpty(data))
-                {
+                if (!TextUtils.isEmpty(data)) {
                     BillVo[] datas = JsonUtil.write2Class(data, BillVo[].class);
                     subscriber.onNext(datas);
-                }
-                else
+                } else
                     errorCommonTip();
                 subscriber.onCompleted();
             }
@@ -382,12 +344,10 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void call(Subscriber<? super FriendsVo[]> subscriber) {
                 String data = requestByService(gServiceHost + "redbook/api/friendsHome/listData?init=1");
-                if (!TextUtils.isEmpty(data))
-                {
+                if (!TextUtils.isEmpty(data)) {
                     FriendsVo[] datas = JsonUtil.write2Class(data, FriendsVo[].class);
                     subscriber.onNext(datas);
-                }
-                else
+                } else
                     errorCommonTip();
                 subscriber.onCompleted();
             }
@@ -401,12 +361,10 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void call(Subscriber<? super FriendsVo[]> subscriber) {
                 String data = requestByService(gServiceHost + "redbook/api/friendsHome/listData?orientation=1&id=" + lastId);
-                if (!TextUtils.isEmpty(data))
-                {
+                if (!TextUtils.isEmpty(data)) {
                     FriendsVo[] datas = JsonUtil.write2Class(data, FriendsVo[].class);
                     subscriber.onNext(datas);
-                }
-                else
+                } else
                     errorCommonTip();
                 subscriber.onCompleted();
             }
@@ -420,12 +378,10 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void call(Subscriber<? super FriendsVo[]> subscriber) {
                 String data = requestByService(gServiceHost + "redbook/api/friendsHome/listData?orientation=0&id=" + firstId);
-                if (!TextUtils.isEmpty(data))
-                {
+                if (!TextUtils.isEmpty(data)) {
                     FriendsVo[] datas = JsonUtil.write2Class(data, FriendsVo[].class);
                     subscriber.onNext(datas);
-                }
-                else
+                } else
                     errorCommonTip();
                 subscriber.onCompleted();
             }
@@ -506,14 +462,62 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     }
 
     @Override
-    public Observable<Boolean> sendAppCrashServer(final String data) {
-        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+    public void sendAppCrashServer(final String content) {
+
+        new Thread(new Runnable() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
-                //TODO;
+            public void run() {
+                try {
+                    String result = HttpRequest.sendPost(
+                            gServiceHost + "redbook/api/eventApi/addErrorLog",
+                            "deviceId=" + gDeviceId + "&content=" + URLEncoder.encode(content, "utf-8"));
+                    System.out.println("result:" + result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-        }).subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread());
+        }).start();
+    }
+
+
+    /**
+     * 向服务器请求数据
+     */
+    private String requestByService(String url) {
+        try {
+            String response = requestByServiceGetRaw(url);
+            log.info("response:" + response);
+            JSONObject jsonObject = new JSONObject(response);
+            int code = jsonObject.getInt("code");
+
+            if (code == 200)
+                return jsonObject.get("data").toString();
+            log.error("response error " + jsonObject.get("msg").toString());
+            return "";
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    /**
+     * 从重复器请求数据，并且不处理结果。直接返回
+     */
+    private String requestByServiceGetRaw(String url) {
+        try {
+            /**每一个请求都会全局加上deviceID*/
+            boolean hasParam = url.contains("?");
+            url += (hasParam ? "&" : "?") + "deviceId=" + gDeviceId;
+            log.info("url:" + url);
+            String response = HttpRequest.sendGet(url);
+            log.info("response:" + response);
+            return response;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            e.printStackTrace();
+            return "";
+        }
     }
 
 

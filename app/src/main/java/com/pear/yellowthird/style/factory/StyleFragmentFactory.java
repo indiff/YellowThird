@@ -8,6 +8,7 @@ import com.pear.yellowthird.activitys.fragments.detailContent.ImageIntroduceFrag
 import com.pear.yellowthird.activitys.fragments.detailContent.NewsFragment;
 import com.pear.yellowthird.activitys.fragments.detailContent.VideoIntroducePageFragment;
 import com.pear.yellowthird.activitys.fragments.detailContent.VoteFragment;
+import com.pear.yellowthird.activitys.fragments.detailContent.WebFragment;
 import com.pear.yellowthird.activitys.fragments.mainSubFragments.AccountInfoFragment;
 import com.pear.yellowthird.activitys.fragments.detailContent.FriendFragment;
 import com.pear.yellowthird.activitys.fragments.mainSubFragments.commonAbstract.CommonSubTabSubFragmentAbstract;
@@ -68,6 +69,10 @@ public class StyleFragmentFactory {
      */
     public static final String FRIEND_STYLE = "friend";
 
+    /**
+     * 网页的界面
+     * */
+    public static final String WEB_STYLE = "web";
 
     public static Fragment create(StyleType styleType) {
         String style = styleType.getStyle();
@@ -133,7 +138,11 @@ public class StyleFragmentFactory {
                         });
                 return fragment;
             }
-
+            case WEB_STYLE:
+            {
+                WebFragment fragment= WebFragment.newInstance(data);
+                return fragment;
+            }
             default:
                 return CommonContentFragment.newInstance(style, data);
         }

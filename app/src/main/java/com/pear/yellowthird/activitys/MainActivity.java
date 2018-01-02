@@ -20,6 +20,7 @@ import com.pear.databases.AllDatabases;
 import com.pear.yellowthird.adapter.abstracts.CommonCacheAdapterAbstract;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.impl.net.ServiceDisposeImpl;
+import com.pear.yellowthird.init.Log4JConfig;
 import com.pear.yellowthird.init.PermissionsRequestInit;
 import com.pear.yellowthird.style.factory.StyleFactory;
 import com.pear.yellowthird.style.factory.StyleFragmentFactory;
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log4JConfig.init(this);
         ServiceDisposeImpl.initDeviceId(this);
         StyleFactory.init(this);
 
@@ -127,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         lastUserUseMainViewTime=System.currentTimeMillis();
+        //throw new RuntimeException("test upload log");
     }
 
 
@@ -303,8 +306,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void call(Subscriber<? super Integer> subscriber) {
                     try {
-                        for (int timeDown = 5; timeDown >= 0; timeDown--) {
-                            Thread.sleep(800);
+                        for (int timeDown = 3; timeDown >= 0; timeDown--) {
+                            Thread.sleep(600);
                             subscriber.onNext(timeDown);
                         }
                     } catch (InterruptedException e) {

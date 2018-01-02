@@ -153,6 +153,6 @@ public interface ServiceDisposeInterface {
     /**
      * 程序奔溃了，把日记发送到服务器
      * */
-    Observable<Boolean> sendAppCrashServer(String content);
+    void sendAppCrashServer(String content);
 
 }
