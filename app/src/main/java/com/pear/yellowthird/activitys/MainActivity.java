@@ -28,6 +28,8 @@ import com.pear.yellowthird.style.vo.StyleType;
 import com.viewpagerindicator.IconPagerAdapter;
 import com.viewpagerindicator.MainNavPageIndicator;
 
+import org.apache.log4j.Logger;
+
 import java.util.Random;
 
 import rx.Observable;
@@ -37,6 +39,9 @@ import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
+
+    /**日记*/
+    private Logger log = Logger.getLogger(getClass().getSimpleName());
 
     /**
      * 底部菜单栏的适配器
@@ -117,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         int ONE_HOURS=1000*60*60;
         if(alreadyPassTime>ONE_HOURS)
         {
+            log.info("alreadyPassTime>ONE_HOURS :"+alreadyPassTime);
             startActivity(new Intent(this,MainActivity.class));
             finish();
         }

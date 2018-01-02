@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -13,21 +12,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.pear.android.utils.DensityUtils;
-import com.pear.android.view.PColumn;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
-import com.pear.yellowthird.style.vo.SubTabMenuStyleDataVo;
-import com.pear.yellowthird.vo.databases.UserVo;
 import com.pear.yellowthird.vo.databases.VoteVo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import rx.functions.Action1;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
@@ -69,9 +62,9 @@ public class VoteFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        System.out.println("VoteFragment onCreateView");
+        //System.out.println("VoteFragment onCreateView");
         if (null != mContentView) {
-            System.out.println("VoteFragment onCreateView return cache view ");
+            //System.out.println("VoteFragment onCreateView return cache view ");
             return mContentView;
         }
 

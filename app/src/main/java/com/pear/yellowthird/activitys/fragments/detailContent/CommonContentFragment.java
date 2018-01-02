@@ -9,12 +9,15 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.pear.yellowthird.activitys.R;
+import org.apache.log4j.Logger;
 
 /**
  * 通用的内容界面
  * */
 public class CommonContentFragment extends Fragment {
+
+    /**日记*/
+    private Logger log = Logger.getLogger(CommonContentFragment.class);
 
     /**
      * 内容数据
@@ -49,10 +52,10 @@ public class CommonContentFragment extends Fragment {
         System.out.println("ContentVideoFragment onCreateView");
         if(null!=cacheView)
         {
-            System.out.println("onCreateView return cache view ，content :"+mContent);
+            log.debug("onCreateView return cache view ，content :"+mContent);
             return cacheView;
         }
-        System.out.println("mContent："+mContent+"created");
+        log.info("mContent："+mContent+"created");
         TextView text = new TextView(getActivity());
         text.setGravity(Gravity.CENTER);
         text.setText(mContent+mType);

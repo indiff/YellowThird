@@ -20,29 +20,20 @@ public interface ServiceDisposeInterface {
      */
     Observable<String> queryMainMenu();
 
-
-    /**电影相关*/
-
-    /**
-     * 查询电影集合
-     * @param sql 查询的语句
-     * */
-    String queryVideoList(String sql);
-
     /**
      * 查询电影的评论
      * */
-    String queryVideoComment(Integer id);
+    Observable<String> queryVideoComment(Integer id);
 
     /**
      * 给电影添加评论
      * */
-    boolean addVideoComment(String id,String content);
+    Observable<Boolean> addVideoComment(String id,String content);
 
     /**
      * 给当前电影点赞
      * */
-    boolean addVideoClickGoodById(Integer id);
+    Observable<Boolean> addVideoClickGoodById(Integer id);
 
     /**
      * 给电影下的评论点赞

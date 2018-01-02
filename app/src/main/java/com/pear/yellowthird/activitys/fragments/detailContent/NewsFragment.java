@@ -1,10 +1,7 @@
 package com.pear.yellowthird.activitys.fragments.detailContent;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.vo.databases.NewsVo;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -78,9 +76,9 @@ public class NewsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        System.out.println("TitleContentFragment onCreateView");
+        //System.out.println("TitleContentFragment onCreateView");
         if (null != mRootView) {
-            System.out.println("TitleContentFragment onCreateView return cache view ");
+            //System.out.println("TitleContentFragment onCreateView return cache view ");
             return mRootView;
         }
 

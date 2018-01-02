@@ -58,7 +58,7 @@ public class FullVideoActivity  extends AppCompatActivity {
         mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                Log.d("rrr", "onCompletion ");
+                //Log.d("rrr", "onCompletion ");
             }
         });
 

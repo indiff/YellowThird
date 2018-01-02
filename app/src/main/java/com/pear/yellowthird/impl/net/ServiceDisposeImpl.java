@@ -3,17 +3,22 @@ package com.pear.yellowthird.impl.net;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
+import android.text.TextUtils;
+import android.widget.Toast;
 
+import com.pear.android.app.GlobalApplication;
 import com.pear.common.utils.net.FileUploadUtils;
 import com.pear.common.utils.net.HttpRequest;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.yellowthird.interfaces.ServiceDisposeInterface;
-import com.pear.yellowthird.style.vo.BottomNavigationMenuVo;
 import com.pear.yellowthird.vo.databases.BillVo;
 import com.pear.yellowthird.vo.databases.FriendsVo;
 import com.pear.yellowthird.vo.databases.UserVo;
 
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -25,7 +30,6 @@ import okhttp3.Response;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -33,6 +37,11 @@ import rx.schedulers.Schedulers;
  */
 
 public class ServiceDisposeImpl implements ServiceDisposeInterface {
+
+    /**
+     * 日记
+     */
+    private static Logger log = Logger.getLogger(ServiceDisposeImpl.class);
 
     /**
      * 当前设备的唯一ID
@@ -44,13 +53,33 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
      */
     private static final String gServiceHost = "http://192.168.0.104:10086/";
 
-    /**
-     *  初始化设备id
-     * */
-    public static void initDeviceId(Activity activity)
+    private Handler mainHandler;
+
+
+    public ServiceDisposeImpl()
     {
+        mainHandler= new Handler(Looper.getMainLooper());
+    }
+
+    /**
+     * 初始化设备id
+     */
+    public static void initDeviceId(Activity activity) {
         String androidID = Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
-        gDeviceId = androidID +"_"+ Build.SERIAL;
+        gDeviceId = androidID + "_" + Build.SERIAL;
+        log.info("gDeviceId" + gDeviceId);
+    }
+
+    /**
+     * 出现错误
+     */
+    private void errorCommonTip() {
+        mainHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(GlobalApplication.getContext(),"哎呀，刚才我失忆了，等一下再找我吧",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /**
@@ -64,7 +93,10 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void call(Subscriber<? super String> subscriber) {
                 String response = requestByService(gServiceHost + "redbook/api/resourceType/list?1=1");
-                subscriber.onNext(response);
+                if (!TextUtils.isEmpty(response))
+                    subscriber.onNext(response);
+                else
+                    errorCommonTip();
                 subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
@@ -72,25 +104,53 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     }
 
     @Override
-    public String queryVideoList(String sql) {
-        return null;
+    public Observable<String> queryVideoComment(final Integer id) {
+        return Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                final String response = requestByService(gServiceHost + "redbook/api/movie/listComment?id=" + id);
+                if (!TextUtils.isEmpty(response))
+                    subscriber.onNext(response);
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
-    public String queryVideoComment(Integer id) {
-        return requestByService(gServiceHost + "redbook/api/movie/listComment?id=" + id);
+    public Observable<Boolean> addVideoComment(final String id,final String content) {
+        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+            @Override
+            public void call(Subscriber<? super Boolean> subscriber) {
+                final String response
+                        = requestByService(gServiceHost + "redbook/api/movie/addComment?resourceId=" + id + "&content=" + content);
+                if (!TextUtils.isEmpty(response))
+                    subscriber.onNext(true);
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
-    public boolean addVideoComment(String id, String content) {
-        String response = requestByService(gServiceHost + "redbook/api/movie/addComment?resourceId=" + id + "&content=" + content);
-        return response.equals("true");
-    }
-
-    @Override
-    public boolean addVideoClickGoodById(Integer id) {
-        String response = requestByService(gServiceHost + "redbook/api/movie/like?id=" + id);
-        return response.equals("true");
+    public Observable<Boolean> addVideoClickGoodById(final Integer id) {
+        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+            @Override
+            public void call(Subscriber<? super Boolean> subscriber) {
+                final String response
+                        = requestByService(gServiceHost + "redbook/api/movie/like?id=" + id);
+                if (!TextUtils.isEmpty(response))
+                    subscriber.onNext(true);
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
@@ -99,9 +159,11 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
                 String response = requestByService(gServiceHost + "redbook/api/movie/commentLike?id=" + id);
-                UserVo user = geUserVo(true);
-                if (response.equals("true"))
+                if (!TextUtils.isEmpty(response))
                     subscriber.onNext(true);
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -113,7 +175,11 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void call(Subscriber<? super String> subscriber) {
                 String response = requestByService(gServiceHost + "redbook/api/movie/play?id=" + id);
-                subscriber.onNext(response);
+                if (!TextUtils.isEmpty(response))
+                    subscriber.onNext(response);
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -126,7 +192,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
 
     @Override
     public Boolean addImageShowCount(final Integer id) {
-        new AsyncTask<Object, Object, Object>(){
+        new AsyncTask<Object, Object, Object>() {
             @Override
             protected Object doInBackground(Object... objects) {
                 requestByServiceGetRaw(gServiceHost + "redbook/api/picture/view?id=" + id);
@@ -142,12 +208,13 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     private String requestByService(String url) {
         try {
             String response = requestByServiceGetRaw(url);
-            System.out.println("response:" + response);
+            log.info("response:" + response);
             JSONObject jsonObject = new JSONObject(response);
             int code = jsonObject.getInt("code");
 
             if (code == 200)
                 return jsonObject.get("data").toString();
+            log.error("response error " + jsonObject.get("msg").toString());
             return "";
         } catch (Exception e) {
             e.printStackTrace();
@@ -163,9 +230,9 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             /**每一个请求都会全局加上deviceID*/
             boolean hasParam = url.contains("?");
             url += (hasParam ? "&" : "?") + "deviceId=" + gDeviceId;
-            System.out.println("url:" + url);
+            log.info("url:" + url);
             String response = HttpRequest.sendGet(url);
-            System.out.println("response:" + response);
+            log.info("response:" + response);
             return response;
         } catch (Exception e) {
             e.printStackTrace();
@@ -182,7 +249,9 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         if (!forceNew && null != cacheUserVo)
             return cacheUserVo;
         String response = requestByService(gServiceHost + "redbook/api/user/add?1=1");
-        cacheUserVo = JsonUtil.write2Class(response, UserVo.class);
+        if(!TextUtils.isEmpty(response))
+            cacheUserVo = JsonUtil.write2Class(response, UserVo.class);
+
         return cacheUserVo;
     }
 
@@ -194,6 +263,8 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
                 UserVo user = geUserVo(false);
                 if (null != user)
                     subscriber.onNext(user);
+                else
+                    errorCommonTip();
                 subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
@@ -208,6 +279,8 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
                 UserVo user = geUserVo(true);
                 if (null != user)
                     subscriber.onNext(user);
+                else
+                    errorCommonTip();
                 subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
@@ -220,7 +293,11 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void call(Subscriber<? super String> subscriber) {
                 String url = requestByService(gServiceHost + "redbook/api/user/randomIcon");
-                subscriber.onNext(url);
+                if (!TextUtils.isEmpty(url))
+                    subscriber.onNext(url);
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -232,7 +309,11 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
                 String result = requestByService(gServiceHost + "redbook/api/user/changeName?name=" + name);
-                subscriber.onNext(result.equals("true"));
+                if (!TextUtils.isEmpty(result))
+                    subscriber.onNext(true);
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -249,8 +330,14 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void call(Subscriber<? super BillVo[]> subscriber) {
                 String data = requestByService(gServiceHost + "redbook/api/user/listOrder");
-                BillVo[] datas = JsonUtil.write2Class(data, BillVo[].class);
-                subscriber.onNext(datas);
+                if (!TextUtils.isEmpty(data))
+                {
+                    BillVo[] datas = JsonUtil.write2Class(data, BillVo[].class);
+                    subscriber.onNext(datas);
+                }
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -266,7 +353,8 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
                 if (data.equals("true"))
                     subscriber.onNext(true);
                 else
-                    subscriber.onError(new Exception());
+                    errorCommonTip();
+                subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -278,7 +366,11 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
                 String result = requestByService(gServiceHost + "redbook/api/picture/like?id=" + id);
-                subscriber.onNext("true".equals(result));
+                if (!TextUtils.isEmpty(result))
+                    subscriber.onNext(true);
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -290,8 +382,14 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void call(Subscriber<? super FriendsVo[]> subscriber) {
                 String data = requestByService(gServiceHost + "redbook/api/friendsHome/listData?init=1");
-                FriendsVo[] datas = JsonUtil.write2Class(data, FriendsVo[].class);
-                subscriber.onNext(datas);
+                if (!TextUtils.isEmpty(data))
+                {
+                    FriendsVo[] datas = JsonUtil.write2Class(data, FriendsVo[].class);
+                    subscriber.onNext(datas);
+                }
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -303,8 +401,14 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void call(Subscriber<? super FriendsVo[]> subscriber) {
                 String data = requestByService(gServiceHost + "redbook/api/friendsHome/listData?orientation=1&id=" + lastId);
-                FriendsVo[] datas = JsonUtil.write2Class(data, FriendsVo[].class);
-                subscriber.onNext(datas);
+                if (!TextUtils.isEmpty(data))
+                {
+                    FriendsVo[] datas = JsonUtil.write2Class(data, FriendsVo[].class);
+                    subscriber.onNext(datas);
+                }
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -316,8 +420,14 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void call(Subscriber<? super FriendsVo[]> subscriber) {
                 String data = requestByService(gServiceHost + "redbook/api/friendsHome/listData?orientation=0&id=" + firstId);
-                FriendsVo[] datas = JsonUtil.write2Class(data, FriendsVo[].class);
-                subscriber.onNext(datas);
+                if (!TextUtils.isEmpty(data))
+                {
+                    FriendsVo[] datas = JsonUtil.write2Class(data, FriendsVo[].class);
+                    subscriber.onNext(datas);
+                }
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -336,12 +446,13 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
                         new Callback() {
                             @Override
                             public void onFailure(Call call, IOException e) {
-                                subscriber.onError(e.getCause());
+                                errorCommonTip();
                             }
 
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
                                 subscriber.onNext(true);
+                                subscriber.onCompleted();
                             }
                         }
                 );
@@ -358,6 +469,9 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
                 String result = requestByService(gServiceHost + "redbook/api/friendsHome/goodCount?id=" + id);
                 if ("true".equals(result))
                     subscriber.onNext(true);
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -371,6 +485,9 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
                 String result = requestByService(gServiceHost + "redbook/api/friendsHome/addComment?pid=" + id + "&content=" + content);
                 if ("true".equals(result))
                     subscriber.onNext(true);
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -378,7 +495,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
 
     @Override
     public Boolean addFriendShowCount(final Integer id) {
-        new AsyncTask<Object, Object, Object>(){
+        new AsyncTask<Object, Object, Object>() {
             @Override
             protected Object doInBackground(Object... objects) {
                 requestByServiceGetRaw(gServiceHost + "redbook/api/friendsHome/showCount?id=" + id);

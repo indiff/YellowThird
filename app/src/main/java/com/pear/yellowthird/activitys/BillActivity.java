@@ -1,23 +1,15 @@
 package com.pear.yellowthird.activitys;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.pear.yellowthird.activitys.base.CommonHeadActivity;
 import com.pear.yellowthird.adapter.BillAdapter;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.vo.databases.BillVo;
 
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import rx.functions.Action1;
@@ -48,7 +40,6 @@ public class BillActivity extends CommonHeadActivity {
         super.onStart();
         refreshBillList();
     }
-
 
     /**
      * 生产根目录的视图

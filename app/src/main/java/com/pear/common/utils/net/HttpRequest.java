@@ -1,5 +1,7 @@
 package com.pear.common.utils.net;
 
+import org.apache.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,6 +13,13 @@ import java.util.Map;
 
 public class HttpRequest {
 
+    /**
+     * 日记
+     */
+    private static Logger log = Logger.getLogger(HttpRequest.class);
+
+    /**超时时间*/
+    public final static int TIME_OUT_SECONDS=15;
 
     /**
      * 向指定URL发送GET方法的请求
@@ -41,6 +50,8 @@ public class HttpRequest {
             URL realUrl = new URL(url);
             // 打开和URL之间的连接
             URLConnection connection = realUrl.openConnection();
+            connection.setConnectTimeout(TIME_OUT_SECONDS*1000);
+            connection.setReadTimeout(TIME_OUT_SECONDS*1000);
             // 设置通用的请求属性
             connection.setRequestProperty("accept", "*/*");
             connection.setRequestProperty("connection", "Keep-Alive");
@@ -63,6 +74,8 @@ public class HttpRequest {
             }
         } catch (Exception e) {
             System.out.println("发送GET请求出现异常！" + e);
+            log.error("url"+url);
+            log.error(e.getMessage());
             e.printStackTrace();
         }
         // 使用finally块来关闭输入流
@@ -95,6 +108,8 @@ public class HttpRequest {
             URL realUrl = new URL(url);
             // 打开和URL之间的连接
             URLConnection conn = realUrl.openConnection();
+            conn.setConnectTimeout(TIME_OUT_SECONDS*1000);
+            conn.setReadTimeout(TIME_OUT_SECONDS*1000);
             // 设置通用的请求属性
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
@@ -118,6 +133,8 @@ public class HttpRequest {
             }
         } catch (Exception e) {
             System.out.println("发送 POST 请求出现异常！"+e);
+            log.error("url"+url);
+            log.error(e.getMessage());
             e.printStackTrace();
         }
         //使用finally块来关闭输出流、输入流

@@ -16,8 +16,6 @@ import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.vo.databases.ImageIntroduceVo;
 
-import org.apache.log4j.Logger;
-
 import rx.functions.Action1;
 
 
@@ -26,8 +24,6 @@ import rx.functions.Action1;
  */
 
 public class ImageIntroduceFragment extends Fragment {
-
-    private Logger log = Logger.getLogger(this.getClass().getSimpleName());
 
     /**
      * 图片数据
@@ -81,12 +77,10 @@ public class ImageIntroduceFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        log.debug("onCreateView");
         if (null != mRootView) {
-            log.debug("onCreateView return cache view ");
+            //log.debug("onCreateView return cache view ");
             return mRootView;
         }
-
         mRootView = LayoutInflater.from(getActivity()).inflate(R.layout.image_introduce_advanced, null);
         multiImageView = mRootView.findViewById(R.id.multi_image);
         refreshViewByDataData();

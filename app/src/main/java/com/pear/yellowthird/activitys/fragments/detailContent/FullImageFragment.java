@@ -11,9 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.pear.android.view.property.PropertySet;
 import com.pear.yellowthird.activitys.R;
-import com.pear.yellowthird.vo.databases.ImageIntroduceVo;
 import com.pear.yellowthird.vo.databases.ImageSummary;
 
 /**
@@ -50,7 +48,7 @@ public class FullImageFragment extends Fragment {
         System.out.println("TitleContentFragment onCreateView");
         if(null!=mRootView)
         {
-            System.out.println("TitleContentFragment onCreateView return cache view ");
+            //System.out.println("TitleContentFragment onCreateView return cache view ");
             return mRootView;
         }
 

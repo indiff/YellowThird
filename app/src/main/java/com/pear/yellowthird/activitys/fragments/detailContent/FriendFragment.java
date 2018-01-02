@@ -15,6 +15,8 @@ import com.pear.yellowthird.adapter.FriendsAdapter;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.vo.databases.FriendsVo;
 
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,13 +29,16 @@ import rx.functions.Action1;
  */
 public class FriendFragment extends Fragment {
 
+    /**日记*/
+    private Logger log = Logger.getLogger(getClass().getSimpleName());
+
+    /**主界面*/
     private View mRootView;
 
+    /**朋友圈数据的适配器*/
     FriendsAdapter adapter;
 
-    /**
-     * 上下拉刷新
-     */
+    /**上下拉刷新*/
     SuperRecyclerView recyclerView;
 
     /**

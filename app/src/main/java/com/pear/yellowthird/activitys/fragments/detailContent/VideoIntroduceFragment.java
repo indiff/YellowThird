@@ -3,7 +3,6 @@ package com.pear.yellowthird.activitys.fragments.detailContent;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -32,7 +31,6 @@ import com.pear.yellowthird.vo.databases.TalkComment;
 import com.pear.yellowthird.vo.databases.UserVo;
 import com.pear.yellowthird.vo.databases.VideoIntroduceVo;
 
-import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -49,8 +47,6 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
  */
 
 public class VideoIntroduceFragment extends Fragment {
-
-    private Logger log = Logger.getLogger(this.getClass().getSimpleName());
 
     /**
      * 数据
@@ -108,12 +104,14 @@ public class VideoIntroduceFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        /*
         log.debug("onCreat/**\n" +
                 "     * 不能直接提供构造器来实现。会出现编译错误。\n" +
                 "     * 具体原因请参考 http://blog.csdn.net/chniccs/article/details/51258972\n" +
-                "     */eView");
+                "      eView");
+        */
         if (null != mRootView) {
-            log.debug("onCreateView return cache view ");
+            //log.debug("onCreateView return cache view ");
             return mRootView;
         }
 
@@ -297,16 +295,16 @@ public class VideoIntroduceFragment extends Fragment {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 /**先改样式，后通知服务器接口。体验好*/
                 setClickVideoGoodIsSelect(mData.getGoodCount() + 1);
-                /**Params, Progress, Result*/
-                new AsyncTask<String, String, Boolean>() {
-                    @Override
-                    protected Boolean doInBackground(String... strings) {
-                        return ServiceDisposeFactory.getInstance().getServiceDispose().addVideoClickGoodById(mData.getId());
-                    }
-                }.execute();
+
+                ServiceDisposeFactory.getInstance().getServiceDispose()
+                        .addVideoClickGoodById(mData.getId())
+                        .subscribe(new Action1<Boolean>() {
+                            @Override
+                            public void call(Boolean result) {
+                            }
+                        });
             }
         });
     }
@@ -370,17 +368,12 @@ public class VideoIntroduceFragment extends Fragment {
                     Toast.makeText(getActivity(), "评论不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                new AsyncTask<String, String, Boolean>() {
+
+                ServiceDisposeFactory.getInstance().getServiceDispose()
+                        .addVideoComment(String.valueOf(mData.getId()), text)
+                        .subscribe(new Action1<Boolean>() {
                     @Override
-                    protected Boolean doInBackground(String... strings) {
-                        return ServiceDisposeFactory.getInstance().getServiceDispose()
-                                .addVideoComment(String.valueOf(mData.getId()), text);
-                    }
-
-                    protected void onPostExecute(Boolean result) {
-                        if (!result)
-                            return;
-
+                    public void call(Boolean result) {
                         //清空输入框
                         inputComment.setText("");
                         inputComment.clearFocus();
@@ -389,9 +382,7 @@ public class VideoIntroduceFragment extends Fragment {
                         Toast.makeText(getActivity(), "评论成功", Toast.LENGTH_SHORT).show();
                         refreshComment();
                     }
-
-                }.execute();
-                return;
+                });
             }
 
             /**
@@ -409,20 +400,16 @@ public class VideoIntroduceFragment extends Fragment {
      * 刷新评论
      */
     void refreshComment() {
-        new AsyncTask<String, String, String>() {
+        ServiceDisposeFactory.getInstance().getServiceDispose()
+                .queryVideoComment(mData.getId())
+                .subscribe(new Action1<String>() {
             @Override
-            protected String doInBackground(String... strings) {
-                return ServiceDisposeFactory.getInstance().getServiceDispose().queryVideoComment(mData.getId());
-            }
-
-            @Override
-            protected void onPostExecute(String result) {
-                TalkComment[] datas = JsonUtil.write2Class(result, TalkComment[].class);
+            public void call(String data) {
+                TalkComment[] datas = JsonUtil.write2Class(data, TalkComment[].class);
                 if (null != datas && datas.length > 0)
                     mCommentAdapter.setTalk(Arrays.asList(datas));
             }
-
-        }.execute();
+        });
     }
 
     private static int gCommentListId = new String("video_introduce_comment_list_id").hashCode();
