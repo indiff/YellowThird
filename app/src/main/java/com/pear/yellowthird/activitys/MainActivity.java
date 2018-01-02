@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         long alreadyPassTime=System.currentTimeMillis()-lastUserUseMainViewTime;
         System.out.println("alreadyPassTime:"+alreadyPassTime);
-        /**重新强制刷新界面*/
+        /**超过一个小时重新强制刷新主界面*/
         int ONE_HOURS=1000*60*60;
         if(alreadyPassTime>ONE_HOURS)
         {
