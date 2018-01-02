@@ -12,7 +12,9 @@
         android:layout_height="match_parent"
         android:visibility="visible">
 
+        <!--封面图片-->
         <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/loading_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -32,7 +34,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="15dp"
             android:textSize="20dp"
-            android:textColor="@color/colorImageText"
+            android:textColor="@color/colorGradleText"
             android:text="5"/>
 
     </RelativeLayout>

@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,6 +26,8 @@ import com.pear.yellowthird.style.vo.BottomNavigationMenuVo;
 import com.pear.yellowthird.style.vo.StyleType;
 import com.viewpagerindicator.IconPagerAdapter;
 import com.viewpagerindicator.MainNavPageIndicator;
+
+import java.util.Random;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -234,6 +237,11 @@ public class MainActivity extends AppCompatActivity {
         RelativeLayout loadingLayout;
 
         /**
+         * 封面图片
+         */
+        ImageView loadingImageView;
+
+        /**
          * 倒计时
          */
         TextView timeDownView;
@@ -249,6 +257,14 @@ public class MainActivity extends AppCompatActivity {
          */
         void showPrepareLoadingView() {
             loadingLayout = findViewById(R.id.loading_layout);
+
+            /**里面几张加载图，每次都随机一下。*/
+            {
+                loadingImageView = findViewById(R.id.loading_image);
+                int randomImages[]=new int[]{R.drawable._main_loading_1,R.drawable._main_loading_2,R.drawable._main_loading_3};
+                int randomIndex=new Random().nextInt(randomImages.length);
+                loadingImageView.setImageDrawable(getResources().getDrawable(randomImages[randomIndex]));
+            }
             timeDownView = findViewById(R.id.time_down);
             rootView = findViewById(R.id.root_view);
 
