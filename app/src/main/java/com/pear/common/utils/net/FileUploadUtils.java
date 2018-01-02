@@ -20,17 +20,17 @@ public class FileUploadUtils {
     /**
      * @param url
      * @param content
-     * @param userId
+     * @param deviceId
      * @param files
      * @param callback
      * */
-    public static void uploadImg(String url,String content,String userId,List<String> files,Callback callback) {
+    public static void uploadImg(String url,String content,String deviceId,List<String> files,Callback callback) {
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         for (int i = 0; i <files.size() ; i++) {
             File f=new File(files.get(i));
             builder.addFormDataPart("pic", f.getName(), RequestBody.create(MEDIA_TYPE_PNG, f));
         }
-        builder.addFormDataPart("user.id",userId);
+        builder.addFormDataPart("user.deviceId",deviceId);
         builder.addFormDataPart("content", content);
 
         MultipartBody requestBody = builder.build();
