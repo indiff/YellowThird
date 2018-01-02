@@ -3,8 +3,6 @@ package com.pear.yellowthird.activitys.fragments.mainSubFragments;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -22,7 +20,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.pear.yellowthird.activitys.BillActivity;
-import com.pear.yellowthird.activitys.FullImagePageActivity;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.activitys.RechargeActivity;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
@@ -55,6 +52,12 @@ public class AccountInfoFragment extends Fragment {
     /**用户的头像*/
     ImageView userHeadIcon;
 
+    /**用户名称*/
+    EditText userNameView;
+
+    /**余额*/
+    TextView goldView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,12 +73,7 @@ public class AccountInfoFragment extends Fragment {
         /**用户的头像*/
         {
             userHeadIcon = mRootView.findViewById(R.id.user_head_icon);
-            Glide.with(getActivity())
-                    .load(user.getThumb())
-                    .apply(bitmapTransform(new CropCircleTransformation()))
-                    .into(userHeadIcon);
             onChangeUserIcon(userHeadIcon);
-
             /**刷新用户头像*/
             ImageView  refreshHeadIcon= mRootView.findViewById(R.id.refresh_head_icon);
             onChangeUserIcon(refreshHeadIcon);
@@ -85,15 +83,13 @@ public class AccountInfoFragment extends Fragment {
          * 用户名称
          * */
         {
-            EditText userNameView= mRootView.findViewById(R.id.user_name);
-            userNameView.setText(user.getName());
+            userNameView= mRootView.findViewById(R.id.user_name);
             onChangeUserName(userNameView);
         }
 
         /**余额*/
         {
-            TextView goldView= mRootView.findViewById(R.id.gold);
-            goldView.setText(user.getGold()+" 绿币");
+            goldView= mRootView.findViewById(R.id.gold);
         }
 
         /**充值*/
@@ -117,13 +113,44 @@ public class AccountInfoFragment extends Fragment {
                 }
             });
         }
-
+        refreshUserAllView();
         return mRootView;
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+
+        /**每次都刷新用户数据，特别是账单变动了。看完电影扣费了。充值了等等*/
+        foreRefreshUserInfo();
     }
 
 
     /**
-     * 用户更换头像
+     * 强制刷新用户信息数据
+     * 每次都刷新用户数据，特别是账单变动了。看完电影扣费了。充值了等等
+     * */
+    void foreRefreshUserInfo()
+    {
+        ServiceDisposeFactory.getInstance().getServiceDispose()
+                .refreshUser()
+                .subscribe(new Action1<UserVo>() {
+                    @Override
+                    public void call(UserVo paramUser) {
+                        if(null==paramUser)
+                            return;
+                        if(paramUser.equals(user))
+                            return;
+                        user=paramUser;
+                        refreshUserAllView();
+                    }
+                });
+    }
+
+
+    /**
+     * 监听用户更换头像
      * */
     void onChangeUserIcon(final ImageView imageView)
     {
@@ -134,14 +161,35 @@ public class AccountInfoFragment extends Fragment {
                         .subscribe(new Action1<String>() {
                     @Override
                     public void call(String url) {
-                        Glide.with(getActivity())
-                                .load(url)
-                                .apply(bitmapTransform(new CropCircleTransformation()))
-                                .into(userHeadIcon);
+                        user.setThumb(url);
+                        refreshUserHeadIconView();
                     }
-                });;
+                });
             }
         });
+    }
+
+
+    /**
+     * 刷新用户的所有相关信息界面
+     * */
+    void refreshUserAllView()
+    {
+        refreshUserHeadIconView();
+        userNameView.setText(user.getName());
+        goldView.setText(user.getGold()+" 绿币");
+    }
+
+
+    /**
+     * 更新用户的头像
+     * */
+    private void refreshUserHeadIconView()
+    {
+        Glide.with(getActivity())
+                .load(user.getThumb())
+                .apply(bitmapTransform(new CropCircleTransformation()))
+                .into(userHeadIcon);
     }
 
 

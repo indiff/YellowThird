@@ -50,4 +50,25 @@ public class UserVo  implements Serializable {
         this.gold = gold;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserVo userVo = (UserVo) o;
+
+        if (name != null ? !name.equals(userVo.name) : userVo.name != null) return false;
+        if (thumb != null ? !thumb.equals(userVo.thumb) : userVo.thumb != null) return false;
+        return gold != null ? gold.equals(userVo.gold) : userVo.gold == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (thumb != null ? thumb.hashCode() : 0);
+        result = 31 * result + (gold != null ? gold.hashCode() : 0);
+        return result;
+    }
+
+
 }
