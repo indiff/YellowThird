@@ -87,7 +87,6 @@
                         android:inputType="text"/>
 
                 </LinearLayout>
-
             </LinearLayout>
         </RelativeLayout>
 
