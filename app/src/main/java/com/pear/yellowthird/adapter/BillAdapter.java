@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.vo.databases.BillVo;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,8 +81,12 @@ public class BillAdapter extends BaseAdapter {
 
             /**参考别的app +号更加美化*/
             if(money>0)
+            {
                 moneyText="+"+moneyText;
-
+                moneyView.setTextColor(mContext.getResources().getColor(R.color.colorSelect));
+            }
+            else
+                moneyView.setTextColor(mContext.getResources().getColor(R.color.colorPriceText));;
             moneyView.setText(moneyText);
         }
 
