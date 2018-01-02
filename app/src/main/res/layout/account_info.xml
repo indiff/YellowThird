@@ -82,7 +82,9 @@
                         android:gravity="center"
                         android:text="大鸡鸡"
                         android:textSize="@dimen/title"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:imeOptions="actionSend"
+                        android:inputType="text"/>
 
                 </LinearLayout>
 

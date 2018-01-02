@@ -299,6 +299,7 @@
                     android:gravity="center_vertical"
                     android:textColor="@color/colorMinorContent"
                     android:imeOptions="actionSend"
+                    android:inputType="text"
                     android:hint="快来说说你的感想吧"/>
 
             </LinearLayout>

@@ -168,6 +168,7 @@
                     android:paddingTop="3dp"
                     android:paddingBottom="3dp"
                     android:imeOptions="actionSend"
+                    android:inputType="text"
                     android:hint="说点什么..."
                     />
 
