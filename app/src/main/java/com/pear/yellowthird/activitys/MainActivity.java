@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
 
             /**连接服务器测试*/
-            boolean serviceTest = true;
+            boolean serviceTest = false;
             if (serviceTest) {
                 ServiceDisposeFactory.getInstance().getServiceDispose().queryMainMenu()
                         .subscribe(new Action1<String>() {

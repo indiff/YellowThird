@@ -3,12 +3,6 @@ package com.pear.databases;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.yellowthird.style.factory.StyleFragmentFactory;
 import com.pear.yellowthird.style.vo.BottomNavigationMenuVo;
-import com.pear.yellowthird.style.vo.SubTabMenuStyleDataVo;
-import com.pear.yellowthird.vo.databases.FriendsVo;
-import com.pear.yellowthird.vo.databases.TalkComment;
-import com.pear.yellowthird.vo.databases.UserVo;
-
-import java.util.ArrayList;
 
 /**
  * Created by su on 2017/11/15.
@@ -287,7 +281,8 @@ public class AllDatabases {
                                                                 setData(JsonUtil.fromObjectToJson(CommunityDatabases.getShareData()));
                                                             }}
                                                     }));
-                        }}//*/
+                        }}*/
+                        /*
                         new BottomNavigationMenuVo() {{
                             setTitle("百度");
                             setStyle(StyleFragmentFactory.WEB_STYLE);
@@ -295,7 +290,13 @@ public class AllDatabases {
                             setDataType("raw");
                             setData("https://www.baidu.com/");
                         }}//*/
-
+                        new BottomNavigationMenuVo() {{
+                            setTitle("简介");
+                            setStyle(StyleFragmentFactory.TEXT_NEWS_STYLE);
+                            setIcon("111");
+                            setDataType("raw");
+                            setData(JsonUtil.fromObjectToJson(CommunityDatabases.getIntroductionData()));
+                        }}
                 };
 
         String jsonData=JsonUtil.fromObjectToJson(data);

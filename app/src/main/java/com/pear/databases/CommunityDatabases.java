@@ -3,7 +3,6 @@ package com.pear.databases;
 import com.pear.yellowthird.vo.databases.NewsVo;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,15 +15,14 @@ public class CommunityDatabases {
      * 简介*/
     static List<NewsVo> gIntroductionData=new ArrayList<NewsVo>()
     {{
-        add(new NewsVo("App简介与优势","Siri是苹果公司在其产品iPhone4S，iPad 3及以上版本手机和Mac上应用的一项智能语音控制功能。Siri可以令iPhone4S及以上手机（iPad 3以上平板）变身为一台智能化机器人，利用Siri用户可以通过手机读短信、介绍餐厅、询问天气、语音设置闹钟等。","https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1511963508&di=f2074431a404a274b5eb8b650a63e3d4&src=http://image.tianjimedia.com/uploadImages/2015/215/45/04L5VRR21C5W.jpg"));
-        add(new NewsVo("收费模式","","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509558934456&di=26bd04cba698b74bf9e09521806492cc&imgtype=0&src=http%3A%2F%2Fimage.l99.com%2Fad8%2F1437453022715_5swgd5.jpg"));
-        add(new NewsVo("我要成为会员","您可以通过云网进行充值成为普通VIP会员，普通VIP会员申请不限制充值数额。可以通过缴纳30元会员费，直接升级成为新浪原创白金VIP会员"));
-
-
         add(new NewsVo("纯图片",""));
         add(new NewsVo("","","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1511980261767&di=99a8abe6ccdf9f9d0eb2613b1d00d354&imgtype=0&src=http%3A%2F%2Fimg1.50tu.com%2Fmeinv%2Fxinggan%2F2013-11-16%2Fe65e7cd83f37eed87067299266152807.jpg"));
         add(new NewsVo("","","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1511980258017&di=b7841a55ec189edbac9ccc264427b799&imgtype=0&src=http%3A%2F%2Fwww.zhlzw.com%2FUploadFiles%2FArticle_UploadFiles%2F201204%2F20120422013453408.JPG"));
         add(new NewsVo("",""));
+
+        add(new NewsVo("App简介与优势","Siri是苹果公司在其产品iPhone4S，iPad 3及以上版本手机和Mac上应用的一项智能语音控制功能。Siri可以令iPhone4S及以上手机（iPad 3以上平板）变身为一台智能化机器人，利用Siri用户可以通过手机读短信、介绍餐厅、询问天气、语音设置闹钟等。","https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1511963508&di=f2074431a404a274b5eb8b650a63e3d4&src=http://image.tianjimedia.com/uploadImages/2015/215/45/04L5VRR21C5W.jpg"));
+        add(new NewsVo("收费模式","","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509558934456&di=26bd04cba698b74bf9e09521806492cc&imgtype=0&src=http%3A%2F%2Fimage.l99.com%2Fad8%2F1437453022715_5swgd5.jpg"));
+        add(new NewsVo("我要成为会员","您可以通过云网进行充值成为普通VIP会员，普通VIP会员申请不限制充值数额。可以通过缴纳30元会员费，直接升级成为新浪原创白金VIP会员"));
 
         add(new NewsVo("小说",""));
         add(new NewsVo("金屋藏娇：邪王诱妻成欢","夏国有公主安然天生丽质，却命运坎坷，远嫁大梁，一心想低调行事保小命。 ","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1511980380342&di=335e6c680d04819fa3a340cbfd3ba234&imgtype=0&src=http%3A%2F%2Fimg1.3lian.com%2F2015%2Fa1%2F105%2Fd%2F40.jpg"){{setPublishTime("6小时前");}});
