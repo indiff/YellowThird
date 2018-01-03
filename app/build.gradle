@@ -53,6 +53,13 @@ dependencies {
     // https://mvnrepository.com/artifact/com.uwetrottmann.photoview/library
     //compile group: 'com.uwetrottmann.photoview', name: 'library', version: '1.2.4'
 
+    /**用于搞定新手引导的图文 总是太过于模糊的问题。
+     * 不带缓存的image view
+     * */
+    // https://mvnrepository.com/artifact/com.squareup.picasso/picasso
+    compile group: 'com.squareup.picasso', name: 'picasso', version: '2.5.2'
+
+
 
     /**更高级的listview
      * 上下拉刷新
