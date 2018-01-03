@@ -3,7 +3,6 @@ package com.pear.yellowthird.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import com.pear.yellowthird.activitys.fragments.detailContent.FullImageFragment;
 import com.pear.yellowthird.activitys.fragments.detailContent.VideoIntroduceFragment;
 import com.pear.yellowthird.adapter.abstracts.CommonCacheAdapterAbstract;
 import com.pear.yellowthird.vo.databases.VideoIntroduceVo;

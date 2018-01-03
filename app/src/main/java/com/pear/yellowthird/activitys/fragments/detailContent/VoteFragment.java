@@ -73,7 +73,6 @@ public class VoteFragment extends Fragment {
         mContentView.setLayoutParams(
                 new ScrollView.LayoutParams(ScrollView.LayoutParams.MATCH_PARENT, ScrollView.LayoutParams.MATCH_PARENT));
 
-        refreshViewByDataChange();
         return mContentView;
     }
 

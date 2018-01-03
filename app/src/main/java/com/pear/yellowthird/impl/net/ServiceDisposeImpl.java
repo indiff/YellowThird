@@ -67,7 +67,8 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
      */
     public static void initDeviceId(Activity activity) {
         String androidID = Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
-        gDeviceId = androidID + "_" + Build.SERIAL;
+        //gDeviceId = androidID + "_" + Build.SERIAL;
+        gDeviceId="ddddd";
         log.info("gDeviceId" + gDeviceId);
     }
 
@@ -463,7 +464,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
 
     @Override
     public void sendAppCrashServer(final String content) {
-
+        log.error(content);
         new Thread(new Runnable() {
             @Override
             public void run() {

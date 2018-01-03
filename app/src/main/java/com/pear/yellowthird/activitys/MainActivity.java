@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
 
             /**连接服务器测试*/
-            boolean serviceTest = false;
+            boolean serviceTest = true;
             if (serviceTest) {
                 ServiceDisposeFactory.getInstance().getServiceDispose().queryMainMenu()
                         .subscribe(new Action1<String>() {
@@ -306,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void call(Subscriber<? super Integer> subscriber) {
                     try {
-                        for (int timeDown = 3; timeDown >= 0; timeDown--) {
+                        for (int timeDown = 2; timeDown >= 0; timeDown--) {
                             Thread.sleep(600);
                             subscriber.onNext(timeDown);
                         }
