@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--android:state_enabled="true" 不能省，否则disable状态会无效-->
+    <item android:state_enabled="true" android:drawable="@drawable/_video_play" />
+
+    <!-- 被禁用的情况-->
+    <item android:state_enabled="false"
+          android:drawable="@drawable/_video_play_disable" />
+
+    <!-- 非触摸模式下获得焦点并单击时的背景图片 -->
+    <item android:state_focused="true" android:state_pressed="true"   android:drawable= "@drawable/_video_play_disable" />
+    <!-- 触摸模式下单击时的背景图片-->
+    <item android:state_focused="false" android:state_pressed="true"   android:drawable="@drawable/_video_play_disable" />
+
+    <!--安卓系统从selector文件里找匹配项的时候是从上往下找的，找到第一个符合的就不再往下走了，你的第一个Item什么也没写，表示符合任务状态。你可以把你的两个item换下顺序试试。-->
     <item android:drawable="@drawable/_video_play" />
+
 </selector>

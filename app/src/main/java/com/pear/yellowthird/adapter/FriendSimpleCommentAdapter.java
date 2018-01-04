@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -99,7 +98,7 @@ public class FriendSimpleCommentAdapter extends BaseAdapter {
         else
         {
             UserCommentHolder userCommentHolder = new UserCommentHolder(convertView);
-            userCommentHolder.userNameView.setText(currentData.getUser().getName());
+            userCommentHolder.userNameView.setText(null!=currentData.getUser()?currentData.getUser().getName():"");
             userCommentHolder.contentView.setText(currentData.getContent());
         }
         return convertView;
@@ -149,7 +148,7 @@ public class FriendSimpleCommentAdapter extends BaseAdapter {
     {
 
         /**显示更多*/
-        public TextView showMoreLineView;
+        TextView showMoreLineView;
 
         /**用户评论界面*/
         public LinearLayout userCommentLineView;

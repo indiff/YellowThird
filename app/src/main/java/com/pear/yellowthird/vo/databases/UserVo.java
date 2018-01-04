@@ -20,6 +20,10 @@ public class UserVo  implements Serializable {
     public UserVo() {
     }
 
+    public UserVo(String name) {
+        this.name = name;
+    }
+
     public UserVo(String name, String thumb, Integer gold) {
         this.name = name;
         this.thumb = thumb;

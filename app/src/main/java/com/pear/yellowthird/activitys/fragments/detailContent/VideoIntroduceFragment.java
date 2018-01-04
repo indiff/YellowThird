@@ -58,6 +58,9 @@ public class VideoIntroduceFragment extends Fragment {
      */
     private View mRootView;
 
+    /**开始播放*/
+    ImageView playButton;
+
     /**
      * 电影点赞
      */
@@ -89,6 +92,8 @@ public class VideoIntroduceFragment extends Fragment {
      * 评论列表
      */
     CommentListAdapter mCommentAdapter;
+
+
 
 
     public static Fragment newInstance(VideoIntroduceVo data) {
@@ -133,7 +138,7 @@ public class VideoIntroduceFragment extends Fragment {
 
         /**开始播放*/
         {
-            ImageView playButton = mRootView.findViewById(R.id.start_play);
+            playButton = mRootView.findViewById(R.id.start_play);
             onListenerClickPlayVideo(playButton);
         }
 
@@ -252,23 +257,29 @@ public class VideoIntroduceFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                button.setEnabled(false);
                 ServiceDisposeFactory.getInstance().getServiceDispose()
                         .requestPlayVideo(mData.getId()).subscribe(new Action1<String>() {
                     @Override
                     public void call(String data) {
+                        button.setEnabled(true);
                         try {
-                            JSONObject json=new JSONObject(data);
-                            if(json.getBoolean("pay"))
-                            {
-                                Toast.makeText(getActivity(),json.getString("tip"),Toast.LENGTH_LONG).show();
+                            JSONObject json = new JSONObject(data);
+                            if (json.getBoolean("pay")) {
+                                Toast.makeText(getActivity(), json.getString("tip"), Toast.LENGTH_LONG).show();
                                 startPlay();
-                            }
-                            else{
-                                Toast.makeText(getActivity(),json.getString("tip"),Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getActivity(), json.getString("tip"), Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        button.setEnabled(true);
+                        Toast.makeText(getActivity(), "哎呀，我刚才晕过去了", Toast.LENGTH_SHORT).show();
                     }
                 });
 

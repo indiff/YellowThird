@@ -125,10 +125,15 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
                 });
 
             holder.commentAdapter.setDatas(friendData.getComments());
-            if(friendData.getComments().isEmpty())
+            if(friendData.getComments().isEmpty()){
+                holder.commentBackgroundView.setVisibility(View.GONE);
                 holder.commentListView.setVisibility(View.GONE);
+            }
             else
+            {
+                holder.commentBackgroundView.setVisibility(View.VISIBLE);
                 holder.commentListView.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -227,6 +232,9 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
         /**评论适配器*/
         public FriendSimpleCommentAdapter commentAdapter;
 
+        /**评论背景*/
+        LinearLayout commentBackgroundView;
+
         public CircleViewHolder(View itemView, int viewType) {
             super(itemView);
 
@@ -242,6 +250,8 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
 
             multiImageView = itemView.findViewById(R.id.multi_image);
             commentListView=itemView.findViewById(R.id.comment_list);
+
+            commentBackgroundView=itemView.findViewById(R.id.comment_list_background);
 
             commentAdapter=new FriendSimpleCommentAdapter(context);
             commentListView.setAdapter(commentAdapter);
