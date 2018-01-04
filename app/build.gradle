@@ -5,7 +5,7 @@ android {
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.pear.yellowthird.activitys"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -90,6 +90,7 @@ dependencies {
     // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
     compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.9.1'
 
+    implementation 'com.pranavpandey.android:dynamic-toasts:0.7.0'
 
 }
 
