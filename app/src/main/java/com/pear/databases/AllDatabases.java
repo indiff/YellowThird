@@ -53,10 +53,32 @@ public class AllDatabases {
 
                                                             }},
                                                                     new ArrayList<TalkComment>() {{
-                                                                        add(new TalkComment("这么好看的主角", 121, 0));
+                                                                        add(new TalkComment("这么好看的主角", 121, 0){{setUser(new UserVo("呵呵"));}});
+                                                                        add(new TalkComment("这么好看的主角", 121, 0){{setUser(new UserVo("呵呵"));}});
+                                                                        add(new TalkComment("这么好看的主角", 121, 0){{setUser(new UserVo("呵呵"));}});
+                                                                        add(new TalkComment("这么好看的主角", 121, 0){{setUser(new UserVo("呵呵"));}});
                                                                     }}
                                                             ));
 
+                                                            add(new FriendsVo(
+                                                                    new UserVo("呵呵","https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1514602780&di=f8600b268ee6afce8b0ce1c04cbbad52&src=http://img01.taopic.com/160929/318761-16092Z9225648.jpg",0),
+                                                                    "",
+                                                                    "7分钟前",
+                                                                    68,
+                                                                    true,
+                                                                    666,
+
+                                                                    new ArrayList<String>() {{
+
+                                                                        add("https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1512827253&di=20b67c1c12720a71d8ea59c67b5317f4&src=http://pic6.nipic.com/20100405/3017209_061106405171_2.jpg");
+                                                                        add("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=467184516,4129069465&fm=27&gp=0.jpg");
+                                                                        add("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2634944918,1248270971&fm=27&gp=0.jpg");
+
+
+                                                                    }},
+                                                                    new ArrayList<TalkComment>() {{
+                                                                    }}
+                                                            ));
                                                             add(new FriendsVo(
                                                                     new UserVo("呵呵","https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1514602780&di=f8600b268ee6afce8b0ce1c04cbbad52&src=http://img01.taopic.com/160929/318761-16092Z9225648.jpg",0),
                                                                     "",
