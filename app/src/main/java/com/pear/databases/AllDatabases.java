@@ -3,6 +3,12 @@ package com.pear.databases;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.yellowthird.style.factory.StyleFragmentFactory;
 import com.pear.yellowthird.style.vo.BottomNavigationMenuVo;
+import com.pear.yellowthird.style.vo.SubTabMenuStyleDataVo;
+import com.pear.yellowthird.vo.databases.FriendsVo;
+import com.pear.yellowthird.vo.databases.TalkComment;
+import com.pear.yellowthird.vo.databases.UserVo;
+
+import java.util.ArrayList;
 
 /**
  * Created by su on 2017/11/15.
@@ -15,17 +21,7 @@ public class AllDatabases {
         BottomNavigationMenuVo[] data = new BottomNavigationMenuVo[]
                 {
                         /**公告*/
-                        /*
-                        new BottomNavigationMenuVo() {{
-                            setTitle("公告");
-                            setStyle(StyleFragmentFactory.ADVANCE_STYLE);
-                            setDataType("raw");
-                            setData(JsonUtil.fromObjectToJson(CommunityDatabases.getIntroductionData()));
-                        }},
-                        */
                         /**社区中的大类*/
-                        ///*
-                        /*
                         new BottomNavigationMenuVo() {{
                             setTitle("社区");
                             setStyle(StyleFragmentFactory.SUB_TAB_MENU_STYLE);
@@ -33,7 +29,7 @@ public class AllDatabases {
                             setDataType("raw");
 
                             SubTabMenuStyleDataVo[] data = new SubTabMenuStyleDataVo[]
-                                    {/*
+                                    {
                                             new SubTabMenuStyleDataVo() {{
                                                 setTitle("色友圈");
                                                 setStyle(StyleFragmentFactory.FRIEND_STYLE);
@@ -176,15 +172,13 @@ public class AllDatabases {
                                                             }}));
                                                         }}
                                                 ));
-                                            }}*/
-                                            ///*,
-                                            /*
+                                            }} ,
                                             new SubTabMenuStyleDataVo() {{
                                                 setTitle("投票");
                                                 setStyle(StyleFragmentFactory.VOTE_STYLE);
                                                 setDataType("raw");
                                                 setData(JsonUtil.fromObjectToJson(VoteDatabases.getData()));
-                                            }}/*,
+                                            }},
                                             new SubTabMenuStyleDataVo() {{
                                                 setTitle("简介");
                                                 setStyle(StyleFragmentFactory.TEXT_NEWS_STYLE);
@@ -202,16 +196,12 @@ public class AllDatabases {
                                                 setStyle(StyleFragmentFactory.TEXT_NEWS_STYLE);
                                                 setDataType("raw");
                                                 setData(JsonUtil.fromObjectToJson(CommunityDatabases.getIntroductionData()));
-                                            }}*/
-                                            ///*
-                        /*
+                                            }}
+
                                     };
                             setData(JsonUtil.fromObjectToJson(data));
 
-                        }}
-                        //*/
-                        /**/
-                        /*,
+                        }},
                         //账户中的大类
                         new BottomNavigationMenuVo() {{
                             setTitle("账户");
@@ -219,10 +209,7 @@ public class AllDatabases {
                             setIcon("account");
                             setDataType("raw");
                             setData(JsonUtil.fromObjectToJson(new UserVo("小鸡鸡", "https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1514602780&di=03e30ce632c3bd0029518388bd2a9356&src=http://dynamic-image.yesky.com/740x-/uploadImages/2013/312/LINK05KBD8T9.jpg", 210)));
-                        }}
-                        //,
-                        */
-/*
+                        }},
                         //图片中的大类
                         new BottomNavigationMenuVo() {{
                             setTitle("图片");
@@ -251,9 +238,7 @@ public class AllDatabases {
                                                             }}
 
                                                     }));
-                        }}*/
-                        //,
-                        /*
+                        }},
                         //电影大类
                         new BottomNavigationMenuVo() {{
                             setTitle("电影");
@@ -273,7 +258,7 @@ public class AllDatabases {
                                     JsonUtil.fromObjectToJson(
                                             new SubTabMenuStyleDataVo[]
                                                     {
-                                                            data/*,
+                                                            data,
                                                             new SubTabMenuStyleDataVo() {{
                                                                 setTitle("分享");
                                                                 setStyle(StyleFragmentFactory.TEXT_NEWS_STYLE);
@@ -281,15 +266,15 @@ public class AllDatabases {
                                                                 setData(JsonUtil.fromObjectToJson(CommunityDatabases.getShareData()));
                                                             }}
                                                     }));
-                        }}*/
-                        /*
+                        }} ,
+
                         new BottomNavigationMenuVo() {{
                             setTitle("百度");
                             setStyle(StyleFragmentFactory.WEB_STYLE);
                             setIcon("111");
                             setDataType("raw");
                             setData("https://www.baidu.com/");
-                        }}//*/
+                        }},
                         new BottomNavigationMenuVo() {{
                             setTitle("简介");
                             setStyle(StyleFragmentFactory.TEXT_NEWS_STYLE);

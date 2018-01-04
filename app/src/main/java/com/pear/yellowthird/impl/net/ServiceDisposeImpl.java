@@ -2,11 +2,11 @@ package com.pear.yellowthird.impl.net;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import com.pear.android.app.GlobalApplication;
@@ -23,7 +23,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.Call;
@@ -68,20 +67,40 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     public static void initDeviceId(Activity activity) {
         String androidID = Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
         //gDeviceId = androidID + "_" + Build.SERIAL;
-        gDeviceId="ddddd";
+        gDeviceId = "ddddd";
         log.info("gDeviceId" + gDeviceId);
     }
 
     /**
-     * 出现错误
+     * 弹窗提示错误信息
      */
     private void errorCommonTip() {
         mainHandler.post(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(GlobalApplication.getContext(), "哎呀，刚才我失忆了，等一下再找我吧", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GlobalApplication.getContext(),
+                        "哎呀，刚才我失忆了，等一下再找我吧",
+                        Toast.LENGTH_SHORT)
+                        .show();
             }
         });
+    }
+
+    /**
+     * 出现错误
+     */
+    private void debugErrorCommonTip(final String errorMsg) {
+        mainHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast toast=Toast.makeText(GlobalApplication.getContext(),
+                        errorMsg,
+                        Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER,0,0);
+                toast.show();
+            }
+        });
+
     }
 
     /**
@@ -197,7 +216,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         new AsyncTask<Object, Object, Object>() {
             @Override
             protected Object doInBackground(Object... objects) {
-                requestByServiceGetRaw(gServiceHost + "redbook/api/picture/view?id=" + id);
+                requestByService(gServiceHost + "redbook/api/picture/view?id=" + id);
                 return null;
             }
         }.execute();
@@ -455,7 +474,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         new AsyncTask<Object, Object, Object>() {
             @Override
             protected Object doInBackground(Object... objects) {
-                requestByServiceGetRaw(gServiceHost + "redbook/api/friendsHome/showCount?id=" + id);
+                requestByService(gServiceHost + "redbook/api/friendsHome/showCount?id=" + id);
                 return null;
             }
         }.execute();
@@ -486,37 +505,30 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
      */
     private String requestByService(String url) {
         try {
-            String response = requestByServiceGetRaw(url);
-            log.info("response:" + response);
-            JSONObject jsonObject = new JSONObject(response);
-            int code = jsonObject.getInt("code");
-
-            if (code == 200)
-                return jsonObject.get("data").toString();
-            log.error("response error " + jsonObject.get("msg").toString());
-            return "";
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            e.printStackTrace();
-            return "";
-        }
-    }
-
-    /**
-     * 从重复器请求数据，并且不处理结果。直接返回
-     */
-    private String requestByServiceGetRaw(String url) {
-        try {
             /**每一个请求都会全局加上deviceID*/
             boolean hasParam = url.contains("?");
             url += (hasParam ? "&" : "?") + "deviceId=" + gDeviceId;
             log.info("url:" + url);
             String response = HttpRequest.sendGet(url);
             log.info("response:" + response);
-            return response;
+            JSONObject jsonObject = new JSONObject(response);
+            int code = jsonObject.getInt("code");
+            if (code == 200)
+                return jsonObject.get("data").toString();
+            log.error("response error " + jsonObject.get("msg").toString());
+
+            debugErrorCommonTip(
+                    "服务器拒绝该指令\n " +
+                            "url:" + url + "\n" +
+                            "response:" + response);
+            return "";
         } catch (Exception e) {
             log.error(e.getMessage());
             e.printStackTrace();
+            debugErrorCommonTip(
+                    "服务器异常\n " +
+                            "url:" + url + "\n" +
+                            "服务器异常:" + e.getMessage());
             return "";
         }
     }

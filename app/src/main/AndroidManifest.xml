@@ -2,7 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pear.yellowthird.activitys">
 
+
+    <!--
+    largeHeap="true"
+    在日常的Android开发中，我们必然遇到过OutOfMemoryError这样的崩溃，产生的原因无外乎两点，一是内存过小不够用，二是程序设计有误
+    对于本身对内存要求过大的图片或者视频应用，我们可以使用largeHeap。
+    妈比，总是内存溢出奔溃，加大到可用的最大内存
+    -->
     <application
+        android:largeHeap="true"
         android:name="com.pear.android.app.GlobalApplication"
         android:allowBackup="true"
         android:icon="@drawable/app_icon"

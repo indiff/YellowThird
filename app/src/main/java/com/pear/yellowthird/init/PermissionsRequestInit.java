@@ -121,7 +121,8 @@ public class PermissionsRequestInit {
         void successDoing()
         {
             log.debug("successDoing");
-            mSuccessCallback.run();
+            /**运行在UI线程*/
+            mActivity.runOnUiThread(mSuccessCallback);
         }
 
 
