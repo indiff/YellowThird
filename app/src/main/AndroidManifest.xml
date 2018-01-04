@@ -10,8 +10,11 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!--这里要不根据横竖屏变动 重新创建活动。否则会崩溃-->
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             >
 
