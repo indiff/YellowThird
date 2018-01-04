@@ -199,8 +199,10 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
                 if (!TextUtils.isEmpty(response))
                     subscriber.onNext(response);
                 else
+                {
                     errorCommonTip();
-                subscriber.onCompleted();
+                    subscriber.onError(new Throwable());
+                }
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
