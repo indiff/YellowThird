@@ -33,7 +33,7 @@ public class ImageIntroduceVo  implements Serializable{
     Integer browseCount;
 
     /**是否已经点赞*/
-    boolean isAlreadyClickGood;
+    Boolean alreadyClickGood=Boolean.FALSE;
 
     public ImageIntroduceVo() {
     }
@@ -103,11 +103,11 @@ public class ImageIntroduceVo  implements Serializable{
         this.goodCount = goodCount;
     }
 
-    public boolean isAlreadyClickGood() {
-        return isAlreadyClickGood;
+    public Boolean getAlreadyClickGood() {
+        return alreadyClickGood;
     }
 
-    public void setAlreadyClickGood(boolean alreadyClickGood) {
-        isAlreadyClickGood = alreadyClickGood;
+    public void setAlreadyClickGood(Boolean alreadyClickGood) {
+        this.alreadyClickGood = alreadyClickGood;
     }
 }

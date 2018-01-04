@@ -2,6 +2,7 @@ package com.pear.yellowthird.impl.net;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
@@ -22,6 +23,7 @@ import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -66,8 +68,8 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
      */
     public static void initDeviceId(Activity activity) {
         String androidID = Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
-        //gDeviceId = androidID + "_" + Build.SERIAL;
-        gDeviceId = "ddddd";
+        gDeviceId = androidID + "_" + Build.SERIAL;
+        //gDeviceId = "dddddffffd";
         log.info("gDeviceId" + gDeviceId);
     }
 
@@ -79,7 +81,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void run() {
                 Toast.makeText(GlobalApplication.getContext(),
-                        "哎呀，刚才我失忆了，等一下再找我吧",
+                        "跟服务器请求中，服务器处理改指令出错",
                         Toast.LENGTH_SHORT)
                         .show();
             }
@@ -93,10 +95,10 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         mainHandler.post(new Runnable() {
             @Override
             public void run() {
-                Toast toast=Toast.makeText(GlobalApplication.getContext(),
+                Toast toast = Toast.makeText(GlobalApplication.getContext(),
                         errorMsg,
                         Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.CENTER,0,0);
+                toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
             }
         });
@@ -145,8 +147,12 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         return Observable.create(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
-                final String response
-                        = requestByService(gServiceHost + "redbook/api/movie/addComment?resourceId=" + id + "&content=" + content);
+                String response = "";
+                try {
+                    response = requestByService(gServiceHost + "redbook/api/movie/addComment?resourceId=" + id + "&content=" + URLEncoder.encode(content, "utf-8"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
                 if (!TextUtils.isEmpty(response))
                     subscriber.onNext(true);
                 else
@@ -198,8 +204,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
                 String response = requestByService(gServiceHost + "redbook/api/movie/play?id=" + id);
                 if (!TextUtils.isEmpty(response))
                     subscriber.onNext(response);
-                else
-                {
+                else {
                     errorCommonTip();
                     subscriber.onError(new Throwable());
                 }
@@ -460,11 +465,17 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         return Observable.create(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
-                String result = requestByService(gServiceHost + "redbook/api/friendsHome/addComment?pid=" + id + "&content=" + content);
+                String result="";
+                try {
+                    result = requestByService(gServiceHost + "redbook/api/friendsHome/addComment?pid=" + id + "&content=" + URLEncoder.encode(content, "utf-8"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
                 if ("true".equals(result))
                     subscriber.onNext(true);
                 else
                     errorCommonTip();
+
                 subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())

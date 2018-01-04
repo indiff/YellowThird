@@ -105,7 +105,7 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
             holder.timeView.setText(friendData.getPublishTime());
             holder.browseCountView.setText("浏览"+String.valueOf(friendData.getShowCount())+"次");
 
-            holder.updateClickGoodView(friendData.getGoodCount(),friendData.isAlreadyClickGood());
+            holder.updateClickGoodView(friendData.getGoodCount(),friendData.getAlreadyClickGood());
 
             holder.onGoodCountListener(friendData);
 
@@ -275,7 +275,7 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
          * */
         void onGoodCountListener(final FriendsVo friendData)
         {
-            if(friendData.isAlreadyClickGood())
+            if(friendData.getAlreadyClickGood())
                 clickGoodEventView.setOnClickListener(null);
             else
             {
@@ -353,6 +353,7 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
                                                     .add(0,new TalkComment(inputCommentView.getText().toString(), userVo));
                                             commentAdapter.setDatas(friendData.getComments());
                                             commentListView.setVisibility(View.VISIBLE);
+                                            commentBackgroundView.setVisibility(View.VISIBLE);
                                             //清空输入框
                                             inputCommentView.setText("");
                                             inputCommentView.clearFocus();

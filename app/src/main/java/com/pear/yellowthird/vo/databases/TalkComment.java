@@ -23,7 +23,7 @@ public class TalkComment implements Serializable {
     UserVo user;
 
     /**是否已经点赞*/
-    boolean isAlreadyClickGood=false;
+    Boolean alreadyClickGood=Boolean.FALSE;
 
 
     public TalkComment() {
@@ -37,6 +37,14 @@ public class TalkComment implements Serializable {
     public TalkComment(String content, UserVo user) {
         this.content = content;
         this.user = user;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getContent() {
@@ -55,14 +63,6 @@ public class TalkComment implements Serializable {
         this.goodCount = goodCount;
     }
 
-    public UserVo getUser() {
-        return user;
-    }
-
-    public void setUser(UserVo user) {
-        this.user = user;
-    }
-
     public String getPublishTime() {
         return publishTime;
     }
@@ -71,19 +71,20 @@ public class TalkComment implements Serializable {
         this.publishTime = publishTime;
     }
 
-    public boolean isAlreadyClickGood() {
-        return isAlreadyClickGood;
+    public UserVo getUser() {
+        return user;
     }
 
-    public void setAlreadyClickGood(boolean alreadyClickGood) {
-        isAlreadyClickGood = alreadyClickGood;
+    public void setUser(UserVo user) {
+        this.user = user;
     }
 
-    public Integer getId() {
-        return id;
+    public Boolean getAlreadyClickGood() {
+        return alreadyClickGood;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setAlreadyClickGood(Boolean alreadyClickGood) {
+        this.alreadyClickGood = alreadyClickGood;
     }
+
 }

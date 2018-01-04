@@ -1,6 +1,5 @@
 package com.pear.yellowthird.style.vo;
 
-import com.pear.yellowthird.view.style.vo.SourceType;
 
 /**
  * 底部菜单的导航栏

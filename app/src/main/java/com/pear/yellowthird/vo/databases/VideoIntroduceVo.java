@@ -57,10 +57,10 @@ public class VideoIntroduceVo  implements Serializable {
     Integer goodCount;
 
     /**是否已经点赞*/
-    boolean isAlreadyClickGood;
+    Boolean alreadyClickGood=Boolean.FALSE;
 
     /**是否已经评分*/
-    boolean isAlreadyGrade;
+    Boolean alreadyGrade=Boolean.FALSE;
 
     /**评论总数*/
     Integer allTalkCount;
@@ -159,21 +159,6 @@ public class VideoIntroduceVo  implements Serializable {
         this.price = price;
     }
 
-    public boolean isAlreadyClickGood() {
-        return isAlreadyClickGood;
-    }
-
-    public void setAlreadyClickGood(boolean alreadyClickGood) {
-        isAlreadyClickGood = alreadyClickGood;
-    }
-
-    public boolean isAlreadyGrade() {
-        return isAlreadyGrade;
-    }
-
-    public void setAlreadyGrade(boolean alreadyGrade) {
-        isAlreadyGrade = alreadyGrade;
-    }
 
     public Integer getGoodCount() {
         return goodCount;
@@ -237,5 +222,22 @@ public class VideoIntroduceVo  implements Serializable {
 
     public void setPublishTime(String publishTime) {
         this.publishTime = publishTime;
+    }
+
+
+    public Boolean getAlreadyClickGood() {
+        return alreadyClickGood;
+    }
+
+    public void setAlreadyClickGood(Boolean alreadyClickGood) {
+        this.alreadyClickGood = alreadyClickGood;
+    }
+
+    public Boolean getAlreadyGrade() {
+        return alreadyGrade;
+    }
+
+    public void setAlreadyGrade(Boolean alreadyGrade) {
+        this.alreadyGrade = alreadyGrade;
     }
 }

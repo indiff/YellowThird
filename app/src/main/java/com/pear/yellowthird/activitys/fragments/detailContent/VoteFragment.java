@@ -204,7 +204,7 @@ public class VoteFragment extends Fragment {
             /**点击投票*/
             {
                 ImageView imageView = lineView.findViewById(R.id.vote_click);
-                if(data.isAlreadyVote())
+                if(data.getAlreadyVote())
                     imageView.setSelected(true);
                 onOnVoteClick(imageView,voteVo,subSelectVoteRefresh);
                 subSelectVoteRefresh.clickView=imageView;
@@ -275,7 +275,7 @@ public class VoteFragment extends Fragment {
         /**重新刷新数据*/
         void refreshView()
         {
-            if(data.isAlreadyVote())
+            if(data.getAlreadyVote())
                 clickView.setSelected(true);
             percentageTextView.setText(String.valueOf(data.getCount()));
 

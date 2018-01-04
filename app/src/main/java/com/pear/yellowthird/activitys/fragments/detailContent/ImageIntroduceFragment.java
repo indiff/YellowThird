@@ -149,7 +149,7 @@ public class ImageIntroduceFragment extends Fragment {
         {
             clickGoodLinear = mRootView.findViewById(R.id.click_good);
             onImageClickGood(clickGoodLinear);
-            if(data.isAlreadyClickGood())
+            if(data.getAlreadyClickGood())
                 setClickImageGoodIsSelect(data.getGoodCount());
         }
 

@@ -20,7 +20,7 @@ public class VoteVo {
     List<SubSelect> voteSelect;
 
     /**是否已经投票*/
-    boolean isAlreadyVote;
+    Boolean alreadyVote=Boolean.FALSE;
 
     /**当前已投票结果的计算时间*/
     String currentResultTime;
@@ -32,7 +32,7 @@ public class VoteVo {
         this.id = id;
         this.title = title;
         this.voteSelect = subSelects;
-        this.isAlreadyVote = isCanVote;
+        this.alreadyVote = isCanVote;
     }
 
     public Integer getId() {
@@ -59,20 +59,28 @@ public class VoteVo {
         this.voteSelect = voteSelect;
     }
 
-    public boolean isAlreadyVote() {
-        return isAlreadyVote;
-    }
-
-    public void setAlreadyVote(boolean alreadyVote) {
-        isAlreadyVote = alreadyVote;
-    }
-
     public String getCurrentResultTime() {
         return currentResultTime;
     }
 
     public void setCurrentResultTime(String currentResultTime) {
         this.currentResultTime = currentResultTime;
+    }
+
+    public boolean isAlreadyVote() {
+        return alreadyVote;
+    }
+
+    public void setAlreadyVote(boolean alreadyVote) {
+        this.alreadyVote = alreadyVote;
+    }
+
+    public Boolean getAlreadyVote() {
+        return alreadyVote;
+    }
+
+    public void setAlreadyVote(Boolean alreadyVote) {
+        this.alreadyVote = alreadyVote;
     }
 
     /**
@@ -97,7 +105,7 @@ public class VoteVo {
         Integer count;
 
         /**是否选了这个选项*/
-        boolean isAlreadyVote;
+        Boolean alreadyVote=Boolean.FALSE;
 
         public SubSelect() {
         }
@@ -112,7 +120,7 @@ public class VoteVo {
             this.keyWord = keyWord;
             this.imageUri = imageUri;
             this.count = count;
-            this.isAlreadyVote = isAlreadyVote;
+            this.alreadyVote = isAlreadyVote;
         }
 
         public String getTitle() {
@@ -147,20 +155,20 @@ public class VoteVo {
             this.count = count;
         }
 
-        public boolean isAlreadyVote() {
-            return isAlreadyVote;
-        }
-
-        public void setAlreadyVote(boolean alreadyVote) {
-            isAlreadyVote = alreadyVote;
-        }
-
         public Integer getId() {
             return id;
         }
 
         public void setId(Integer id) {
             this.id = id;
+        }
+
+        public Boolean getAlreadyVote() {
+            return alreadyVote;
+        }
+
+        public void setAlreadyVote(Boolean alreadyVote) {
+            this.alreadyVote = alreadyVote;
         }
 
         @Override

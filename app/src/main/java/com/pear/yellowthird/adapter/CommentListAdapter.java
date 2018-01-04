@@ -18,8 +18,11 @@ import com.bumptech.glide.Glide;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
+import com.pear.yellowthird.impl.net.ServiceDisposeImpl;
 import com.pear.yellowthird.style.factory.StyleFactory;
 import com.pear.yellowthird.vo.databases.TalkComment;
+
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,6 +39,11 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
  */
 
 public class CommentListAdapter extends BaseAdapter {
+
+    /**
+     * 日记
+     */
+    private static Logger log = Logger.getLogger(ServiceDisposeImpl.class);
 
     private Context mContext;
 
@@ -104,7 +112,8 @@ public class CommentListAdapter extends BaseAdapter {
 
         /**点赞数量*/
         holder.goodCountView.setText("" + currentData.getGoodCount());
-        if(currentData.isAlreadyClickGood())
+        log.debug("currentData.isAlreadyClickGood()"+currentData.getAlreadyClickGood());
+        if(currentData.getAlreadyClickGood())
             setClickGoodIsSelect(holder);
 
         /**具体评论值*/
@@ -142,6 +151,7 @@ public class CommentListAdapter extends BaseAdapter {
      */
     void setClickGoodIsSelect(CommentHolder holder)
     {
+        log.debug("setClickGoodIsSelect");
         holder.clickGoodLineView.setOnClickListener(null);
         holder.clickGoodIcon.setSelected(true);
         holder.goodCountView.setTextColor(mContext.getResources().getColor(R.color.colorSelect));

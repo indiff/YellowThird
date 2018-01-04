@@ -30,7 +30,7 @@ public class FriendsVo  implements Serializable {
     Integer showCount;
 
     /**是否已经点赞*/
-    boolean isAlreadyClickGood;
+    Boolean alreadyClickGood=Boolean.FALSE;
 
     /**点赞数量*/
     Integer goodCount;
@@ -59,7 +59,7 @@ public class FriendsVo  implements Serializable {
         this.content = content;
         this.publishTime = publishTime;
         this.showCount = browseCount;
-        this.isAlreadyClickGood = isAlreadyClickGood;
+        this.alreadyClickGood = isAlreadyClickGood;
         this.goodCount = goodCount;
         this.images = images;
         this.comments = comments;
@@ -105,14 +105,6 @@ public class FriendsVo  implements Serializable {
         this.id = id;
     }
 
-    public boolean isAlreadyClickGood() {
-        return isAlreadyClickGood;
-    }
-
-    public void setAlreadyClickGood(boolean alreadyClickGood) {
-        isAlreadyClickGood = alreadyClickGood;
-    }
-
     public Integer getGoodCount() {
         return goodCount;
     }
@@ -137,4 +129,11 @@ public class FriendsVo  implements Serializable {
         this.comments = comments;
     }
 
+    public Boolean getAlreadyClickGood() {
+        return alreadyClickGood;
+    }
+
+    public void setAlreadyClickGood(Boolean alreadyClickGood) {
+        this.alreadyClickGood = alreadyClickGood;
+    }
 }

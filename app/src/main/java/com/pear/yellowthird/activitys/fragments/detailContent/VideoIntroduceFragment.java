@@ -191,7 +191,7 @@ public class VideoIntroduceFragment extends Fragment {
                 allClickGoodView.setText(String.valueOf(mData.getGoodCount()));
             }
 
-            if (mData.isAlreadyClickGood())
+            if (mData.getAlreadyClickGood())
                 setClickVideoGoodIsSelect(mData.getGoodCount());
         }
 

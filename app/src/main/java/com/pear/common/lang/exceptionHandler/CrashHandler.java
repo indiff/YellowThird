@@ -98,15 +98,6 @@ public class CrashHandler implements UncaughtExceptionHandler {
         if (ex == null) {  
             return false;  
         }  
-        //使用Toast来显示异常信息  
-        new Thread() {
-            @Override
-            public void run() {  
-                Looper.prepare();
-                Toast.makeText(mContext, "哎呀，刚才撞到头了", Toast.LENGTH_SHORT).show();
-                Looper.loop();
-            }  
-        }.start();
 
         //收集设备参数信息   
         collectDeviceInfo(mContext);
@@ -114,7 +105,27 @@ public class CrashHandler implements UncaughtExceptionHandler {
         //获取出错日记
         String crashMessage=getCrashInfo(ex);
         sendCrashLogToService(crashMessage);
-        return true;  
+
+        toastShow();
+        return true;
+    }
+
+    void toastShow()
+    {
+        //使用Toast来显示异常信息
+        new Thread() {
+            @Override
+            public void run() {
+                Looper.prepare();
+                Toast.makeText(mContext, "程序奔溃，务必请告诉苏鸿良你的操作方式。非常重要", Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }
+        }.start();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
