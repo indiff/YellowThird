@@ -84,6 +84,10 @@ public class VideoIntroduceFragment extends Fragment {
     ImageView authorIcon;
 
     /**
+     * 吸引光标
+     * */
+    LinearLayout attractFocusView;
+    /**
      * 用户的评论输入
      */
     EditText inputComment;
@@ -225,6 +229,10 @@ public class VideoIntroduceFragment extends Fragment {
 
         }
 
+        /**吸引光标*/
+        {
+            attractFocusView= mRootView.findViewById(R.id.attract_focus);
+        }
         /**用户的输入评论框*/
         {
             inputComment = mRootView.findViewById(R.id.input_comment);
@@ -388,7 +396,8 @@ public class VideoIntroduceFragment extends Fragment {
                         //清空输入框
                         inputComment.setText("");
                         inputComment.clearFocus();
-
+                        attractFocusView.setFocusableInTouchMode(true);
+                        attractFocusView.setFocusable(true);
                         hideSoftInput(getActivity(), inputComment);
                         Toast.makeText(getActivity(), "评论成功", Toast.LENGTH_SHORT).show();
                         refreshComment();
