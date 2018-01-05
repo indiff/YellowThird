@@ -112,7 +112,7 @@ public class CommentListAdapter extends BaseAdapter {
 
         /**点赞数量*/
         holder.goodCountView.setText("" + currentData.getGoodCount());
-        log.debug("currentData.isAlreadyClickGood()"+currentData.getAlreadyClickGood());
+        //log.debug("currentData.isAlreadyClickGood()"+currentData.getAlreadyClickGood());
         if(currentData.getAlreadyClickGood())
             setClickGoodIsSelect(holder);
 

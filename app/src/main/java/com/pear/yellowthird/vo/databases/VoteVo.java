@@ -67,14 +67,6 @@ public class VoteVo {
         this.currentResultTime = currentResultTime;
     }
 
-    public boolean isAlreadyVote() {
-        return alreadyVote;
-    }
-
-    public void setAlreadyVote(boolean alreadyVote) {
-        this.alreadyVote = alreadyVote;
-    }
-
     public Boolean getAlreadyVote() {
         return alreadyVote;
     }
@@ -105,7 +97,7 @@ public class VoteVo {
         Integer count;
 
         /**是否选了这个选项*/
-        Boolean alreadyVote=Boolean.FALSE;
+        Boolean alreadyClickGood=Boolean.FALSE;
 
         public SubSelect() {
         }
@@ -120,7 +112,7 @@ public class VoteVo {
             this.keyWord = keyWord;
             this.imageUri = imageUri;
             this.count = count;
-            this.alreadyVote = isAlreadyVote;
+            this.alreadyClickGood = isAlreadyVote;
         }
 
         public String getTitle() {
@@ -163,12 +155,12 @@ public class VoteVo {
             this.id = id;
         }
 
-        public Boolean getAlreadyVote() {
-            return alreadyVote;
+        public Boolean getAlreadyClickGood() {
+            return alreadyClickGood;
         }
 
-        public void setAlreadyVote(Boolean alreadyVote) {
-            this.alreadyVote = alreadyVote;
+        public void setAlreadyClickGood(Boolean alreadyClickGood) {
+            this.alreadyClickGood = alreadyClickGood;
         }
 
         @Override

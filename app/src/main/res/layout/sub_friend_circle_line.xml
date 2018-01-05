@@ -140,10 +140,9 @@
                 android:id="@+id/comment_list_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="12dip"
-                android:paddingTop="12dip"
-                android:paddingRight="12dip"
-                android:paddingBottom="8dip"
+                android:paddingLeft="8dip"
+                android:paddingTop="10dip"
+                android:paddingRight="8dip"
                 android:background="@drawable/simple_comment_bg"
                 android:orientation="vertical"
                 android:visibility="visible">
@@ -158,6 +157,7 @@
 
             <!--用户的输入评论框-->
             <LinearLayout
+                android:id="@+id/attract_focus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"

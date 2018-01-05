@@ -269,6 +269,7 @@
 
             <!--用户的输入评论框-->
             <LinearLayout
+                android:id="@+id/attract_focus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

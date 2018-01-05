@@ -41,9 +41,7 @@ import rx.schedulers.Schedulers;
 
 public class ServiceDisposeImpl implements ServiceDisposeInterface {
 
-    /**
-     * 日记
-     */
+    /**日记*/
     private static Logger log = Logger.getLogger(ServiceDisposeImpl.class);
 
     /**
@@ -69,7 +67,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     public static void initDeviceId(Activity activity) {
         String androidID = Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
         gDeviceId = androidID + "_" + Build.SERIAL;
-        //gDeviceId = "dddddffffd";
+        //gDeviceId = "dddddffddsfafddss";
         log.info("gDeviceId" + gDeviceId);
     }
 

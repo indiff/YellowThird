@@ -14,7 +14,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
+import com.pear.yellowthird.impl.net.ServiceDisposeImpl;
 import com.pear.yellowthird.vo.databases.VoteVo;
+
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +32,9 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
  * 投票界面
  */
 public class VoteFragment extends Fragment {
+
+    /**日记*/
+    private static Logger log = Logger.getLogger(VoteFragment.class);
 
     /**
      * 内容数据
@@ -99,6 +105,7 @@ public class VoteFragment extends Fragment {
         for (int i = 0; i < datas.size(); i++) {
 
             VoteVo voteVo = datas.get(i);
+            log.debug("voteVo.getAlreadyVote()："+voteVo.getAlreadyVote());
             LinearLayout voteView = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.sub_vote_view, null);
 
             /**这里需要动态设置 米格投票的类别之间的间隔*/
@@ -204,9 +211,11 @@ public class VoteFragment extends Fragment {
             /**点击投票*/
             {
                 ImageView imageView = lineView.findViewById(R.id.vote_click);
-                if(data.getAlreadyVote())
+                log.debug("data.getAlreadyVote()："+data.getAlreadyClickGood());
+                if(data.getAlreadyClickGood())
                     imageView.setSelected(true);
-                onOnVoteClick(imageView,voteVo,subSelectVoteRefresh);
+                if(!voteVo.getAlreadyVote())
+                    onOnVoteClick(imageView,voteVo,subSelectVoteRefresh);
                 subSelectVoteRefresh.clickView=imageView;
             }
 
@@ -222,33 +231,33 @@ public class VoteFragment extends Fragment {
     void onOnVoteClick(final ImageView view,final VoteVo vote,final SubSelectVoteRefresh subSelectVoteRefresh)
     {
         view.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                if(!vote.isAlreadyVote())
-                {
-                    ServiceDisposeFactory.getInstance().getServiceDispose()
+                if(vote.getAlreadyVote())
+                    return;
+                clickVote();
+                ServiceDisposeFactory.getInstance().getServiceDispose()
                             .clickVote(vote.getId(),subSelectVoteRefresh.data.getId())
                             .subscribe(
-                                    /**投票正常*/
                                     new Action1<Boolean>() {
                         @Override
                         public void call(Boolean result) {
-                            subSelectVoteRefresh.data.setAlreadyVote(true);
-                            subSelectVoteRefresh.data.setCount(subSelectVoteRefresh.data.getCount()+1);
-                            subSelectVoteRefresh.refreshView();
-                            vote.setAlreadyVote(true);
-                            Toast.makeText(getActivity(),"感谢亲的参与",Toast.LENGTH_SHORT).show();
                         }
-
-                        /**投票出错*/
                     });
-                }
-                else
-                {
-                    Toast.makeText(getActivity(),"你已投过票咯，亲",Toast.LENGTH_SHORT).show();
-                    return;
-                }
             }
+
+            /**投票*/
+            void clickVote()
+            {
+                subSelectVoteRefresh.data.setAlreadyClickGood(true);
+                subSelectVoteRefresh.data.setCount(subSelectVoteRefresh.data.getCount()+1);
+                subSelectVoteRefresh.refreshView();
+                vote.setAlreadyVote(true);
+                Toast.makeText(getActivity(),"感谢亲的参与",Toast.LENGTH_SHORT).show();
+                view.setOnClickListener(null);
+            }
+
         });
     }
 
@@ -275,7 +284,7 @@ public class VoteFragment extends Fragment {
         /**重新刷新数据*/
         void refreshView()
         {
-            if(data.getAlreadyVote())
+            if(data.getAlreadyClickGood())
                 clickView.setSelected(true);
             percentageTextView.setText(String.valueOf(data.getCount()));
 
