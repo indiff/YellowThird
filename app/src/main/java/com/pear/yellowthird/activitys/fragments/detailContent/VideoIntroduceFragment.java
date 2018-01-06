@@ -282,6 +282,7 @@ public class VideoIntroduceFragment extends Fragment {
                             JSONObject json = new JSONObject(data);
                             if (json.getBoolean("pay")) {
                                 Toast.makeText(getActivity(), json.getString("tip"), Toast.LENGTH_LONG).show();
+                                mData.setPrice("已购买 ");
                                 priceView.setText("已购买 ");
                                 startPlay();
                             } else {
