@@ -2,8 +2,6 @@ package com.pear.yellowthird.vo.databases;
 
 
 
-import com.pear.yellowthird.factory.ServiceDisposeFactory;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +49,7 @@ public class VideoIntroduceVo  implements Serializable {
     Integer playCount;
 
     /**价格*/
-    Integer price;
+    String price;
 
     /**点赞数量*/
     Integer goodCount;
@@ -151,11 +149,11 @@ public class VideoIntroduceVo  implements Serializable {
         this.playCount = playCount;
     }
 
-    public Integer getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

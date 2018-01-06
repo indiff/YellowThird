@@ -97,7 +97,8 @@ public class VideoIntroduceFragment extends Fragment {
      */
     CommentListAdapter mCommentAdapter;
 
-
+    /*价格*/
+    TextView priceView;
 
 
     public static Fragment newInstance(VideoIntroduceVo data) {
@@ -174,6 +175,12 @@ public class VideoIntroduceFragment extends Fragment {
         {
             TextView allPlayCountView = mRootView.findViewById(R.id.all_play_count);
             allPlayCountView.setText("•" + mData.getPlayCount() + "次播放");
+        }
+
+        /**价格*/
+        {
+            priceView= mRootView.findViewById(R.id.price);
+            priceView.setText(mData.getPrice()+" ");
         }
 
         /**多少个人评论了*/
@@ -275,6 +282,7 @@ public class VideoIntroduceFragment extends Fragment {
                             JSONObject json = new JSONObject(data);
                             if (json.getBoolean("pay")) {
                                 Toast.makeText(getActivity(), json.getString("tip"), Toast.LENGTH_LONG).show();
+                                priceView.setText("已购买 ");
                                 startPlay();
                             } else {
                                 Toast.makeText(getActivity(), json.getString("tip"), Toast.LENGTH_LONG).show();
