@@ -2,9 +2,11 @@ package com.pear.yellowthird.activitys;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+
 import com.universalvideoview.UniversalMediaController;
 import com.universalvideoview.UniversalVideoView;
 
@@ -24,6 +26,9 @@ public class FullVideoActivity  extends AppCompatActivity {
     UniversalVideoView mVideoView;
 
     UniversalMediaController mMediaController;
+
+    //屏幕电源管理
+    PowerManager.WakeLock wakeLock;
 
 
     /**上一次的播放进度*/
@@ -76,6 +81,25 @@ public class FullVideoActivity  extends AppCompatActivity {
     }
 
 
+    /**开始播放*/
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mSeekPosition > 0) {
+            mVideoView.seekTo(mSeekPosition);
+        }
+        mVideoView.requestFocus();
+        mVideoView.start();
+
+        /**保持屏幕常亮*/
+        wakeLock = ((PowerManager) getSystemService(POWER_SERVICE))
+                .newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK
+                        | PowerManager.ON_AFTER_RELEASE, TAG);
+        wakeLock.acquire();
+    }
+
+
+
     /**暂停播放*/
     @Override
     protected void onPause() {
@@ -85,6 +109,11 @@ public class FullVideoActivity  extends AppCompatActivity {
             mSeekPosition = mVideoView.getCurrentPosition();
             Log.d(TAG, "onPause mSeekPosition=" + mSeekPosition);
             mVideoView.pause();
+        }
+
+        /**关闭屏幕常亮*/
+        if (wakeLock != null) {
+            wakeLock.release();
         }
     }
 
