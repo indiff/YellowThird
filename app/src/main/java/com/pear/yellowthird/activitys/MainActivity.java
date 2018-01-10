@@ -1,9 +1,7 @@
 package com.pear.yellowthird.activitys;
 
-import android.Manifest;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,7 +19,6 @@ import com.pear.yellowthird.adapter.abstracts.CommonCacheAdapterAbstract;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.impl.net.ServiceDisposeImpl;
 import com.pear.yellowthird.init.Log4JConfig;
-import com.pear.yellowthird.init.PermissionsRequestInit;
 import com.pear.yellowthird.style.factory.StyleFactory;
 import com.pear.yellowthird.style.factory.StyleFragmentFactory;
 import com.pear.yellowthird.style.vo.BottomNavigationMenuVo;
@@ -41,7 +38,9 @@ import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
-    /**日记*/
+    /**
+     * 日记
+     */
     private Logger log = Logger.getLogger(getClass().getSimpleName());
 
     /**
@@ -61,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 上一次用户使用主界面的时间戳，用户超过一定时长，强制重新刷新。
-     * */
-    long lastUserUseMainViewTime=System.currentTimeMillis();
+     */
+    long lastUserUseMainViewTime = System.currentTimeMillis();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,78 +109,55 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        requestPermissions(refreshDataRun);
+        /**这里只用到了普通 Manifest.permission.INTERNET 权限，不需要申请 */
+
+        requestDataByService();
         loadingView.showPrepareLoadingView();
     }
-
 
     @Override
     protected void onStart() {
         super.onStart();
-        long alreadyPassTime=System.currentTimeMillis()-lastUserUseMainViewTime;
-        System.out.println("alreadyPassTime:"+alreadyPassTime);
+        long alreadyPassTime = System.currentTimeMillis() - lastUserUseMainViewTime;
+        System.out.println("alreadyPassTime:" + alreadyPassTime);
         /**超过一个小时重新强制刷新主界面*/
-        int ONE_HOURS=1000*60*60;
-        if(alreadyPassTime>ONE_HOURS)
-        {
-            log.info("alreadyPassTime>ONE_HOURS :"+alreadyPassTime);
-            startActivity(new Intent(this,MainActivity.class));
+        int ONE_HOURS = 1000 * 60 * 60;
+        if (alreadyPassTime > ONE_HOURS) {
+            log.info("alreadyPassTime>ONE_HOURS :" + alreadyPassTime);
+            startActivity(new Intent(this, MainActivity.class));
             finish();
         }
-        lastUserUseMainViewTime=System.currentTimeMillis();
+        lastUserUseMainViewTime = System.currentTimeMillis();
         //throw new RuntimeException("test upload log");
     }
 
-
     /**
-     * 请求权限
+     * 从服务器中刷新数据
      */
-    void requestPermissions(final Runnable refreshDataRun) {
-        /**申请权限*/
-        new AsyncTask<Object, Object, Object>() {
-            @Override
-            protected Object doInBackground(Object... objects) {
-                new PermissionsRequestInit(MainActivity.this, new String[]{
-                        Manifest.permission.INTERNET}
-                ).init(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshDataRun.run();
-                    }
-                });
-                return null;
-            }
-        }.execute();
+    void requestDataByService() {
+
+        /**连接服务器测试*/
+        boolean serviceTest = true;
+        if (serviceTest) {
+            ServiceDisposeFactory.getInstance().getServiceDispose().queryMainMenu()
+                    .subscribe(new Action1<String>() {
+                        @Override
+                        public void call(String result) {
+                            JsonUtil.write2ClassAsync(result, BottomNavigationMenuVo[].class)
+                                    .subscribe(new Action1<BottomNavigationMenuVo[]>() {
+                                        @Override
+                                        public void call(BottomNavigationMenuVo[] menus) {
+                                            adapter.setData(menus);
+                                        }
+                                    });
+
+                        }
+                    });
+        } else
+            adapter.setData(JsonUtil.write2Class(AllDatabases.getData(), BottomNavigationMenuVo[].class));
     }
 
-    /**
-     * 刷新数据
-     */
-    Runnable refreshDataRun = new Runnable() {
-        @Override
-        public void run() {
-
-            /**连接服务器测试*/
-            boolean serviceTest = true;
-            if (serviceTest) {
-                ServiceDisposeFactory.getInstance().getServiceDispose().queryMainMenu()
-                        .subscribe(new Action1<String>() {
-                            @Override
-                            public void call(String result) {
-                                JsonUtil.write2ClassAsync(result, BottomNavigationMenuVo[].class)
-                                        .subscribe(new Action1<BottomNavigationMenuVo[]>() {
-                                            @Override
-                                            public void call(BottomNavigationMenuVo[] menus) {
-                                                adapter.setData(menus);
-                                            }
-                                        });
-
-                            }
-                        });
-            } else
-                adapter.setData(JsonUtil.write2Class(AllDatabases.getData(), BottomNavigationMenuVo[].class));
-        }
-    };
+    ;
 
     @Override
     protected void onDestroy() {
@@ -293,8 +269,8 @@ public class MainActivity extends AppCompatActivity {
             /**里面几张加载图，每次都随机一下。*/
             {
                 loadingImageView = findViewById(R.id.loading_image);
-                int randomImages[]=new int[]{R.drawable._main_loading_1,R.drawable._main_loading_2,R.drawable._main_loading_3};
-                int randomIndex=new Random().nextInt(randomImages.length);
+                int randomImages[] = new int[]{R.drawable._main_loading_1, R.drawable._main_loading_2, R.drawable._main_loading_3};
+                int randomIndex = new Random().nextInt(randomImages.length);
                 loadingImageView.setImageDrawable(getResources().getDrawable(randomImages[randomIndex]));
             }
             timeDownView = findViewById(R.id.time_down);
