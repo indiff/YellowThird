@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.activitys.base.CommonHeadActivity;
@@ -15,6 +16,7 @@ import com.pear.yellowthird.adapter.CatalogueImageBucketAdapter;
 import com.pear.yellowthird.vo.ImageBucket;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -58,8 +60,17 @@ public class ChooseCataloguePicActivity extends CommonHeadActivity {
 	 * 初始化数据
 	 */
 	private void initData() {
-		catalogueList = helper.getImagesBucketList(true);
 
+		/**万一用户没有给相册权限，程序不应该奔溃*/
+		try
+		{
+			catalogueList = helper.getImagesBucketList(true);
+		}catch(Exception e)
+		{
+			catalogueList=new ArrayList<>();
+			Toast.makeText(this,"主人，我需要查看你的相册权限哦，请到设置中为我打开权限吧！",Toast.LENGTH_LONG).show();
+			e.printStackTrace();
+		}
 		bimap= BitmapFactory.decodeResource(
 				getResources(),
 				R.drawable._add_image);
