@@ -55,6 +55,7 @@
         <activity android:name=".published.PublishedActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"
             >
         </activity>
 

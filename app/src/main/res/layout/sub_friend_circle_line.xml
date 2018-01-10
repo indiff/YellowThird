@@ -5,6 +5,14 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
+    <!--Android取消EditText自动默认获取焦点行为-->
+    <EditText
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -164,11 +172,6 @@
                 android:layout_marginBottom="2dp"
                 android:orientation="vertical"
                 >
-                <!--Android取消EditText自动默认获取焦点行为-->
-                <!--
-                                android:focusable="true"
-                                android:focusableInTouchMode="true"
-                -->
                 <!--用户的输入评论框-->
                 <EditText
                     android:id="@+id/input_comment"
