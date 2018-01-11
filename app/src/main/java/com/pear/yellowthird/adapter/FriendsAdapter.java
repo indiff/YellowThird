@@ -136,6 +136,15 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
             }
             //别获取焦点啊。大哥求你了。
             holder.inputCommentView.clearFocus();
+            /**上面的不行，那这个呢*/
+            holder.inputCommentView.post(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            holder.inputCommentView.clearFocus();
+                        }
+                    }
+            );
         }
     }
 

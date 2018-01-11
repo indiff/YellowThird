@@ -58,7 +58,9 @@ public class VideoIntroduceFragment extends Fragment {
      */
     private View mRootView;
 
-    /**开始播放*/
+    /**
+     * 开始播放
+     */
     ImageView playButton;
 
     /**
@@ -85,7 +87,7 @@ public class VideoIntroduceFragment extends Fragment {
 
     /**
      * 吸引光标
-     * */
+     */
     LinearLayout attractFocusView;
     /**
      * 用户的评论输入
@@ -179,8 +181,8 @@ public class VideoIntroduceFragment extends Fragment {
 
         /**价格*/
         {
-            priceView= mRootView.findViewById(R.id.price);
-            priceView.setText(mData.getPrice()+" ");
+            priceView = mRootView.findViewById(R.id.price);
+            priceView.setText(mData.getPrice() + " ");
         }
 
         /**多少个人评论了*/
@@ -194,7 +196,7 @@ public class VideoIntroduceFragment extends Fragment {
         {
             videoClickGoodLinearLayout = mRootView.findViewById(R.id.click_good_line_view);
 
-            clickGoodIcon= mRootView.findViewById(R.id.click_good);
+            clickGoodIcon = mRootView.findViewById(R.id.click_good);
             onVideoClickGood(videoClickGoodLinearLayout);
             /**多少个人点赞了*/
             {
@@ -238,7 +240,7 @@ public class VideoIntroduceFragment extends Fragment {
 
         /**吸引光标*/
         {
-            attractFocusView= mRootView.findViewById(R.id.attract_focus);
+            attractFocusView = mRootView.findViewById(R.id.attract_focus);
         }
         /**用户的输入评论框*/
         {
@@ -268,6 +270,16 @@ public class VideoIntroduceFragment extends Fragment {
         inputComment.clearFocus();
         //这样是否正常工作。
         //attractFocusView.requestFocus();
+
+        /**上面的不行，那这个呢*/
+        inputComment.post(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        inputComment.clearFocus();
+                    }
+                }
+        );
     }
 
 
@@ -315,8 +327,7 @@ public class VideoIntroduceFragment extends Fragment {
             /**
              * 开始播放
              * */
-            void startPlay()
-            {
+            void startPlay() {
                 Intent intent = new Intent(getActivity(), FullVideoActivity.class);
                 intent.putExtra("url", mData.getVideoUri());
                 intent.putExtra("title", mData.getTitle());
@@ -406,18 +417,18 @@ public class VideoIntroduceFragment extends Fragment {
                 ServiceDisposeFactory.getInstance().getServiceDispose()
                         .addVideoComment(String.valueOf(mData.getId()), text)
                         .subscribe(new Action1<Boolean>() {
-                    @Override
-                    public void call(Boolean result) {
-                        //清空输入框
-                        inputComment.setText("");
-                        inputComment.clearFocus();
-                        attractFocusView.setFocusableInTouchMode(true);
-                        attractFocusView.setFocusable(true);
-                        hideSoftInput(getActivity(), inputComment);
-                        Toast.makeText(getActivity(), "评论成功", Toast.LENGTH_SHORT).show();
-                        refreshComment();
-                    }
-                });
+                            @Override
+                            public void call(Boolean result) {
+                                //清空输入框
+                                inputComment.setText("");
+                                inputComment.clearFocus();
+                                attractFocusView.setFocusableInTouchMode(true);
+                                attractFocusView.setFocusable(true);
+                                hideSoftInput(getActivity(), inputComment);
+                                Toast.makeText(getActivity(), "评论成功", Toast.LENGTH_SHORT).show();
+                                refreshComment();
+                            }
+                        });
             }
 
             /**
@@ -438,13 +449,13 @@ public class VideoIntroduceFragment extends Fragment {
         ServiceDisposeFactory.getInstance().getServiceDispose()
                 .queryVideoComment(mData.getId())
                 .subscribe(new Action1<String>() {
-            @Override
-            public void call(String data) {
-                TalkComment[] datas = JsonUtil.write2Class(data, TalkComment[].class);
-                if (null != datas && datas.length > 0)
-                    mCommentAdapter.setTalk(Arrays.asList(datas));
-            }
-        });
+                    @Override
+                    public void call(String data) {
+                        TalkComment[] datas = JsonUtil.write2Class(data, TalkComment[].class);
+                        if (null != datas && datas.length > 0)
+                            mCommentAdapter.setTalk(Arrays.asList(datas));
+                    }
+                });
     }
 
     private static int gCommentListId = new String("video_introduce_comment_list_id").hashCode();
