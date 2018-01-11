@@ -5,14 +5,17 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <!--Android取消EditText自动默认获取焦点行为-->
+    <!--Android取消EditText自动默认获取焦点行为
+    这个还是不行，会自动跳转到之里，只是光标不显示而已。还是会跳转。我日
+    -->
+    <!--
     <EditText
         android:layout_width="0px"
         android:layout_height="0px"
         android:focusable="true"
         android:focusableInTouchMode="true"
         />
-
+    -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

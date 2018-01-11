@@ -5,14 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-
-    <!--Android取消EditText自动默认获取焦点行为-->
-    <EditText
-        android:layout_width="0px"
-        android:layout_height="0px"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -284,6 +276,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="12dp"
                 android:orientation="horizontal"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 >
                 <!--Android取消EditText自动默认获取焦点行为-->
 

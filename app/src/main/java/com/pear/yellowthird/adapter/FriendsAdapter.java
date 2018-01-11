@@ -134,6 +134,8 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
                 holder.commentBackgroundView.setVisibility(View.VISIBLE);
                 holder.commentListView.setVisibility(View.VISIBLE);
             }
+            //别获取焦点啊。大哥求你了。
+            holder.inputCommentView.clearFocus();
         }
     }
 

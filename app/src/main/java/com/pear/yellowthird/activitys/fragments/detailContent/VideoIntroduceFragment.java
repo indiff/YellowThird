@@ -260,6 +260,16 @@ public class VideoIntroduceFragment extends Fragment {
         return mRootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        /**为了干掉这个焦点自动获取。我也是哭了*/
+        inputComment.clearFocus();
+        //这样是否正常工作。
+        //attractFocusView.requestFocus();
+    }
+
 
     void eventInit() {
         onAddTalkComment();
