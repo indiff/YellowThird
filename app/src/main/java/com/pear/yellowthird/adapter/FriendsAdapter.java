@@ -318,16 +318,12 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
 
                 @Override
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    //当actionId == XX_SEND 或者 XX_DONE时都触发
-                    //或者event.getKeyCode == ENTER 且 event.getAction == ACTION_DOWN时也触发
-                    //注意，这是一定要判断event != null。因为在某些输入法上会返回null。
-                    if (actionId == EditorInfo.IME_ACTION_SEND
-                            || actionId == EditorInfo.IME_ACTION_DONE
-                            || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
-
+                    boolean handled = false;
+                    if (actionId == EditorInfo.IME_ACTION_SEND) {
                         addComment();
+                        handled = true;
                     }
-                    return true;
+                    return handled;
                 }
 
                 /**
