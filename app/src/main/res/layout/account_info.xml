@@ -84,6 +84,8 @@
                         android:textSize="@dimen/title"
                         android:textStyle="bold"
                         android:imeOptions="actionSend"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:inputType="text"/>
 
                 </LinearLayout>

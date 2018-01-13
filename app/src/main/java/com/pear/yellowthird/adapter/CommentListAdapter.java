@@ -131,17 +131,25 @@ public class CommentListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Integer position=(Integer) view.getTag();
                 final TalkComment currentData = mTalk.get(position);
+                changeToClickGood(currentData);
                 ServiceDisposeFactory.getInstance().getServiceDispose()
                         .addVideoUserCommentClickGood(currentData.getId())
                         .subscribe(new Action1<Boolean>() {
                     @Override
                     public void call(Boolean result) {
-                        currentData.setAlreadyClickGood(true);
-                        currentData.setGoodCount(currentData.getGoodCount()+1);
-                        holder.goodCountView.setText(String.valueOf(currentData.getGoodCount()));
-                        setClickGoodIsSelect(holder);
                     }
                 });
+            }
+
+            /**
+             * 修改为点赞的样式
+             * */
+            void changeToClickGood(final TalkComment currentData)
+            {
+                currentData.setAlreadyClickGood(true);
+                currentData.setGoodCount(currentData.getGoodCount()+1);
+                holder.goodCountView.setText(String.valueOf(currentData.getGoodCount()));
+                setClickGoodIsSelect(holder);
             }
         });
     }

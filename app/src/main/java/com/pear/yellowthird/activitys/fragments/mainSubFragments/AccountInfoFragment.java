@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -85,6 +86,14 @@ public class AccountInfoFragment extends Fragment {
         {
             userNameView= mRootView.findViewById(R.id.user_name);
             onChangeUserName(userNameView);
+            userNameView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    userNameView.setFocusable(true);
+                    userNameView.setFocusableInTouchMode(true);
+                    return false;
+                }
+            });
         }
 
         /**余额*/

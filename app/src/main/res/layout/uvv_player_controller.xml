@@ -71,7 +71,7 @@
             android:paddingRight="30dp"
             android:singleLine="true"
             android:textColor="#ffffff"
-            android:textSize="18dp" />
+            android:textSize="14dp" />
 
     </LinearLayout>
 
@@ -90,8 +90,8 @@
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/uvv_titlebar_bg"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:background="@color/colorSubNavBackground">
 
         <ImageButton
             android:id="@+id/turn_button"

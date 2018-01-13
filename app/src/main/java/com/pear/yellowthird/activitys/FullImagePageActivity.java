@@ -97,7 +97,6 @@ public class FullImagePageActivity extends Activity {
 
         });
         viewPager.setCurrentItem(startPos);
-
         addGuideView(guideGroup, startPos, imgUrls);
     }
 
@@ -165,7 +164,7 @@ public class FullImagePageActivity extends Activity {
         public Object instantiateItem(ViewGroup container, final int position) {
             View view = inflater.inflate(layout.image_full_list_line, container, false);
             if(view != null){
-                final PhotoView imageView = (PhotoView) view.findViewById(id.image);
+                final ImageView imageView = view.findViewById(id.image);
 
                 if(imageSize!=null){
                     //预览imageView
@@ -213,14 +212,12 @@ public class FullImagePageActivity extends Activity {
                         });
 
                 /**点击关闭全屏浏览*/
-
-                imageView.setOnPhotoTapListener(new OnPhotoTapListener() {
+                imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onPhotoTap(ImageView view, float x, float y) {
+                    public void onClick(View v) {
                         activity.finish();
                     }
                 });
-
                 container.addView(view, 0);
             }
             return view;

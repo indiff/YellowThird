@@ -1,13 +1,16 @@
 package com.pear.yellowthird.activitys.fragments.detailContent;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -19,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.pear.android.utils.SoftInputUtils;
 import com.pear.android.view.LGNineGrideView;
 import com.pear.android.view.LinearLayoutLikeListView;
 import com.pear.common.utils.strings.JsonUtil;
@@ -114,6 +118,7 @@ public class VideoIntroduceFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         /*
@@ -245,6 +250,14 @@ public class VideoIntroduceFragment extends Fragment {
         /**用户的输入评论框*/
         {
             inputComment = mRootView.findViewById(R.id.input_comment);
+            inputComment.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    inputComment.setFocusable(true);
+                    inputComment.setFocusableInTouchMode(true);
+                    return false;
+                }
+            });
         }
 
         /**评论列表*/
@@ -266,12 +279,14 @@ public class VideoIntroduceFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+
         /**为了干掉这个焦点自动获取。我也是哭了*/
+        /*
         inputComment.clearFocus();
         //这样是否正常工作。
         //attractFocusView.requestFocus();
 
-        /**上面的不行，那这个呢*/
+        //上面的不行，那这个呢
         inputComment.post(
                 new Runnable() {
                     @Override
@@ -280,7 +295,14 @@ public class VideoIntroduceFragment extends Fragment {
                     }
                 }
         );
+        */
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
 
 
     void eventInit() {
@@ -304,8 +326,8 @@ public class VideoIntroduceFragment extends Fragment {
                             JSONObject json = new JSONObject(data);
                             if (json.getBoolean("pay")) {
                                 Toast.makeText(getActivity(), json.getString("tip"), Toast.LENGTH_LONG).show();
-                                mData.setPrice("已购买 ");
-                                priceView.setText("已购买 ");
+                                //mData.setPrice("已购买 ");
+                                //priceView.setText("已购买 ");
                                 startPlay();
                             } else {
                                 Toast.makeText(getActivity(), json.getString("tip"), Toast.LENGTH_LONG).show();
@@ -421,23 +443,16 @@ public class VideoIntroduceFragment extends Fragment {
                             public void call(Boolean result) {
                                 //清空输入框
                                 inputComment.setText("");
-                                inputComment.clearFocus();
-                                attractFocusView.setFocusableInTouchMode(true);
-                                attractFocusView.setFocusable(true);
-                                hideSoftInput(getActivity(), inputComment);
                                 Toast.makeText(getActivity(), "评论成功", Toast.LENGTH_SHORT).show();
                                 refreshComment();
+                                SoftInputUtils.hideSoftInput(getActivity(),inputComment);
+                                inputComment.clearFocus();
+                                inputComment.setFocusableInTouchMode(false);
+                                inputComment.setFocusable(false);
                             }
                         });
             }
 
-            /**
-             * 必须手动隐藏键盘
-             * */
-            void hideSoftInput(Activity activity, EditText input) {
-                InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
-            }
 
         });
     }

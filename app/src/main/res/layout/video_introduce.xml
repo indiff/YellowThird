@@ -153,7 +153,6 @@
 
 
                 <!--价格单位-->
-                <!--
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -163,7 +162,7 @@
                     android:text=" 绿币"
                     android:textColor="@color/colorSelect"
                     android:textSize="12dp" />
-                -->
+
 
             </LinearLayout>
 
@@ -276,8 +275,6 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="12dp"
                 android:orientation="horizontal"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 >
                 <!--Android取消EditText自动默认获取焦点行为-->
 
@@ -301,6 +298,8 @@
                     android:textColor="@color/colorMinorContent"
                     android:imeOptions="actionSend"
                     android:inputType="text"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     android:hint="快来说说你的感想吧"/>
 
             </LinearLayout>

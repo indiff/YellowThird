@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.pear.android.utils.SoftInputUtils;
+import com.pear.android.view.LGNineGrideView;
 import com.pear.android.view.LinearLayoutLikeListView;
 import com.pear.android.view.MultiImageView;
 import com.pear.yellowthird.activitys.FullImagePageActivity;
@@ -112,10 +114,10 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
             holder.onListenerAddComment(friendData);
 
             holder.multiImageView.setVisibility(View.VISIBLE);
-            holder.multiImageView.setList(friendData.getImages());
-            holder.multiImageView.setOnItemClickListener(new MultiImageView.OnItemClickListener() {
+            holder.multiImageView.setUrls(friendData.getImages());
+            holder.multiImageView.setOnItemClickListener(new LGNineGrideView.OnItemClickListener(){
                     @Override
-                    public void onItemClick(View view, int position) {
+                    public void onClickItem(int position, View view) {
                         //添加浏览次数
                         ServiceDisposeFactory.getInstance().getServiceDispose().addFriendShowCount(friendData.getId());
                         //imagesize是作为loading时的图片size
@@ -135,8 +137,9 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
                 holder.commentListView.setVisibility(View.VISIBLE);
             }
             //别获取焦点啊。大哥求你了。
+            /*
             holder.inputCommentView.clearFocus();
-            /**上面的不行，那这个呢*/
+            /上面的不行，那这个呢
             holder.inputCommentView.post(
                     new Runnable() {
                         @Override
@@ -145,6 +148,15 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
                         }
                     }
             );
+            */
+            holder.inputCommentView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    holder.inputCommentView.setFocusable(true);
+                    holder.inputCommentView.setFocusableInTouchMode(true);
+                    return false;
+                }
+            });
         }
     }
 
@@ -235,7 +247,7 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
         EditText inputCommentView;
 
         /** 图片*/
-        public MultiImageView multiImageView;
+        public LGNineGrideView multiImageView;
 
         /**评论列表*/
         public LinearLayoutLikeListView commentListView;
