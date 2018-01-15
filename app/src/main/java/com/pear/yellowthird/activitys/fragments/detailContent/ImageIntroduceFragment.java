@@ -35,7 +35,6 @@ public class ImageIntroduceFragment extends Fragment {
      */
     private View mRootView;
 
-
     /**
      * 多图实例
      */

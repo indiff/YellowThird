@@ -14,6 +14,7 @@ import com.pear.android.app.GlobalApplication;
 import com.pear.common.utils.net.FileUploadUtils;
 import com.pear.common.utils.net.HttpRequest;
 import com.pear.common.utils.strings.JsonUtil;
+import com.pear.yellowthird.config.SystemConfig;
 import com.pear.yellowthird.interfaces.ServiceDisposeInterface;
 import com.pear.yellowthird.vo.databases.BillVo;
 import com.pear.yellowthird.vo.databases.FriendsVo;
@@ -52,7 +53,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     /**
      * 服务器的请求地址
      */
-    private static final String gServiceHost = "http://192.168.0.104:10086/";
+    private static final String gServiceHost = "http://88813121.cn:8080/";
 
     private Handler mainHandler;
 
@@ -518,7 +519,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         try {
             /**每一个请求都会全局加上deviceID*/
             boolean hasParam = url.contains("?");
-            url += (hasParam ? "&" : "?") + "deviceId=" + gDeviceId;
+            url += (hasParam ? "&" : "?") + "deviceId=" + gDeviceId+"&time="+ SystemConfig.getInstance().getQueryTime();
             log.info("url:" + url);
             String response = HttpRequest.sendGet(url);
             log.info("response:" + response);

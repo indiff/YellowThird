@@ -16,6 +16,7 @@ import com.pear.android.view.NoScrollViewPager;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.databases.AllDatabases;
 import com.pear.yellowthird.adapter.abstracts.CommonCacheAdapterAbstract;
+import com.pear.yellowthird.config.SystemConfig;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.impl.net.ServiceDisposeImpl;
 import com.pear.yellowthird.init.Log4JConfig;
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SystemConfig.getInstance().init(this);
         Log4JConfig.init(this);
         ServiceDisposeImpl.initDeviceId(this);
         StyleFactory.init(this);

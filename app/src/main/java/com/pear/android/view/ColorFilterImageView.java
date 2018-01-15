@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.ImageView;
 
 /**
  *
@@ -16,7 +17,7 @@ import android.view.View.OnTouchListener;
  * @date 2016-02-26
  *
  */
-public class ColorFilterImageView extends android.support.v7.widget.AppCompatImageView implements OnTouchListener {
+public class ColorFilterImageView extends ImageView implements OnTouchListener {
     public ColorFilterImageView(Context context) {
         this(context, null, 0);
     }

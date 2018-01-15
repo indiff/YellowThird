@@ -301,6 +301,40 @@
             android:layout_marginLeft="@dimen/common.screen.margin"
             android:background="@color/colorSubNavBackground" />
 
+
+
+        <!--调试时间-->
+        <LinearLayout
+            android:id="@+id/debug_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/account.function.each.top.bottom"
+                    android:layout_marginTop="@dimen/account.function.each.top.bottom"
+                    >
+                    <!--调试日期-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/common.screen.margin"
+                        android:gravity="center_vertical"
+                        android:text="选择调试日期"
+                        android:textColor="@color/colorTitle"
+                        android:textSize="@dimen/account.function.title" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
 </ScrollView>

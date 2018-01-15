@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">雪梨</string>
+    <string name="app_name">小蝌蚪</string>
 
     <string name="sql_data">
 [{\"title\":\"电影\",\"style\":\"sub_tab_menu\",\"iconType\":\"XX\",\"dataType\":\"raw\",\"data\":\"[{\\\"title\\\":\\\"推荐\\\",\\\"style\\\":\\\"test\\\",\\\"dataType\\\":\\\"raw\\\",\\\"data\\\":\\\"xxxxxx\\\"}]\"}]   </string>

@@ -18,4 +18,13 @@
         <item name="android:indeterminateDuration">1000</item>
     </style>
 
+
+    <declare-styleable name="NineGridLayout">
+        <attr name="sapcing" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="RatioImageView">
+        <attr name="ratio" format="float"/>
+    </declare-styleable>
+
 </resources>

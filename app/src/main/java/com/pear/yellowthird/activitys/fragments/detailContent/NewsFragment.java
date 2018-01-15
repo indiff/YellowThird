@@ -83,7 +83,7 @@ public class NewsFragment extends Fragment {
         ScrollView scrollView = new ScrollView(getActivity());
 
         /**取消显示滚动条*/
-        scrollView.setVerticalScrollBarEnabled(false);
+        //scrollView.setVerticalScrollBarEnabled(false);
         final int commonScreenMargin = (int)getResources().getDimension(R.dimen.common_screen_margin);
         scrollView.setLayoutParams(
                 new ScrollView.LayoutParams(

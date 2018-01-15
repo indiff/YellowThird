@@ -1,11 +1,14 @@
 package com.pear.yellowthird.activitys.fragments.mainSubFragments;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,8 +27,12 @@ import com.bumptech.glide.Glide;
 import com.pear.yellowthird.activitys.BillActivity;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.activitys.RechargeActivity;
+import com.pear.yellowthird.config.SystemConfig;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.vo.databases.UserVo;
+
+import java.sql.Date;
+import java.util.Calendar;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import rx.functions.Action1;
@@ -44,19 +52,25 @@ public class AccountInfoFragment extends Fragment {
      */
     public static Fragment newInstance(UserVo user) {
         AccountInfoFragment fragment = new AccountInfoFragment();
-        fragment.user=user;
+        fragment.user = user;
         return fragment;
     }
 
     private View mRootView;
 
-    /**用户的头像*/
+    /**
+     * 用户的头像
+     */
     ImageView userHeadIcon;
 
-    /**用户名称*/
+    /**
+     * 用户名称
+     */
     EditText userNameView;
 
-    /**余额*/
+    /**
+     * 余额
+     */
     TextView goldView;
 
     @Override
@@ -76,7 +90,7 @@ public class AccountInfoFragment extends Fragment {
             userHeadIcon = mRootView.findViewById(R.id.user_head_icon);
             onChangeUserIcon(userHeadIcon);
             /**刷新用户头像*/
-            ImageView  refreshHeadIcon= mRootView.findViewById(R.id.refresh_head_icon);
+            ImageView refreshHeadIcon = mRootView.findViewById(R.id.refresh_head_icon);
             onChangeUserIcon(refreshHeadIcon);
         }
 
@@ -84,7 +98,7 @@ public class AccountInfoFragment extends Fragment {
          * 用户名称
          * */
         {
-            userNameView= mRootView.findViewById(R.id.user_name);
+            userNameView = mRootView.findViewById(R.id.user_name);
             onChangeUserName(userNameView);
             userNameView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
@@ -98,12 +112,12 @@ public class AccountInfoFragment extends Fragment {
 
         /**余额*/
         {
-            goldView= mRootView.findViewById(R.id.gold);
+            goldView = mRootView.findViewById(R.id.gold);
         }
 
         /**充值*/
         {
-            LinearLayout rechargeView= mRootView.findViewById(R.id.recharge);
+            LinearLayout rechargeView = mRootView.findViewById(R.id.recharge);
             rechargeView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -114,7 +128,7 @@ public class AccountInfoFragment extends Fragment {
 
         /**账单*/
         {
-            LinearLayout billView= mRootView.findViewById(R.id.bill);
+            LinearLayout billView = mRootView.findViewById(R.id.bill);
             billView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -122,13 +136,41 @@ public class AccountInfoFragment extends Fragment {
                 }
             });
         }
+
+        /**调试时间*/
+        {
+            /*
+            LinearLayout debugTimeView = mRootView.findViewById(R.id.debug_time);
+            debugTimeView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Calendar now = Calendar.getInstance();
+                    now.setTimeInMillis(SystemConfig.getInstance().getQueryTime());
+                    new DatePickerDialog(
+                            getActivity(),
+                            new DatePickerDialog.OnDateSetListener() {
+                                @Override
+                                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                    long queryTime=new Date(year,month,dayOfMonth).getTime();
+                                    SystemConfig.getInstance().setQueryTime(queryTime);
+                                    String tip="选择了"+year+"-"+month+"-"+dayOfMonth+"，重启app生效";
+                                    Toast.makeText(getActivity(),tip,Toast.LENGTH_SHORT).show();
+                                }
+                            },
+                            now.get(Calendar.YEAR),
+                            now.get(Calendar.MONTH),
+                            now.get(Calendar.DAY_OF_MONTH)).show();
+                }
+            });
+            */
+        }
+
         refreshUserAllView();
         return mRootView;
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
 
         /**每次都刷新用户数据，特别是账单变动了。看完电影扣费了。充值了等等*/
@@ -139,19 +181,18 @@ public class AccountInfoFragment extends Fragment {
     /**
      * 强制刷新用户信息数据
      * 每次都刷新用户数据，特别是账单变动了。看完电影扣费了。充值了等等
-     * */
-    void foreRefreshUserInfo()
-    {
+     */
+    void foreRefreshUserInfo() {
         ServiceDisposeFactory.getInstance().getServiceDispose()
                 .refreshUser()
                 .subscribe(new Action1<UserVo>() {
                     @Override
                     public void call(UserVo paramUser) {
-                        if(null==paramUser)
+                        if (null == paramUser)
                             return;
-                        if(paramUser.equals(user))
+                        if (paramUser.equals(user))
                             return;
-                        user=paramUser;
+                        user = paramUser;
                         refreshUserAllView();
                     }
                 });
@@ -160,20 +201,19 @@ public class AccountInfoFragment extends Fragment {
 
     /**
      * 监听用户更换头像
-     * */
-    void onChangeUserIcon(final ImageView imageView)
-    {
+     */
+    void onChangeUserIcon(final ImageView imageView) {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ServiceDisposeFactory.getInstance().getServiceDispose().randomUserIcon()
                         .subscribe(new Action1<String>() {
-                    @Override
-                    public void call(String url) {
-                        user.setThumb(url);
-                        refreshUserHeadIconView();
-                    }
-                });
+                            @Override
+                            public void call(String url) {
+                                user.setThumb(url);
+                                refreshUserHeadIconView();
+                            }
+                        });
             }
         });
     }
@@ -181,20 +221,18 @@ public class AccountInfoFragment extends Fragment {
 
     /**
      * 刷新用户的所有相关信息界面
-     * */
-    void refreshUserAllView()
-    {
+     */
+    void refreshUserAllView() {
         refreshUserHeadIconView();
         userNameView.setText(user.getName());
-        goldView.setText(user.getGold()+" 绿币");
+        goldView.setText(user.getGold() + " 绿币");
     }
 
 
     /**
      * 更新用户的头像
-     * */
-    private void refreshUserHeadIconView()
-    {
+     */
+    private void refreshUserHeadIconView() {
         Glide.with(getActivity())
                 .load(user.getThumb())
                 .apply(bitmapTransform(new CropCircleTransformation()))
@@ -204,9 +242,8 @@ public class AccountInfoFragment extends Fragment {
 
     /**
      * 用户更换名称
-     * */
-    void onChangeUserName(final EditText textView)
-    {
+     */
+    void onChangeUserName(final EditText textView) {
 
         /**
          * 监听回车事件
@@ -229,18 +266,14 @@ public class AccountInfoFragment extends Fragment {
             /**
              * 更换用户名称
              * */
-            void changeUserName()
-            {
-                final String text=textView.getText().toString();
-                if(TextUtils.isEmpty(text)||text.trim().isEmpty())
-                {
-                    Toast.makeText(getActivity(),"名称不能为空",Toast.LENGTH_SHORT).show();
-                    return ;
-                }
-                else if(text.length()>12)
-                {
-                    Toast.makeText(getActivity(),"名称太长了",Toast.LENGTH_SHORT).show();
-                    return ;
+            void changeUserName() {
+                final String text = textView.getText().toString();
+                if (TextUtils.isEmpty(text) || text.trim().isEmpty()) {
+                    Toast.makeText(getActivity(), "名称不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (text.length() > 12) {
+                    Toast.makeText(getActivity(), "名称太长了", Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 ServiceDisposeFactory.getInstance().getServiceDispose().changeUserName(text)
                         .subscribe(new Action1<Boolean>() {
@@ -248,20 +281,19 @@ public class AccountInfoFragment extends Fragment {
                             public void call(Boolean result) {
                                 textView.clearFocus();
 
-                                hideSoftInput(getActivity(),textView);
-                                Toast.makeText(getActivity(),"修改名称成功",Toast.LENGTH_SHORT).show();
+                                hideSoftInput(getActivity(), textView);
+                                Toast.makeText(getActivity(), "修改名称成功", Toast.LENGTH_SHORT).show();
                             }
                         });
-                return ;
+                return;
             }
 
             /**
              * 必须手动隐藏键盘
              * */
-            void hideSoftInput(Activity activity, EditText input)
-            {
-                InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(input.getWindowToken(),0);
+            void hideSoftInput(Activity activity, EditText input) {
+                InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
             }
 
         });
