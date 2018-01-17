@@ -112,9 +112,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         /**这里只用到了普通 Manifest.permission.INTERNET 权限，不需要申请 */
-
         requestDataByService();
-        loadingView.showPrepareLoadingView();
     }
 
     @Override
@@ -141,6 +139,8 @@ public class MainActivity extends AppCompatActivity {
         /**连接服务器测试*/
         boolean serviceTest = true;
         if (serviceTest) {
+            //先显示等待框
+            loadingView.showPrepareLoadingView();
             ServiceDisposeFactory.getInstance().getServiceDispose().queryMainMenu()
                     .subscribe(new Action1<String>() {
                         @Override
@@ -150,16 +150,17 @@ public class MainActivity extends AppCompatActivity {
                                         @Override
                                         public void call(BottomNavigationMenuVo[] menus) {
                                             adapter.setData(menus);
+
+                                            //隐藏等待框
+                                            loadingView.hide();
                                         }
                                     });
-
                         }
                     });
         } else
             adapter.setData(JsonUtil.write2Class(AllDatabases.getData(), BottomNavigationMenuVo[].class));
     }
 
-    ;
 
     @Override
     protected void onDestroy() {
@@ -284,8 +285,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void call(Subscriber<? super Integer> subscriber) {
                     try {
-                        for (int timeDown = 2; timeDown >= 0; timeDown--) {
-                            Thread.sleep(600);
+                        for (int timeDown = 8; timeDown >= 0; timeDown--) {
+                            Thread.sleep(1000);
                             subscriber.onNext(timeDown);
                         }
                     } catch (InterruptedException e) {
@@ -301,8 +302,6 @@ public class MainActivity extends AppCompatActivity {
                         public void call(Integer timeDown) {
                             /**倒计时为0了结束倒计时*/
                             if (timeDown == 0) {
-                                loadingLayout.setVisibility(View.GONE);
-                                rootView.setVisibility(View.VISIBLE);
                                 return;
                             }
                             timeDownView.setText(String.valueOf(timeDown));
@@ -310,6 +309,16 @@ public class MainActivity extends AppCompatActivity {
                     });
         }
 
+        /**
+         * 隐藏进度界面
+         */
+        public void hide()
+        {
+            loadingLayout.setVisibility(View.GONE);
+            rootView.setVisibility(View.VISIBLE);
+        }
+
     }
+
 
 }

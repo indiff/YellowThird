@@ -10,12 +10,20 @@ import android.view.View;
 import com.universalvideoview.UniversalMediaController;
 import com.universalvideoview.UniversalVideoView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 全屏播放电影
  */
 
 public class FullVideoActivity  extends AppCompatActivity {
     private static final String TAG = "FullVideoActivity";
+
+    /**
+     * 不重新播放，继续播放
+     * */
+    static Map<String,Integer> gSeekHistory=new HashMap<>();
 
     /**播放的URI*/
     String mUrl;
@@ -30,7 +38,6 @@ public class FullVideoActivity  extends AppCompatActivity {
     //屏幕电源管理
     PowerManager.WakeLock wakeLock;
 
-
     /**上一次的播放进度*/
     private int mSeekPosition;
 
@@ -44,7 +51,7 @@ public class FullVideoActivity  extends AppCompatActivity {
         mVideoView =  findViewById(R.id.video_view);
 
         mMediaController =  findViewById(R.id.media_controller);
-        mMediaController.setEnabled(false);
+        //mMediaController.setEnabled(false);
         mMediaController.setTitle(mTitle);
 
         /**
@@ -71,22 +78,10 @@ public class FullVideoActivity  extends AppCompatActivity {
 
     /**开始播放*/
     @Override
-    protected void onStart() {
-        super.onStart();
-        if (mSeekPosition > 0) {
-            mVideoView.seekTo(mSeekPosition);
-        }
-        mVideoView.requestFocus();
-        mVideoView.start();
-    }
-
-
-    /**开始播放*/
-    @Override
     protected void onResume() {
         super.onResume();
-        if (mSeekPosition > 0) {
-            mVideoView.seekTo(mSeekPosition);
+        if (gSeekHistory.containsKey(mUrl)) {
+            mVideoView.seekTo(gSeekHistory.get(mUrl));
         }
         mVideoView.requestFocus();
         mVideoView.start();
@@ -106,7 +101,7 @@ public class FullVideoActivity  extends AppCompatActivity {
         super.onPause();
         Log.d(TAG, "onPause ");
         if (mVideoView != null && mVideoView.isPlaying()) {
-            mSeekPosition = mVideoView.getCurrentPosition();
+            gSeekHistory.put(mUrl,mVideoView.getCurrentPosition());
             Log.d(TAG, "onPause mSeekPosition=" + mSeekPosition);
             mVideoView.pause();
         }

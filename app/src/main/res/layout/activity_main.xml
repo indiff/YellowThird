@@ -35,7 +35,7 @@
             android:layout_marginRight="15dp"
             android:textSize="20dp"
             android:textColor="@color/colorGradleText"
-            android:text="2"/>
+            android:text=""/>
 
     </RelativeLayout>
 

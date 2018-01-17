@@ -82,9 +82,9 @@ public class CrashHandler implements UncaughtExceptionHandler {
             //如果用户没有处理则让系统默认的异常处理器来处理  
             mDefaultHandler.uncaughtException(thread, ex);  
         } else {
-            //不退出程序
-            //android.os.Process.killProcess(android.os.Process.myPid());
-            //System.exit(1);
+            //退出程序
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
         }  
     }  
   
@@ -97,7 +97,8 @@ public class CrashHandler implements UncaughtExceptionHandler {
     private boolean handleException(Throwable ex) {
         if (ex == null) {  
             return false;  
-        }  
+        }
+        ex.printStackTrace();
 
         //收集设备参数信息   
         collectDeviceInfo(mContext);
