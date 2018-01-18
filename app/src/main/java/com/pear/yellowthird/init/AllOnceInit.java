@@ -27,6 +27,8 @@ public class AllOnceInit {
         StyleFactory.init(activity);
 
         initImageLoader(activity);
+
+        new NewVersionInstall(activity).checkAndInstall();
     }
 
     /**

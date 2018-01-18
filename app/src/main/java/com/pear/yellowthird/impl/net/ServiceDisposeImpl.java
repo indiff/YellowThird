@@ -512,6 +512,23 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     }
 
     @Override
+    public Observable<String> getNewsVersion() {
+        return Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                String data ="{\"version\":101,\"href\":\"http://gdown.baidu.com/data/wisegame/21c41b43bf5a27b1/QQ_762.apk\"}";
+                // requestByService(gServiceHost + "redbook/api/friendsHome/goodCount?id=" + id);
+                if (!TextUtils.isEmpty(data))
+                    subscriber.onNext(data);
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
     public void sendAppCrashServer(final String content) {
         log.error(content);
         new Thread(new Runnable() {

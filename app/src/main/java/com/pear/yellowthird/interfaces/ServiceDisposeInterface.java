@@ -155,6 +155,13 @@ public interface ServiceDisposeInterface {
      * */
     Boolean addFriendShowCount(Integer id);
 
+
+    /**
+     *  获取最新版本的更新包
+     *  @return
+     * */
+    Observable<String> getNewsVersion();
+
     /**
      * 程序奔溃了，把日记发送到服务器
      * */
