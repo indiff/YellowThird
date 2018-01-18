@@ -16,11 +16,8 @@ import com.pear.android.view.NoScrollViewPager;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.databases.AllDatabases;
 import com.pear.yellowthird.adapter.abstracts.CommonCacheAdapterAbstract;
-import com.pear.yellowthird.config.SystemConfig;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
-import com.pear.yellowthird.impl.net.ServiceDisposeImpl;
-import com.pear.yellowthird.init.Log4JConfig;
-import com.pear.yellowthird.style.factory.StyleFactory;
+import com.pear.yellowthird.init.AllOnceInit;
 import com.pear.yellowthird.style.factory.StyleFragmentFactory;
 import com.pear.yellowthird.style.vo.BottomNavigationMenuVo;
 import com.pear.yellowthird.style.vo.StyleType;
@@ -57,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 预加载的界面
      */
-    LoadingView loadingView = new LoadingView();
+    LoadingView loadingView ;
 
     /**
      * 上一次用户使用主界面的时间戳，用户超过一定时长，强制重新刷新。
@@ -69,10 +66,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SystemConfig.getInstance().init(this);
-        Log4JConfig.init(this);
-        ServiceDisposeImpl.initDeviceId(this);
-        StyleFactory.init(this);
+        AllOnceInit.init(this);
 
         /**全局背景色透明度设置*/
         {
@@ -82,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
             backgroundDrawable.setAlpha(40);
         }
 
+        loadingView = new LoadingView();
         adapter = new MainBottomMenuAdapter(getSupportFragmentManager());
         NoScrollViewPager pager = findViewById(R.id.pager);
         pager.setAdapter(adapter);
@@ -137,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
     void requestDataByService() {
 
         /**连接服务器测试*/
-        boolean serviceTest = true;
+        boolean serviceTest = false;
         if (serviceTest) {
             //先显示等待框
             loadingView.showPrepareLoadingView();
@@ -157,8 +152,10 @@ public class MainActivity extends AppCompatActivity {
                                     });
                         }
                     });
-        } else
+        } else {
+            loadingView.hide();
             adapter.setData(JsonUtil.write2Class(AllDatabases.getData(), BottomNavigationMenuVo[].class));
+        }
     }
 
 
@@ -262,12 +259,18 @@ public class MainActivity extends AppCompatActivity {
          */
         RelativeLayout rootView;
 
+        LoadingView()
+        {
+            loadingLayout = findViewById(R.id.loading_layout);
+            timeDownView = findViewById(R.id.time_down);
+            rootView = findViewById(R.id.root_view);
+        }
+
         /**
          * 显示加载界面
          * 显示倒计时，倒计时结束关闭加载图
          */
         void showPrepareLoadingView() {
-            loadingLayout = findViewById(R.id.loading_layout);
 
             /**里面几张加载图，每次都随机一下。*/
             {
@@ -276,8 +279,6 @@ public class MainActivity extends AppCompatActivity {
                 int randomIndex = new Random().nextInt(randomImages.length);
                 loadingImageView.setImageDrawable(getResources().getDrawable(randomImages[randomIndex]));
             }
-            timeDownView = findViewById(R.id.time_down);
-            rootView = findViewById(R.id.root_view);
 
             Observable.create(new Observable.OnSubscribe<Integer>() {
 
@@ -312,8 +313,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          * 隐藏进度界面
          */
-        public void hide()
-        {
+        public void hide() {
             loadingLayout.setVisibility(View.GONE);
             rootView.setVisibility(View.VISIBLE);
         }

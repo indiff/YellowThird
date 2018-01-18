@@ -1,17 +1,28 @@
 package com.pear.yellowthird.activitys;
 
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.universalvideoview.UniversalMediaController;
 import com.universalvideoview.UniversalVideoView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
+
+import rx.functions.Action1;
 
 /**
  * 全屏播放电影
@@ -20,16 +31,27 @@ import java.util.Map;
 public class FullVideoActivity  extends AppCompatActivity {
     private static final String TAG = "FullVideoActivity";
 
+    /**跳跃位置为最后5分钟*/
+    private static final int JUMP_LAST_MILLI=1000*60*5;
+
     /**
      * 不重新播放，继续播放
      * */
     static Map<String,Integer> gSeekHistory=new HashMap<>();
+
+    private Context mContext;
 
     /**播放的URI*/
     String mUrl;
 
     /**标题*/
     String mTitle;
+
+    /**跳跃的价格*/
+    Integer mJumpPrice;
+
+    /**电影在数据库中的id值*/
+    Integer mVideoId;
 
     UniversalVideoView mVideoView;
 
@@ -45,8 +67,12 @@ public class FullVideoActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.video_full_play);
+
+        mContext=this;
         mUrl = (String)getIntent().getSerializableExtra("url");
         mTitle = (String)getIntent().getSerializableExtra("title");
+        mJumpPrice= (Integer) getIntent().getSerializableExtra("jump_price");
+        mVideoId= (Integer) getIntent().getSerializableExtra("video_id");
 
         mVideoView =  findViewById(R.id.video_view);
 
@@ -63,6 +89,7 @@ public class FullVideoActivity  extends AppCompatActivity {
                 finish();
             }
         });
+        mMediaController.setJumpListener(mJumpClickListener);
 
         mVideoView.setMediaController(mMediaController);
         mVideoView.setVideoPath(mUrl);
@@ -112,6 +139,88 @@ public class FullVideoActivity  extends AppCompatActivity {
         }
     }
 
+    /**跳到你懂得位置*/
+    View.OnClickListener mJumpClickListener=new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View v) {
+            if (mVideoView == null || !mVideoView.isPlaying())
+                return;
+
+            /**还剩下多少时间没有播放*/
+            long remainMilli=mVideoView.getDuration()-mVideoView.getCurrentPosition();
+            if(JUMP_LAST_MILLI>remainMilli)
+            {
+                Toast.makeText(mContext,"现在已经是精彩时刻了",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            askUserConfig();
+        }
+
+        /**
+         * 请求用户确认，是否要跳到精彩时刻
+         * */
+        void askUserConfig()
+        {
+            /**发表过程中一直等待*/
+            final MaterialDialog progressDialog=new MaterialDialog.Builder(mContext)
+                    .title("跳跃到精彩时刻，将会花费你"+mJumpPrice+"绿币。")
+                    .content("跳跃将会破坏你的代入感。建议你不要使用该功能！")
+                    .positiveText("知道了")
+                    .negativeText("慢慢看")
+                    .onAny(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            switch (which)
+                            {
+                                case NEGATIVE:
+                                    break;
+                                case POSITIVE:
+                                    tryStartJump();
+                                    break;
+                            }
+                        }
+                    })
+                    .show();
+        }
+
+        /**
+         * 尝试跳跃，但是这里有个扣费的过程。
+         * */
+        void tryStartJump()
+        {
+            ServiceDisposeFactory.getInstance().getServiceDispose()
+                    .requestJumpPlayVideo(mVideoId).subscribe(new Action1<String>() {
+                @Override
+                public void call(String data) {
+                    try {
+                        JSONObject json = new JSONObject(data);
+                        if (json.getBoolean("pay")) {
+                            Toast.makeText(mContext, json.getString("tip"), Toast.LENGTH_LONG).show();
+                            startJump();
+                        } else {
+                            Toast.makeText(mContext, json.getString("tip"), Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+
+        /**
+         * 开始跳跃
+         * */
+        void startJump()
+        {
+            mVideoView.pause();
+            int jumpSeek=mVideoView.getDuration()-JUMP_LAST_MILLI;
+            mVideoView.seekTo(jumpSeek);
+            mVideoView.requestFocus();
+            mVideoView.start();
+        }
+
+    };
 
 
 }

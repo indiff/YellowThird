@@ -88,6 +88,11 @@ public class UniversalMediaController extends FrameLayout {
 
     private ImageButton mScaleButton;
 
+    /**
+     * 跳跃
+     * */
+    private ImageButton mJumpButton;
+
     private View mBackButton;// 返回按钮
 
     private ViewGroup loadingLayout;
@@ -98,6 +103,8 @@ public class UniversalMediaController extends FrameLayout {
     private View mControlLayout;
 
     private View mCenterPlayButton;
+
+    private View.OnClickListener mJumpListener;
 
     public UniversalMediaController(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -129,6 +136,7 @@ public class UniversalMediaController extends FrameLayout {
         errorLayout = (ViewGroup) v.findViewById(R.id.error_layout);
         mTurnButton = (ImageButton) v.findViewById(R.id.turn_button);
         mScaleButton = (ImageButton) v.findViewById(R.id.scale_button);
+        mJumpButton=(ImageButton)v.findViewById(R.id.jump_button);
         mCenterPlayButton = v.findViewById(R.id.center_play_btn);
         mBackButton = v.findViewById(R.id.back_btn);
 
@@ -154,6 +162,16 @@ public class UniversalMediaController extends FrameLayout {
 
         if (mBackButton != null) {//返回按钮仅在全屏状态下可见
             mBackButton.setOnClickListener(mBackListener);
+        }
+
+        if (mJumpButton != null) {//返回按钮仅在全屏状态下可见
+            mJumpButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(null!=mJumpListener)
+                        mJumpListener.onClick(v);
+                }
+            });
         }
 
         View bar = v.findViewById(R.id.seekbar);
@@ -731,5 +749,13 @@ public class UniversalMediaController extends FrameLayout {
          *                          ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
          */
         void setFullscreen(boolean fullscreen, int screenOrientation);
+    }
+
+    public OnClickListener getJumpListener() {
+        return mJumpListener;
+    }
+
+    public void setJumpListener(OnClickListener jumpListener) {
+        this.mJumpListener = jumpListener;
     }
 }

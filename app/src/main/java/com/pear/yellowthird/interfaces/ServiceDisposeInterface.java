@@ -46,6 +46,11 @@ public interface ServiceDisposeInterface {
     Observable<String> requestPlayVideo(Integer id);
 
     /**
+     * 请求跳跃播放电影
+     * */
+    Observable<String> requestJumpPlayVideo(Integer id);
+
+    /**
      * 根据Url 获取对应数据
      * @pram url 待查询的url
      * */
@@ -149,6 +154,13 @@ public interface ServiceDisposeInterface {
      * 添加图片浏览次数
      * */
     Boolean addFriendShowCount(Integer id);
+
+
+    /**
+     *  获取最新版本的更新包
+     *  @return
+     * */
+    Observable<String> getNewsVersion();
 
     /**
      * 程序奔溃了，把日记发送到服务器

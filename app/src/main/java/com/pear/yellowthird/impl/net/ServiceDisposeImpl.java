@@ -207,9 +207,27 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
                     errorCommonTip();
                     subscriber.onError(new Throwable());
                 }
+                subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<String> requestJumpPlayVideo(Integer id) {
+        return Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                String response = "{\"pay\":\"true\",\"tip\":\"支付成功\"}";
+                //requestByService(gServiceHost + "redbook/api/movie/play?id=" + id);
+                if (!TextUtils.isEmpty(response))
+                    subscriber.onNext(response);
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
+            }
+        }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
@@ -491,6 +509,23 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             }
         }.execute();
         return true;
+    }
+
+    @Override
+    public Observable<String> getNewsVersion() {
+        return Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                String data ="{\"version\":101,\"href\":\"http://gdown.baidu.com/data/wisegame/21c41b43bf5a27b1/QQ_762.apk\"}";
+                // requestByService(gServiceHost + "redbook/api/friendsHome/goodCount?id=" + id);
+                if (!TextUtils.isEmpty(data))
+                    subscriber.onNext(data);
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override

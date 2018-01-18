@@ -17,11 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.github.chrisbanes.photoview.PhotoView;
+import com.hmy.ninegridlayout.view.NineGridTestLayout;
 import com.pear.android.utils.SoftInputUtils;
-import com.pear.android.view.LGNineGrideView;
 import com.pear.android.view.LinearLayoutLikeListView;
-import com.pear.android.view.MultiImageView;
 import com.pear.yellowthird.activitys.FullImagePageActivity;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.activitys.published.PublishedActivity;
@@ -30,6 +28,8 @@ import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.vo.databases.FriendsVo;
 import com.pear.yellowthird.vo.databases.TalkComment;
 import com.pear.yellowthird.vo.databases.UserVo;
+
+import java.util.List;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import rx.functions.Action1;
@@ -119,19 +119,20 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
 
             holder.onListenerAddComment(friendData);
 
-            //holder.multiImageView.setVisibility(View.VISIBLE);
-            holder.multiImageView.setUrls(friendData.getImages());
-            holder.multiImageView.setOnItemClickListener(
-                    new LGNineGrideView.OnItemClickListener() {
-                        @Override
-                        public void onClickItem(int position, View view) {
-                            //添加浏览次数
-                            ServiceDisposeFactory.getInstance().getServiceDispose().addFriendShowCount(friendData.getId());
-                            //imagesize是作为loading时的图片size
-                            FullImagePageActivity.ImageSize imageSize = new FullImagePageActivity.ImageSize(view.getMeasuredWidth(), view.getMeasuredHeight());
-                            FullImagePageActivity.startImagePagerActivity(context, friendData.getImages(), position, imageSize);
-                        }
-                    });
+            /**
+             * 换了这个9宫图，终于好看点了。折腾死我了。
+             * NineGridTestLayout
+             * */
+            holder.multiImageView.setUrlList(friendData.getImages());
+            holder.multiImageView.setOnItemClickListener(new NineGridTestLayout.OnItemClickListener() {
+                @Override
+                public void onItemClick(int index, String url, List<String> urlList) {
+                    //添加浏览次数
+                    ServiceDisposeFactory.getInstance().getServiceDispose().addFriendShowCount(friendData.getId());
+                    //imagesize是作为loading时的图片size
+                    FullImagePageActivity.startImagePagerActivity(context, urlList, index, null);
+                }
+            });
 
             holder.commentAdapter.setDatas(friendData.getComments());
             if (friendData.getComments().isEmpty()) {
@@ -276,7 +277,7 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
         /**
          * 图片
          */
-        public LGNineGrideView multiImageView;
+        public NineGridTestLayout multiImageView;
 
         /**
          * 评论列表

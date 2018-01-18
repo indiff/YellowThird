@@ -54,24 +54,23 @@
 
             <!--纯粹是为了扩大点击返回按钮的响应范围-->
             <View
-                android:layout_width="30dp"
+                android:layout_width="20dp"
                 android:layout_height="match_parent"/>
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="50dp"
+            android:layout_marginLeft="10dp"
             android:ellipsize="end"
             android:gravity="center"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
             android:singleLine="true"
             android:textColor="#ffffff"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            android:text=""/>
 
     </LinearLayout>
 
@@ -95,8 +94,8 @@
 
         <ImageButton
             android:id="@+id/turn_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="3dp"
@@ -110,7 +109,6 @@
             android:id="@+id/scale_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="3dp"
             android:background="#00000000"
@@ -119,12 +117,25 @@
             android:visibility="gone"
             android:src="@drawable/uvv_player_scale_btn" />
 
+        <!--跳到重要时间-->
+        <ImageButton
+            android:id="@+id/jump_button"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="3dp"
+            android:layout_toRightOf="@id/turn_button"
+            android:background="#00000000"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:visibility="visible"
+            android:src="@drawable/uvv_player_jump_btn" />
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_gravity="center_vertical"
-            android:layout_toLeftOf="@id/scale_button"
-            android:layout_toRightOf="@id/turn_button"
+            android:layout_toRightOf="@id/jump_button"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 

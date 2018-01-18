@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@android:color/white"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@android:color/white"
+              android:orientation="vertical">
 
     <!--Android取消EditText自动默认获取焦点行为
     这个还是不行，会自动跳转到之里，只是光标不显示而已。还是会跳转。我日
@@ -20,10 +20,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <!--用户头像-->
@@ -33,7 +33,7 @@
             android:layout_height="48dp"
             android:layout_marginRight="10dip"
             android:scaleType="fitCenter"
-            android:src="@drawable/author_head" />
+            android:src="@drawable/author_head"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,7 +53,7 @@
                     android:singleLine="true"
                     android:text="大鸡鸡"
                     android:textColor="#8290AF"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"/>
 
             </LinearLayout>
 
@@ -66,27 +66,27 @@
                 android:paddingTop="5dip"
                 android:text="一老外在中国农村迷了路,看到一青年在田里插秧,就用生硬的中文问路,结果青年半天没听懂,最后青年说:CanyouspeakEnglish?老外大惊,于是用英文问了路,"
                 android:textColor="#232323"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <!--图片略缩图集合-->
-            <com.pear.android.view.LGNineGrideView
+            <com.hmy.ninegridlayout.view.NineGridTestLayout
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/multi_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                />
+                android:layout_marginTop="8dp"
+                app:sapcing="4dp"/>
 
             <!--发表时间-->
             <TextView
                 android:id="@+id/time"
-                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:singleLine="true"
                 android:text="13分钟前"
                 android:textColor="@color/colorMinorContent"
-                android:textSize="12sp" />
+                android:textSize="12sp"/>
 
             <!-- 浏览次数 、 评论 点赞、-->
             <RelativeLayout
@@ -100,18 +100,18 @@
                     android:id="@+id/browse_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
                     android:singleLine="true"
                     android:text="浏览52次"
-                    android:gravity="center_vertical"
                     android:textColor="@color/colorMinorContent"
-                    android:textSize="12dp" />
+                    android:textSize="12dp"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center_vertical"
                     android:layout_alignParentRight="true"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal"
                     >
 
                     <!--点赞和器数量数量-->
@@ -121,8 +121,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_marginLeft="18dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="18dp"
                         android:orientation="horizontal">
 
                         <!--点赞图标-->
@@ -132,7 +132,7 @@
                             android:layout_height="18dp"
                             android:adjustViewBounds="true"
                             android:maxWidth="9999dp"
-                            android:src="@drawable/click_good" />
+                            android:src="@drawable/click_good"/>
 
                         <!--点赞数量-->
                         <TextView
@@ -140,10 +140,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
-                            android:text="2048"
                             android:gravity="center_vertical"
+                            android:text="2048"
                             android:textColor="@color/colorMinorContent"
-                            android:textSize="12dp" />
+                            android:textSize="12dp"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -154,11 +154,11 @@
                 android:id="@+id/comment_list_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="8dip"
-                android:paddingTop="10dip"
-                android:paddingRight="8dip"
                 android:background="@drawable/simple_comment_bg"
                 android:orientation="vertical"
+                android:paddingLeft="8dip"
+                android:paddingRight="8dip"
+                android:paddingTop="10dip"
                 android:visibility="visible">
 
                 <!--评论列表-->
@@ -174,8 +174,8 @@
                 android:id="@+id/attract_focus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
                 android:layout_marginBottom="2dp"
+                android:layout_marginTop="3dp"
                 android:orientation="vertical"
                 >
                 <!--用户的输入评论框-->
@@ -183,16 +183,16 @@
                     android:id="@+id/input_comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:background="@drawable/style_comment_input_sharp"
-                    android:textSize="15dp"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="3dp"
-                    android:imeOptions="actionSend"
-                    android:inputType="text"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
                     android:hint="说点什么..."
+                    android:imeOptions="actionSend"
+                    android:inputType="text"
+                    android:paddingBottom="3dp"
+                    android:paddingTop="3dp"
+                    android:textSize="15dp"
                     />
 
             </LinearLayout>
@@ -206,6 +206,6 @@
         android:layout_width="match_parent"
         android:layout_height="1.5px"
         android:alpha="0.5"
-        android:background="@color/colorMinorTitle" />
+        android:background="@color/colorMinorTitle"/>
 
 </LinearLayout>

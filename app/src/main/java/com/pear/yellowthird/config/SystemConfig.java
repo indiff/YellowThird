@@ -10,6 +10,8 @@ import android.content.SharedPreferences;
  * */
 public class SystemConfig {
 
+    public static final int VERSION=100;
+
     /**查询时间*/
     public static final String QUERY_TIME="query_time";
 
