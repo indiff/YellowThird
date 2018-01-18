@@ -2,9 +2,12 @@ package com.pear.yellowthird.activitys;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,6 +21,7 @@ import com.pear.databases.AllDatabases;
 import com.pear.yellowthird.adapter.abstracts.CommonCacheAdapterAbstract;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.init.AllOnceInit;
+import com.pear.yellowthird.interfaces.UpdateVersion;
 import com.pear.yellowthird.style.factory.StyleFragmentFactory;
 import com.pear.yellowthird.style.vo.BottomNavigationMenuVo;
 import com.pear.yellowthird.style.vo.StyleType;
@@ -26,6 +30,7 @@ import com.viewpagerindicator.MainNavPageIndicator;
 
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.util.Random;
 
 import rx.Observable;
@@ -34,7 +39,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements UpdateVersion {
 
     /**
      * 日记
@@ -132,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
     void requestDataByService() {
 
         /**连接服务器测试*/
-        boolean serviceTest = false;
+        boolean serviceTest = true;
         if (serviceTest) {
             //先显示等待框
             loadingView.showPrepareLoadingView();
@@ -318,6 +323,35 @@ public class MainActivity extends AppCompatActivity {
             rootView.setVisibility(View.VISIBLE);
         }
 
+    }
+
+
+
+    @Override
+    public String getSavePath() {
+        return getFilesDir() + File.separator + "update.apk";
+    }
+
+    @Override
+    public void updateVersion() {
+        if(Build.VERSION.SDK_INT>=24) {//判读版本是否在7.0以上
+            File file= new File(getSavePath());
+            Uri apkUri = FileProvider.getUriForFile(
+                    this,
+                    "com.pear.android.app.GlobalApplication.file_provider",
+                    file);
+            Intent install = new Intent(Intent.ACTION_VIEW);
+            install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);//添加这一句表示对目标应用临时授权该Uri所代表的文件
+            install.setDataAndType(apkUri, "application/vnd.android.package-archive");
+            startActivity(install);
+        } else{
+            Intent install = new Intent(Intent.ACTION_VIEW);
+            install.setDataAndType(Uri.fromFile(new File(getSavePath())),
+                    "application/vnd.android.package-archive");
+            install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(install);
+        }
     }
 
 

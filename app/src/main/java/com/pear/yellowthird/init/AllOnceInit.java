@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.pear.yellowthird.activitys.MainActivity;
 import com.pear.yellowthird.config.SystemConfig;
 import com.pear.yellowthird.impl.net.ServiceDisposeImpl;
 import com.pear.yellowthird.style.factory.StyleFactory;
@@ -18,7 +19,7 @@ public class AllOnceInit {
     /**
      * 初始化
      * */
-    public static void init(Activity activity)
+    public static void init(MainActivity activity)
     {
 
         SystemConfig.getInstance().init(activity);
@@ -28,7 +29,7 @@ public class AllOnceInit {
 
         initImageLoader(activity);
 
-        new NewVersionInstall(activity).checkAndInstall();
+        //new NewVersionInstall(activity,activity).checkAndInstall();
     }
 
     /**

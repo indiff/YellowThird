@@ -5,4 +5,11 @@ package com.pear.yellowthird.interfaces;
  */
 
 public interface UpdateVersion {
+
+    /**获取文件的保存路径*/
+    String getSavePath();
+
+    /**更新程序*/
+    void updateVersion();
+
 }

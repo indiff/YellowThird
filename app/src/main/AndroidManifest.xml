@@ -20,6 +20,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <!--https://www.jianshu.com/p/68a4e8132fcd-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.pear.android.app.GlobalApplication.file_provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+
         <!--这里要不根据横竖屏变动 重新创建活动。否则会崩溃-->
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"
@@ -32,6 +44,7 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name=".FullImagePageActivity"
             android:theme="@style/FullScreenTheme">

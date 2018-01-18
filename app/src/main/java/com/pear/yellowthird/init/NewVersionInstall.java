@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.pear.common.utils.net.FileDownload;
+import com.pear.yellowthird.activitys.MainActivity;
 import com.pear.yellowthird.config.SystemConfig;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
+import com.pear.yellowthird.interfaces.UpdateVersion;
 
 import org.apache.log4j.Logger;
 import org.json.JSONException;
@@ -33,12 +36,15 @@ public class NewVersionInstall {
     /**日记*/
     private static Logger log = Logger.getLogger(NewVersionInstall.class);
 
+    UpdateVersion updateVersion;
+
     Activity activity;
 
 
-    NewVersionInstall(Activity activity)
+    NewVersionInstall(Activity activity,UpdateVersion updateVersion)
     {
         this.activity=activity;
+        this.updateVersion=updateVersion;
     }
 
     /**
@@ -74,7 +80,7 @@ public class NewVersionInstall {
         Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                String apkSavePath = activity.getCacheDir() + File.separator + "update.apk";
+                String apkSavePath =updateVersion.getSavePath();// activity.getFilesDir() + File.separator + "update.apk";
                 boolean result = FileDownload.downloadFile(href, apkSavePath);
                 if (result)
                     subscriber.onNext(apkSavePath);
@@ -108,7 +114,7 @@ public class NewVersionInstall {
                         switch (which)
                         {
                             case POSITIVE:
-                                updateByLocalApk(path);
+                                updateVersion.updateVersion();
                                 break;
                         }
                     }
@@ -120,10 +126,16 @@ public class NewVersionInstall {
     /**
      * 根据apk的路径，来更新当前程序
      * */
+    /*
     private void updateByLocalApk(String apkPath) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(new File(apkPath)), "application/vnd.android.package-archive");
+        Uri uri= FileProvider.getUriForFile(
+                activity,
+                "com.pear.android.app.GlobalApplication.file_provider",
+                new File(apkPath));
+        intent.setDataAndType(uri, "application/vnd.android.package-archive");
         activity.startActivity(intent);
     }
+    */
 
 }
