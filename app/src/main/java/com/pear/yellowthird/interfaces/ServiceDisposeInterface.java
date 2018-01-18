@@ -46,6 +46,11 @@ public interface ServiceDisposeInterface {
     Observable<String> requestPlayVideo(Integer id);
 
     /**
+     * 请求跳跃播放电影
+     * */
+    Observable<String> requestJumpPlayVideo(Integer id);
+
+    /**
      * 根据Url 获取对应数据
      * @pram url 待查询的url
      * */

@@ -1,11 +1,8 @@
 package com.pear.yellowthird.activitys.fragments.detailContent;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -14,7 +11,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -353,6 +349,8 @@ public class VideoIntroduceFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), FullVideoActivity.class);
                 intent.putExtra("url", mData.getVideoUri());
                 intent.putExtra("title", mData.getTitle());
+                intent.putExtra("jump_price", 0);
+                intent.putExtra("video_id", mData.getId());
                 startActivity(intent);
             }
 
