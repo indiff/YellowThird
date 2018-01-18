@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Toast;
 
 import com.hmy.ninegridlayout.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -20,6 +19,8 @@ import java.util.List;
 public class NineGridTestLayout extends NineGridLayout {
 
     protected static final int MAX_W_H_RATIO = 3;
+
+    OnItemClickListener onItemClickListener;
 
     public NineGridTestLayout(Context context) {
         super(context);
@@ -77,7 +78,22 @@ public class NineGridTestLayout extends NineGridLayout {
     }
 
     @Override
-    protected void onClickImage(int i, String url, List<String> urlList) {
-        Toast.makeText(mContext, "点击了图片" + url, Toast.LENGTH_SHORT).show();
+    public void onClickImage(int i, String url, List<String> urlList) {
+        //Toast.makeText(mContext, "点击了图片" + url, Toast.LENGTH_SHORT).show();
+        if(null!=onItemClickListener)
+            onItemClickListener.onItemClick(i,url,urlList);
+    }
+
+
+    public interface OnItemClickListener{
+        void onItemClick(int i, String url, List<String> urlList);
+    }
+
+    public OnItemClickListener getOnItemClickListener() {
+        return onItemClickListener;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }

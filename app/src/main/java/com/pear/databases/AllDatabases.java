@@ -67,10 +67,7 @@ public class AllDatabases {
 
                                                                     new ArrayList<String>() {{
 
-                                                                        add("https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1512827253&di=20b67c1c12720a71d8ea59c67b5317f4&src=http://pic6.nipic.com/20100405/3017209_061106405171_2.jpg");
-                                                                        add("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=467184516,4129069465&fm=27&gp=0.jpg");
-                                                                        add("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2634944918,1248270971&fm=27&gp=0.jpg");
-
+                                                                        add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516270015256&di=2147ddcae9dfb0669105ceb78b1f9a75&imgtype=0&src=http%3A%2F%2Fwww.zhlzw.com%2FUploadFiles%2FArticle_UploadFiles%2F201204%2F20120412123915795.jpg");
 
                                                                     }},
                                                                     new ArrayList<TalkComment>() {{

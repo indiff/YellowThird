@@ -96,8 +96,6 @@ dependencies {
     //包冲突了
     //compile 'com.borax12.materialdaterangepicker:library:1.9'
 
-    /**微信图片9宫格*/
-    //compile 'com.github.mzule:ninegridlayout:1.0.1'
 
 }
 

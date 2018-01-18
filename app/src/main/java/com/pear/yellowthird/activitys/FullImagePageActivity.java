@@ -22,14 +22,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.github.chrisbanes.photoview.OnPhotoTapListener;
-import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.pear.yellowthird.activitys.R.*;
+import static com.pear.yellowthird.activitys.R.dimen;
+import static com.pear.yellowthird.activitys.R.drawable;
+import static com.pear.yellowthird.activitys.R.id;
+import static com.pear.yellowthird.activitys.R.layout;
 
 /**
  * 全屏浏览图片
@@ -165,7 +166,6 @@ public class FullImagePageActivity extends Activity {
             View view = inflater.inflate(layout.image_full_list_line, container, false);
             if(view != null){
                 final ImageView imageView = view.findViewById(id.image);
-
                 if(imageSize!=null){
                     //预览imageView
                     smallImageView = new ImageView(activity);
