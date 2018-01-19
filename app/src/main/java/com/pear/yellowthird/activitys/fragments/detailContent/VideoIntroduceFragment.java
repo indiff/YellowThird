@@ -25,6 +25,7 @@ import com.pear.common.utils.strings.JsonUtil;
 import com.pear.yellowthird.activitys.FullImagePageActivity;
 import com.pear.yellowthird.activitys.FullVideoActivity;
 import com.pear.yellowthird.activitys.R;
+import com.pear.yellowthird.activitys.fragments.mainSubFragments.AccountInfoFragment;
 import com.pear.yellowthird.adapter.CommentListAdapter;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.vo.databases.TalkComment;
@@ -313,6 +314,10 @@ public class VideoIntroduceFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 button.setEnabled(false);
+
+                /**用户花费绿币看了电影。*/
+                AccountInfoFragment.REFRESH_GOLD=true;
+
                 ServiceDisposeFactory.getInstance().getServiceDispose()
                         .requestPlayVideo(mData.getId()).subscribe(new Action1<String>() {
                     @Override

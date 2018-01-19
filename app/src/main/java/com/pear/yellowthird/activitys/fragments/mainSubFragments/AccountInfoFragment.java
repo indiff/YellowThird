@@ -1,14 +1,11 @@
 package com.pear.yellowthird.activitys.fragments.mainSubFragments;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,12 +23,8 @@ import com.bumptech.glide.Glide;
 import com.pear.yellowthird.activitys.BillActivity;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.activitys.RechargeActivity;
-import com.pear.yellowthird.config.SystemConfig;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.vo.databases.UserVo;
-
-import java.sql.Date;
-import java.util.Calendar;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import rx.functions.Action1;
@@ -43,6 +35,9 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
  * 我的账户界面
  */
 public class AccountInfoFragment extends Fragment {
+
+    /**是否刷新金币*/
+    public static boolean REFRESH_GOLD=true;
 
     private UserVo user;
 
@@ -121,6 +116,8 @@ public class AccountInfoFragment extends Fragment {
             rechargeView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    /**用户可能会充值*/
+                    REFRESH_GOLD=true;
                     startActivity(new Intent(getActivity(), RechargeActivity.class));
                 }
             });
@@ -173,8 +170,13 @@ public class AccountInfoFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        /**每次都刷新用户数据，特别是账单变动了。看完电影扣费了。充值了等等*/
-        foreRefreshUserInfo();
+        if(REFRESH_GOLD)
+        {
+            REFRESH_GOLD=false;
+            /**每次都刷新用户数据，特别是账单变动了。看完电影扣费了。充值了等等*/
+            //每次刷新会给服务器带来负担，其实是没有必要的
+            foreRefreshUserInfo();
+        }
     }
 
 
