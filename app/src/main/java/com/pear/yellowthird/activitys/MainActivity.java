@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.FileProvider;
@@ -137,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
     void requestDataByService() {
 
         /**连接服务器测试*/
-        boolean serviceTest = true;
+        boolean serviceTest = false;
         if (serviceTest) {
             //先显示等待框
             loadingView.showPrepareLoadingView();
@@ -329,29 +330,34 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
 
     @Override
     public String getSavePath() {
-        return getFilesDir() + File.separator + "update.apk";
+        //String folder=getFilesDir() + File.separator +"update";
+
+        /**只能安装在sd卡上，不然android 7以下版本。会报包解析错误*/
+        String folder= Environment.getExternalStorageDirectory() +"/external_path";
+        new File(folder).mkdirs();
+        return folder+File.separator + "update1.apk";
     }
 
     @Override
-    public void updateVersion() {
-        if(Build.VERSION.SDK_INT>=24) {//判读版本是否在7.0以上
-            File file= new File(getSavePath());
-            Uri apkUri = FileProvider.getUriForFile(
-                    this,
-                    "com.pear.android.app.GlobalApplication.file_provider",
-                    file);
-            Intent install = new Intent(Intent.ACTION_VIEW);
-            install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    public void updateVersion(String path) {
+        Intent install = new Intent();
+        install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        install.setAction(Intent.ACTION_VIEW);
+        Uri apkUri;
+
+        /**android 7以上版本对文件读取权限更加严格了。 */
+        //判读版本是否在7.0以上
+        if(Build.VERSION.SDK_INT>=24) {
             install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);//添加这一句表示对目标应用临时授权该Uri所代表的文件
-            install.setDataAndType(apkUri, "application/vnd.android.package-archive");
-            startActivity(install);
-        } else{
-            Intent install = new Intent(Intent.ACTION_VIEW);
-            install.setDataAndType(Uri.fromFile(new File(getSavePath())),
-                    "application/vnd.android.package-archive");
-            install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(install);
-        }
+            apkUri = FileProvider.getUriForFile(
+                    this,
+                    getPackageName()+".fileprovider",
+                    new File(path));
+        } else
+            apkUri=Uri.fromFile(new File(path));
+        log.debug("apkUri:"+apkUri);
+        install.setDataAndType(apkUri, "application/vnd.android.package-archive");
+        startActivity(install);
     }
 
 

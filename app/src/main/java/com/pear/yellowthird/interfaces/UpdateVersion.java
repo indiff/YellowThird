@@ -10,6 +10,6 @@ public interface UpdateVersion {
     String getSavePath();
 
     /**更新程序*/
-    void updateVersion();
+    void updateVersion(String path);
 
 }

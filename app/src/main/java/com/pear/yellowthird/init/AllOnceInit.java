@@ -29,7 +29,7 @@ public class AllOnceInit {
 
         initImageLoader(activity);
 
-        //new NewVersionInstall(activity,activity).checkAndInstall();
+        new NewVersionInstall(activity,activity).checkAndInstall();
     }
 
     /**

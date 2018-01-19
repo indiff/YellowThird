@@ -1,16 +1,11 @@
 package com.pear.yellowthird.init;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v4.content.FileProvider;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.pear.common.utils.net.FileDownload;
-import com.pear.yellowthird.activitys.MainActivity;
 import com.pear.yellowthird.config.SystemConfig;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.interfaces.UpdateVersion;
@@ -18,8 +13,6 @@ import com.pear.yellowthird.interfaces.UpdateVersion;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.File;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -61,10 +54,27 @@ public class NewVersionInstall {
                             int version = json.getInt("version");
                             if (SystemConfig.VERSION >= version)
                                 return;
+                            final String href = json.getString("href");
 
-                            Toast.makeText(activity,"检测到新版本，正在下载中...",Toast.LENGTH_LONG).show();;
-                            String href = json.getString("href");
-                            downUpdateApk(href);
+                            /**发表过程中一直等待*/
+                            final MaterialDialog progressDialog=new MaterialDialog.Builder(activity)
+
+                                    .title("检测到新版本。")
+                                    .content("自动更新程序需要用到读取sd卡权限。\n请给我权限，否则我将不能正常工作")
+                                    .positiveText("知道了")
+                                    .onAny(new MaterialDialog.SingleButtonCallback() {
+                                        @Override
+                                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                            switch (which)
+                                            {
+                                                case POSITIVE:
+                                                    downUpdateApk(href);
+                                                    break;
+                                            }
+                                        }
+                                    })
+                                    .canceledOnTouchOutside(false)
+                                    .show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -72,29 +82,35 @@ public class NewVersionInstall {
                 });
     }
 
-
     /**
      * 下载更新包
      * */
     private void downUpdateApk(final String href) {
-        Observable.create(new Observable.OnSubscribe<String>() {
+        Runnable downFile=new Runnable() {
             @Override
-            public void call(Subscriber<? super String> subscriber) {
-                String apkSavePath =updateVersion.getSavePath();// activity.getFilesDir() + File.separator + "update.apk";
-                boolean result = FileDownload.downloadFile(href, apkSavePath);
-                if (result)
-                    subscriber.onNext(apkSavePath);
-                subscriber.onCompleted();
+            public void run() {
+                Observable.create(new Observable.OnSubscribe<String>() {
+                    @Override
+                    public void call(Subscriber<? super String> subscriber) {
+                        String apkSavePath =updateVersion.getSavePath();
+                        boolean result = FileDownload.downloadFile(href, apkSavePath);
+                        if (result)
+                            subscriber.onNext(apkSavePath);
+                        subscriber.onCompleted();
+                    }
+                }).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                new Action1<String>() {
+                                    @Override
+                                    public void call(String path) {
+                                        notifyUserApkWillUpdate(path);
+                                    }
+                                });
             }
-        }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new Action1<String>() {
-                            @Override
-                            public void call(String path) {
-                                notifyUserApkWillUpdate(path);
-                            }
-                        });
+        };
+
+        new PermissionsRequestInit(activity).init(downFile);
     }
 
     /**
@@ -114,7 +130,7 @@ public class NewVersionInstall {
                         switch (which)
                         {
                             case POSITIVE:
-                                updateVersion.updateVersion();
+                                updateVersion.updateVersion(path);
                                 break;
                         }
                     }

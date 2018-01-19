@@ -166,7 +166,7 @@ public class FullVideoActivity  extends AppCompatActivity {
             final MaterialDialog progressDialog=new MaterialDialog.Builder(mContext)
                     .title("快进到精彩时刻")
                     .content("该快进功能将会花费你"+mJumpPrice+"绿币，\n而且还会破坏你对这部电影的情节了解。\n建议你不要使用该功能！")
-                    .positiveText("知道了")
+                    .positiveText("没时间了，快快快")
                     .negativeText("慢慢看")
                     .onAny(new MaterialDialog.SingleButtonCallback() {
                         @Override

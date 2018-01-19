@@ -83,7 +83,7 @@ dependencies {
     compile 'com.afollestad.material-dialogs:core:0.9.6.0'
     compile 'com.afollestad.material-dialogs:commons:0.9.6.0'
 
-
+  
     /**图片上传*/
     // https://mvnrepository.com/artifact/com.squareup.okio/okio
     compile group: 'com.squareup.okio', name: 'okio', version: '1.13.0'

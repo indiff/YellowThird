@@ -10,6 +10,7 @@
     妈比，总是内存溢出奔溃，加大到可用的最大内存
     -->
 
+    <!-- -->
     <application
         android:largeHeap="true"
         android:name="com.pear.android.app.GlobalApplication"
@@ -23,7 +24,7 @@
         <!--https://www.jianshu.com/p/68a4e8132fcd-->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.pear.android.app.GlobalApplication.file_provider"
+            android:authorities="com.pear.yellowthird.activitys.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -82,6 +83,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             />
+
+        <!--程序自动更新-->
+        <receiver
+            android:name="com.chengtao.autoupdate.receiver.NetworkReceiver"
+            android:label="NetworkConnection">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="com.chengtao.autoupdate.service.ACTION_UPDATE"/>
+            </intent-filter>
+        </receiver>
+        <service android:name="com.chengtao.autoupdate.service.DownloadService" />
 
     </application>
 
