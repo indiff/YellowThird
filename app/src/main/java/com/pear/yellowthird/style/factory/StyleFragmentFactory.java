@@ -94,6 +94,8 @@ public class StyleFragmentFactory {
             }
             case VIDEO_INTRODUCE_STYLE: {
                 VideoIntroduceVo[] vo = JsonUtil.write2Class(data, VideoIntroduceVo[].class);
+                if(null==vo||vo.length==0)
+                   return getEmptyDataTip(style);
                 return VideoIntroducePageFragment.newInstance(new ArrayList<>(Arrays.asList(vo)));
             }
             case IMAGE_INTRODUCE_STYLE: {
@@ -102,7 +104,8 @@ public class StyleFragmentFactory {
                         .subscribe(new Action1<ImageIntroduceVo>() {
                             @Override
                             public void call(ImageIntroduceVo data) {
-                                fragment.setData(data);
+                                if(null!=data)
+                                    fragment.setData(data);
                             }
                         });
                 return fragment;
@@ -146,6 +149,14 @@ public class StyleFragmentFactory {
             default:
                 return CommonContentFragment.newInstance(style, data);
         }
+    }
+
+    /**
+     * 空资源的友好提示
+     * */
+    private static Fragment getEmptyDataTip(String style)
+    {
+        return CommonContentFragment.newInstance("","资源正在上线中，\n等一下再来看看吧。");
     }
 
     /**

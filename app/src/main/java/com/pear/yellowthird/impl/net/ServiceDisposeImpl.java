@@ -26,6 +26,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import okhttp3.Call;
@@ -53,7 +55,8 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     /**
      * 服务器的请求地址
      */
-    private static final String gServiceHost = "http://88813121.cn:8080/";
+    //private static final String gServiceHost = "http://88813121.cn:8080/";
+    private static final String gServiceHost = "http://192.168.0.104:10086/";
 
     private Handler mainHandler;
 
@@ -214,12 +217,11 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     }
 
     @Override
-    public Observable<String> requestJumpPlayVideo(Integer id) {
+    public Observable<String> requestJumpPlayVideo(final Integer id) {
         return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                String response = "{\"pay\":\"true\",\"tip\":\"支付成功\"}";
-                //requestByService(gServiceHost + "redbook/api/movie/play?id=" + id);
+                String response = requestByService(gServiceHost + "redbook/api/movie/highTide?id=" + id);
                 if (!TextUtils.isEmpty(response))
                     subscriber.onNext(response);
                 else
@@ -516,8 +518,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                String data ="{\"version\":101,\"href\":\"http://gdown.baidu.com/data/wisegame/21c41b43bf5a27b1/QQ_762.apk\"}";
-                // requestByService(gServiceHost + "redbook/api/friendsHome/goodCount?id=" + id);
+                String data = requestByService(gServiceHost + "redbook/api/apk/version");
                 if (!TextUtils.isEmpty(data))
                     subscriber.onNext(data);
                 else
@@ -554,7 +555,10 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         try {
             /**每一个请求都会全局加上deviceID*/
             boolean hasParam = url.contains("?");
-            url += (hasParam ? "&" : "?") + "deviceId=" + gDeviceId+"&time="+ SystemConfig.getInstance().getQueryTime();
+
+            Date queryDate=new Date(SystemConfig.getInstance().getQueryTime());
+            String dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(queryDate);
+            url += (hasParam ? "&" : "?") + "deviceId=" + gDeviceId+"&publishTime="+ URLEncoder.encode(dateFormat, "utf-8");
             log.info("url:" + url);
             String response = HttpRequest.sendGet(url);
             log.info("response:" + response);

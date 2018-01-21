@@ -1,6 +1,7 @@
 package com.pear.yellowthird.activitys.fragments.mainSubFragments;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,8 +25,11 @@ import com.bumptech.glide.Glide;
 import com.pear.yellowthird.activitys.BillActivity;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.activitys.RechargeActivity;
+import com.pear.yellowthird.config.SystemConfig;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.vo.databases.UserVo;
+
+import java.util.Calendar;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import rx.functions.Action1;
@@ -136,30 +141,38 @@ public class AccountInfoFragment extends Fragment {
 
         /**调试时间*/
         {
-            /*
+
             LinearLayout debugTimeView = mRootView.findViewById(R.id.debug_time);
             debugTimeView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Calendar now = Calendar.getInstance();
-                    now.setTimeInMillis(SystemConfig.getInstance().getQueryTime());
+                    long queryTime=SystemConfig.getInstance().getQueryTime();
+                    now.setTimeInMillis(queryTime);
+
+                    int nowYear=now.get(Calendar.YEAR);
+                    int nowMonth=now.get(Calendar.MONTH);
+                    int nowDay=now.get(Calendar.DAY_OF_MONTH);
+
                     new DatePickerDialog(
                             getActivity(),
                             new DatePickerDialog.OnDateSetListener() {
                                 @Override
                                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                    long queryTime=new Date(year,month,dayOfMonth).getTime();
+                                    Calendar calendar = Calendar.getInstance();
+                                    calendar.set(year,month,dayOfMonth);
+                                    long queryTime=calendar.getTimeInMillis();
                                     SystemConfig.getInstance().setQueryTime(queryTime);
                                     String tip="选择了"+year+"-"+month+"-"+dayOfMonth+"，重启app生效";
                                     Toast.makeText(getActivity(),tip,Toast.LENGTH_SHORT).show();
                                 }
                             },
-                            now.get(Calendar.YEAR),
-                            now.get(Calendar.MONTH),
-                            now.get(Calendar.DAY_OF_MONTH)).show();
+                            nowYear,
+                            nowMonth,
+                            nowDay).show();
                 }
             });
-            */
+
         }
 
         refreshUserAllView();

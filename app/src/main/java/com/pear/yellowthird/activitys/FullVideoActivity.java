@@ -191,6 +191,7 @@ public class FullVideoActivity  extends AppCompatActivity {
          * */
         void tryStartJump()
         {
+            mMediaController.getJumpButton().setEnabled(false);
             ServiceDisposeFactory.getInstance().getServiceDispose()
                     .requestJumpPlayVideo(mVideoId).subscribe(new Action1<String>() {
                 @Override
@@ -202,6 +203,7 @@ public class FullVideoActivity  extends AppCompatActivity {
                             startJump();
                         } else {
                             Toast.makeText(mContext, json.getString("tip"), Toast.LENGTH_LONG).show();
+                            mMediaController.getJumpButton().setEnabled(true);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

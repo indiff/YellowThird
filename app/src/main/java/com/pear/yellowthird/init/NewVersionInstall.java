@@ -51,7 +51,7 @@ public class NewVersionInstall {
                     public void call(String data) {
                         try {
                             JSONObject json = new JSONObject(data);
-                            int version = json.getInt("version");
+                            int version = Integer.parseInt(json.getString("version"));
                             if (SystemConfig.VERSION >= version)
                                 return;
                             final String href = json.getString("href");
@@ -139,19 +139,5 @@ public class NewVersionInstall {
                 .show();
     }
 
-    /**
-     * 根据apk的路径，来更新当前程序
-     * */
-    /*
-    private void updateByLocalApk(String apkPath) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        Uri uri= FileProvider.getUriForFile(
-                activity,
-                "com.pear.android.app.GlobalApplication.file_provider",
-                new File(apkPath));
-        intent.setDataAndType(uri, "application/vnd.android.package-archive");
-        activity.startActivity(intent);
-    }
-    */
 
 }

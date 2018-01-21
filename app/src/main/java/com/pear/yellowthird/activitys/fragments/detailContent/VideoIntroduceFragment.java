@@ -327,8 +327,6 @@ public class VideoIntroduceFragment extends Fragment {
                             JSONObject json = new JSONObject(data);
                             if (json.getBoolean("pay")) {
                                 Toast.makeText(getActivity(), json.getString("tip"), Toast.LENGTH_LONG).show();
-                                //mData.setPrice("已购买 ");
-                                //priceView.setText("已购买 ");
                                 startPlay();
                             } else {
                                 Toast.makeText(getActivity(), json.getString("tip"), Toast.LENGTH_LONG).show();
@@ -354,7 +352,7 @@ public class VideoIntroduceFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), FullVideoActivity.class);
                 intent.putExtra("url", mData.getVideoUri());
                 intent.putExtra("title", mData.getTitle());
-                intent.putExtra("jump_price", 0);
+                intent.putExtra("jump_price", Integer.parseInt(mData.getPrice()));
                 intent.putExtra("video_id", mData.getId());
                 startActivity(intent);
             }

@@ -59,9 +59,9 @@ public class CommonContentFragment extends Fragment {
         TextView text = new TextView(getActivity());
         text.setGravity(Gravity.CENTER);
         text.setText(mContent+mType);
-        text.setTextSize(20 * getResources().getDisplayMetrics().density);
-        text.setPadding(20, 20, 20, 20);
-        text.setTextColor(getResources().getColor(android.R.color.holo_purple));
+        text.setTextSize(13 * getResources().getDisplayMetrics().density);
+        text.setPadding(10, 10, 10, 10);
+        //text.setTextColor(getResources().getColor(android.R.color.holo_purple));
 
         LinearLayout layout = new LinearLayout(getActivity());
         layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));

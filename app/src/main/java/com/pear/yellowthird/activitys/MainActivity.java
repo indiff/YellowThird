@@ -1,6 +1,8 @@
 package com.pear.yellowthird.activitys;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -20,6 +22,7 @@ import com.pear.android.view.NoScrollViewPager;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.databases.AllDatabases;
 import com.pear.yellowthird.adapter.abstracts.CommonCacheAdapterAbstract;
+import com.pear.yellowthird.config.SystemConfig;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.init.AllOnceInit;
 import com.pear.yellowthird.interfaces.UpdateVersion;
@@ -60,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
     /**
      * 预加载的界面
      */
-    LoadingView loadingView ;
+    LoadingView loadingView;
 
     /**
      * 上一次用户使用主界面的时间戳，用户超过一定时长，强制重新刷新。
@@ -72,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setVersionCode();
         AllOnceInit.init(this);
 
         /**全局背景色透明度设置*/
@@ -116,6 +120,20 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
         requestDataByService();
     }
 
+    /**
+     * 把当前版本号更新到数据库里面
+     * */
+    void setVersionCode() {
+        PackageManager manager = this.getPackageManager();
+        try {
+            PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
+            //版本号
+            SystemConfig.VERSION=info.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -129,7 +147,6 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
             finish();
         }
         lastUserUseMainViewTime = System.currentTimeMillis();
-        //throw new RuntimeException("test upload log");
     }
 
     /**
@@ -138,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
     void requestDataByService() {
 
         /**连接服务器测试*/
-        boolean serviceTest = false;
+        boolean serviceTest = true;
         if (serviceTest) {
             //先显示等待框
             loadingView.showPrepareLoadingView();
@@ -265,8 +282,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
          */
         RelativeLayout rootView;
 
-        LoadingView()
-        {
+        LoadingView() {
             loadingLayout = findViewById(R.id.loading_layout);
             timeDownView = findViewById(R.id.time_down);
             rootView = findViewById(R.id.root_view);
@@ -327,15 +343,14 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
     }
 
 
-
     @Override
     public String getSavePath() {
         //String folder=getFilesDir() + File.separator +"update";
 
         /**只能安装在sd卡上，不然android 7以下版本。会报包解析错误*/
-        String folder= Environment.getExternalStorageDirectory() +"/external_path";
+        String folder = Environment.getExternalStorageDirectory() + "/external_path";
         new File(folder).mkdirs();
-        return folder+File.separator + "update1.apk";
+        return folder + File.separator + "update1.apk";
     }
 
     @Override
@@ -347,15 +362,15 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
 
         /**android 7以上版本对文件读取权限更加严格了。 */
         //判读版本是否在7.0以上
-        if(Build.VERSION.SDK_INT>=24) {
+        if (Build.VERSION.SDK_INT >= 24) {
             install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);//添加这一句表示对目标应用临时授权该Uri所代表的文件
             apkUri = FileProvider.getUriForFile(
                     this,
-                    getPackageName()+".fileprovider",
+                    getPackageName() + ".fileprovider",
                     new File(path));
         } else
-            apkUri=Uri.fromFile(new File(path));
-        log.debug("apkUri:"+apkUri);
+            apkUri = Uri.fromFile(new File(path));
+        log.debug("apkUri:" + apkUri);
         install.setDataAndType(apkUri, "application/vnd.android.package-archive");
         startActivity(install);
     }

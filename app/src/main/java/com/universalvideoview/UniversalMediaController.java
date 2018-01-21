@@ -758,4 +758,9 @@ public class UniversalMediaController extends FrameLayout {
     public void setJumpListener(OnClickListener jumpListener) {
         this.mJumpListener = jumpListener;
     }
+
+    public ImageButton getJumpButton() {
+        return mJumpButton;
+    }
+
 }
