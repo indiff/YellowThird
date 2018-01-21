@@ -81,17 +81,6 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             />
 
-        <!--程序自动更新-->
-        <receiver
-            android:name="com.chengtao.autoupdate.receiver.NetworkReceiver"
-            android:label="NetworkConnection">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-                <action android:name="com.chengtao.autoupdate.service.ACTION_UPDATE"/>
-            </intent-filter>
-        </receiver>
-        <service android:name="com.chengtao.autoupdate.service.DownloadService" />
-
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

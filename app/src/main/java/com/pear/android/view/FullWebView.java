@@ -74,6 +74,9 @@ public class FullWebView extends WebView{
 
         //支持自动加载图片
         webSettings.setLoadsImagesAutomatically(true);
+
+        //不使用缓存
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
     }
 
 }

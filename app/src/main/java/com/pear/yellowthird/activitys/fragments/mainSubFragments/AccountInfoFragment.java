@@ -163,7 +163,7 @@ public class AccountInfoFragment extends Fragment {
                                     calendar.set(year,month,dayOfMonth);
                                     long queryTime=calendar.getTimeInMillis();
                                     SystemConfig.getInstance().setQueryTime(queryTime);
-                                    String tip="选择了"+year+"-"+month+"-"+dayOfMonth+"，重启app生效";
+                                    String tip="选择了"+year+"-"+(month+1)+"-"+dayOfMonth+"，重启app生效";
                                     Toast.makeText(getActivity(),tip,Toast.LENGTH_SHORT).show();
                                 }
                             },

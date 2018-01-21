@@ -2,6 +2,7 @@ package com.pear.yellowthird.activitys.fragments.detailContent;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,27 +126,27 @@ public class NewsFragment extends Fragment {
             {
                 TextView titleView = subNewsView.findViewById(R.id.title);
                 titleView.setText(vo.getTitle());
-                titleView.setVisibility(vo.getTitle().isEmpty() ? View.GONE : View.VISIBLE);
+                titleView.setVisibility(TextUtils.isEmpty(vo.getTitle()) ? View.GONE : View.VISIBLE);
             }
 
             /**发表时间*/
             {
                 TextView createdTimeView = subNewsView.findViewById(R.id.created_time);
                 createdTimeView.setText(vo.getPublishTime());
-                createdTimeView.setVisibility(vo.getPublishTime().isEmpty() ? View.GONE : View.VISIBLE);
+                createdTimeView.setVisibility(TextUtils.isEmpty(vo.getPublishTime()) ? View.GONE : View.VISIBLE);
             }
 
             /**内容介绍*/
             {
                 TextView contentView = subNewsView.findViewById(R.id.content);
                 contentView.setText(vo.getContent());
-                contentView.setVisibility(vo.getContent().isEmpty() ? View.GONE : View.VISIBLE);
+                contentView.setVisibility(TextUtils.isEmpty(vo.getContent()) ? View.GONE : View.VISIBLE);
             }
 
             /**是否带有图片显示*/
             {
                 ImageView imageView = subNewsView.findViewById(R.id.image);
-                if (vo.getImageUri().isEmpty())
+                if (TextUtils.isEmpty(vo.getImageUri()))
                     imageView.setVisibility(View.GONE);
                 else {
                     /**这里不使用缓存，否则简介图片超级模糊，不知道为什么*/

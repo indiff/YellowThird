@@ -112,6 +112,8 @@ public class StyleFragmentFactory {
             }
             case TEXT_NEWS_STYLE: {
                 NewsVo[] vo = JsonUtil.write2Class(data, NewsVo[].class);
+                if(null==vo||vo.length==0)
+                    return getEmptyDataTip(style);
                 return NewsFragment.newInstance(data);
             }
             case VOTE_STYLE: {
