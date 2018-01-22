@@ -134,6 +134,7 @@ public class VideoIntroduceFragment extends Fragment {
         /**封面*/
         {
             ImageView coverView = mRootView.findViewById(R.id.cover);
+            coverView.setImageDrawable(getContext().getResources().getDrawable(R.drawable._loading));
             Glide.with(getActivity())
                     .load(mData.getCoverUri())
                     .into(coverView);

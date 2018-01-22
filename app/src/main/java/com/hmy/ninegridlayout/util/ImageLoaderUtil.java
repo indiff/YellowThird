@@ -22,7 +22,7 @@ public class ImageLoaderUtil {
         Integer extra = 1;
         DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true)
                 .showImageForEmptyUri(R.drawable.banner_default).showImageOnFail(R.drawable.banner_default)
-                .showImageOnLoading(R.drawable.banner_default)
+                .showImageOnLoading(R.drawable._loading)
                 .extraForDownloader(extra)
                 .bitmapConfig(Bitmap.Config.RGB_565).build();
         return options;
