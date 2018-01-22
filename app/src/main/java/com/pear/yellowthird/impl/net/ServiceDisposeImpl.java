@@ -331,7 +331,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
 
     @Override
     public String getRechargeWebUrl() {
-        return gServiceHost + "redbook/api/pay/index?deviceId=" + gDeviceId;
+        return gServiceHost + "redbook/api/pay/index?deviceId=" + gDeviceId+"&random="+System.currentTimeMillis();
     }
 
     @Override

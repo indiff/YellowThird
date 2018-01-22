@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
     void requestDataByService() {
 
         /**连接服务器测试*/
-        boolean serviceTest = false;
+        boolean serviceTest = true;
         if (serviceTest) {
             //先显示等待框
             loadingView.showPrepareLoadingView();
