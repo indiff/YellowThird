@@ -119,6 +119,8 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
                         }
                     });
                 }
+                else
+                    holder.contentView.setText(content);
                 holder.contentView.setVisibility(View.VISIBLE);
             }
 

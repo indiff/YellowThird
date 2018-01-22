@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -125,9 +126,10 @@ public class PublishedActivity extends CommonHeadActivity {
      * 发表说说
      */
     public void sendTalk() {
-        if (!TextUtils.isEmpty(contentEditView.getText())) {
+        Editable content= contentEditView.getText();
+        if (!TextUtils.isEmpty(content)) {
             int maxLength=2000;
-            if(contentEditView.getText().length()>=maxLength)
+            if(content.length()>=maxLength)
             {
                 Toast.makeText(this, "亲，说说文字不能超过"+maxLength+"个字符哦", Toast.LENGTH_SHORT).show();
                 return;
@@ -158,7 +160,7 @@ public class PublishedActivity extends CommonHeadActivity {
 
         ServiceDisposeFactory.getInstance().getServiceDispose()
                 .publishFriendTalk(
-                        contentEditView.getText().toString(),
+                        content.toString(),
                         list)
                 .subscribe(new Action1<Object>() {
             @Override
