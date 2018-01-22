@@ -38,7 +38,7 @@ public class AllDatabases {
                                                         new ArrayList<FriendsVo>() {{
                                                             add(new FriendsVo(
                                                                     new UserVo("呵呵","https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1514602780&di=f8600b268ee6afce8b0ce1c04cbbad52&src=http://img01.taopic.com/160929/318761-16092Z9225648.jpg",0),
-                                                                    "你猜猜我是谁",
+                                                                    "12月8号写下这句话，期间改动好几次，比如，把你醒啦改成你也醒啦，把梦里的她改成她在梦里等等。但是最终还是没有改，感觉稍微改一下就改变了最初的意思或者让它有了局限。写下这句话时正是深夜，点了发布就去睡了，很难再回到当初的心境，怎么改都感觉不合适。我文采不好，希望有兴趣的人可以续写这个故事。",
                                                                     "7分钟前",
                                                                     68,
                                                                     true,
@@ -59,7 +59,7 @@ public class AllDatabases {
 
                                                             add(new FriendsVo(
                                                                     new UserVo("呵呵","https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1514602780&di=f8600b268ee6afce8b0ce1c04cbbad52&src=http://img01.taopic.com/160929/318761-16092Z9225648.jpg",0),
-                                                                    "",
+                                                                    "12月8号写下这句话，期间改动好几次，比如，把你醒啦改成你也醒啦",
                                                                     "7分钟前",
                                                                     68,
                                                                     true,

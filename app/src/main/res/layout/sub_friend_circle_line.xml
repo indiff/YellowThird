@@ -68,6 +68,17 @@
                 android:textColor="#232323"
                 android:textSize="14sp"/>
 
+            <!-- 显示全文 -->
+            <TextView
+                android:id="@+id/show_full_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="全文"
+                android:textColor="@color/friend.name"
+                android:textSize="14sp"
+                android:visibility="gone"
+                />
+
             <!--图片略缩图集合-->
             <com.hmy.ninegridlayout.view.NineGridTestLayout
                 xmlns:app="http://schemas.android.com/apk/res-auto"

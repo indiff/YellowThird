@@ -106,7 +106,19 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
             if (TextUtils.isEmpty(friendData.getContent()))
                 holder.contentView.setVisibility(View.GONE);
             else {
-                holder.contentView.setText(friendData.getContent());
+                final String content=friendData.getContent();
+                if(content.length()>100)
+                {
+                    holder.contentView.setText(content.substring(0,100)+"...");
+                    holder.showFullContentView.setVisibility(View.VISIBLE);
+                    holder.showFullContentView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            holder.contentView.setText(content);
+                            holder.showFullContentView.setVisibility(View.GONE);
+                        }
+                    });
+                }
                 holder.contentView.setVisibility(View.VISIBLE);
             }
 
@@ -243,6 +255,9 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
          */
         TextView contentView;
 
+        /**显示全文*/
+        TextView showFullContentView;
+
         /**
          * 发表时间
          */
@@ -300,6 +315,7 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
             userHeadView = itemView.findViewById(R.id.user_head);
             userNameView = itemView.findViewById(R.id.user_name);
             contentView = itemView.findViewById(R.id.content);
+            showFullContentView = itemView.findViewById(R.id.show_full_content);
             timeView = itemView.findViewById(R.id.time);
             browseCountView = itemView.findViewById(R.id.browse_count);
             clickGoodEventView = itemView.findViewById(R.id.click_good_event);

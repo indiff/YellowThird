@@ -125,11 +125,13 @@ public class PublishedActivity extends CommonHeadActivity {
      * 发表说说
      */
     public void sendTalk() {
-        if (TextUtils.isEmpty(contentEditView.getText())) {
-            //Toast.makeText(this, "亲，你的说说都还没写呢", Toast.LENGTH_SHORT).show();
-            //return;
-            //说说可以为空。微信是可以的
-            contentEditView.setText("");
+        if (!TextUtils.isEmpty(contentEditView.getText())) {
+            int maxLength=2000;
+            if(contentEditView.getText().length()>=maxLength)
+            {
+                Toast.makeText(this, "亲，说说文字不能超过"+maxLength+"个字符哦", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
         if (Bimp.drr.isEmpty()) {
             Toast.makeText(this, "亲，赏两张照片呗", Toast.LENGTH_SHORT).show();
