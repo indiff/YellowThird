@@ -92,7 +92,7 @@ public class ImageIntroduceFragment extends Fragment {
 
     /**
      * 显示没有资源的提示界面
-     * 没有起效果
+     * 没有起效果,因为获取失败，http get的时候就忽略了，根本来不到这里
      * */
     /*
     void showNoResourceTipView()
