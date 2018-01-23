@@ -21,8 +21,9 @@ public class ImageLoaderUtil {
     public static DisplayImageOptions getPhotoImageOption() {
         Integer extra = 1;
         DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true)
-                .showImageForEmptyUri(R.drawable.banner_default).showImageOnFail(R.drawable.banner_default)
-                .showImageOnLoading(R.drawable._loading)
+                .showImageForEmptyUri(R.drawable._image_load_fail)
+                .showImageOnFail(R.drawable._image_load_fail)
+                .showImageOnLoading(R.drawable._image_loading)
                 .extraForDownloader(extra)
                 .bitmapConfig(Bitmap.Config.RGB_565).build();
         return options;

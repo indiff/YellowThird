@@ -449,6 +449,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
                             @Override
                             public void onFailure(Call call, IOException e) {
                                 errorCommonTip();
+                                subscriber.onCompleted();
                             }
 
                             @Override
@@ -556,9 +557,10 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             /**每一个请求都会全局加上deviceID*/
             boolean hasParam = url.contains("?");
 
-            Date queryDate=new Date(SystemConfig.getInstance().getQueryTime());
+            /**是否启用调试时间*/
+            Date queryDate=new Date(SystemConfig.getInstance().getDebugTimeSwitch()?SystemConfig.getInstance().getQueryTime():System.currentTimeMillis());
             String dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(queryDate);
-            url += (hasParam ? "&" : "?") + "deviceId=" + gDeviceId+"&publishTime="+ URLEncoder.encode(dateFormat, "utf-8");
+            url += (hasParam ? "&" : "?") + "deviceId=" + gDeviceId+"&publishTime="+URLEncoder.encode(dateFormat, "utf-8");
             log.info("url:" + url);
             String response = HttpRequest.sendGet(url);
             log.info("response:" + response);

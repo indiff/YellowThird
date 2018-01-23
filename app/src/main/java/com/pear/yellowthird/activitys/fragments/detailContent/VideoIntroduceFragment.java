@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.hmy.ninegridlayout.util.ImageLoaderUtil;
 import com.pear.android.utils.SoftInputUtils;
 import com.pear.android.view.LGNineGrideView;
 import com.pear.android.view.LinearLayoutLikeListView;
@@ -134,10 +135,12 @@ public class VideoIntroduceFragment extends Fragment {
         /**封面*/
         {
             ImageView coverView = mRootView.findViewById(R.id.cover);
-            coverView.setImageDrawable(getContext().getResources().getDrawable(R.drawable._loading));
-            Glide.with(getActivity())
-                    .load(mData.getCoverUri())
-                    .into(coverView);
+            ImageLoaderUtil
+                    .getImageLoader(getContext())
+                    .displayImage(
+                            mData.getCoverUri(),
+                            coverView,
+                            ImageLoaderUtil.getPhotoImageOption());
         }
 
         /**播放时长*/
@@ -302,7 +305,6 @@ public class VideoIntroduceFragment extends Fragment {
     }
 
 
-
     void eventInit() {
         onAddTalkComment();
     }
@@ -317,7 +319,7 @@ public class VideoIntroduceFragment extends Fragment {
                 button.setEnabled(false);
 
                 /**用户花费绿币看了电影。*/
-                AccountInfoFragment.REFRESH_GOLD=true;
+                AccountInfoFragment.REFRESH_GOLD = true;
 
                 ServiceDisposeFactory.getInstance().getServiceDispose()
                         .requestPlayVideo(mData.getId()).subscribe(new Action1<String>() {
@@ -447,7 +449,7 @@ public class VideoIntroduceFragment extends Fragment {
                                 inputComment.setText("");
                                 Toast.makeText(getActivity(), "评论成功", Toast.LENGTH_SHORT).show();
                                 refreshComment();
-                                SoftInputUtils.hideSoftInput(getActivity(),inputComment);
+                                SoftInputUtils.hideSoftInput(getActivity(), inputComment);
                                 inputComment.clearFocus();
                                 inputComment.setFocusableInTouchMode(false);
                                 inputComment.setFocusable(false);

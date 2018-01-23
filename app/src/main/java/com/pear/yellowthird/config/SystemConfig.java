@@ -15,6 +15,9 @@ public class SystemConfig {
     /**查询时间*/
     public static final String QUERY_TIME="query_time";
 
+    /**是否开启调试日期*/
+    public static final String DEBUG_TIME_SWITCH="debug_time_switch";
+
     /**全局的单一实例*/
     private static SystemConfig gInstance;
 
@@ -25,6 +28,9 @@ public class SystemConfig {
      * 默认的查询时间
      * */
     final long defaultQueryTime=System.currentTimeMillis();
+
+    /**默认不使用调试日期*/
+    final Boolean defaultDebugTimeSwitch=false;
 
     private SystemConfig()
     {
@@ -59,6 +65,16 @@ public class SystemConfig {
 
     public long getQueryTime() {
         return mSharedPref.getLong(QUERY_TIME,defaultQueryTime);
+    }
+
+    public void setDebugTimeSwitch(Boolean value) {
+        SharedPreferences.Editor editor = mSharedPref.edit();
+        editor.putBoolean(DEBUG_TIME_SWITCH, value);
+        editor.commit();
+    }
+
+    public Boolean getDebugTimeSwitch() {
+        return mSharedPref.getBoolean(DEBUG_TIME_SWITCH,defaultDebugTimeSwitch);
     }
 
 }

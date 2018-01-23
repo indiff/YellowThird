@@ -1,12 +1,9 @@
 package com.pear.android.view;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.view.View;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.hmy.ninegridlayout.util.ImageLoaderUtil;
 import com.pear.yellowthird.activitys.R;
 
 /**
@@ -32,13 +29,19 @@ public class DefaultImageCreator implements LGNineGrideView.ImageCreator {
     @Override
     public ImageView createImageView(Context context) {
         ImageView imageView = new ColorFilterImageView(context);
-        imageView.setImageDrawable(context.getResources().getDrawable(R.drawable._loading));
+        imageView.setImageDrawable(context.getResources().getDrawable(R.drawable._image_loading));
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         return imageView;
     }
 
     @Override
     public void loadImage(Context context, String url, ImageView imageView) {
-        MyImageLoader.getInstance(context).loadImage(url, imageView);
+        ImageLoaderUtil
+                .getImageLoader(context)
+                .displayImage(
+                        url,
+                        imageView,
+                        ImageLoaderUtil.getPhotoImageOption());
     }
+
 }

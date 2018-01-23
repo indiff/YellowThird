@@ -305,7 +305,6 @@
 
         <!--调试时间-->
         <LinearLayout
-            android:id="@+id/debug_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -323,6 +322,7 @@
                     >
                     <!--调试日期-->
                     <TextView
+                        android:id="@+id/debug_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/common.screen.margin"
@@ -330,6 +330,12 @@
                         android:text="选择调试日期"
                         android:textColor="@color/colorTitle"
                         android:textSize="@dimen/account.function.title" />
+
+                    <!--是否使用调试日期开关-->
+                    <Switch
+                        android:id="@+id/debug_switch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
             </LinearLayout>

@@ -1,5 +1,6 @@
 package com.pear.yellowthird.activitys;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pear.android.view.NoScrollViewPager;
 import com.pear.common.utils.strings.JsonUtil;
@@ -50,6 +52,9 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
      */
     private Logger log = Logger.getLogger(getClass().getSimpleName());
 
+    /**活动的上下文*/
+    Activity activity;
+
     /**
      * 底部菜单栏的适配器
      */
@@ -70,11 +75,16 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
      */
     long lastUserUseMainViewTime = System.currentTimeMillis();
 
+    /**
+     * 是否从服务器中读取数据成功
+     * */
+    boolean isRequestByServiceSuccess=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        this.activity=activity;
         setVersionCode();
         AllOnceInit.init(this);
 
@@ -167,8 +177,8 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
                                     .subscribe(new Action1<BottomNavigationMenuVo[]>() {
                                         @Override
                                         public void call(BottomNavigationMenuVo[] menus) {
+                                            isRequestByServiceSuccess=true;
                                             adapter.setData(menus);
-
                                             //隐藏等待框
                                             loadingView.hide();
                                         }
@@ -176,6 +186,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
                         }
                     });
         } else {
+            isRequestByServiceSuccess=true;
             loadingView.hide();
             adapter.setData(JsonUtil.write2Class(AllDatabases.getData(), BottomNavigationMenuVo[].class));
         }
@@ -308,7 +319,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
                 @Override
                 public void call(Subscriber<? super Integer> subscriber) {
                     try {
-                        for (int timeDown = 10; timeDown >= 0; timeDown--) {
+                        for (int timeDown = 15; timeDown >= 0; timeDown--) {
                             Thread.sleep(1000);
                             subscriber.onNext(timeDown);
                         }
@@ -323,11 +334,13 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
                         /**显示倒计时，倒计时结束关闭加载图*/
                         @Override
                         public void call(Integer timeDown) {
-                            /**倒计时为0了结束倒计时*/
-                            if (timeDown == 0) {
-                                return;
-                            }
+
                             timeDownView.setText(String.valueOf(timeDown));
+                            /**倒计时为0了结束倒计时*/
+                            if (timeDown == 0&& (!isRequestByServiceSuccess)) {
+                                Toast.makeText(activity,"网络好像有点问题哦，等一下再试吧!",Toast.LENGTH_LONG).show();
+                                activity.finish();
+                            }
                         }
                     });
         }

@@ -24,8 +24,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import rx.functions.Action1;
-
 /** 
  * UncaughtException处理类,当程序发生Uncaught异常的时候,有该类来接管程序,并记录发送错误报告. 
  *  
@@ -107,18 +105,18 @@ public class CrashHandler implements UncaughtExceptionHandler {
         String crashMessage=getCrashInfo(ex);
         sendCrashLogToService(crashMessage);
 
-        toastShow();
+        toastShow(getSingleCause(ex));
         return true;
     }
 
-    void toastShow()
+    private void toastShow(final String crashMessage)
     {
         //使用Toast来显示异常信息
         new Thread() {
             @Override
             public void run() {
                 Looper.prepare();
-                Toast.makeText(mContext, "程序奔溃，务必请告诉苏鸿良你的操作方式。非常重要", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "程序奔溃，务必告诉苏先生你的操作方式。非常重要\n"+crashMessage, Toast.LENGTH_LONG).show();
                 Looper.loop();
             }
         }.start();
@@ -183,22 +181,31 @@ public class CrashHandler implements UncaughtExceptionHandler {
             String key = entry.getKey();
             String value = entry.getValue();
             sb.append(key + "=" + value + "\n");  
-        }  
-          
-        Writer writer = new StringWriter();
-        PrintWriter printWriter = new PrintWriter(writer);
-        ex.printStackTrace(printWriter);  
-        Throwable cause = ex.getCause();
-        while (cause != null) {  
-            cause.printStackTrace(printWriter);  
-            cause = cause.getCause();  
         }
-        printWriter.close();  
-        String result = writer.toString();
-        sb.append(result+"\n");
 
+        sb.append(getSingleCause(ex));
+        sb.append("\n");
         sb.append("timestamp :"+System.currentTimeMillis()+"\n");
         sb.append("time :"+formatter.format(new Date())+"\n");
         return sb.toString();
-    }  
+    }
+
+
+    /**
+     * 获取简单的cause原因
+     * */
+    private String getSingleCause(Throwable ex)
+    {
+        Writer writer = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(writer);
+        ex.printStackTrace(printWriter);
+        Throwable cause = ex.getCause();
+        while (cause != null) {
+            cause.printStackTrace(printWriter);
+            cause = cause.getCause();
+        }
+        printWriter.close();
+        return writer.toString();
+    }
+
 }  

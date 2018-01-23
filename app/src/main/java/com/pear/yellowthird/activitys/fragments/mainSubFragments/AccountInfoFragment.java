@@ -14,10 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -142,7 +144,7 @@ public class AccountInfoFragment extends Fragment {
         /**调试时间*/
         {
 
-            LinearLayout debugTimeView = mRootView.findViewById(R.id.debug_time);
+            View debugTimeView = mRootView.findViewById(R.id.debug_time);
             debugTimeView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -170,6 +172,15 @@ public class AccountInfoFragment extends Fragment {
                             nowYear,
                             nowMonth,
                             nowDay).show();
+                }
+            });
+
+            /**是否使用调试日期开关*/
+            Switch debugSwitchView = mRootView.findViewById(R.id.debug_switch);
+            debugSwitchView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    SystemConfig.getInstance().setDebugTimeSwitch(isChecked);
                 }
             });
 
