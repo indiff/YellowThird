@@ -557,10 +557,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             /**每一个请求都会全局加上deviceID*/
             boolean hasParam = url.contains("?");
 
-            /**是否启用调试时间*/
-            Date queryDate=new Date(SystemConfig.getInstance().getDebugTimeSwitch()?SystemConfig.getInstance().getQueryTime():System.currentTimeMillis());
-            String dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(queryDate);
-            url += (hasParam ? "&" : "?") + "deviceId=" + gDeviceId+"&publishTime="+URLEncoder.encode(dateFormat, "utf-8");
+            url += (hasParam ? "&" : "?") + "deviceId=" + gDeviceId+getDebugPublicTimeParam();
             log.info("url:" + url);
             String response = HttpRequest.sendGet(url);
             log.info("response:" + response);
@@ -586,5 +583,18 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         }
     }
 
+    /**
+     * 获取调试的发布时间
+     * */
+    public String getDebugPublicTimeParam()
+    {
+        /**是否启用调试时间*/
+        Date queryDate=new Date(SystemConfig.getInstance().getDebugTimeSwitch()?SystemConfig.getInstance().getQueryTime():System.currentTimeMillis());
+        String dateFormat=
+                new SimpleDateFormat("yyyy-MM-dd").format(queryDate)
+                        +"%20"
+                        +new SimpleDateFormat("HH:mm:ss").format(queryDate);
+        return "&publishTime="+dateFormat;
+    }
 
 }
