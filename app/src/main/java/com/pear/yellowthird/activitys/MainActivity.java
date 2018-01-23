@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
         this.activity=activity;
         setVersionCode();
         AllOnceInit.init(this);
-
+        log.debug("onCreate");
         /**全局背景色透明度设置*/
         {
             View backgroundView = findViewById(R.id.root_view);
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
     /**
      * 把当前版本号更新到数据库里面
      * */
-    void setVersionCode() {
+    private void setVersionCode() {
         PackageManager manager = this.getPackageManager();
         try {
             PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
     @Override
     protected void onStart() {
         super.onStart();
+        log.debug("onStart");
         long alreadyPassTime = System.currentTimeMillis() - lastUserUseMainViewTime;
         System.out.println("alreadyPassTime:" + alreadyPassTime);
         /**超过一个小时重新强制刷新主界面*/
@@ -159,10 +160,11 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
         lastUserUseMainViewTime = System.currentTimeMillis();
     }
 
+
     /**
      * 从服务器中刷新数据
      */
-    void requestDataByService() {
+    private void requestDataByService() {
 
         /**连接服务器测试*/
         boolean serviceTest = true;
@@ -192,11 +194,6 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
         }
     }
 
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
     /**
      * 底部大的菜单导航栏的数据填充适配器
@@ -389,4 +386,22 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        log.debug("onResume");
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        log.debug("onPause");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        log.debug("onDestroy");
+    }
 }
