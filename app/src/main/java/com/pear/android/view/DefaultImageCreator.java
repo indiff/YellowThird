@@ -4,7 +4,6 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.hmy.ninegridlayout.util.ImageLoaderUtil;
-import com.pear.yellowthird.activitys.R;
 
 /**
  * Created by guizhigang on 16/7/14.
@@ -29,7 +28,7 @@ public class DefaultImageCreator implements LGNineGrideView.ImageCreator {
     @Override
     public ImageView createImageView(Context context) {
         ImageView imageView = new ColorFilterImageView(context);
-        imageView.setImageDrawable(context.getResources().getDrawable(R.drawable._image_loading));
+        //imageView.setImageDrawable(context.getResources().getDrawable(R.drawable._image_loading));
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         return imageView;
     }

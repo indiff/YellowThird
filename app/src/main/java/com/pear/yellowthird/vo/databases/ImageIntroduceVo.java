@@ -12,7 +12,7 @@ import java.util.List;
 public class ImageIntroduceVo  implements Serializable{
 
     /** 数据库的Id */
-    int id;
+    Integer id=-1;
 
     /**标题*/
     String title="";
@@ -24,13 +24,13 @@ public class ImageIntroduceVo  implements Serializable{
     List<String> images=new ArrayList<>();
 
     /**点赞数量*/
-    Integer goodCount;
+    Integer goodCount=0;
 
     /**发表时间*/
     String publishTime="";
 
     /**浏览次数*/
-    Integer browseCount;
+    Integer browseCount=0;
 
     /**是否已经点赞*/
     Boolean alreadyClickGood=Boolean.FALSE;

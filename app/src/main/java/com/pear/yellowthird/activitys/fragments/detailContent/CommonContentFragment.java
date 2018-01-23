@@ -2,12 +2,11 @@ package com.pear.yellowthird.activitys.fragments.detailContent;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import com.pear.yellowthird.activitys.R;
 
 import org.apache.log4j.Logger;
 
@@ -55,20 +54,8 @@ public class CommonContentFragment extends Fragment {
             log.debug("onCreateView return cache view ，content :"+mContent);
             return cacheView;
         }
-        log.info("mContent："+mContent+"created");
-        TextView text = new TextView(getActivity());
-        text.setGravity(Gravity.CENTER);
-        text.setText(mContent+mType);
-        text.setTextSize(13 * getResources().getDisplayMetrics().density);
-        text.setPadding(10, 10, 10, 10);
-        //text.setTextColor(getResources().getColor(android.R.color.holo_purple));
-
-        LinearLayout layout = new LinearLayout(getActivity());
-        layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
-        layout.setGravity(Gravity.CENTER);
-        layout.addView(text);
-        cacheView=layout;
-        return layout;
+        cacheView = LayoutInflater.from(getActivity()).inflate(R.layout.common_no_resource_tip, null);
+        return cacheView;
     }
 
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.pear.android.view.LGNineGrideView;
@@ -33,7 +34,7 @@ public class ImageIntroduceFragment extends Fragment {
     /**
      * root 视图
      */
-    private View mRootView;
+    private ScrollView mRootView;
 
     /**
      * 多图实例
@@ -66,7 +67,10 @@ public class ImageIntroduceFragment extends Fragment {
 
     public void setData(ImageIntroduceVo data) {
         this.data = data;
-        refreshViewByDataData();
+        if(null!=data)
+            refreshViewByDataData();
+        //else
+        //    showNoResourceTipView();
     }
 
     @Override
@@ -80,13 +84,24 @@ public class ImageIntroduceFragment extends Fragment {
             //log.debug("onCreateView return cache view ");
             return mRootView;
         }
-        mRootView = LayoutInflater.from(getActivity()).inflate(R.layout.image_introduce_advanced, null);
+        mRootView = (ScrollView)LayoutInflater.from(getActivity()).inflate(R.layout.image_introduce_advanced, null);
         multiImageView = mRootView.findViewById(R.id.multi_image);
         refreshViewByDataData();
         return mRootView;
     }
 
-
+    /**
+     * 显示没有资源的提示界面
+     * 没有起效果
+     * */
+    /*
+    void showNoResourceTipView()
+    {
+        mRootView.removeAllViews();
+        View noResourceTipView= LayoutInflater.from(getActivity()).inflate(R.layout.common_no_resource_tip, null);
+        mRootView.addView(noResourceTipView);
+    }
+    */
 
     /**
      * 根据data来刷新界面
@@ -173,6 +188,8 @@ public class ImageIntroduceFragment extends Fragment {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(0>data.getId())
+                    return;
                 /**先改样式，后通知服务器接口即可。体验好*/
                 setClickImageGoodIsSelect(data.getGoodCount()+1);
                 ServiceDisposeFactory.getInstance().getServiceDispose()
