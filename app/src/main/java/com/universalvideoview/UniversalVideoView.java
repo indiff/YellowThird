@@ -776,6 +776,10 @@ public class UniversalVideoView extends SurfaceView
         return isInPlaybackState() && mMediaPlayer.isPlaying();
     }
 
+    public boolean isPause() {
+        return isInPlaybackState() && mCurrentState == STATE_PAUSED;
+    }
+
     @Override
     public int getBufferPercentage() {
         if (mMediaPlayer != null) {

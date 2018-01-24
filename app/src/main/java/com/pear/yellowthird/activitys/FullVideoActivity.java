@@ -129,7 +129,7 @@ public class FullVideoActivity  extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "onPause ");
-        if (mVideoView != null && mVideoView.isPlaying()) {
+        if (mVideoView != null && (mVideoView.isPlaying()||mVideoView.isPause() )) {
             gSeekHistory.put(mUrl,mVideoView.getCurrentPosition());
             Log.d(TAG, "onPause mSeekPosition=" + mSeekPosition);
             mVideoView.pause();
