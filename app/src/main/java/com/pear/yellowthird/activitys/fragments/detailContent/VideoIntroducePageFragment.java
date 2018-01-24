@@ -70,7 +70,8 @@ public class VideoIntroducePageFragment extends Fragment{
         indicator=mContentView.findViewById(R.id.indicator);
         pager = mContentView.findViewById(R.id.pager);
 
-        int pageId=new String("VideoIntroducePageFragment"+(pageIncrementId++)).hashCode();
+        //这里需要取绝对值
+        int pageId=Math.abs(new String("VideoIntroducePageFragment"+(pageIncrementId++)).hashCode());
         pager.setId(pageId);
 
         adapter=new VideoIntroducePageAdapter(getFragmentManager());

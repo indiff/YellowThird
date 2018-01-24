@@ -87,6 +87,8 @@ public class StyleFragmentFactory {
                 .subscribe(new Action1<SubTabMenuStyleDataVo[]>() {
                                     @Override
                                     public void call(SubTabMenuStyleDataVo[] subs) {
+                                        if(null==subs||subs.length==0)
+                                            return;
                                         fragment.setMenuData(new ArrayList<>(Arrays.asList(subs)));
                                     }
                                 });
