@@ -34,4 +34,12 @@ public abstract class CommonCacheAdapterAbstract extends FragmentPagerAdapter {
      * */
     public abstract Fragment buildItem(int position);
 
+    public Map<Integer, Fragment> getFragmentMap() {
+        return mFragmentMap;
+    }
+
+    public void setFragmentMap(Map<Integer, Fragment> fragmentMap) {
+        this.mFragmentMap = fragmentMap;
+    }
+
 }

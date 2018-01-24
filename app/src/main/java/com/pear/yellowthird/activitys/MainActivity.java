@@ -52,13 +52,20 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
      */
     private Logger log = Logger.getLogger(getClass().getSimpleName());
 
-    /**活动的上下文*/
+    /**
+     * 活动的上下文
+     */
     Activity activity;
 
     /**
      * 底部菜单栏的适配器
      */
     MainBottomMenuAdapter adapter;
+
+    /**
+     * 所有子界面
+     */
+    NoScrollViewPager pager;
 
     /**
      * 底部菜单视图
@@ -77,14 +84,14 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
 
     /**
      * 是否从服务器中读取数据成功
-     * */
-    boolean isRequestByServiceSuccess=false;
+     */
+    boolean isRequestByServiceSuccess = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        activity=this;
+        activity = this;
         setVersionCode();
         AllOnceInit.init(this);
         log.debug("onCreate");
@@ -98,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
 
         loadingView = new LoadingView();
         adapter = new MainBottomMenuAdapter(getSupportFragmentManager());
-        NoScrollViewPager pager = findViewById(R.id.pager);
+        pager = findViewById(R.id.pager);
         pager.setAdapter(adapter);
 
         indicator = findViewById(R.id.indicator);
@@ -132,13 +139,13 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
 
     /**
      * 把当前版本号更新到数据库里面
-     * */
+     */
     private void setVersionCode() {
         PackageManager manager = this.getPackageManager();
         try {
             PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
             //版本号
-            SystemConfig.VERSION=info.versionCode;
+            SystemConfig.VERSION = info.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -179,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
                                     .subscribe(new Action1<BottomNavigationMenuVo[]>() {
                                         @Override
                                         public void call(BottomNavigationMenuVo[] menus) {
-                                            isRequestByServiceSuccess=true;
+                                            isRequestByServiceSuccess = true;
                                             adapter.setData(menus);
                                             //隐藏等待框
                                             loadingView.hide();
@@ -188,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
                         }
                     });
         } else {
-            isRequestByServiceSuccess=true;
+            isRequestByServiceSuccess = true;
             loadingView.hide();
             adapter.setData(JsonUtil.write2Class(AllDatabases.getData(), BottomNavigationMenuVo[].class));
         }
@@ -334,8 +341,8 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
 
                             timeDownView.setText(String.valueOf(timeDown));
                             /**倒计时为0了结束倒计时*/
-                            if (timeDown == 0&& (!isRequestByServiceSuccess)) {
-                                Toast.makeText(activity,"网络好像有点问题哦，等一下再试吧!",Toast.LENGTH_LONG).show();
+                            if (timeDown == 0 && (!isRequestByServiceSuccess)) {
+                                Toast.makeText(activity, "网络好像有点问题哦，等一下再试吧!", Toast.LENGTH_LONG).show();
                                 activity.finish();
                             }
                         }
@@ -393,8 +400,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
     }
 
     @Override
-    protected void onPause()
-    {
+    protected void onPause() {
         super.onPause();
         log.debug("onPause");
     }
@@ -404,4 +410,18 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
         super.onDestroy();
         log.debug("onDestroy");
     }
+
+
+    /**
+     * 这里要把Fragment的自动保存状态给干掉，
+     * 否则新建活动的时候，会把上次的活动重新利用。但是视图和数据早就已经被清空了
+     * 所以报一大堆的错误。
+     * 搞死我了，花了好多好多时间。旋转播放视频，播放回来，老是崩溃我都哭了。
+     * 找了很多资料，这是其中一种解决方案，没想到还真的就给解决了。我日。
+     * 不给上层调用这个就好了。我日
+     * */
+    protected void onSaveInstanceState(Bundle outState) {
+        log.debug("onSaveInstanceState");
+    }
+
 }

@@ -10,9 +10,10 @@ import android.view.ViewGroup;
 import com.pear.android.listener.RefreshPageChangeListener;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.adapter.VideoIntroducePageAdapter;
-import com.pear.yellowthird.constants.ViewIdConstant;
 import com.pear.yellowthird.vo.databases.VideoIntroduceVo;
 import com.viewpagerindicator.LinePageIndicator;
+
+import org.apache.log4j.Logger;
 
 import java.util.List;
 
@@ -22,27 +23,34 @@ import java.util.List;
 
 public class VideoIntroducePageFragment extends Fragment{
 
+    private static int pageIncrementId=0;
+
     /**
-     * 内容数据
-     * */
-    private List<VideoIntroduceVo> mData;
+     * 日记
+     */
+    private static Logger log = Logger.getLogger(VideoIntroducePageFragment.class);
 
     /**
      * 当前的整个内容视图
      * */
     protected View mContentView;
 
-    /**page 滑动的Id*/
-    private int mPageId;
+    List<VideoIntroduceVo> data;
+
+    /**电影集合的适配器*/
+    VideoIntroducePageAdapter adapter;
+
+    LinePageIndicator indicator;
+
+    ViewPager pager;
 
     /**
      * 不能直接提供构造器来实现。会出现编译错误。
      * 具体原因请参考 http://blog.csdn.net/chniccs/article/details/51258972
      * */
-    public static Fragment newInstance(List<VideoIntroduceVo> data) {
+    public static VideoIntroducePageFragment newInstance(List<VideoIntroduceVo> data) {
         VideoIntroducePageFragment fragment = new VideoIntroducePageFragment();
-        fragment.mData=data;
-        fragment.mPageId= ViewIdConstant.getGlobalUniqueId();
+        fragment.data=data;
         return fragment;
     }
 
@@ -59,13 +67,21 @@ public class VideoIntroducePageFragment extends Fragment{
 
         mContentView = inflater.inflate(R.layout.video_introduce_page, null);
 
-        LinePageIndicator indicator=mContentView.findViewById(R.id.indicator);
-        ViewPager pager = mContentView.findViewById(R.id.pager);
-        pager.setId(mPageId);
+        indicator=mContentView.findViewById(R.id.indicator);
+        pager = mContentView.findViewById(R.id.pager);
 
-        VideoIntroducePageAdapter adapter=new VideoIntroducePageAdapter(getFragmentManager(),mData);
+        int pageId=new String("VideoIntroducePageFragment"+(pageIncrementId++)).hashCode();
+        pager.setId(pageId);
+
+        adapter=new VideoIntroducePageAdapter(getFragmentManager());
         pager.setAdapter(adapter);
-
+        if(null!=data)
+        {
+            adapter.setData(data);
+            /**只有一个数据，不显示小的绿色导航了。好看一点*/
+            if(data.size()==1)
+                indicator.setVisibility(View.GONE);
+        }
         indicator.setViewPager(pager);
         indicator.setOnPageChangeListener(new RefreshPageChangeListener(adapter));
         return mContentView;

@@ -18,9 +18,17 @@ public class VideoIntroducePageAdapter  extends CommonCacheAdapterAbstract {
 
     List<VideoIntroduceVo> mData=new ArrayList<>();
 
-    public VideoIntroducePageAdapter(FragmentManager fm, List<VideoIntroduceVo> data) {
+    public VideoIntroducePageAdapter(FragmentManager fm) {
         super(fm);
-        this.mData=data;
+    }
+
+    public List<VideoIntroduceVo> getData() {
+        return mData;
+    }
+
+    public void setData(List<VideoIntroduceVo> data) {
+        this.mData = data;
+        notifyDataSetChanged();
     }
 
     @Override

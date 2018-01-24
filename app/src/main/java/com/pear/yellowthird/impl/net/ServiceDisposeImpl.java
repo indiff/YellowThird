@@ -71,7 +71,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     public static void initDeviceId(Activity activity) {
         String androidID = Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
         gDeviceId = androidID + "_" + Build.SERIAL;
-        //gDeviceId = "dddddffddsfafddss";
+        //gDeviceId = "9a254d943767ea2b_94ec3090";
         log.info("gDeviceId" + gDeviceId);
     }
 

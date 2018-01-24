@@ -96,7 +96,10 @@ public class StyleFragmentFactory {
                 VideoIntroduceVo[] vo = JsonUtil.write2Class(data, VideoIntroduceVo[].class);
                 if(null==vo||vo.length==0)
                    return getEmptyDataTip(style);
-                return VideoIntroducePageFragment.newInstance(new ArrayList<>(Arrays.asList(vo)));
+                return VideoIntroducePageFragment
+                        .newInstance(
+                                new ArrayList<>(
+                                        Arrays.asList(vo)));
             }
             case IMAGE_INTRODUCE_STYLE: {
                 final ImageIntroduceFragment fragment=ImageIntroduceFragment.newInstance();

@@ -18,7 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--https://www.jianshu.com/p/68a4e8132fcd-->
+        <!--
+        兼容android 7 读取文件的方式。android 7对内置的存取要求更高了。
+        https://www.jianshu.com/p/68a4e8132fcd-->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.pear.yellowthird.activitys.fileprovider"
@@ -31,6 +33,7 @@
 
 
         <!--这里要不根据横竖屏变动 重新创建活动。否则会崩溃-->
+        <!---->
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
