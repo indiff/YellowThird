@@ -177,6 +177,7 @@ public class AccountInfoFragment extends Fragment {
 
             /**是否使用调试日期开关*/
             Switch debugSwitchView = mRootView.findViewById(R.id.debug_switch);
+            debugSwitchView.setChecked(SystemConfig.getInstance().getDebugTimeSwitch());
             debugSwitchView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
