@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.activity=activity;
+        activity=this;
         setVersionCode();
         AllOnceInit.init(this);
         log.debug("onCreate");

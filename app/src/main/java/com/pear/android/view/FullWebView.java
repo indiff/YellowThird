@@ -1,7 +1,11 @@
 package com.pear.android.view;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.AttributeSet;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -10,7 +14,7 @@ import android.webkit.WebViewClient;
  * 完整的web 组件实现
  */
 
-public class FullWebView extends WebView{
+public class FullWebView extends WebView {
 
     public FullWebView(Context context) {
         super(context);
@@ -22,8 +26,7 @@ public class FullWebView extends WebView{
         init();
     }
 
-    void init()
-    {
+    void init() {
         /**不跳出浏览器打开，直接在内置的web_view打开*/
         setWebViewClient(new WebViewClient() {
             @Override
@@ -32,17 +35,44 @@ public class FullWebView extends WebView{
                 return true;
             }
         });
+        alertCompatibility();
         webSetting();
+    }
+
+    /**
+     * 兼容alert方式
+     * */
+    private void alertCompatibility()
+    {
+
+        setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
+                AlertDialog.Builder b = new AlertDialog.Builder(getContext());
+                b.setTitle("提示");
+                b.setMessage(message);
+                b.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        result.confirm();
+                    }
+                });
+                b.setCancelable(false);
+                b.create().show();
+                return true;
+            }
+        });
     }
 
 
     /**
      * web view 的参数设置
-     * */
+     */
     void webSetting() {
 
         /**声明WebSettings子类*/
         WebSettings webSettings = getSettings();
+
 
         /**如果访问的页面中要与Javascript交互，则webview必须设置支持Javascript*/
         webSettings.setJavaScriptEnabled(true);
