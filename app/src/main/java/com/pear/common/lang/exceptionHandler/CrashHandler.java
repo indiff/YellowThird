@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.pear.common.utils.files.LogFileExtractUtils;
+import com.pear.yellowthird.config.SystemConfig;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.init.Log4JConfig;
 
@@ -187,6 +188,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         sb.append("\n");
         sb.append("timestamp :"+System.currentTimeMillis()+"\n");
         sb.append("time :"+formatter.format(new Date())+"\n");
+        sb.append("version :"+ SystemConfig.VERSION+"\n");
         return sb.toString();
     }
 
