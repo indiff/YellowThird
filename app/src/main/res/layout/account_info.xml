@@ -302,12 +302,14 @@
             android:background="@color/colorSubNavBackground" />
 
 
-
-        <!--调试时间-->
+        <!--调试界面-->
         <LinearLayout
+            android:id="@+id/debug_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"

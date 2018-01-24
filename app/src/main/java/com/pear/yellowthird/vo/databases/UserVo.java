@@ -17,6 +17,9 @@ public class UserVo  implements Serializable {
     /**余额*/
     Integer gold;
 
+    /**是否是管理员*/
+    Boolean isAdmin=false;
+
     public UserVo() {
     }
 
@@ -54,6 +57,23 @@ public class UserVo  implements Serializable {
         this.gold = gold;
     }
 
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,7 +83,8 @@ public class UserVo  implements Serializable {
 
         if (name != null ? !name.equals(userVo.name) : userVo.name != null) return false;
         if (thumb != null ? !thumb.equals(userVo.thumb) : userVo.thumb != null) return false;
-        return gold != null ? gold.equals(userVo.gold) : userVo.gold == null;
+        if (gold != null ? !gold.equals(userVo.gold) : userVo.gold != null) return false;
+        return isAdmin != null ? isAdmin.equals(userVo.isAdmin) : userVo.isAdmin == null;
     }
 
     @Override
@@ -71,8 +92,7 @@ public class UserVo  implements Serializable {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (thumb != null ? thumb.hashCode() : 0);
         result = 31 * result + (gold != null ? gold.hashCode() : 0);
+        result = 31 * result + (isAdmin != null ? isAdmin.hashCode() : 0);
         return result;
     }
-
-
 }

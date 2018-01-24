@@ -75,6 +75,10 @@ public class AccountInfoFragment extends Fragment {
      */
     TextView goldView;
 
+    /**调试界面*/
+    View debugView;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,6 +147,7 @@ public class AccountInfoFragment extends Fragment {
 
         /**调试时间*/
         {
+            debugView=mRootView.findViewById(R.id.debug_view);
 
             View debugTimeView = mRootView.findViewById(R.id.debug_time);
             debugTimeView.setOnClickListener(new View.OnClickListener() {
@@ -253,6 +258,7 @@ public class AccountInfoFragment extends Fragment {
         refreshUserHeadIconView();
         userNameView.setText(user.getName());
         goldView.setText(user.getGold() + " 绿币");
+        debugView.setVisibility(user.getIsAdmin()?View.VISIBLE:View.GONE);
     }
 
 
