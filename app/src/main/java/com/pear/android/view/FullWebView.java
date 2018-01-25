@@ -4,17 +4,25 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.AttributeSet;
+import android.view.View;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 /**
  * 完整的web 组件实现
  */
 
 public class FullWebView extends WebView {
+
+
+    /**
+     * 加载进度条
+     * */
+    ProgressBar loadingProgress;
 
     public FullWebView(Context context) {
         super(context);
@@ -35,14 +43,14 @@ public class FullWebView extends WebView {
                 return true;
             }
         });
-        alertCompatibility();
+        compatibility();
         webSetting();
     }
 
     /**
      * 兼容alert方式
      * */
-    private void alertCompatibility()
+    private void compatibility()
     {
 
         setWebChromeClient(new WebChromeClient() {
@@ -61,6 +69,23 @@ public class FullWebView extends WebView {
                 b.create().show();
                 return true;
             }
+
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                if(null==loadingProgress)
+                    return;
+                if(newProgress==100){
+                    //加载完网页进度条消失
+                    loadingProgress.setVisibility(View.GONE);
+                }
+                else{
+                    //开始加载网页时显示进度条
+                    loadingProgress.setVisibility(View.VISIBLE);
+                    //设置进度值
+                    loadingProgress.setProgress(newProgress);
+                }
+            }
+
         });
     }
 
@@ -107,6 +132,14 @@ public class FullWebView extends WebView {
 
         //不使用缓存
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+    }
+
+    public ProgressBar getLoadingProgress() {
+        return loadingProgress;
+    }
+
+    public void setLoadingProgress(ProgressBar loadingProgress) {
+        this.loadingProgress = loadingProgress;
     }
 
 }

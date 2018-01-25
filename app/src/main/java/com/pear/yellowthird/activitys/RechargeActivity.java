@@ -1,21 +1,11 @@
 package com.pear.yellowthird.activitys;
 
 import android.os.Bundle;
-import android.view.View;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.pear.android.view.FullWebView;
 import com.pear.yellowthird.activitys.base.CommonHeadActivity;
-import com.pear.yellowthird.adapter.BillAdapter;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
-import com.pear.yellowthird.vo.databases.BillVo;
-
-import java.sql.Date;
-import java.util.ArrayList;
 
 /**
  * 充值
@@ -28,6 +18,11 @@ public class RechargeActivity extends CommonHeadActivity {
      */
     FullWebView mWebView;
 
+    /**
+     * 加载进度条
+     * */
+    ProgressBar loadingProgress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +30,8 @@ public class RechargeActivity extends CommonHeadActivity {
         initHeadBar("充值");
 
         mWebView = findViewById(R.id.web_view);
+        loadingProgress= findViewById(R.id.loading_progress);
+        mWebView.setLoadingProgress(loadingProgress);
     }
 
     @Override

@@ -5,26 +5,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
-import com.bumptech.glide.Glide;
 import com.pear.android.view.FullWebView;
 import com.pear.yellowthird.activitys.R;
-import com.pear.yellowthird.factory.ServiceDisposeFactory;
-import com.pear.yellowthird.vo.databases.VoteVo;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
-import rx.functions.Action1;
-
-import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 /**
  * 网页界面
@@ -37,6 +21,11 @@ public class WebFragment extends Fragment {
      * 内置网址的页面
      */
     FullWebView mWebView;
+
+    /**
+     * 加载进度条
+     * */
+    ProgressBar loadingProgress;
 
     /**打开网址*/
     private String url;
@@ -63,6 +52,9 @@ public class WebFragment extends Fragment {
 
         mContentView=inflater.inflate(R.layout.sub_web,null);
         mWebView=mContentView.findViewById(R.id.web_view);
+        loadingProgress= mContentView.findViewById(R.id.loading_progress);
+        mWebView.setLoadingProgress(loadingProgress);
+
         mWebView.loadUrl(url);
         return mContentView;
     }
