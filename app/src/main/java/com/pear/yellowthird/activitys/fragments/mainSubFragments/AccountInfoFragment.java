@@ -2,6 +2,7 @@ package com.pear.yellowthird.activitys.fragments.mainSubFragments;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -77,6 +79,12 @@ public class AccountInfoFragment extends Fragment {
 
     /**调试界面*/
     View debugView;
+
+    /**调试日期*/
+    View debugDateView;
+
+    /**调试时间*/
+    View debugTimeView;
 
 
     @Override
@@ -149,36 +157,11 @@ public class AccountInfoFragment extends Fragment {
         {
             debugView=mRootView.findViewById(R.id.debug_view);
 
-            View debugTimeView = mRootView.findViewById(R.id.debug_time);
-            debugTimeView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Calendar now = Calendar.getInstance();
-                    long queryTime=SystemConfig.getInstance().getQueryTime();
-                    now.setTimeInMillis(queryTime);
+            debugDateView = mRootView.findViewById(R.id.debug_date);
+            listenerDebugDate();
 
-                    int nowYear=now.get(Calendar.YEAR);
-                    int nowMonth=now.get(Calendar.MONTH);
-                    int nowDay=now.get(Calendar.DAY_OF_MONTH);
-
-                    new DatePickerDialog(
-                            getActivity(),
-                            new DatePickerDialog.OnDateSetListener() {
-                                @Override
-                                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                    Calendar calendar = Calendar.getInstance();
-                                    calendar.set(year,month,dayOfMonth);
-                                    long queryTime=calendar.getTimeInMillis();
-                                    SystemConfig.getInstance().setQueryTime(queryTime);
-                                    String tip="选择了"+year+"-"+(month+1)+"-"+dayOfMonth+"，重启app生效";
-                                    Toast.makeText(getActivity(),tip,Toast.LENGTH_SHORT).show();
-                                }
-                            },
-                            nowYear,
-                            nowMonth,
-                            nowDay).show();
-                }
-            });
+            debugTimeView=mRootView.findViewById(R.id.debug_time);
+            listenerDebugTime();
 
             /**是否使用调试日期开关*/
             Switch debugSwitchView = mRootView.findViewById(R.id.debug_switch);
@@ -333,4 +316,79 @@ public class AccountInfoFragment extends Fragment {
     }
 
 
+    /**
+     * 监听调试日期
+     * */
+    void listenerDebugDate()
+    {
+        debugDateView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar now = Calendar.getInstance();
+                long queryTime=SystemConfig.getInstance().getQueryTime();
+                now.setTimeInMillis(queryTime);
+
+                int nowYear=now.get(Calendar.YEAR);
+                int nowMonth=now.get(Calendar.MONTH);
+                int nowDay=now.get(Calendar.DAY_OF_MONTH);
+
+                new DatePickerDialog(
+                        getActivity(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.setTimeInMillis(SystemConfig.getInstance().getQueryTime());
+                                calendar.set(year,month,dayOfMonth);
+                                long queryTime=calendar.getTimeInMillis();
+                                SystemConfig.getInstance().setQueryTime(queryTime);
+                                String tip="选择了"+year+"-"+(month+1)+"-"+dayOfMonth+"，重启app生效";
+                                Toast.makeText(getActivity(),tip,Toast.LENGTH_SHORT).show();
+                            }
+                        },
+                        nowYear,
+                        nowMonth,
+                        nowDay).show();
+            }
+        });
+    }
+
+    /**
+     * 监听调试时间
+     * */
+    void listenerDebugTime()
+    {
+        debugTimeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar now = Calendar.getInstance();
+                long queryTime=SystemConfig.getInstance().getQueryTime();
+                now.setTimeInMillis(queryTime);
+
+                int nowHourOfDay=now.get(Calendar.HOUR_OF_DAY);
+                int nowMinute=now.get(Calendar.MINUTE);
+
+                new TimePickerDialog(
+                        getActivity(),
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                long queryTime=SystemConfig.getInstance().getQueryTime();
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.setTimeInMillis(queryTime);
+                                calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                                calendar.set(Calendar.MINUTE,minute);
+
+                                queryTime=calendar.getTimeInMillis();
+                                SystemConfig.getInstance().setQueryTime(queryTime);
+                                String tip="选择了"+hourOfDay+":"+minute+"，重启app生效";
+                                Toast.makeText(getActivity(),tip,Toast.LENGTH_SHORT).show();
+                            }
+                        },
+                        nowHourOfDay,
+                        nowMinute,
+                        true).show();
+            }
+        });
+    }
 }
