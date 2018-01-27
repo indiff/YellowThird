@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.pear.android.listener.RefreshPageChangeListener;
+import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.adapter.abstracts.CommonPagerAdapterAbstract;
 import com.pear.yellowthird.constants.ViewIdConstant;
 import com.pear.yellowthird.style.vo.SubTabMenuStyleDataVo;
@@ -143,6 +144,19 @@ public abstract class CommonSubTabSubFragmentAbstract extends Fragment {
         return mContentView;
     }
 
+    /**
+     * 设置空内容的提示
+     * */
+    public void setContentEmptyTip()
+    {
+        if(null==mContentView)
+            return;
+        mContentView.removeAllViews();
+        View emptyView=getLayoutInflater().inflate(R.layout.common_no_resource_tip,null);
+        mContentView.addView(emptyView,new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
+    }
 
 
     /**
