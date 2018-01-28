@@ -60,7 +60,8 @@
                 android:text="清纯"
                 android:textColor="@color/vote.sub.select.introduce"
                 android:textSize="@dimen/vote.sub.select.introduce"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone"/>
 
             <!--投票百分比-->
             <LinearLayout
