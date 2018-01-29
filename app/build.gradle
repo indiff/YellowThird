@@ -96,6 +96,9 @@ dependencies {
     //包冲突了
     //compile 'com.borax12.materialdaterangepicker:library:1.9'
 
+    /**视频边下载边播放*/
+    //https://github.com/danikula/AndroidVideoCache
+    compile 'com.danikula:videocache:2.7.0'
 
 }
 
