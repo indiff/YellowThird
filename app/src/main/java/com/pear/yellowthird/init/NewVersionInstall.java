@@ -56,25 +56,17 @@ public class NewVersionInstall {
                                 return;
                             final String href = json.getString("href");
 
-                            /**发表过程中一直等待*/
-                            final MaterialDialog progressDialog=new MaterialDialog.Builder(activity)
-
-                                    .title("检测到新版本。")
-                                    .content("自动更新程序需要用到读取sd卡权限。\n请给我权限，否则我将不能正常工作")
-                                    .positiveText("知道了")
-                                    .onAny(new MaterialDialog.SingleButtonCallback() {
-                                        @Override
-                                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                            switch (which)
-                                            {
-                                                case POSITIVE:
+                            new PermissionsRequestInit(activity)
+                                    .permissionTipAndRequest(
+                                            "检测到新版本。",
+                                            "自动更新程序需要用到读取sd卡权限。\n请给我权限，否则我将不能正常工作",
+                                            new Runnable() {
+                                                @Override
+                                                public void run() {
                                                     downUpdateApk(href);
-                                                    break;
+                                                }
                                             }
-                                        }
-                                    })
-                                    .canceledOnTouchOutside(false)
-                                    .show();
+                                    );
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -82,35 +74,29 @@ public class NewVersionInstall {
                 });
     }
 
+
     /**
      * 下载更新包
      * */
     private void downUpdateApk(final String href) {
-        Runnable downFile=new Runnable() {
+        Observable.create(new Observable.OnSubscribe<String>() {
             @Override
-            public void run() {
-                Observable.create(new Observable.OnSubscribe<String>() {
-                    @Override
-                    public void call(Subscriber<? super String> subscriber) {
-                        String apkSavePath =updateVersion.getSavePath();
-                        boolean result = FileDownload.downloadFile(href, apkSavePath);
-                        if (result)
-                            subscriber.onNext(apkSavePath);
-                        subscriber.onCompleted();
-                    }
-                }).subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                new Action1<String>() {
-                                    @Override
-                                    public void call(String path) {
-                                        notifyUserApkWillUpdate(path);
-                                    }
-                                });
+            public void call(Subscriber<? super String> subscriber) {
+                String apkSavePath =updateVersion.getSavePath();
+                boolean result = FileDownload.downloadFile(href, apkSavePath);
+                if (result)
+                    subscriber.onNext(apkSavePath);
+                subscriber.onCompleted();
             }
-        };
-
-        new PermissionsRequestInit(activity).init(downFile);
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Action1<String>() {
+                            @Override
+                            public void call(String path) {
+                                notifyUserApkWillUpdate(path);
+                            }
+                        });
     }
 
     /**

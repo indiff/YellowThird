@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.pear.android.app.GlobalApplication;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.universalvideoview.UniversalMediaController;
 import com.universalvideoview.UniversalVideoView;
@@ -92,7 +93,16 @@ public class FullVideoActivity  extends AppCompatActivity {
         mMediaController.setJumpListener(mJumpClickListener);
 
         mVideoView.setMediaController(mMediaController);
-        mVideoView.setVideoPath(mUrl);
+        mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                System.out.println("video load error:"+extra);
+                return false;
+            }
+        });
+        mUrl=mUrl.replaceFirst("https","http");
+        String proxyUrl = ((GlobalApplication) getApplication()).getProxy().getProxyUrl(mUrl);
+        mVideoView.setVideoPath(proxyUrl);
 
         mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override

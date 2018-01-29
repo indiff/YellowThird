@@ -29,6 +29,7 @@ import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.activitys.fragments.mainSubFragments.AccountInfoFragment;
 import com.pear.yellowthird.adapter.CommentListAdapter;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
+import com.pear.yellowthird.init.PermissionsRequestInit;
 import com.pear.yellowthird.vo.databases.TalkComment;
 import com.pear.yellowthird.vo.databases.UserVo;
 import com.pear.yellowthird.vo.databases.VideoIntroduceVo;
@@ -330,7 +331,7 @@ public class VideoIntroduceFragment extends Fragment {
                             JSONObject json = new JSONObject(data);
                             if (json.getBoolean("pay")) {
                                 Toast.makeText(getActivity(), json.getString("tip"), Toast.LENGTH_LONG).show();
-                                startPlay();
+                                playRequestPermissionsTip();
                             } else {
                                 Toast.makeText(getActivity(), json.getString("tip"), Toast.LENGTH_LONG).show();
                             }
@@ -346,6 +347,25 @@ public class VideoIntroduceFragment extends Fragment {
                     }
                 });
 
+            }
+
+
+            /**
+             * 播放电影之前，需要存取的权限
+             * */
+            private void playRequestPermissionsTip()
+            {
+                new PermissionsRequestInit(getActivity())
+                        .permissionTipAndRequest(
+                                "",
+                                "播放电影需要缓冲保存的空间，\n请给我权限，否则我将不能正常工作",
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        startPlay();
+                                    }
+                                }
+                        );
             }
 
             /**

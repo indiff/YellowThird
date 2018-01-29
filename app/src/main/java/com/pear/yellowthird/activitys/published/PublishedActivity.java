@@ -3,7 +3,6 @@ package com.pear.yellowthird.activitys.published;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -16,7 +15,6 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.pear.android.listener.empty.EmptyRunnable;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.activitys.base.CommonHeadActivity;
 import com.pear.yellowthird.adapter.PublishedImageAdapter;
@@ -58,15 +56,6 @@ public class PublishedActivity extends CommonHeadActivity {
         Bimp.clear();
         initHeadBar("写说说", "发表");
         Init();
-
-        /**申请权限*/
-        new AsyncTask<Object, Object, Object>() {
-            @Override
-            protected Object doInBackground(Object... objects) {
-                new PermissionsRequestInit(PublishedActivity.this).init(new EmptyRunnable());
-                return null;
-            }
-        }.execute();
     }
 
     @Override
@@ -97,10 +86,7 @@ public class PublishedActivity extends CommonHeadActivity {
                                     long id) {
                 /**点中了添加选项，直接跳转到图片目录浏览待添加页面*/
                 if (position == Bimp.bmp.size()) {
-                    startActivity(
-                            new Intent(
-                                    PublishedActivity.this,
-                                    ChooseCataloguePicActivity.class));
+                    chooseNewImage();
                 }
                 /** 暂时不提供编辑修改功能
                  else {
@@ -113,6 +99,37 @@ public class PublishedActivity extends CommonHeadActivity {
         });
 
     }
+
+    /**
+     * 选择新的突破
+     * */
+    private void chooseNewImage()
+    {
+        new PermissionsRequestInit(this)
+                .permissionTipAndRequest(
+                        "",
+                        "我需要权限才能查看相册哦。\n请给我权限，否则我将不能正常工作",
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                startChooseCatalogue();
+                            }
+
+                            /**
+                             * 跳转到选择图片的页面
+                             * */
+                            void startChooseCatalogue()
+                            {
+                                startActivity(
+                                        new Intent(
+                                        PublishedActivity.this,
+                                        ChooseCataloguePicActivity.class));
+                            }
+
+                        }
+                );
+    }
+
 
     @Override
     public void onClick(View v) {

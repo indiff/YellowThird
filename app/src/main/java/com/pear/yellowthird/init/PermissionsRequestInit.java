@@ -2,8 +2,11 @@ package com.pear.yellowthird.init;
 
 import android.Manifest;
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
 
@@ -29,10 +32,7 @@ public class PermissionsRequestInit {
      * */
     private String[] mAllNeedPermissions = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.INTERNET,
-            Manifest.permission.ACCESS_NETWORK_STATE,
-            Manifest.permission.ACCESS_WIFI_STATE
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
     /**需要原来一个主视图活动*/
@@ -53,9 +53,9 @@ public class PermissionsRequestInit {
      * 初始化申请权限
      * @param successCallback 申请成功后的回调
      * */
-    public void init(Runnable successCallback)
+    private void init(Runnable successCallback)
     {
-        requestPermission(successCallback);
+        //requestPermission(successCallback);
     }
 
     /**
@@ -145,5 +145,43 @@ public class PermissionsRequestInit {
         }
 
     };
+
+
+    /**
+     * 权限提示和请求
+     * @param title 提示标题
+     * @param content 提示内容
+     * @param successCallback 申请权限成功后的回掉
+     * */
+    public void permissionTipAndRequest(String title, String content, final Runnable successCallback)
+    {
+        if(AndPermission.hasPermission(mActivity,mAllNeedPermissions))
+        {
+            successCallback.run();
+            return;
+        }
+        else
+        {
+            /**权限申请的提示*/
+            final MaterialDialog progressDialog=new MaterialDialog.Builder(mActivity)
+
+                    .title(title)
+                    .content(content)
+                    .positiveText("知道了")
+                    .onAny(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            switch (which)
+                            {
+                                case POSITIVE:
+                                    requestPermission(successCallback);
+                                    break;
+                            }
+                        }
+                    })
+                    .canceledOnTouchOutside(false)
+                    .show();
+        }
+    }
 
 }
