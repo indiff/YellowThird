@@ -324,7 +324,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
                 public void call(Subscriber<? super Integer> subscriber) {
                     try {
                         for (int timeDown = 10; timeDown >= 0; timeDown--) {
-                            Thread.sleep(1200);
+                            Thread.sleep(1500);
                             subscriber.onNext(timeDown);
                         }
                     } catch (InterruptedException e) {
