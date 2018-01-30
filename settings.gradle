@@ -1,1 +1,2 @@
-include ':app'
+include ':app', ':exo_ui'
+project(':exo_ui').projectDir = new File('library/ui')
