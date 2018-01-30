@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--组件被选中-->
+    <color name="colorExoProcess">#1AAD19</color>
+
+</resources>
