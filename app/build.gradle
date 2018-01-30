@@ -9,7 +9,7 @@ android {
         targetSdkVersion 26
         versionCode 142
         versionName "1.9"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -21,7 +21,8 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: [ '*.jar' ],  dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
     //implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
@@ -30,36 +31,45 @@ dependencies {
     compile 'de.mindpipe.android:android-logging-log4j:1.0.3'
 
     /**界面滑动库*/
+
     // https://mvnrepository.com/artifact/fr.baloomba/viewpagerindicator
+
     //compile group: 'fr.baloomba', name: 'viewpagerindicator', version: '2.4.2'
+
     /**电影播放条*/
+
     //compile 'com.github.ogapants:PlayerControlView:1.0.0'
 
     /**超好用的json和object自转换库*/
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.2'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.2'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.2'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.9.2'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.2'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.2'
 
     /**图片库*/
     compile 'com.github.bumptech.glide:glide:4.3.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
+
     /**图片特效*/
     compile 'jp.wasabeef:glide-transformations:3.0.1'
 
     /**浏览图片*/
+
     /**老是包冲突，导致打包可以完成，但是运行编译出错。原因是里面全部依赖了v4，已经导入了源码。解决了该问题。*/
+
     //compile 'com.github.chrisbanes:PhotoView:1.2.6'
+
     //compile 'com.commit451:PhotoView:1.2.4'
+
     // https://mvnrepository.com/artifact/com.uwetrottmann.photoview/library
+
     //compile group: 'com.uwetrottmann.photoview', name: 'library', version: '1.2.4'
 
     /**用于搞定新手引导的图文 总是太过于模糊的问题。
      * 不带缓存的image view
      * */
+
     // https://mvnrepository.com/artifact/com.squareup.picasso/picasso
-    compile group: 'com.squareup.picasso', name: 'picasso', version: '2.5.2'
-
-
+    compile 'com.squareup.picasso:picasso:2.5.2'
 
     /**更高级的listview
      * 上下拉刷新
@@ -68,13 +78,13 @@ dependencies {
     compile 'com.mikhaellopez:circularprogressbar:1.1.1'
 
     /**java的异步请求库*/
-    // https://mvnrepository.com/artifact/io.reactivex/rxjava
-    compile group: 'io.reactivex', name: 'rxjava', version: '1.1.6'
-    compile group: 'io.reactivex', name: 'rxandroid', version: '1.2.1'
 
+    // https://mvnrepository.com/artifact/io.reactivex/rxjava
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'io.reactivex:rxandroid:1.2.1'
 
     // https://mvnrepository.com/artifact/com.nostra13.universalimageloader/universal-image-loader
-    compile group: 'com.nostra13.universalimageloader', name: 'universal-image-loader', version: '1.9.5'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 
     /**android 权限管理模块*/
     compile 'com.yanzhenjie:permission:1.0.8'
@@ -83,22 +93,29 @@ dependencies {
     compile 'com.afollestad.material-dialogs:core:0.9.6.0'
     compile 'com.afollestad.material-dialogs:commons:0.9.6.0'
 
-  
     /**图片上传*/
+
     // https://mvnrepository.com/artifact/com.squareup.okio/okio
-    compile group: 'com.squareup.okio', name: 'okio', version: '1.13.0'
+    compile 'com.squareup.okio:okio:1.13.0'
+
     // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
-    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.9.1'
-
-
+    compile 'com.squareup.okhttp3:okhttp:3.9.1'
 
     /**日期和时间选择器*/
+
     //包冲突了
+
     //compile 'com.borax12.materialdaterangepicker:library:1.9'
 
     /**视频边下载边播放*/
-    //https://github.com/danikula/AndroidVideoCache
-    compile 'com.danikula:videocache:2.7.0'
 
+    //https://github.com/danikula/AndroidVideoCache
+
+    //效果不行，经常读取不了。原生的就没有这个问题。
+
+    //compile 'com.danikula:videocache:2.7.0'
+
+    //compile 'com.google.android.exoplayer:exoplayer-ui:2.6.1'
+    implementation project(':exo_ui')
 }
 
