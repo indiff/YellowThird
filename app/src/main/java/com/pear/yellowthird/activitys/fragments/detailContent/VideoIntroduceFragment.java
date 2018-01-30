@@ -24,12 +24,11 @@ import com.pear.android.view.LGNineGrideView;
 import com.pear.android.view.LinearLayoutLikeListView;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.yellowthird.activitys.FullImagePageActivity;
-import com.pear.yellowthird.activitys.FullVideoActivity;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.activitys.fragments.mainSubFragments.AccountInfoFragment;
+import com.pear.yellowthird.activitys.video.GoogleExoVideoActivity;
 import com.pear.yellowthird.adapter.CommentListAdapter;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
-import com.pear.yellowthird.init.PermissionsRequestInit;
 import com.pear.yellowthird.vo.databases.TalkComment;
 import com.pear.yellowthird.vo.databases.UserVo;
 import com.pear.yellowthird.vo.databases.VideoIntroduceVo;
@@ -331,7 +330,7 @@ public class VideoIntroduceFragment extends Fragment {
                             JSONObject json = new JSONObject(data);
                             if (json.getBoolean("pay")) {
                                 Toast.makeText(getActivity(), json.getString("tip"), Toast.LENGTH_LONG).show();
-                                playRequestPermissionsTip();
+                                startPlay();
                             } else {
                                 Toast.makeText(getActivity(), json.getString("tip"), Toast.LENGTH_LONG).show();
                             }
@@ -353,6 +352,7 @@ public class VideoIntroduceFragment extends Fragment {
             /**
              * 播放电影之前，需要存取的权限
              * */
+            /*
             private void playRequestPermissionsTip()
             {
                 new PermissionsRequestInit(getActivity())
@@ -367,12 +367,14 @@ public class VideoIntroduceFragment extends Fragment {
                                 }
                         );
             }
-
+*/
             /**
              * 开始播放
              * */
             void startPlay() {
-                Intent intent = new Intent(getActivity(), FullVideoActivity.class);
+                //Intent intent = new Intent(getActivity(), FullVideoActivity.class);
+                Intent intent = new Intent(getActivity(), GoogleExoVideoActivity.class);
+
                 intent.putExtra("url", mData.getVideoUri());
                 intent.putExtra("title", mData.getTitle());
                 intent.putExtra("jump_price", Integer.parseInt(mData.getPrice()));
