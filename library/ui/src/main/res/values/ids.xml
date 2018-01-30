@@ -37,4 +37,5 @@
   <item name="exo_close" type="id"/>
   <item name="exo_loading" type="id"/>
   <item name="exo_error" type="id"/>
+  <item name="exo_title" type="id"/>
 </resources>
