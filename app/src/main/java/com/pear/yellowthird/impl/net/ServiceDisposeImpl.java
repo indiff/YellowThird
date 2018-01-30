@@ -559,7 +559,9 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
 
             url += (hasParam ? "&" : "?") + "deviceId=" + gDeviceId+getDebugPublicTimeParam();
             log.info("url:" + url);
-            String response = HttpRequest.sendGet(url);
+            //String response = HttpRequest.sendGet(url);
+            String[] postParams=url.split("\\?");
+            String response = HttpRequest.sendPost(postParams[0],postParams[1]);
             log.info("response:" + response);
             JSONObject jsonObject = new JSONObject(response);
             int code = jsonObject.getInt("code");

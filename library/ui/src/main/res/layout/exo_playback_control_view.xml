@@ -19,6 +19,7 @@
     android:layout_height="match_parent"
     >
 
+
     <!--关闭-->
     <LinearLayout
         android:id="@+id/exo_close"
@@ -42,7 +43,19 @@
             android:layout_width="20dp"
             android:layout_height="match_parent"/>
 
+        <!--标题-->
+        <TextView
+            android:id="@+id/exo_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="#ffffff"
+            android:textSize="14dp"
+            android:text=""/>
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

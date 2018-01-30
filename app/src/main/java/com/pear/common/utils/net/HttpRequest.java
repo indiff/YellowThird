@@ -131,7 +131,7 @@ public class HttpRequest {
                     new InputStreamReader(conn.getInputStream()));
             String line;
             while ((line = in.readLine()) != null) {
-                result += "/n" + line;
+                result += line+ "\n" ;
             }
         } catch (Exception e) {
             System.out.println("发送POST请求出现异常！" + e);

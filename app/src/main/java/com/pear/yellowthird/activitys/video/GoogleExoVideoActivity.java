@@ -84,6 +84,7 @@ public class GoogleExoVideoActivity extends AppCompatActivity implements View.On
         // Create a player instance.
         player = new PlayerManager(this,mUrl);
 
+        controlView.getTitleView().setText(mTitle);
         controlView.getCloseButton().setOnClickListener(this);
         controlView.getJumpButton().setOnClickListener(mJumpClickListener);
         clearHistoryByPlayFinish();

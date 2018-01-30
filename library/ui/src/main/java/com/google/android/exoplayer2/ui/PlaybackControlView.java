@@ -229,6 +229,9 @@ public class PlaybackControlView extends FrameLayout {
   private static final long MAX_POSITION_FOR_SEEK_TO_PREVIOUS = 3000;
 
   private final ComponentListener componentListener;
+
+
+  private final TextView titleView;
   private final View loadingView;
   private final View errorView;
   private final View closeButton;
@@ -341,6 +344,8 @@ public class PlaybackControlView extends FrameLayout {
     LayoutInflater.from(context).inflate(controllerLayoutId, this);
     setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);
 
+
+    titleView = findViewById(R.id.exo_title);
     durationView = findViewById(R.id.exo_duration);
     positionView = findViewById(R.id.exo_position);
     timeBar = findViewById(R.id.exo_progress);
@@ -1160,5 +1165,10 @@ public class PlaybackControlView extends FrameLayout {
   public View getErrorView() {
     return errorView;
   }
+
+  public TextView getTitleView() {
+    return titleView;
+  }
+
 
 }
