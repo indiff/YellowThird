@@ -80,6 +80,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
      * 弹窗提示错误信息
      */
     private void errorCommonTip() {
+        /*
         mainHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -89,6 +90,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
                         .show();
             }
         });
+        */
     }
 
     /**
@@ -99,8 +101,8 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void run() {
                 Toast toast = Toast.makeText(GlobalApplication.getContext(),
-                        errorMsg,
-                        Toast.LENGTH_LONG);
+                        /*errorMsg*/"哎呀，小蝌蚪正在忙，等下再试试就好了",
+                        Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
             }
