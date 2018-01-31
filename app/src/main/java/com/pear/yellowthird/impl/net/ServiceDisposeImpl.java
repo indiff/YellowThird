@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.pear.android.app.GlobalApplication;
 import com.pear.common.utils.net.FileUploadUtils;
 import com.pear.common.utils.net.HttpRequest;
+import com.pear.common.utils.strings.JasyptUtils;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.yellowthird.config.SystemConfig;
 import com.pear.yellowthird.interfaces.ServiceDisposeInterface;
@@ -559,9 +560,16 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
 
             url += (hasParam ? "&" : "?") + "deviceId=" + gDeviceId+getDebugPublicTimeParam();
             log.info("url:" + url);
+
+            long randomTime=System.currentTimeMillis();
+            url+="&randomTime="+randomTime;
+            //get对中文支持不好，全部改为post
             //String response = HttpRequest.sendGet(url);
             String[] postParams=url.split("\\?");
             String response = HttpRequest.sendPost(postParams[0],postParams[1]);
+
+            //TODO 云端还没接
+            //response=JasyptUtils.decode(response,randomTime);
             log.info("response:" + response);
             JSONObject jsonObject = new JSONObject(response);
             int code = jsonObject.getInt("code");

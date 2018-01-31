@@ -116,6 +116,13 @@ dependencies {
     //compile 'com.danikula:videocache:2.7.0'
 
     //compile 'com.google.android.exoplayer:exoplayer-ui:2.6.1'
+
+    /**文本加密库*/
+    // https://mvnrepository.com/artifact/org.jasypt/jasypt
+    compile group: 'org.jasypt', name: 'jasypt', version: '1.9.2'
+
+
+    /**google播放器ui*/
     implementation project(':exo_ui')
 }
 
