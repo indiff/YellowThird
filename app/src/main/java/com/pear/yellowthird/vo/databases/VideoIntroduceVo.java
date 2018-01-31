@@ -66,6 +66,9 @@ public class VideoIntroduceVo  implements Serializable {
     /**评论内容*/
     List<TalkComment> talkComment=new ArrayList<>();
 
+    /**是否启用快进*/
+    Boolean enableSpeed=false;
+
 
     public VideoIntroduceVo() {
     }
@@ -237,5 +240,13 @@ public class VideoIntroduceVo  implements Serializable {
 
     public void setAlreadyGrade(Boolean alreadyGrade) {
         this.alreadyGrade = alreadyGrade;
+    }
+
+    public Boolean getEnableSpeed() {
+        return enableSpeed;
+    }
+
+    public void setEnableSpeed(Boolean enableSpeed) {
+        this.enableSpeed = enableSpeed;
     }
 }

@@ -683,7 +683,7 @@ public class PlaybackControlView extends FrameLayout {
     setButtonEnabled(fastForwardMs > 0 && isSeekable, fastForwardButton);
     setButtonEnabled(rewindMs > 0 && isSeekable, rewindButton);
     if (timeBar != null) {
-      timeBar.setEnabled(isSeekable);
+      //timeBar.setEnabled(isSeekable);
       //timeBar.setEnabled(false);
     }
   }

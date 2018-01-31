@@ -379,6 +379,7 @@ public class VideoIntroduceFragment extends Fragment {
                 intent.putExtra("title", mData.getTitle());
                 intent.putExtra("jump_price", Integer.parseInt(mData.getPrice()));
                 intent.putExtra("video_id", mData.getId());
+                intent.putExtra("enable_speed", mData.getEnableSpeed());
                 startActivity(intent);
             }
 

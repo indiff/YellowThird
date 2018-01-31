@@ -54,6 +54,9 @@ public class GoogleExoVideoActivity extends AppCompatActivity implements View.On
     /**电影在数据库中的id值*/
     Integer mVideoId;
 
+    /**是否启用快进*/
+    Boolean mEnableSpeed;
+
     /**播放器*/
     private PlayerManager player;
 
@@ -80,13 +83,15 @@ public class GoogleExoVideoActivity extends AppCompatActivity implements View.On
         mTitle = (String)getIntent().getSerializableExtra("title");
         mJumpPrice= (Integer) getIntent().getSerializableExtra("jump_price");
         mVideoId= (Integer) getIntent().getSerializableExtra("video_id");
-
+        mEnableSpeed= (Boolean) getIntent().getSerializableExtra("enable_speed");
         // Create a player instance.
         player = new PlayerManager(this,mUrl);
 
         controlView.getTitleView().setText(mTitle);
         controlView.getCloseButton().setOnClickListener(this);
         controlView.getJumpButton().setOnClickListener(mJumpClickListener);
+
+        controlView.getTimeBar().setEnabled(mEnableSpeed);
         clearHistoryByPlayFinish();
     }
 
