@@ -563,15 +563,17 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             url += (hasParam ? "&" : "?") + "deviceId=" + gDeviceId+getDebugPublicTimeParam();
             log.info("url:" + url);
 
+            /*
             long randomTime=System.currentTimeMillis();
             url+="&randomTime="+randomTime;
+            */
             //get对中文支持不好，全部改为post
             //String response = HttpRequest.sendGet(url);
             String[] postParams=url.split("\\?");
             String response = HttpRequest.sendPost(postParams[0],postParams[1]);
 
             //TODO 云端还没接
-            //response=JasyptUtils.decode(response,randomTime);
+            response=JasyptUtils.decode(response);
             log.info("response:" + response);
             JSONObject jsonObject = new JSONObject(response);
             int code = jsonObject.getInt("code");

@@ -21,10 +21,10 @@ public class JasyptUtils {
 	 * @param time 当前时间
 	 * @return 已加密的数据
 	 * */
-	public static String encode(String content,Long time) {
+	public static String encode(String content/*,Long time*/) {
 		try {
 			BasicTextEncryptor encryptor = new BasicTextEncryptor();
-			encryptor.setPassword(PASSWORD+time);
+			encryptor.setPassword(PASSWORD/*+time*/);
 			return encryptor.encrypt(content);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -39,10 +39,10 @@ public class JasyptUtils {
 	 * @param time 当前时间
 	 * @return 已解密的数据
 	 * */
-	public static String decode(String codeStr,Long time) {
+	public static String decode(String codeStr/*,Long time*/) {
 		try {
 			BasicTextEncryptor encryptor = new BasicTextEncryptor();
-			encryptor.setPassword(PASSWORD+time);
+			encryptor.setPassword(PASSWORD/*+time*/);
 			return encryptor.decrypt(codeStr);
 		} catch (Exception e) {
 			e.printStackTrace();
