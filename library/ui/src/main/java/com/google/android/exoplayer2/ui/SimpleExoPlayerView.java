@@ -269,7 +269,9 @@ public final class SimpleExoPlayerView extends FrameLayout {
     int defaultArtworkId = 0;
     boolean useController = true;
     int surfaceType = SURFACE_TYPE_SURFACE_VIEW;
-    int resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT;
+    //int resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT;
+    int resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH;
+
     int controllerShowTimeoutMs = PlaybackControlView.DEFAULT_SHOW_TIMEOUT_MS;
     boolean controllerHideOnTouch = true;
     boolean controllerAutoShow = true;

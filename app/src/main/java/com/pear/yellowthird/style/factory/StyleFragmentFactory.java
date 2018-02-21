@@ -9,7 +9,6 @@ import com.pear.yellowthird.activitys.fragments.detailContent.CommonPageFragment
 import com.pear.yellowthird.activitys.fragments.detailContent.ImageIntroduceFragment;
 import com.pear.yellowthird.activitys.fragments.detailContent.NewsFragment;
 import com.pear.yellowthird.activitys.fragments.detailContent.VideoIntroduceFragment;
-import com.pear.yellowthird.activitys.fragments.detailContent.VideoIntroducePageFragment;
 import com.pear.yellowthird.activitys.fragments.detailContent.VoteFragment;
 import com.pear.yellowthird.activitys.fragments.detailContent.WebFragment;
 import com.pear.yellowthird.activitys.fragments.mainSubFragments.AccountInfoFragment;
