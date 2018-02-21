@@ -92,6 +92,7 @@ public class GoogleExoVideoActivity extends AppCompatActivity implements View.On
         controlView.getJumpButton().setOnClickListener(mJumpClickListener);
 
         controlView.getTimeBar().setEnabled(mEnableSpeed);
+        player.init(this, playerView);
         clearHistoryByPlayFinish();
     }
 
@@ -100,11 +101,11 @@ public class GoogleExoVideoActivity extends AppCompatActivity implements View.On
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume ");
-        player.init(this, playerView);
         if (gSeekHistory.containsKey(mUrl)) {
             player.getPlayer().seekTo(gSeekHistory.get(mUrl));
             player.getPlayer().setPlayWhenReady(true);
         }
+        player.getPlayer().setPlayWhenReady(true);
     }
 
     /**暂停播放*/
@@ -112,8 +113,8 @@ public class GoogleExoVideoActivity extends AppCompatActivity implements View.On
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "onPause ");
+        player.getPlayer().setPlayWhenReady(false);
         cachePlaySeek();
-        player.reset();
     }
 
     /**缓存播放进度*/
@@ -133,6 +134,7 @@ public class GoogleExoVideoActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onDestroy() {
+        player.reset();
         player.release();
         super.onDestroy();
     }

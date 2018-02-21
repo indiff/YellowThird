@@ -42,30 +42,14 @@ public class NewsFragment extends Fragment {
     private int containerId;
 
     private boolean forceRefresh=false;
-
     /**
      * 不能直接提供构造器来实现。会出现编译错误。
      * 具体原因请参考 http://blog.csdn.net/chniccs/article/details/51258972
      */
-    public static NewsFragment newInstance(String data) {
+    public static NewsFragment newInstance(NewsVo[] data) {
         final NewsFragment fragment = new NewsFragment();
-
-        JsonUtil.write2ClassAsync(data,NewsVo[].class).subscribe(new Action1<NewsVo[]>() {
-            @Override
-            public void call(NewsVo[] data) {
-                fragment.setDatas(Arrays.asList(data));
-            }
-        });;
+        fragment.datas=new ArrayList<>(Arrays.asList(data));
         return fragment;
-    }
-
-    public List<NewsVo> getDatas() {
-        return datas;
-    }
-
-    public void setDatas(List<NewsVo> datas) {
-        this.datas = datas;
-        refreshViewByData();
     }
 
     @Override

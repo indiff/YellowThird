@@ -96,7 +96,6 @@ import com.pear.yellowthird.activitys.R;
     // Prepare the player with the source.
     player.seekTo(contentPosition);
     player.prepare(contentMediaSource);
-    player.setPlayWhenReady(true);
   }
 
   public void reset() {

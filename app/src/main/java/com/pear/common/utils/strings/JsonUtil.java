@@ -80,10 +80,10 @@ public class JsonUtil {
 				try {
 					T t = objectMapper.readValue( json.toString(), valueType);
 					subscriber.onNext(t);
-					subscriber.onCompleted();
-				} catch (IOException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				subscriber.onCompleted();
 			}
 		}).subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread());

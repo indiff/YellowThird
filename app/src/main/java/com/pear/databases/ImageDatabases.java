@@ -3,6 +3,7 @@ package com.pear.databases;
 import com.pear.yellowthird.vo.databases.CommentVo;
 import com.pear.yellowthird.vo.databases.ImageIntroduceVo;
 import com.pear.yellowthird.vo.databases.ImageSummary;
+import com.pear.yellowthird.vo.databases.VideoIntroduceVo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,5 +80,13 @@ public class ImageDatabases {
     public static ImageIntroduceVo getZoology() {
         return zoology;
     }
+
+    public static List<ImageIntroduceVo> getAll() {
+        return new ArrayList<ImageIntroduceVo>(){{
+            add(funny);
+            add(zoology);
+        }};
+    }
+
 
 }

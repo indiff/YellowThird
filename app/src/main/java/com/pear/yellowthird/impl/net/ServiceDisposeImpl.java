@@ -573,7 +573,8 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             String response = HttpRequest.sendPost(postParams[0],postParams[1]);
 
             //TODO 云端还没接
-            response=JasyptUtils.decode(response);
+            //不加密了，云端一大堆bug
+            //response=JasyptUtils.decode(response);
             log.info("response:" + response);
             JSONObject jsonObject = new JSONObject(response);
             int code = jsonObject.getInt("code");

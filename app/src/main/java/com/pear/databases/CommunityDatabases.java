@@ -67,6 +67,15 @@ public class CommunityDatabases {
         return gIntroductionData;
     }
 
+    public static List<List<NewsVo>> getAllData() {
+        List<List<NewsVo>> list=new ArrayList<List<NewsVo> >();
+        list.add(gIntroductionData);
+        list.add(gFictionData);
+        list.add(gProblemData);
+        return list;
+    }
+
+
     public static List<NewsVo> getForeShowData() {
         return gForeShowData;
     }

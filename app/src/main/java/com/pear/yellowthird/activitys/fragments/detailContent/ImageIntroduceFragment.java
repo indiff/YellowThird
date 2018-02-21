@@ -56,21 +56,10 @@ public class ImageIntroduceFragment extends Fragment {
      * 不能直接提供构造器来实现。会出现编译错误。
      * 具体原因请参考 http://blog.csdn.net/chniccs/article/details/51258972
      */
-    public static ImageIntroduceFragment newInstance() {
+    public static ImageIntroduceFragment newInstance(ImageIntroduceVo data) {
         ImageIntroduceFragment fragment = new ImageIntroduceFragment();
+        fragment.data = data;
         return fragment;
-    }
-
-    public ImageIntroduceVo getData() {
-        return data;
-    }
-
-    public void setData(ImageIntroduceVo data) {
-        this.data = data;
-        if(null!=data)
-            refreshViewByDataData();
-        //else
-        //    showNoResourceTipView();
     }
 
     @Override

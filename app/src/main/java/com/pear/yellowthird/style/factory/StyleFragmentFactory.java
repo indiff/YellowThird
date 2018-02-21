@@ -1,17 +1,21 @@
 package com.pear.yellowthird.style.factory;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.yellowthird.activitys.fragments.detailContent.CommonContentFragment;
+import com.pear.yellowthird.activitys.fragments.detailContent.CommonPageFragment;
 import com.pear.yellowthird.activitys.fragments.detailContent.ImageIntroduceFragment;
 import com.pear.yellowthird.activitys.fragments.detailContent.NewsFragment;
+import com.pear.yellowthird.activitys.fragments.detailContent.VideoIntroduceFragment;
 import com.pear.yellowthird.activitys.fragments.detailContent.VideoIntroducePageFragment;
 import com.pear.yellowthird.activitys.fragments.detailContent.VoteFragment;
 import com.pear.yellowthird.activitys.fragments.detailContent.WebFragment;
 import com.pear.yellowthird.activitys.fragments.mainSubFragments.AccountInfoFragment;
 import com.pear.yellowthird.activitys.fragments.detailContent.FriendFragment;
 import com.pear.yellowthird.activitys.fragments.mainSubFragments.commonAbstract.CommonSubTabSubFragmentAbstract;
+import com.pear.yellowthird.adapter.CommonPageAdapter;
 import com.pear.yellowthird.style.vo.StyleType;
 import com.pear.yellowthird.style.vo.SubTabMenuStyleDataVo;
 import com.pear.yellowthird.vo.databases.NewsVo;
@@ -76,7 +80,7 @@ public class StyleFragmentFactory {
 
     public static Fragment create(StyleType styleType) {
         String style = styleType.getStyle();
-        String data = styleType.getData();
+        final String data = styleType.getData();
 
         switch (style) {
             case SUB_TAB_MENU_STYLE: {
@@ -101,28 +105,50 @@ public class StyleFragmentFactory {
                 VideoIntroduceVo[] vo = JsonUtil.write2Class(data, VideoIntroduceVo[].class);
                 if(null==vo||vo.length==0)
                    return getEmptyDataTip(style);
-                return VideoIntroducePageFragment
-                        .newInstance(
-                                new ArrayList<>(
-                                        Arrays.asList(vo)));
+
+                return CommonPageFragment.newInstance(new CommonPageFragment.BuildAdapterInteger<VideoIntroduceVo>() {
+                    @Override
+                    public CommonPageAdapter buildAdapter(FragmentManager manager) {
+                        return new CommonPageAdapter(manager) {
+                            @Override
+                            public Fragment buildItem(int position) {
+                                return VideoIntroduceFragment.newInstance((VideoIntroduceVo)mData.get(position));
+                            }
+                        };
+                    }
+                },new ArrayList<>(Arrays.asList(vo)));
             }
             case IMAGE_INTRODUCE_STYLE: {
-                final ImageIntroduceFragment fragment=ImageIntroduceFragment.newInstance();
-                JsonUtil.write2ClassAsync(data, ImageIntroduceVo.class)
-                        .subscribe(new Action1<ImageIntroduceVo>() {
-                            @Override
-                            public void call(ImageIntroduceVo data) {
-                                if(null!=data)
-                                    fragment.setData(data);
-                            }
-                        });
-                return fragment;
-            }
-            case TEXT_NEWS_STYLE: {
-                NewsVo[] vo = JsonUtil.write2Class(data, NewsVo[].class);
+                ImageIntroduceVo[] vo = JsonUtil.write2Class(data, ImageIntroduceVo[].class);
                 if(null==vo||vo.length==0)
                     return getEmptyDataTip(style);
-                return NewsFragment.newInstance(data);
+                return CommonPageFragment.newInstance(new CommonPageFragment.BuildAdapterInteger<ImageIntroduceVo>() {
+                    @Override
+                    public CommonPageAdapter buildAdapter(FragmentManager manager) {
+                        return new CommonPageAdapter(manager) {
+                            @Override
+                            public Fragment buildItem(int position) {
+                                return ImageIntroduceFragment.newInstance((ImageIntroduceVo)mData.get(position));
+                            }
+                        };
+                    }
+                },new ArrayList<>(Arrays.asList(vo)));
+            }
+            case TEXT_NEWS_STYLE: {
+                NewsVo[][] vo = JsonUtil.write2Class(data, NewsVo[][].class);
+                if(null==vo||vo.length==0)
+                    return getEmptyDataTip(style);
+                return CommonPageFragment.newInstance(new CommonPageFragment.BuildAdapterInteger<NewsVo[]>() {
+                    @Override
+                    public CommonPageAdapter buildAdapter(FragmentManager manager) {
+                        return new CommonPageAdapter(manager) {
+                            @Override
+                            public Fragment buildItem(int position) {
+                                return NewsFragment.newInstance((NewsVo[])mData.get(position));
+                            }
+                        };
+                    }
+                },new ArrayList<>(Arrays.asList(vo)));
             }
             case VOTE_STYLE: {
                 final VoteFragment fragment=VoteFragment.newInstance();
