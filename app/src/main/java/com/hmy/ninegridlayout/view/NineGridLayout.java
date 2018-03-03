@@ -2,8 +2,10 @@ package com.hmy.ninegridlayout.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -103,6 +105,30 @@ public abstract class NineGridLayout extends ViewGroup {
 
         if (!mIsFirst) {
             notifyDataSetChanged();
+        }
+    }
+
+    public void clearView()
+    {
+        setVisibility(GONE);
+        int childCount=getChildCount();
+        for(int i=0;i<childCount;i++)
+        {
+            View view=getChildAt(i);
+            if(view instanceof ImageView)
+            {
+                ImageView imageView=(ImageView)view;
+                if(imageView.getDrawable() instanceof BitmapDrawable)
+                {
+                    BitmapDrawable drawable = (BitmapDrawable)imageView.getDrawable();
+                    imageView.setImageResource(0);
+                    Bitmap bitmap = drawable.getBitmap();
+                    if (bitmap != null && !bitmap.isRecycled()) {
+                        bitmap.recycle();
+                    }
+                    drawable.setCallback(null);
+                }
+            }
         }
     }
 
