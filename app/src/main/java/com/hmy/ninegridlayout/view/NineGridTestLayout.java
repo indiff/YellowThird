@@ -8,6 +8,8 @@ import android.view.View;
 import com.hmy.ninegridlayout.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -74,7 +76,14 @@ public class NineGridTestLayout extends NineGridLayout {
 
     @Override
     protected void displayImage(RatioImageView imageView, String url) {
+        //imageView.setImageURI(url);
         ImageLoaderUtil.getImageLoader(mContext).displayImage(url, imageView, ImageLoaderUtil.getPhotoImageOption());
+        /*
+        Picasso.with(mContext)
+                .load(url)
+                //.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                .into(imageView);
+        */
     }
 
     @Override

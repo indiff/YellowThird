@@ -1,14 +1,8 @@
 package com.pear.yellowthird.adapter;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import com.pear.yellowthird.activitys.fragments.detailContent.ImageIntroduceFragment;
-import com.pear.yellowthird.activitys.fragments.detailContent.VideoIntroduceFragment;
 import com.pear.yellowthird.adapter.abstracts.CommonCacheAdapterAbstract;
-import com.pear.yellowthird.vo.databases.ImageIntroduceVo;
-import com.pear.yellowthird.vo.databases.VideoIntroduceVo;
-
 import java.util.ArrayList;
 import java.util.List;
 

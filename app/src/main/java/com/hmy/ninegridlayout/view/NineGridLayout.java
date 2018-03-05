@@ -2,7 +2,6 @@ package com.hmy.ninegridlayout.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
@@ -13,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pear.android.utils.MemoryUtils;
 import com.pear.yellowthird.activitys.R;
 
 import java.util.ArrayList;
@@ -94,13 +94,15 @@ public abstract class NineGridLayout extends ViewGroup {
     }
 
     public void setUrlList(List<String> urlList) {
+        mUrlList.clear();
         if (getListSize(urlList) == 0) {
             setVisibility(GONE);
+            notifyDataSetChanged();
             return;
         }
         setVisibility(VISIBLE);
 
-        mUrlList.clear();
+
         mUrlList.addAll(urlList);
 
         if (!mIsFirst) {
@@ -108,7 +110,10 @@ public abstract class NineGridLayout extends ViewGroup {
         }
     }
 
-    public void clearView()
+    /**
+     * 释放图片内存
+     * */
+    public void clearImageView()
     {
         setVisibility(GONE);
         int childCount=getChildCount();
@@ -118,18 +123,12 @@ public abstract class NineGridLayout extends ViewGroup {
             if(view instanceof ImageView)
             {
                 ImageView imageView=(ImageView)view;
-                if(imageView.getDrawable() instanceof BitmapDrawable)
-                {
-                    BitmapDrawable drawable = (BitmapDrawable)imageView.getDrawable();
-                    imageView.setImageResource(0);
-                    Bitmap bitmap = drawable.getBitmap();
-                    if (bitmap != null && !bitmap.isRecycled()) {
-                        bitmap.recycle();
-                    }
-                    drawable.setCallback(null);
-                }
+                MemoryUtils.releaseImageView(imageView);
             }
         }
+        removeAllViews();
+        requestLayout();
+        System.gc();
     }
 
     public void notifyDataSetChanged() {
@@ -197,7 +196,7 @@ public abstract class NineGridLayout extends ViewGroup {
     }
 
     private RatioImageView createImageView(final int i, final String url) {
-        RatioImageView imageView = new RatioImageView(mContext); 
+        RatioImageView imageView = new RatioImageView(mContext);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setOnClickListener(new OnClickListener() {
             @Override

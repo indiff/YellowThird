@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.hmy.ninegridlayout.util.ImageLoaderUtil;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.vo.databases.NewsVo;
@@ -143,10 +144,19 @@ public class NewsFragment extends Fragment {
                             .into(imageView);
                     //*/
                     /**试试不带缓存的图片库看看*/
+                    //这个显示清晰了，可是没有图片默认load动画
+
                     Picasso.with(getActivity())
                             .load(vo.getImageUri())
                             .into(imageView);
-
+                    /* 这个会不会耗很多内存？
+                    ImageLoaderUtil
+                            .getImageLoader(getActivity())
+                            .displayImage(
+                                    vo.getImageUri(),
+                                    imageView,
+                                    ImageLoaderUtil.getPhotoImageOption());
+                                    */
                 }
             }
             scrollLayout.addView(subNewsView);

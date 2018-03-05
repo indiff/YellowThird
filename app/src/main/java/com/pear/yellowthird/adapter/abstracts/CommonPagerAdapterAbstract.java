@@ -3,6 +3,7 @@ package com.pear.yellowthird.adapter.abstracts;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.PagerAdapter;
 
 import com.pear.yellowthird.vo.MenuTalVo;
 import com.viewpagerindicator.IconPagerAdapter;
@@ -60,5 +61,15 @@ public abstract class CommonPagerAdapterAbstract<T> extends CommonCacheAdapterAb
         return mData.size();
     }
 
+    /**
+     * 将FragmentPagerAdapter 替换成FragmentStatePagerAdapter，因为前者只要加载过，fragment中的视图就一直在内存中，在这个过程中无论你怎么刷新，清除都是无用的，直至程序退出； 后者 可以满足我们的需求。
+     2.我们可以重写Adapter的方法--getItemPosition()，让其返回PagerAdapter.POSITION_NONE即可；
+     * */
+    /*
+    @Override
+    public int getItemPosition(Object object) {
+        return PagerAdapter.POSITION_NONE;
+    }
+    */
 }
 

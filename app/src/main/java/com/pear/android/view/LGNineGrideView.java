@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.pear.android.utils.DensityUtils;
+import com.pear.android.utils.MemoryUtils;
 import com.pear.yellowthird.activitys.R;
 
 import java.util.ArrayList;
@@ -201,6 +202,19 @@ public class LGNineGrideView extends ViewGroup {
         this.urls.addAll(urls);
         initRowAndColum(urls.size());
         requestLayout();
+    }
+
+
+    /**
+     * 释放内存
+     * */
+    public void release()
+    {
+        for (int i = 0; i < urls.size(); ++i) {
+            ImageView view = (ImageView) getChildAt(i);
+            MemoryUtils.releaseImageView(view);
+        }
+        removeAllViews();
     }
 
 }

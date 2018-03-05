@@ -42,12 +42,25 @@
             android:launchMode="singleInstance"
             >
 
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name="com.pear.test.ImageTest"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:launchMode="singleInstance"
+            >
 
         </activity>
+
+
+
         <activity android:name=".FullImagePageActivity"
             android:theme="@style/FullScreenTheme">
         </activity>
@@ -90,6 +103,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             />
+
+
+
 
     </application>
 

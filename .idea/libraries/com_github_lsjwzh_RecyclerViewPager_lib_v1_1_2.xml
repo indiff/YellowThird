@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="com.github.lsjwzh.RecyclerViewPager:lib-v1.1.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/lib-v1.1.2.aar/97836289a37152b0a3e0acbdf606101a/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/lib-v1.1.2.aar/97836289a37152b0a3e0acbdf606101a/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

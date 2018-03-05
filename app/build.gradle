@@ -124,5 +124,20 @@ dependencies {
 
     /**google播放器ui*/
     implementation project(':exo_ui')
+
+    /**
+     * viewpage 自带了太多缓存机制了，搞不定多图片的集合显示,秒秒钟报内存溢出给你看.OOM 噩梦，整了我好几天还没搞定
+     * 试试RecyclerViewPager的实现，这个应该是没有任何内存缓存的
+     * 备注：完美解决 oom问题
+     * */
+    compile 'com.github.lsjwzh.RecyclerViewPager:lib:v1.1.2@aar'
+
+    /**简单的下标菜单实现*/
+    //compile 'com.romandanylyk:pageindicatorview:1.0.0'
+    //compile 'com.github.Kshitij-Jain:IndicatorView:1.25'
+    //compile 'com.romandanylyk:pageindicatorview:1.0.0@aar'
+    //compile 'com.github.Kshitij-Jain:IndicatorView:1.25'
+
+    compile project(path: ':indicatorview')
 }
 
