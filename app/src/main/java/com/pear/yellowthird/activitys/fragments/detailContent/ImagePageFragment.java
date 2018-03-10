@@ -76,9 +76,9 @@ public class ImagePageFragment extends Fragment{
         //pager.setId(pageId);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
         pager.setLayoutManager(layout);
+        pager.setSinglePageFling(true);
         ImageIntroduceAdapter adapter=new ImageIntroduceAdapter(getContext());
         pager.setAdapter(adapter);
-
         final IndicatorView pageIndicatorView = mContentView.findViewById(R.id.circle_indicator_view);
         pageIndicatorView.setPageIndicators(data.size()); // specify total count of indicators
         pageIndicatorView.setCurrentPage(0);

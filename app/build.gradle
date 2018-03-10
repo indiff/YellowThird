@@ -46,8 +46,12 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.2'
 
     /**图片库*/
+    /*
     compile 'com.github.bumptech.glide:glide:4.3.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
+    */
+    implementation 'com.github.bumptech.glide:glide:4.6.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
 
     /**图片特效*/
     compile 'jp.wasabeef:glide-transformations:3.0.1'
@@ -128,7 +132,9 @@ dependencies {
     /**
      * viewpage 自带了太多缓存机制了，搞不定多图片的集合显示,秒秒钟报内存溢出给你看.OOM 噩梦，整了我好几天还没搞定
      * 试试RecyclerViewPager的实现，这个应该是没有任何内存缓存的
-     * 备注：完美解决 oom问题
+     * 备注：完美解决 oom问题。
+     * 完美你全家，还是老样子啊，妈的 之前模拟器调到别的程序去了，我日。
+     * 还以为解决了，我操
      * */
     compile 'com.github.lsjwzh.RecyclerViewPager:lib:v1.1.2@aar'
 

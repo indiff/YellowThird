@@ -37,7 +37,7 @@ public abstract class NineGridLayout extends ViewGroup {
 
     private boolean mIsShowAll = false;
     private boolean mIsFirst = true;
-    private List<String> mUrlList = new ArrayList<>();
+    protected List<String> mUrlList = new ArrayList<>();
 
     public NineGridLayout(Context context) {
         super(context);
@@ -108,27 +108,6 @@ public abstract class NineGridLayout extends ViewGroup {
         if (!mIsFirst) {
             notifyDataSetChanged();
         }
-    }
-
-    /**
-     * 释放图片内存
-     * */
-    public void clearImageView()
-    {
-        setVisibility(GONE);
-        int childCount=getChildCount();
-        for(int i=0;i<childCount;i++)
-        {
-            View view=getChildAt(i);
-            if(view instanceof ImageView)
-            {
-                ImageView imageView=(ImageView)view;
-                MemoryUtils.releaseImageView(imageView);
-            }
-        }
-        removeAllViews();
-        requestLayout();
-        System.gc();
     }
 
     public void notifyDataSetChanged() {

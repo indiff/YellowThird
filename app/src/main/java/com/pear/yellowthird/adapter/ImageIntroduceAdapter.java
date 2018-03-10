@@ -45,6 +45,7 @@ public class ImageIntroduceAdapter extends BaseRecycleViewAdapter {
     private Context context;
     public ImageIntroduceAdapter(Context context) {
         this.context = context;
+
     }
 
     @Override
@@ -53,6 +54,7 @@ public class ImageIntroduceAdapter extends BaseRecycleViewAdapter {
         RecyclerView.ViewHolder viewHolder = new ImageViewHolder(view, viewType);
         return viewHolder;
     }
+
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
@@ -98,6 +100,22 @@ public class ImageIntroduceAdapter extends BaseRecycleViewAdapter {
                 FullImagePageActivity.startImagePagerActivity(context, urlList, index, null);
             }
         });
+    }
+
+    /**
+     * 年轻人，听过OOM吗，
+     * 我在这里只花1个礼拜就解决了咯，快舔我的吊。
+     * */
+    @Override
+    public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
+        ImageViewHolder imageHolder=(ImageViewHolder)holder;
+        imageHolder.multiImageView.imageMemoryDispose(NineGridTestLayout.MemoryDispose.resetMemoryDispose);
+    }
+
+    @Override
+    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+        ImageViewHolder imageHolder=(ImageViewHolder)holder;
+        imageHolder.multiImageView.imageMemoryDispose(NineGridTestLayout.MemoryDispose.recoverMemoryDispose);
     }
 
     /**

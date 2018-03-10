@@ -180,6 +180,28 @@ public class FriendsAdapter extends BaseRecycleViewAdapter implements View.OnCli
         }
     }
 
+    /**
+     * 年轻人，听过OOM吗，
+     * 我在这里只花1个礼拜就解决了咯，快舔我的吊。
+     * */
+    @Override
+    public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
+        if(!(holder instanceof CircleViewHolder))
+            return;
+        CircleViewHolder imageHolder=(CircleViewHolder)holder;
+        System.out.println("detached:"+imageHolder.contentView.getText());
+        imageHolder.multiImageView.imageMemoryDispose(NineGridTestLayout.MemoryDispose.resetMemoryDispose);
+    }
+
+    @Override
+    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+        if(!(holder instanceof CircleViewHolder))
+            return;
+        CircleViewHolder imageHolder=(CircleViewHolder)holder;
+        System.out.println("attached:"+imageHolder.contentView.getText());
+        imageHolder.multiImageView.imageMemoryDispose(NineGridTestLayout.MemoryDispose.recoverMemoryDispose);
+    }
+
     @Override
     public int getItemCount() {
         return datas.size() + 1;//有head需要加1

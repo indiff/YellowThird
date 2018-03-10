@@ -4,10 +4,16 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.GenericTransitionOptions;
+import com.bumptech.glide.Glide;
 import com.hmy.ninegridlayout.util.ImageLoaderUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.pear.yellowthird.GlideApp;
+import com.pear.yellowthird.activitys.R;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
@@ -77,13 +83,77 @@ public class NineGridTestLayout extends NineGridLayout {
     @Override
     protected void displayImage(RatioImageView imageView, String url) {
         //imageView.setImageURI(url);
-        ImageLoaderUtil.getImageLoader(mContext).displayImage(url, imageView, ImageLoaderUtil.getPhotoImageOption());
+        /*
+        ImageLoader loader=ImageLoaderUtil.getImageLoader(mContext);
+        int memorySize=loader.getMemoryCache().keys().size();
+        System.out.println("memorySize:"+memorySize);
+        loader.clearMemoryCache();
+        loader.displayImage(url, imageView, ImageLoaderUtil.getPhotoImageOption());
+        */
         /*
         Picasso.with(mContext)
                 .load(url)
                 //.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                 .into(imageView);
         */
+        //imageView.setImageResource(R.drawable._image_sample_vertical);
+        /*
+        Glide.with(getContext())
+                .load(url)
+                .into(imageView) ;
+        */
+/*
+        Glide.with(getActivity())
+                .load(url)
+                .skipMemoryCache(true)
+                .dontAnimate()
+                .centerCrop()
+                .into(imageView);
+        */
+         /**/
+       GlideApp/*App*/.with(getContext())
+               .load(url)
+               .placeholder(R.drawable._image_loading)
+               .error(R.drawable._image_load_fail)
+               .transition(GenericTransitionOptions.with(android.R.anim.fade_in))
+               //.override(100, 100)
+               //.fitCenter()
+               //.skipMemoryCache(true)
+               .into(imageView);
+    }
+
+    public enum MemoryDispose
+    {
+        resetMemoryDispose,     ///清空内存
+        recoverMemoryDispose    ///恢复内存
+    }
+
+    /**
+     * image实在是太耗内存了，
+     * 这里在适当的时候管理一下内存。
+     * 分分钟OOM给你看啊
+     * @param dispose
+     * */
+    public void imageMemoryDispose(MemoryDispose dispose)
+    {
+        int childCount=getChildCount();
+        for(int i=0;i<childCount;i++)
+        {
+            View view=getChildAt(i);
+            if(view instanceof ImageView)
+            {
+                RatioImageView imageView=(RatioImageView)view;
+                switch (dispose)
+                {
+                    case resetMemoryDispose:
+                        Glide.with(getContext()).clear(imageView);
+                        break;
+                    case recoverMemoryDispose:
+                        displayImage(imageView, mUrlList.get(i));
+                        break;
+                }
+            }
+        }
     }
 
     @Override
