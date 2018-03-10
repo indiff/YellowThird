@@ -75,8 +75,8 @@ import com.pear.yellowthird.activitys.R;
     // Create a player instance.
     player = ExoPlayerFactory.newSimpleInstance(
             new DefaultRenderersFactory(context),
-            trackSelector,
-            new FullLoadControl());
+            trackSelector
+            /*,new FullLoadControl() 如果全部加载，三级片百分百报内存溢出。我日，这里只能期望华为云中途不要关掉连接了，否则我就死定了。没法搞的定了*/);
 
     //ExoPlayerFactory.newSimpleInstance(context, trackSelector);
 

@@ -6,16 +6,11 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.GenericTransitionOptions;
 import com.bumptech.glide.Glide;
 import com.hmy.ninegridlayout.util.ImageLoaderUtil;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.pear.yellowthird.GlideApp;
-import com.pear.yellowthird.activitys.R;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.Picasso;
+import com.pear.android.utils.GlideUtils;
 
 import java.util.List;
 
@@ -111,7 +106,8 @@ public class NineGridTestLayout extends NineGridLayout {
                 .into(imageView);
         */
          /**/
-       GlideApp/*App*/.with(getContext())
+         /*
+       GlideAppApp.with(getContext())
                .load(url)
                .placeholder(R.drawable._image_loading)
                .error(R.drawable._image_load_fail)
@@ -120,6 +116,8 @@ public class NineGridTestLayout extends NineGridLayout {
                //.fitCenter()
                //.skipMemoryCache(true)
                .into(imageView);
+       */
+        GlideUtils.loadImage(getContext(),imageView,url);
     }
 
     public enum MemoryDispose

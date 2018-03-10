@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +64,7 @@ public class FriendFragment extends Fragment {
         if (null != mRootView)
             return mRootView;
 
-        mRootView = inflater.inflate(R.layout.sub_friends, null);
+        mRootView = inflater.inflate(R.layout.sub_recycler, null);
 
         recyclerView = mRootView.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());

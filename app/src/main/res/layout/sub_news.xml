@@ -4,7 +4,9 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/common.screen.margin"
+    android:layout_marginRight="@dimen/common.screen.margin"
     android:orientation="vertical">
 
     <LinearLayout
@@ -49,7 +51,7 @@
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxHeight="32767dp"
+        android:maxWidth="200dp"
         android:layout_marginTop="@dimen/news.image.margin.top"
         android:layout_marginBottom="@dimen/news.image.margin.bottom"
         android:adjustViewBounds="true"

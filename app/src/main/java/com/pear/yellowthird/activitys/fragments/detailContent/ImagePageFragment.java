@@ -29,7 +29,7 @@ import io.github.kshitij_jain.indicatorview.IndicatorView;
 /**
  * 每个具体的电影介绍界面，集合。滑动翻页
  */
-public class ImagePageFragment extends Fragment{
+public class ImagePageFragment<T> extends Fragment{
 
     private static int pageIncrementId=0;
 
@@ -43,7 +43,7 @@ public class ImagePageFragment extends Fragment{
      * */
     protected View mContentView;
 
-    List<ImageIntroduceVo> data;
+    List<T> data;
 
     /**
      * 不能直接提供构造器来实现。会出现编译错误。
@@ -66,7 +66,7 @@ public class ImagePageFragment extends Fragment{
             return mContentView;
         }
         mContentView = inflater.inflate(R.layout.image_introduce_page, null);
-        final RecyclerViewPager pager = (RecyclerViewPager) mContentView.findViewById(R.id.pager);
+        final RecyclerViewPager pager = mContentView.findViewById(R.id.pager);
         //这里需要取绝对值
         int pageId=Math.abs(
                 new String(

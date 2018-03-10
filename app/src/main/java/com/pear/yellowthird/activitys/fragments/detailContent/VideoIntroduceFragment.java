@@ -3,6 +3,7 @@ package com.pear.yellowthird.activitys.fragments.detailContent;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.hmy.ninegridlayout.util.ImageLoaderUtil;
+import com.hmy.ninegridlayout.view.NineGridTestLayout;
+import com.pear.android.utils.GlideUtils;
 import com.pear.android.utils.SoftInputUtils;
 import com.pear.android.view.LGNineGrideView;
 import com.pear.android.view.LinearLayoutLikeListView;
@@ -37,6 +40,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.List;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import rx.functions.Action1;
@@ -55,10 +59,19 @@ public class VideoIntroduceFragment extends Fragment {
      */
     private VideoIntroduceVo mData;
 
+    /**用户信息*/
+    UserVo user;
+
     /**
      * root 视图
      */
     private View mRootView;
+
+    /**标题*/
+    TextView titleView;
+
+    /**封面*/
+    ImageView coverView;
 
     /**
      * 开始播放
@@ -69,6 +82,7 @@ public class VideoIntroduceFragment extends Fragment {
      * 电影点赞
      */
     LinearLayout videoClickGoodLinearLayout;
+
     /**
      * 点赞的图标
      */
@@ -78,6 +92,9 @@ public class VideoIntroduceFragment extends Fragment {
      * 多少个人点赞了
      */
     TextView allClickGoodView;
+
+    /**截图*/
+    NineGridTestLayout multiImageView;
 
 
     /**评论相关*/
@@ -126,7 +143,8 @@ public class VideoIntroduceFragment extends Fragment {
                 "      eView");
         */
         if (null != mRootView) {
-            //log.debug("onCreateView return cache view ");
+            System.out.println("cache onCreate view"+titleView.getText());
+            imageMemoryRecover();
             return mRootView;
         }
 
@@ -134,13 +152,8 @@ public class VideoIntroduceFragment extends Fragment {
 
         /**封面*/
         {
-            ImageView coverView = mRootView.findViewById(R.id.cover);
-            ImageLoaderUtil
-                    .getImageLoader(getContext())
-                    .displayImage(
-                            mData.getCoverUri(),
-                            coverView,
-                            ImageLoaderUtil.getPhotoImageOption());
+            coverView = mRootView.findViewById(R.id.cover);
+            GlideUtils.loadImage(getContext(),coverView,mData.getCoverUri());
         }
 
         /**播放时长*/
@@ -157,7 +170,7 @@ public class VideoIntroduceFragment extends Fragment {
 
         /**标题*/
         {
-            TextView titleView = mRootView.findViewById(R.id.title);
+            titleView = mRootView.findViewById(R.id.title);
             titleView.setText(mData.getTitle());
         }
 
@@ -197,7 +210,6 @@ public class VideoIntroduceFragment extends Fragment {
             commentCountView.setText(mData.getAllTalkCount() + "评论");
         }
 
-
         /**点赞*/
         {
             videoClickGoodLinearLayout = mRootView.findViewById(R.id.click_good_line_view);
@@ -216,13 +228,12 @@ public class VideoIntroduceFragment extends Fragment {
 
         /**截图*/
         {
-            LGNineGrideView multiImageView = mRootView.findViewById(R.id.screen_shorts_list);
-            multiImageView.setUrls(mData.getScreenShortUrls());
-            multiImageView.setOnItemClickListener(new LGNineGrideView.OnItemClickListener() {
+            multiImageView = mRootView.findViewById(R.id.screen_shorts_list);
+            multiImageView.setUrlList(mData.getScreenShortUrls());
+            multiImageView.setOnItemClickListener(new NineGridTestLayout.OnItemClickListener() {
                 @Override
-                public void onClickItem(int position, View view) {
-                    FullImagePageActivity.ImageSize imageSize = new FullImagePageActivity.ImageSize(view.getMeasuredWidth(), view.getMeasuredHeight());
-                    FullImagePageActivity.startImagePagerActivity(getActivity(), mData.getScreenShortUrls(), position, imageSize);
+                public void onItemClick(int index, String url, List<String> urlList) {
+                    FullImagePageActivity.startImagePagerActivity(getActivity(), mData.getScreenShortUrls(), index, null);
                 }
             });
         }
@@ -234,14 +245,11 @@ public class VideoIntroduceFragment extends Fragment {
                     .getUser()
                     .subscribe(new Action1<UserVo>() {
                         @Override
-                        public void call(UserVo user) {
-                            Glide.with(getActivity())
-                                    .load(user.getThumb())
-                                    .apply(bitmapTransform(new CropCircleTransformation()))
-                                    .into(authorIcon);
+                        public void call(UserVo callUser) {
+                            user=callUser;
+                            GlideUtils.loadHeadIconImage(getContext(),authorIcon,user.getThumb());
                         }
                     });
-
         }
 
         /**吸引光标*/
@@ -304,6 +312,11 @@ public class VideoIntroduceFragment extends Fragment {
         super.onPause();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        imageMemoryReset();
+    }
 
     void eventInit() {
         onAddTalkComment();
@@ -498,6 +511,30 @@ public class VideoIntroduceFragment extends Fragment {
                             mCommentAdapter.setTalk(Arrays.asList(datas));
                     }
                 });
+    }
+
+
+
+    /**
+     * 恢复image的内存
+     * */
+    void imageMemoryRecover()
+    {
+        multiImageView.imageMemoryDispose(NineGridTestLayout.MemoryDispose.recoverMemoryDispose);
+        GlideUtils.loadImage(getContext(),coverView,mData.getCoverUri());
+        if(null!=user)
+            GlideUtils.loadHeadIconImage(getContext(),authorIcon,user.getThumb());
+    }
+
+    /**
+     * 清空image的内存
+     * OOM很可怕
+     * */
+    void imageMemoryReset()
+    {
+        multiImageView.imageMemoryDispose(NineGridTestLayout.MemoryDispose.resetMemoryDispose);
+        Glide.with(getContext()).clear(coverView);
+        Glide.with(getContext()).clear(authorIcon);
     }
 
     private static int gCommentListId = new String("video_introduce_comment_list_id").hashCode();
