@@ -117,7 +117,7 @@ public class NineGridTestLayout extends NineGridLayout {
                //.skipMemoryCache(true)
                .into(imageView);
        */
-        GlideUtils.loadImage(getContext(),imageView,url);
+        GlideUtils.loadImage(getContext(),imageView,url,GlideUtils.ImageSize.thumbnailImageSize);
     }
 
     public enum MemoryDispose

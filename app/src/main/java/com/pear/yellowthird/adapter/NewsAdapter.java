@@ -54,7 +54,7 @@ public class NewsAdapter extends BaseRecycleViewAdapter {
             holder.imageUrl=vo.getImageUri();
             //这个不清晰，但是先看看毫不毫内存
             //简介用纯文字表达就好了。我日
-            GlideUtils.loadImage(context,holder.imageView,vo.getImageUri());
+            GlideUtils.loadImage(context,holder.imageView,vo.getImageUri(), GlideUtils.ImageSize.fullHorizontalImageSize);
             holder.imageView.setVisibility(View.VISIBLE);
         }
     }
@@ -72,8 +72,8 @@ public class NewsAdapter extends BaseRecycleViewAdapter {
     @Override
     public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
         NewsViewHolder imageHolder=(NewsViewHolder)holder;
-        //if(null!=imageHolder.imageUrl)
-        //    GlideUtils.loadImage(context,imageHolder.imageView,imageHolder.imageUrl);
+        if(null!=imageHolder.imageUrl)
+            GlideUtils.loadImage(context,imageHolder.imageView,imageHolder.imageUrl, GlideUtils.ImageSize.fullHorizontalImageSize);
     }
 
     @Override

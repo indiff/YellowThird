@@ -20,23 +20,23 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 public class GlideUtils {
 
-    public enum ImageSize
-    {
+    public enum ImageSize {
         headIconImageSize,
-        thumbnailImageSize
+        thumbnailImageSize,
+        fullHorizontalImageSize
     }
 
-    private static Map<ImageSize,Integer> imageSizeConfig
-            =new HashMap<ImageSize,Integer>(){{
-                put(ImageSize.headIconImageSize,150);
-                put(ImageSize.thumbnailImageSize,230);
+    private static Map<ImageSize, Integer> imageSizeConfig
+            = new HashMap<ImageSize, Integer>() {{
+        put(ImageSize.headIconImageSize, 130);
+        put(ImageSize.thumbnailImageSize, 200);
+        put(ImageSize.fullHorizontalImageSize, 520);
     }};
 
     /**
      * 默认的加载方式
-     * */
-    public static void loadImage(Context context, ImageView view, String url)
-    {
+     */
+    public static void loadImage(Context context, ImageView view, String url) {
         GlideApp.with(context)
                 .load(url)
                 .placeholder(R.drawable._image_loading)
@@ -48,9 +48,8 @@ public class GlideUtils {
 
     /**
      * 默认的加载方式
-     * */
-    public static void loadImage(Context context, ImageView view, String url,ImageSize size)
-    {
+     */
+    public static void loadImage(Context context, ImageView view, String url, ImageSize size) {
         GlideApp.with(context)
                 .load(url)
                 .placeholder(R.drawable._image_loading)
@@ -60,8 +59,7 @@ public class GlideUtils {
                 .into(view);
     }
 
-    public static void loadHeadIconImage(Context context, ImageView view, String url)
-    {
+    public static void loadHeadIconImage(Context context, ImageView view, String url) {
         GlideApp.with(context)
                 .load(url)
                 .placeholder(R.drawable._image_loading)

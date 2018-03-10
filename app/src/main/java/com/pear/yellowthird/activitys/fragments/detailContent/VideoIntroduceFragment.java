@@ -3,7 +3,6 @@ package com.pear.yellowthird.activitys.fragments.detailContent;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -19,11 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.hmy.ninegridlayout.util.ImageLoaderUtil;
 import com.hmy.ninegridlayout.view.NineGridTestLayout;
 import com.pear.android.utils.GlideUtils;
 import com.pear.android.utils.SoftInputUtils;
-import com.pear.android.view.LGNineGrideView;
 import com.pear.android.view.LinearLayoutLikeListView;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.yellowthird.activitys.FullImagePageActivity;
@@ -153,7 +150,7 @@ public class VideoIntroduceFragment extends Fragment {
         /**封面*/
         {
             coverView = mRootView.findViewById(R.id.cover);
-            GlideUtils.loadImage(getContext(),coverView,mData.getCoverUri());
+            GlideUtils.loadImage(getContext(),coverView,mData.getCoverUri(), GlideUtils.ImageSize.fullHorizontalImageSize);
         }
 
         /**播放时长*/
@@ -521,7 +518,7 @@ public class VideoIntroduceFragment extends Fragment {
     void imageMemoryRecover()
     {
         multiImageView.imageMemoryDispose(NineGridTestLayout.MemoryDispose.recoverMemoryDispose);
-        GlideUtils.loadImage(getContext(),coverView,mData.getCoverUri());
+        GlideUtils.loadImage(getContext(),coverView,mData.getCoverUri(), GlideUtils.ImageSize.fullHorizontalImageSize);
         if(null!=user)
             GlideUtils.loadHeadIconImage(getContext(),authorIcon,user.getThumb());
     }
