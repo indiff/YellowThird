@@ -22,6 +22,7 @@ import android.support.annotation.Nullable;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.C.ContentType;
+import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -76,6 +77,8 @@ import com.pear.yellowthird.activitys.R;
     player = ExoPlayerFactory.newSimpleInstance(
             new DefaultRenderersFactory(context),
             trackSelector
+            ,
+            new DefaultLoadControl()
             /*,new FullLoadControl() 如果全部加载，三级片百分百报内存溢出。我日，这里只能期望华为云中途不要关掉连接了，否则我就死定了。没法搞的定了*/);
 
     //ExoPlayerFactory.newSimpleInstance(context, trackSelector);
