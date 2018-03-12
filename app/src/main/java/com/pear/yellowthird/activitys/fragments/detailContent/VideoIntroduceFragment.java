@@ -529,6 +529,10 @@ public class VideoIntroduceFragment extends Fragment {
      * */
     void imageMemoryReset()
     {
+        /**如果activity销毁了，就返还去吧*/
+        if(getActivity().isDestroyed())
+            return;
+
         multiImageView.imageMemoryDispose(NineGridTestLayout.MemoryDispose.resetMemoryDispose);
         Glide.with(getContext()).clear(coverView);
         Glide.with(getContext()).clear(authorIcon);

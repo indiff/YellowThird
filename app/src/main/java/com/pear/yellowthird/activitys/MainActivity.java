@@ -1,6 +1,10 @@
 package com.pear.yellowthird.activitys;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -157,12 +161,11 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
         log.debug("onStart");
         long alreadyPassTime = System.currentTimeMillis() - lastUserUseMainViewTime;
         System.out.println("alreadyPassTime:" + alreadyPassTime);
-        /**超过一个小时重新强制刷新主界面*/
-        int ONE_HOURS = 1000 * 60 * 60;
+        /**超过2个小时重新强制刷新主界面*/
+        int ONE_HOURS = 1000 * 60 * 60 * 3 ;
         if (alreadyPassTime > ONE_HOURS) {
             log.info("alreadyPassTime>ONE_HOURS :" + alreadyPassTime);
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            restartApp();
         }
         lastUserUseMainViewTime = System.currentTimeMillis();
     }
@@ -424,4 +427,17 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
         log.debug("onSaveInstanceState");
     }
 
+    /**
+     * 重启app
+     * */
+    void restartApp()
+    {
+        Intent mStartActivity = new Intent(this, MainActivity.class);
+        int mPendingIntentId = 123456;
+        PendingIntent mPendingIntent = PendingIntent.getActivity(MainActivity.this, mPendingIntentId, mStartActivity,
+                PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager mgr = (AlarmManager) MainActivity.this.getSystemService(Context.ALARM_SERVICE);
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+        System.exit(0);
+    }
 }

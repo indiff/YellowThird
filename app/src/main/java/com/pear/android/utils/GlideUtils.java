@@ -28,9 +28,9 @@ public class GlideUtils {
 
     private static Map<ImageSize, Integer> imageSizeConfig
             = new HashMap<ImageSize, Integer>() {{
-        put(ImageSize.headIconImageSize, 130);
-        put(ImageSize.thumbnailImageSize, 200);
-        put(ImageSize.fullHorizontalImageSize, 520);
+        put(ImageSize.headIconImageSize, 150);
+        put(ImageSize.thumbnailImageSize, 220);
+        put(ImageSize.fullHorizontalImageSize, 720);
     }};
 
     /**

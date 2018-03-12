@@ -38,6 +38,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultAllocator;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
@@ -74,12 +75,21 @@ import com.pear.yellowthird.activitys.R;
     TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
 
     // Create a player instance.
+
+    /*,new FullLoadControl() 如果全部加载，三级片百分百报内存溢出。我日，这里只能期望华为云中途不要关掉连接了，否则我就死定了。没法搞的定了*/
+    //其实这里控制好maxBufferMs和minBufferMs的差值就好了，其实就是一直在云端查数据
+    DefaultLoadControl loadControl=new DefaultLoadControl(
+            new DefaultAllocator(true, C.DEFAULT_BUFFER_SEGMENT_SIZE),
+            1000*90,
+            1000*105,
+            DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS,
+            DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_MS,
+            DefaultLoadControl.DEFAULT_TARGET_BUFFER_BYTES,
+            DefaultLoadControl.DEFAULT_PRIORITIZE_TIME_OVER_SIZE_THRESHOLDS);
     player = ExoPlayerFactory.newSimpleInstance(
             new DefaultRenderersFactory(context),
-            trackSelector
-            ,
-            new DefaultLoadControl()
-            /*,new FullLoadControl() 如果全部加载，三级片百分百报内存溢出。我日，这里只能期望华为云中途不要关掉连接了，否则我就死定了。没法搞的定了*/);
+            trackSelector,
+            loadControl);
 
     //ExoPlayerFactory.newSimpleInstance(context, trackSelector);
 

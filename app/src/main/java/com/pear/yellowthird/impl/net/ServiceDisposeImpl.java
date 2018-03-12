@@ -57,6 +57,8 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
      * 服务器的请求地址
      */
     private static final String gServiceHost = "http://smalltadpole.net/";
+    //private static final String gServiceHost = "http://36.255.220.149/";
+
     //private static final String gServiceHost = "http://192.168.0.109:8080/";
 
     private Handler mainHandler;
