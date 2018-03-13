@@ -154,11 +154,12 @@
                 android:id="@+id/loading_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="正在使劲加载中..."
+                android:layout_marginTop="8dp"
+                android:text="正在使劲加载中，最长可能需要几十秒...\n                      精彩马上开始。"
                 android:textColor="#c2c2c2"
                 android:textSize="13dp"
                 />
+
 
         </LinearLayout>
     </LinearLayout>

@@ -990,11 +990,12 @@ public final class SimpleExoPlayerView extends FrameLayout {
           /**缓存不够，显示loading提示*/
           if(playWhenReady){
             controller.getLoadingView().setVisibility(View.VISIBLE);
-            maybeShowController(false);
+            showController(true);
           }
           break;
         case PlaybackState.STATE_PLAYING:
           controller.getLoadingView().setVisibility(View.GONE);
+          hideController();
           break;
 
         /**播放完成*/

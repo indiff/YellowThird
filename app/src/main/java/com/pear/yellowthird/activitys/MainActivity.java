@@ -18,6 +18,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 import com.pear.android.view.NoScrollViewPager;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.databases.AllDatabases;
+import com.pear.yellowthird.activitys.operations.DoubleBackClickOperation;
 import com.pear.yellowthird.adapter.abstracts.CommonCacheAdapterAbstract;
 import com.pear.yellowthird.config.SystemConfig;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
@@ -80,6 +82,11 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
      * 预加载的界面
      */
     LoadingView loadingView;
+
+    /**
+     * 双击后退2次，退出程序
+     * */
+    DoubleBackClickOperation doubleBackClickOperation=new DoubleBackClickOperation(this);
 
     /**
      * 上一次用户使用主界面的时间戳，用户超过一定时长，强制重新刷新。
@@ -428,6 +435,19 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
     }
 
     /**
+     * 检测回退建按下时间
+     * @return true 拦截中了，false忽略
+     * */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        /**如果处理了，就返还false，忽略该事件*/
+        if(doubleBackClickOperation.onKeyDown(keyCode,event))
+            return false;
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /**
      * 重启app
      * */
     void restartApp()
@@ -440,4 +460,5 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
         mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
         System.exit(0);
     }
+
 }
