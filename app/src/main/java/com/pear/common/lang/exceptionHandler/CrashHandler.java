@@ -117,7 +117,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
             @Override
             public void run() {
                 Looper.prepare();
-                Toast.makeText(mContext, "哎呀，真不好意思。我死机了!"/*\n"+crashMessage*/, Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "哎呀，谁拿平底锅砸我!"/*\n"+crashMessage*/, Toast.LENGTH_LONG).show();
                 Looper.loop();
             }
         }.start();

@@ -42,7 +42,7 @@ public class GlideUtils {
                 .placeholder(R.drawable._image_loading)
                 .error(R.drawable._image_load_fail)
                 .transition(GenericTransitionOptions.with(android.R.anim.fade_in))
-                //.override(200)
+                //.override(200) 用glide计算的试试。
                 .into(view);
     }
 
@@ -55,7 +55,7 @@ public class GlideUtils {
                 .placeholder(R.drawable._image_loading)
                 .error(R.drawable._image_load_fail)
                 .transition(GenericTransitionOptions.with(android.R.anim.fade_in))
-                .override(imageSizeConfig.get(size))
+                //.override(imageSizeConfig.get(size))
                 .into(view);
     }
 
@@ -66,7 +66,7 @@ public class GlideUtils {
                 .error(R.drawable._image_load_fail)
                 .transition(GenericTransitionOptions.with(android.R.anim.fade_in))
                 .apply(bitmapTransform(new CropCircleTransformation()))
-                .override(imageSizeConfig.get(ImageSize.headIconImageSize))
+                //.override(imageSizeConfig.get(ImageSize.headIconImageSize))  用glide计算的试试。
                 .into(view);
     }
 

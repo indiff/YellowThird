@@ -7,8 +7,8 @@ android {
         applicationId "com.pear.yellowthird.activitys"
         minSdkVersion 17
         targetSdkVersion 26
-        versionCode 13
-        versionName "1.3"
+        versionCode 16
+        versionName "1.6"
         multiDexEnabled true
     }
     buildTypes {

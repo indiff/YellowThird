@@ -238,6 +238,12 @@ public class AccountInfoFragment extends Fragment {
      * 刷新用户的所有相关信息界面
      */
     void refreshUserAllView() {
+        /**
+         * 如果还没有取到用户数据，还不如干脆跳过算了。
+         * 这里拿到过用户数据，用户直接崩溃日志了。
+         * */
+        if(null==user)
+            return;
         refreshUserHeadIconView();
         userNameView.setText(user.getName());
         goldView.setText(user.getGold() + " 绿币");

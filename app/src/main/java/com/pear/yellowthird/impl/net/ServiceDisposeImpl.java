@@ -73,7 +73,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
      */
     public static void initDeviceId(Activity activity) {
         String androidID = Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
-        gDeviceId = androidID + "_" + Build.SERIAL;
+        gDeviceId =  androidID + "_" + Build.SERIAL;
         //gDeviceId = "9a254d943767ea2b_94ec3090";
         log.info("gDeviceId" + gDeviceId);
     }
@@ -103,7 +103,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             @Override
             public void run() {
                 Toast toast = Toast.makeText(GlobalApplication.getContext(),
-                        /*errorMsg*/"哎呀，小蝌蚪正在忙，等下再试试就好了",
+                        /*errorMsg*/"网络不给力，请检查网络设置",
                         Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
