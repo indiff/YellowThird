@@ -382,7 +382,6 @@ public class VideoIntroduceFragment extends Fragment {
              * 开始播放
              * */
             void startPlay() {
-                //Intent intent = new Intent(getActivity(), FullVideoActivity.class);
                 Intent intent = new Intent(getActivity(), GoogleExoVideoActivity.class);
 
                 intent.putExtra("url", mData.getVideoUri());

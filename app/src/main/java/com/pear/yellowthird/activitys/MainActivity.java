@@ -192,11 +192,13 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
                     .subscribe(new Action1<String>() {
                         @Override
                         public void call(String result) {
+                            //起码是获取成功了的
+                            //再等等吧
+                            isRequestByServiceSuccess = true;
                             JsonUtil.write2ClassAsync(result, BottomNavigationMenuVo[].class)
                                     .subscribe(new Action1<BottomNavigationMenuVo[]>() {
                                         @Override
                                         public void call(BottomNavigationMenuVo[] menus) {
-                                            isRequestByServiceSuccess = true;
                                             adapter.setData(menus);
                                             //隐藏等待框
                                             loadingView.hide();
@@ -352,7 +354,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
                             timeDownView.setText(String.valueOf(timeDown));
                             /**倒计时为0了结束倒计时*/
                             if (timeDown == 0 && (!isRequestByServiceSuccess)) {
-                                Toast.makeText(activity, "网络好像有点问题哦，等一下再试吧!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(activity, "网络不给力，请检查网络设置", Toast.LENGTH_LONG).show();
                                 activity.finish();
                             }
                         }

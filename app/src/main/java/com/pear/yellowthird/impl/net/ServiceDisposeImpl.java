@@ -56,8 +56,9 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     /**
      * 服务器的请求地址
      */
-    private static final String gServiceHost = "http://smalltadpole.net/";
-    //private static final String gServiceHost = "http://36.255.220.149/";
+    //private static final String gServiceHost = "http://smalltadpole.net/";
+    //等买了国内的域名再换吧。可能有部分网络解析这个域名不顺利，我自己虚拟机都试过好多次。
+    private static final String gServiceHost = "http://36.255.220.149/";
 
     //private static final String gServiceHost = "http://192.168.0.109:8080/";
 

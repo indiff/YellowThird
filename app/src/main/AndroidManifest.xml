@@ -64,11 +64,6 @@
         <activity android:name=".FullImagePageActivity"
             android:theme="@style/FullScreenTheme">
         </activity>
-        <activity android:name=".FullVideoActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/FullScreenTheme"
-            android:windowSoftInputMode="stateAlwaysHidden">
-        </activity>
         <activity android:name=".video.GoogleExoVideoActivity"
                   android:screenOrientation="landscape"
                   android:theme="@style/FullScreenTheme"
