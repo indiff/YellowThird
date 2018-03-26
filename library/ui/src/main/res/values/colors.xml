@@ -3,5 +3,6 @@
 
     <!--组件被选中-->
     <color name="colorExoProcess">#1AAD19</color>
+    <color name="shutter_background_color">#000000</color>
 
 </resources>
