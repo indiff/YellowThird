@@ -96,6 +96,10 @@ public class VideoIntroduceFragment extends Fragment {
 
     /**评论相关*/
 
+
+    /**多少个人评论了*/
+    TextView commentCountView;
+
     /**
      * 作者的头像
      */
@@ -203,7 +207,7 @@ public class VideoIntroduceFragment extends Fragment {
 
         /**多少个人评论了*/
         {
-            TextView commentCountView = mRootView.findViewById(R.id.comment_count);
+            commentCountView = mRootView.findViewById(R.id.comment_count);
             commentCountView.setText(mData.getAllTalkCount() + "评论");
         }
 
@@ -504,7 +508,10 @@ public class VideoIntroduceFragment extends Fragment {
                     public void call(String data) {
                         TalkComment[] datas = JsonUtil.write2Class(data, TalkComment[].class);
                         if (null != datas && datas.length > 0)
+                        {
+                            commentCountView.setText(datas.length + "评论");
                             mCommentAdapter.setTalk(Arrays.asList(datas));
+                        }
                     }
                 });
     }
