@@ -99,9 +99,6 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             />
 
-
-
-
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -112,5 +109,8 @@
 
     <!--保持屏幕常亮用到-->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!--android 8 新增加的更新安装权限-->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
 </manifest>

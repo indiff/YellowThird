@@ -30,7 +30,7 @@ public class PermissionsRequestInit {
     /**
      * 所有需要用到的权限
      * */
-    private String[] mAllNeedPermissions = new String[]{
+    public String[] mAllNeedPermissions = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
@@ -182,6 +182,18 @@ public class PermissionsRequestInit {
                     .canceledOnTouchOutside(false)
                     .show();
         }
+    }
+
+    /**
+     * 权限提示和请求
+     * @param title 提示标题
+     * @param content 提示内容
+     * @param successCallback 申请权限成功后的回掉
+     * */
+    public void permissionTipAndRequest(String[] allNeedPermissions,String title, String content, final Runnable successCallback)
+    {
+        mAllNeedPermissions=allNeedPermissions;
+        permissionTipAndRequest(title,content,successCallback);
     }
 
 }

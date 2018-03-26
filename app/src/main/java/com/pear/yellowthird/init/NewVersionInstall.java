@@ -1,6 +1,8 @@
 package com.pear.yellowthird.init;
 
+import android.Manifest;
 import android.app.Activity;
+import android.os.Build;
 import android.support.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -26,7 +28,9 @@ import rx.schedulers.Schedulers;
 
 public class NewVersionInstall {
 
-    /**日记*/
+    /**
+     * 日记
+     */
     private static Logger log = Logger.getLogger(NewVersionInstall.class);
 
     UpdateVersion updateVersion;
@@ -34,10 +38,9 @@ public class NewVersionInstall {
     Activity activity;
 
 
-    NewVersionInstall(Activity activity,UpdateVersion updateVersion)
-    {
-        this.activity=activity;
-        this.updateVersion=updateVersion;
+    NewVersionInstall(Activity activity, UpdateVersion updateVersion) {
+        this.activity = activity;
+        this.updateVersion = updateVersion;
     }
 
     /**
@@ -56,10 +59,28 @@ public class NewVersionInstall {
                                 return;
                             final String href = json.getString("href");
 
+                            String[] allNeedPermissions = new String[]{
+                                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                            };
+
+                            /**android 8 需要更多权限了，我操*/
+                            if (Build.VERSION.SDK_INT >= 26)
+                            {
+                                allNeedPermissions=new String[]{
+                                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                        Manifest.permission.REQUEST_INSTALL_PACKAGES
+                                };
+                            }
                             new PermissionsRequestInit(activity)
                                     .permissionTipAndRequest(
+                                            allNeedPermissions,
                                             "检测到新版本。",
-                                            "自动更新程序需要用到读取sd卡权限。\n请给我权限，否则我将不能正常工作",
+                                            "自动更新程序需要用到读取sd卡权限,\n" +
+                                                    "如果有提示是否允许安装未知程序。\n" +
+                                                    "请给我这两个权限。让我给你更好的服务。\n" +
+                                                    "否则我将不能正常工作",
                                             new Runnable() {
                                                 @Override
                                                 public void run() {
@@ -77,12 +98,12 @@ public class NewVersionInstall {
 
     /**
      * 下载更新包
-     * */
+     */
     private void downUpdateApk(final String href) {
         Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                String apkSavePath =updateVersion.getSavePath();
+                String apkSavePath = updateVersion.getSavePath();
                 boolean result = FileDownload.downloadFile(href, apkSavePath);
                 if (result)
                     subscriber.onNext(apkSavePath);
@@ -101,11 +122,11 @@ public class NewVersionInstall {
 
     /**
      * 通知用户apk即将会更新
-     * */
+     */
     private void notifyUserApkWillUpdate(final String path) {
 
         /**发表过程中一直等待*/
-        final MaterialDialog progressDialog=new MaterialDialog.Builder(activity)
+        final MaterialDialog progressDialog = new MaterialDialog.Builder(activity)
 
                 .title("检测到重要的新版本。你必须安装后才能正常使用。")
                 .content("1. 优化了播放速度。\n2. 修复某些BUG。 \n3. 加入了一些很有趣的功能")
@@ -113,8 +134,7 @@ public class NewVersionInstall {
                 .onAny(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        switch (which)
-                        {
+                        switch (which) {
                             case POSITIVE:
                                 updateVersion.updateVersion(path);
                                 break;

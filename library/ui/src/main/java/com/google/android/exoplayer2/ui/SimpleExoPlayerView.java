@@ -269,8 +269,12 @@ public final class SimpleExoPlayerView extends FrameLayout {
     int defaultArtworkId = 0;
     boolean useController = true;
     int surfaceType = SURFACE_TYPE_SURFACE_VIEW;
-    //int resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT;
-    int resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH;
+    //int resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM;
+    //算了，不要字幕了，还是横屏效果好一点。竖屏更难看
+    //int resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH;
+    //麻痹，不按照高度来，字幕都看不见
+    //这样横屏的效果就更差了。我曹
+    int resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIXED_HEIGHT;
 
     int controllerShowTimeoutMs = PlaybackControlView.DEFAULT_SHOW_TIMEOUT_MS;
     boolean controllerHideOnTouch = true;
@@ -303,6 +307,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
         a.recycle();
       }
     }
+
 
     LayoutInflater.from(context).inflate(playerLayoutId, this);
     componentListener = new ComponentListener();
