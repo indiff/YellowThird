@@ -173,6 +173,7 @@ public class MainNavPageIndicator extends ScrollView implements PageIndicator {
                         mTitleView.setText(title);
                         mTitleView.setTextSize(9);
                         mTitleView.setPadding(0,0,0,5);
+                        mTitleView.setTextColor(getResources().getColor(R.color.colorMainNavTitle));
                         tabLinear.addView(mTitleView);
                     }
                 }
@@ -197,7 +198,7 @@ public class MainNavPageIndicator extends ScrollView implements PageIndicator {
                 else
                 {
                     mIconView.setSelected(false);
-                    mTitleView.setTextColor(getResources().getColor(R.color.colorMinorTitle));
+                    mTitleView.setTextColor(getResources().getColor(R.color.colorMainNavTitle));
                 }
             }
 

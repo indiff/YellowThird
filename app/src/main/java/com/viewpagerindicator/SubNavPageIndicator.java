@@ -64,7 +64,7 @@ public class SubNavPageIndicator extends ScrollView implements PageIndicator {
         mTabListView=new TabListView();
         mTabLayout = new LinearLayout(getContext());
         mTabLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT));
-        mTabLayout.setBackgroundColor(getResources().getColor(R.color.colorSubNavBackground));
+        mTabLayout.setBackgroundColor(getResources().getColor(R.color.colorNavBackground));
 
         /**
          * 子菜单采用横向滑动
@@ -161,11 +161,12 @@ public class SubNavPageIndicator extends ScrollView implements PageIndicator {
                         new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
                 mTitleView.setText(title);
                 mTitleView.setTextSize(17);
-                mTitleView.setPadding(35,13,27,17);
+                mTitleView.setPadding(15,13,12,17);
 
                 mTitleView.mIndex = index;
                 mTitleView.setFocusable(true);
                 mTitleView.setOnClickListener(mTabClickListener);
+                mTitleView.setTextColor(getResources().getColor(R.color.colorMainNavTitle));
                 return mTitleView;
             }
 
@@ -177,7 +178,7 @@ public class SubNavPageIndicator extends ScrollView implements PageIndicator {
                 if(select)
                     mTitleView.setTextColor(getResources().getColor(R.color.colorSelect));
                 else
-                    mTitleView.setTextColor(getResources().getColor(R.color.colorTitle));
+                    mTitleView.setTextColor(getResources().getColor(R.color.colorMainNavTitle));
             }
         }
     }

@@ -10,6 +10,9 @@
     <!--次要的标题-->
     <color name="colorMinorTitle">#c2c2c2</color>
 
+    <!--主导航栏默认标题颜色-->
+    <color name="colorMainNavTitle">#615e55</color>
+
     <!--很次要的内容-->
     <color name="colorMinorContent">#c2c2c2</color>
 
@@ -21,7 +24,7 @@
     <!--介绍内容的颜色-->
     <color name="colorIntroduceContent">#c2c2c2</color>
 
-    <color name="colorNavBackground">#fafafa</color>
+    <color name="colorNavBackground">#ffF0F0F0</color>
 
 
     <color name="colorSubNavBackground">#dcdace</color>
