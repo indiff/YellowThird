@@ -21,9 +21,12 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.pear.yellowthird.activitys.R;
 
@@ -38,8 +41,8 @@ public class SubNavPageIndicator extends ScrollView implements PageIndicator {
 
     private final OnClickListener mTabClickListener = new OnClickListener() {
         public void onClick(View view) {
-            TabTextView tabView = (TabTextView)view;
-            final int newSelected = tabView.getIndex();
+            TextView tabView = (TextView)view;
+            final int newSelected = (Integer)tabView.getTag();
             mViewPager.setCurrentItem(newSelected);
         }
     };
@@ -107,6 +110,7 @@ public class SubNavPageIndicator extends ScrollView implements PageIndicator {
         View build(PagerAdapter adapter)
         {
             LinearLayout allTabView=new LinearLayout(getContext());
+            allTabView.setOrientation(LinearLayout.HORIZONTAL);
             allTabView.setLayoutParams(
                     new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT));
 
@@ -116,7 +120,9 @@ public class SubNavPageIndicator extends ScrollView implements PageIndicator {
                 String title = adapter.getPageTitle(i).toString();
 
                 TypeLineView typeView=new TypeLineView();
-                allTabView.addView(typeView.buildView(i,title));
+                allTabView.addView(
+                        typeView.buildView(i,title),
+                        new LinearLayout.LayoutParams(0,LinearLayout.LayoutParams.MATCH_PARENT,1));
 
                 mView.add(typeView);
             }
@@ -142,9 +148,14 @@ public class SubNavPageIndicator extends ScrollView implements PageIndicator {
         class TypeLineView{
 
             /**
-             * 菜单
+             * 标题
              * */
-            TabTextView mTitleView;
+            TextView mTitleView;
+
+            /**
+             * 图标
+             * */
+            ImageView mIconView;
 
             public TypeLineView() {
             }
@@ -156,18 +167,18 @@ public class SubNavPageIndicator extends ScrollView implements PageIndicator {
              * */
             public View buildView(int index,String title)
             {
-                mTitleView=new TabTextView(getContext());
-                mTitleView.setLayoutParams(
-                        new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
-                mTitleView.setText(title);
-                mTitleView.setTextSize(17);
-                mTitleView.setPadding(15,13,12,17);
+                View menuView=LayoutInflater.from(getContext()).inflate(R.layout.sub_nav_menu_tab_layout, null);
+                mTitleView=menuView.findViewById(R.id.title);
+                mIconView=menuView.findViewById(R.id.icon);
 
-                mTitleView.mIndex = index;
+                mTitleView.setText(title);
+                mTitleView.setTag(index);
                 mTitleView.setFocusable(true);
                 mTitleView.setOnClickListener(mTabClickListener);
                 mTitleView.setTextColor(getResources().getColor(R.color.colorMainNavTitle));
-                return mTitleView;
+
+                mIconView.setVisibility(View.GONE);
+                return menuView;
             }
 
             /**
@@ -175,10 +186,13 @@ public class SubNavPageIndicator extends ScrollView implements PageIndicator {
              * */
             public void setSelect(boolean select)
             {
-                if(select)
+                if(select){
                     mTitleView.setTextColor(getResources().getColor(R.color.colorSelect));
-                else
+                    mIconView.setVisibility(View.VISIBLE);
+                }else{
                     mTitleView.setTextColor(getResources().getColor(R.color.colorMainNavTitle));
+                    mIconView.setVisibility(View.GONE);
+                }
             }
         }
     }
@@ -254,16 +268,5 @@ public class SubNavPageIndicator extends ScrollView implements PageIndicator {
         mListener = listener;
     }
 
-    protected class TabTextView extends android.support.v7.widget.AppCompatTextView {
-        protected int mIndex;
-
-        public TabTextView(Context context) {
-            super(context);
-        }
-
-        public int getIndex() {
-            return mIndex;
-        }
-    }
 
 }

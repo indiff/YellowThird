@@ -42,8 +42,8 @@
     <!--主内容-->
     <RelativeLayout
         android:id="@+id/root_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/colorSubNavBackground"
         android:orientation="horizontal"
         android:visibility="gone"
@@ -51,14 +51,14 @@
 
         <com.viewpagerindicator.MainNavPageIndicator
             android:id="@+id/indicator"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             />
 
         <com.pear.android.view.NoScrollViewPager
             android:id="@+id/pager"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_above="@id/indicator"
             android:layout_alignParentLeft="true"

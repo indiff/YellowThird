@@ -11,13 +11,6 @@
         android:orientation="vertical"
         >
 
-        <!--尾部分割线-->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="@dimen/common.screen.margin"
-            android:background="@color/colorSubNavBackground" />
-
         <!--用户自定义属性的区域-->
         <RelativeLayout
             android:layout_width="match_parent"
