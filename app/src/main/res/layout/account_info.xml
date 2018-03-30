@@ -130,7 +130,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/common.screen.margin"
                                 android:gravity="center_vertical"
-                                android:text="余额"
+                                android:text="会员到期时间"
                                 android:textColor="@color/colorTitle"
                                 android:textSize="@dimen/account.function.title" />
 
@@ -146,9 +146,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="@dimen/account.function.real.balance.right"
                                     android:gravity="center_vertical"
-                                    android:text="70绿币"
                                     android:textColor="@color/colorMinorContent"
-                                    android:textSize="@dimen/account.function.content" />
+                                    android:textSize="16dp" />
 
                             </RelativeLayout>
                         </LinearLayout>
@@ -196,7 +195,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/common.screen.margin"
                                 android:gravity="center_vertical"
-                                android:text="充值"
+                                android:text="续费会员(优惠期间)"
                                 android:textColor="@color/colorTitle"
                                 android:textSize="@dimen/account.function.title" />
 

@@ -141,6 +141,7 @@ public class NewVersionInstall {
                         }
                     }
                 })
+                .cancelable(false)
                 .canceledOnTouchOutside(false)
                 .show();
     }

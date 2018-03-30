@@ -75,11 +75,12 @@ public class BillAdapter extends BaseAdapter {
         /**金额数量*/
         {
             TextView moneyView=convertView.findViewById(R.id.money);
-
+            moneyView.setVisibility(View.GONE);
+            /**
             double money=data.getGold();
             String moneyText=String.valueOf(money);
 
-            /**参考别的app +号更加美化*/
+            //参考别的app +号更加美化
             if(money>0)
             {
                 moneyText="+"+moneyText;
@@ -88,6 +89,7 @@ public class BillAdapter extends BaseAdapter {
             else
                 moneyView.setTextColor(mContext.getResources().getColor(R.color.colorPriceText));;
             moneyView.setText(moneyText);
+            */
         }
 
         return convertView;

@@ -1,6 +1,7 @@
 package com.pear.yellowthird.vo.databases;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 /**
  * 用户信息
@@ -19,6 +20,9 @@ public class UserVo  implements Serializable {
 
     /**是否是管理员*/
     Boolean isAdmin=false;
+
+    private Boolean isVip;
+    private Date expire;
 
     public UserVo() {
     }
@@ -74,6 +78,16 @@ public class UserVo  implements Serializable {
         isAdmin = admin;
     }
 
+    public Date getExpire() {
+        return expire;
+    }
+    public void setExpire(Date expire) {
+        this.expire = expire;
+    }
+    public Boolean getIsVip() {
+        return expire.getTime()>=new Date(System.currentTimeMillis()).getTime();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -84,7 +98,10 @@ public class UserVo  implements Serializable {
         if (name != null ? !name.equals(userVo.name) : userVo.name != null) return false;
         if (thumb != null ? !thumb.equals(userVo.thumb) : userVo.thumb != null) return false;
         if (gold != null ? !gold.equals(userVo.gold) : userVo.gold != null) return false;
-        return isAdmin != null ? isAdmin.equals(userVo.isAdmin) : userVo.isAdmin == null;
+        if (isAdmin != null ? !isAdmin.equals(userVo.isAdmin) : userVo.isAdmin != null)
+            return false;
+        if (isVip != null ? !isVip.equals(userVo.isVip) : userVo.isVip != null) return false;
+        return expire != null ? expire.equals(userVo.expire) : userVo.expire == null;
     }
 
     @Override
@@ -93,6 +110,9 @@ public class UserVo  implements Serializable {
         result = 31 * result + (thumb != null ? thumb.hashCode() : 0);
         result = 31 * result + (gold != null ? gold.hashCode() : 0);
         result = 31 * result + (isAdmin != null ? isAdmin.hashCode() : 0);
+        result = 31 * result + (isVip != null ? isVip.hashCode() : 0);
+        result = 31 * result + (expire != null ? expire.hashCode() : 0);
         return result;
     }
+
 }

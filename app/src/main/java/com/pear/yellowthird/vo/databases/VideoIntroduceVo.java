@@ -69,6 +69,9 @@ public class VideoIntroduceVo  implements Serializable {
     /**是否启用快进*/
     Boolean enableSpeed=false;
 
+    /**当前电影是否免费*/
+    Boolean isFree;
+
 
     public VideoIntroduceVo() {
     }
@@ -249,4 +252,13 @@ public class VideoIntroduceVo  implements Serializable {
     public void setEnableSpeed(Boolean enableSpeed) {
         this.enableSpeed = enableSpeed;
     }
+
+    public Boolean getIsFree() {
+        return isFree;
+    }
+
+    public void setIsFree(Boolean isFree) {
+        this.isFree = isFree;
+    }
+
 }

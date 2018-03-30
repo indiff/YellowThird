@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ import rx.functions.Action1;
  * google实现的全屏播放电影
  */
 
-public class GoogleExoVideoActivity extends AppCompatActivity implements View.OnClickListener{
+public class GoogleExoVideoActivity extends AppCompatActivity implements View.OnClickListener,PlaybackControlView.PlayPositionChangeInterface {
 
     private static final String TAG = "GoogleExoVideoActivity";
 
@@ -57,6 +58,9 @@ public class GoogleExoVideoActivity extends AppCompatActivity implements View.On
     /**是否启用快进*/
     Boolean mEnableSpeed;
 
+    /**是否试播放*/
+    Boolean mIsTryOut;
+
     /**播放器*/
     private PlayerManager player;
 
@@ -84,14 +88,22 @@ public class GoogleExoVideoActivity extends AppCompatActivity implements View.On
         mJumpPrice= (Integer) getIntent().getSerializableExtra("jump_price");
         mVideoId= (Integer) getIntent().getSerializableExtra("video_id");
         mEnableSpeed= (Boolean) getIntent().getSerializableExtra("enable_speed");
+        mIsTryOut= (Boolean) getIntent().getSerializableExtra("is_try_out");
+
         // Create a player instance.
         player = new PlayerManager(this,mUrl);
 
         controlView.getTitleView().setText(mTitle);
         controlView.getCloseButton().setOnClickListener(this);
         controlView.getJumpButton().setOnClickListener(mJumpClickListener);
+        //鸡肋功能
+        controlView.getJumpButton().setVisibility(View.GONE);
 
         controlView.getTimeBar().setEnabled(mEnableSpeed);
+
+        if(mIsTryOut)
+            controlView.setPlayPositionChange(this);
+
         player.init(this, playerView);
         clearHistoryByPlayFinish();
     }
@@ -249,4 +261,47 @@ public class GoogleExoVideoActivity extends AppCompatActivity implements View.On
 
     };
 
+    /**
+     * 检测回退建按下直接退出当前播放
+     * @return true 拦截中了，false忽略
+     * */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            return true;
+        }
+        return false;
+    }
+
+
+    /**非会员免费试看5分钟*/
+    @Override
+    public void change(long currentTimeMs) {
+        int minute5milli=1000*60*5;
+        if(minute5milli>=currentTimeMs)
+            return;
+
+        //清空监听
+        controlView.setPlayPositionChange(null);
+        //暂停视频
+        player.getPlayer().setPlayWhenReady(false);
+        /**发表过程中一直等待*/
+        final MaterialDialog progressDialog = new MaterialDialog.Builder(this)
+
+                .title("试看完毕。")
+                .content("由于视频在线播放会来带极其高昂的服务器成本，只有会员才能完整视频播放。\n现在充值会员有优惠，请给我们一些支持，让我们继续为你带更精彩的内容吧")
+                .positiveText("给你们支持去")
+                .onAny(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        //switch (which) {
+                            GoogleExoVideoActivity.this.finish();
+                        //}
+                    }
+                })
+                .cancelable(false)
+                .canceledOnTouchOutside(false)
+                .show();
+    }
 }

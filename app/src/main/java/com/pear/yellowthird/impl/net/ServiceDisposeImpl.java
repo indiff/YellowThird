@@ -58,6 +58,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
      */
     //private static final String gServiceHost = "http://smalltadpole.net/";
     //等买了国内的域名再换吧。可能有部分网络解析这个域名不顺利，我自己虚拟机都试过好多次。
+    //也有可能是香港公网抖动的问题。两种都有
     private static final String gServiceHost = "http://36.255.220.149/";
 
     //private static final String gServiceHost = "http://192.168.0.109:8080/";
@@ -209,7 +210,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                String response = requestByService(gServiceHost + "redbook/api/movie/play?id=" + id);
+                String response = requestByService(gServiceHost + "redbook/api/movie/play?id=" + id+"&version="+SystemConfig.VERSION);
                 if (!TextUtils.isEmpty(response))
                     subscriber.onNext(response);
                 else {

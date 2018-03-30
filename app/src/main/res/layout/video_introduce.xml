@@ -152,7 +152,7 @@
                     android:textColor="@color/colorSelect"
                     android:textSize="18dp" />
 
-
+                <!--只有会员与免费两种，下面这个就隐藏吧-->
                 <!--价格单位-->
                 <TextView
                     android:layout_width="wrap_content"
@@ -162,7 +162,8 @@
                     android:textStyle="bold"
                     android:text=" 绿币"
                     android:textColor="@color/colorSelect"
-                    android:textSize="12dp" />
+                    android:textSize="12dp"
+                    android:visibility="gone"/>
 
 
             </LinearLayout>

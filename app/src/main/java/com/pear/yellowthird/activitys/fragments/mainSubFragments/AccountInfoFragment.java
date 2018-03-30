@@ -33,6 +33,7 @@ import com.pear.yellowthird.config.SystemConfig;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.vo.databases.UserVo;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -246,7 +247,7 @@ public class AccountInfoFragment extends Fragment {
             return;
         refreshUserHeadIconView();
         userNameView.setText(user.getName());
-        goldView.setText(user.getGold() + " 绿币");
+        goldView.setText(new SimpleDateFormat("yyyy/MM/dd").format(user.getExpire()));
         debugView.setVisibility(user.getIsAdmin()?View.VISIBLE:View.GONE);
     }
 

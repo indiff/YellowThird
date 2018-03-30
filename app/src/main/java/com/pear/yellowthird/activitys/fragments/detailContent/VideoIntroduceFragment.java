@@ -202,7 +202,7 @@ public class VideoIntroduceFragment extends Fragment {
         /**价格*/
         {
             priceView = mRootView.findViewById(R.id.price);
-            priceView.setText(mData.getPrice() + " ");
+            priceView.setText(mData.getIsFree()?"免费":"会员");
         }
 
         /**多少个人评论了*/
@@ -344,9 +344,10 @@ public class VideoIntroduceFragment extends Fragment {
                             JSONObject json = new JSONObject(data);
                             if (json.getBoolean("pay")) {
                                 Toast.makeText(getActivity(), json.getString("tip"), Toast.LENGTH_LONG).show();
-                                startPlay();
+                                startPlay(false);
                             } else {
                                 Toast.makeText(getActivity(), json.getString("tip"), Toast.LENGTH_LONG).show();
+                                startPlay(true);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -385,7 +386,7 @@ public class VideoIntroduceFragment extends Fragment {
             /**
              * 开始播放
              * */
-            void startPlay() {
+            void startPlay(Boolean isTryOut) {
                 Intent intent = new Intent(getActivity(), GoogleExoVideoActivity.class);
 
                 intent.putExtra("url", mData.getVideoUri());
@@ -393,6 +394,7 @@ public class VideoIntroduceFragment extends Fragment {
                 intent.putExtra("jump_price", Integer.parseInt(mData.getPrice()));
                 intent.putExtra("video_id", mData.getId());
                 intent.putExtra("enable_speed", mData.getEnableSpeed());
+                intent.putExtra("is_try_out", isTryOut);
                 startActivity(intent);
             }
 
