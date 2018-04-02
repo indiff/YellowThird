@@ -38,7 +38,7 @@ public class NewVersionInstall {
     Activity activity;
 
 
-    NewVersionInstall(Activity activity, UpdateVersion updateVersion) {
+    public NewVersionInstall(Activity activity, UpdateVersion updateVersion) {
         this.activity = activity;
         this.updateVersion = updateVersion;
     }

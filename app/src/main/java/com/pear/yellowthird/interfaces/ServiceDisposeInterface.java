@@ -167,4 +167,9 @@ public interface ServiceDisposeInterface {
      * */
     void sendAppCrashServer(String content);
 
+    /**
+     * 自动选择最好的服务器线路
+     * */
+    void autoChooseGoodService(Runnable success,Runnable fail);
+
 }

@@ -16,12 +16,14 @@ import com.pear.common.utils.net.HttpRequest;
 import com.pear.common.utils.strings.JasyptUtils;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.yellowthird.config.SystemConfig;
+import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.interfaces.ServiceDisposeInterface;
 import com.pear.yellowthird.vo.databases.BillVo;
 import com.pear.yellowthird.vo.databases.FriendsVo;
 import com.pear.yellowthird.vo.databases.UserVo;
 
 import org.apache.log4j.Logger;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -30,6 +32,8 @@ import java.net.URLEncoder;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -37,6 +41,7 @@ import okhttp3.Response;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -45,7 +50,9 @@ import rx.schedulers.Schedulers;
 
 public class ServiceDisposeImpl implements ServiceDisposeInterface {
 
-    /**日记*/
+    /**
+     * 日记
+     */
     private static Logger log = Logger.getLogger(ServiceDisposeImpl.class);
 
     /**
@@ -59,23 +66,32 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     //private static final String gServiceHost = "http://smalltadpole.net/";
     //等买了国内的域名再换吧。可能有部分网络解析这个域名不顺利，我自己虚拟机都试过好多次。
     //也有可能是香港公网抖动的问题。两种都有
-    private static final String gServiceHost = "http://36.255.220.149/";
-
-    //private static final String gServiceHost = "http://192.168.0.109:8080/";
+    private static String gServiceHost;//= "http://36.255.220.149/";
 
     private Handler mainHandler;
-
 
     public ServiceDisposeImpl() {
         mainHandler = new Handler(Looper.getMainLooper());
     }
+
+    //所有的备份域名
+    private BlockingQueue<String> allHostQueue = new LinkedBlockingQueue<String>() {{
+        boolean localPcTest = false;
+        if (localPcTest)
+            add("http://192.168.0.109:8080/");
+        else {
+            add("http://36.255.220.149/");
+            add("http://smallkedou.cn/");
+            add("http://smalltadpole.net/");
+        }
+    }};
 
     /**
      * 初始化设备id
      */
     public static void initDeviceId(Activity activity) {
         String androidID = Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
-        gDeviceId =  androidID + "_" + Build.SERIAL;
+        gDeviceId = androidID + "_" + Build.SERIAL;
         //gDeviceId = "9a254d943767ea2b_94ec3090";
         log.info("gDeviceId" + gDeviceId);
     }
@@ -210,7 +226,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                String response = requestByService(gServiceHost + "redbook/api/movie/play?id=" + id+"&version="+SystemConfig.VERSION);
+                String response = requestByService(gServiceHost + "redbook/api/movie/play?id=" + id + "&version=" + SystemConfig.VERSION);
                 if (!TextUtils.isEmpty(response))
                     subscriber.onNext(response);
                 else {
@@ -236,7 +252,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
                 subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread());
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
@@ -338,7 +354,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
 
     @Override
     public String getRechargeWebUrl() {
-        return gServiceHost + "redbook/api/pay/index?deviceId=" + gDeviceId+"&random="+System.currentTimeMillis();
+        return gServiceHost + "redbook/api/pay/index?deviceId=" + gDeviceId + "&random=" + System.currentTimeMillis();
     }
 
     @Override
@@ -492,7 +508,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         return Observable.create(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
-                String result="";
+                String result = "";
                 try {
                     result = requestByService(gServiceHost + "redbook/api/friendsHome/addComment?pid=" + id + "&content=" + URLEncoder.encode(content, "utf-8"));
                 } catch (UnsupportedEncodingException e) {
@@ -555,16 +571,60 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         }).start();
     }
 
+    /**
+     * 获取下一个服务器的host
+     */
+    private String getNextHost() {
+        try {
+            return allHostQueue.take();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void autoChooseGoodService(final Runnable success, final Runnable fail) {
+        if (allHostQueue.isEmpty())
+            fail.run();
+        else {
+            final String testHost = getNextHost();
+            Observable.create(new Observable.OnSubscribe<String>() {
+                @Override
+                public void call(Subscriber<? super String> subscriber) {
+                    String data = requestByService(
+                            testHost + "redbook/api/verify/handshake");
+                    subscriber.onNext(data);
+                    subscriber.onCompleted();
+                }
+            }).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            new Action1<String>() {
+                                @Override
+                                public void call(String data) {
+                                    if (!TextUtils.isEmpty(data) && "true".equals(data)) {
+                                        gServiceHost = testHost;
+                                        log.error("测试 testHost成功:" + testHost);
+                                        success.run();
+                                    } else {
+                                        log.error("测试 testHost失败:" + testHost);
+                                        autoChooseGoodService(success, fail);
+                                    }
+                                }
+                            });
+        }
+    }
+
 
     /**
      * 向服务器请求数据
      */
-    private String requestByService(String url) {
+    private String requestByService(String url, int timeoutMilli) {
         try {
             /**每一个请求都会全局加上deviceID*/
             boolean hasParam = url.contains("?");
 
-            url += (hasParam ? "&" : "?") + "deviceId=" + gDeviceId+getDebugPublicTimeParam();
+            url += (hasParam ? "&" : "?") + "deviceId=" + gDeviceId + getDebugPublicTimeParam();
             log.info("url:" + url);
 
             /*
@@ -573,8 +633,8 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             */
             //get对中文支持不好，全部改为post
             //String response = HttpRequest.sendGet(url);
-            String[] postParams=url.split("\\?");
-            String response = HttpRequest.sendPost(postParams[0],postParams[1]);
+            String[] postParams = url.split("\\?");
+            String response = HttpRequest.sendPost(postParams[0], postParams[1], timeoutMilli);
 
             //TODO 云端还没接
             //不加密了，云端一大堆bug
@@ -603,17 +663,23 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     }
 
     /**
+     * 向服务器请求数据
+     */
+    private String requestByService(String url) {
+        return requestByService(url, HttpRequest.TIME_OUT_SECONDS*1000);
+    }
+
+    /**
      * 获取调试的发布时间
-     * */
-    public String getDebugPublicTimeParam()
-    {
+     */
+    public String getDebugPublicTimeParam() {
         /**是否启用调试时间*/
-        Date queryDate=new Date(SystemConfig.getInstance().getDebugTimeSwitch()?SystemConfig.getInstance().getQueryTime():System.currentTimeMillis());
-        String dateFormat=
+        Date queryDate = new Date(SystemConfig.getInstance().getDebugTimeSwitch() ? SystemConfig.getInstance().getQueryTime() : System.currentTimeMillis());
+        String dateFormat =
                 new SimpleDateFormat("yyyy-MM-dd").format(queryDate)
-                        +"%20"
-                        +new SimpleDateFormat("HH:mm:ss").format(queryDate);
-        return "&publishTime="+dateFormat;
+                        + "%20"
+                        + new SimpleDateFormat("HH:mm:ss").format(queryDate);
+        return "&publishTime=" + dateFormat;
     }
 
 }

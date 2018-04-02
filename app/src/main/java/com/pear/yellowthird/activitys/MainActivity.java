@@ -33,6 +33,7 @@ import com.pear.yellowthird.adapter.abstracts.CommonCacheAdapterAbstract;
 import com.pear.yellowthird.config.SystemConfig;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.init.AllOnceInit;
+import com.pear.yellowthird.init.NewVersionInstall;
 import com.pear.yellowthird.interfaces.UpdateVersion;
 import com.pear.yellowthird.style.factory.StyleFragmentFactory;
 import com.pear.yellowthird.style.vo.BottomNavigationMenuVo;
@@ -188,22 +189,52 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
         if (serviceTest) {
             //先显示等待框
             loadingView.showPrepareLoadingView();
-            ServiceDisposeFactory.getInstance().getServiceDispose().queryMainMenu()
-                    .subscribe(new Action1<String>() {
+
+            ServiceDisposeFactory.getInstance()
+                    .getServiceDispose()
+                    .autoChooseGoodService(new Runnable() {
                         @Override
-                        public void call(String result) {
-                            //起码是获取成功了的
-                            //再等等吧
-                            isRequestByServiceSuccess = true;
-                            JsonUtil.write2ClassAsync(result, BottomNavigationMenuVo[].class)
-                                    .subscribe(new Action1<BottomNavigationMenuVo[]>() {
+                        public void run() {
+                            loadMainDate();
+                            checkNewVersion();
+                        }
+
+                        /**
+                         * 加载主页面的数据
+                         * */
+                        void loadMainDate()
+                        {
+                            ServiceDisposeFactory.getInstance().getServiceDispose().queryMainMenu()
+                                    .subscribe(new Action1<String>() {
                                         @Override
-                                        public void call(BottomNavigationMenuVo[] menus) {
-                                            adapter.setData(menus);
-                                            //隐藏等待框
-                                            loadingView.hide();
+                                        public void call(String result) {
+                                            //起码是获取成功了的
+                                            //再等等吧
+                                            isRequestByServiceSuccess = true;
+                                            JsonUtil.write2ClassAsync(result, BottomNavigationMenuVo[].class)
+                                                    .subscribe(new Action1<BottomNavigationMenuVo[]>() {
+                                                        @Override
+                                                        public void call(BottomNavigationMenuVo[] menus) {
+                                                            adapter.setData(menus);
+                                                            //隐藏等待框
+                                                            loadingView.hide();
+                                                        }
+                                                    });
                                         }
                                     });
+                        }
+
+                        /**
+                         * 检测新版本
+                         * */
+                        void checkNewVersion()
+                        {
+                            new NewVersionInstall(MainActivity.this,MainActivity.this).checkAndInstall();
+                        }
+                    }, new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(activity, "网络不给力，请检查网络设置", Toast.LENGTH_LONG).show();
                         }
                     });
         } else {
@@ -335,8 +366,8 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
                 @Override
                 public void call(Subscriber<? super Integer> subscriber) {
                     try {
-                        for (int timeDown = 10; timeDown >= 0; timeDown--) {
-                            Thread.sleep(1500);
+                        for (int timeDown = 20; timeDown >= 0; timeDown--) {
+                            Thread.sleep(1000);
                             subscriber.onNext(timeDown);
                         }
                     } catch (InterruptedException e) {

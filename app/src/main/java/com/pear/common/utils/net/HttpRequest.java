@@ -23,7 +23,7 @@ public class HttpRequest {
     /**
      * 超时时间
      */
-    public final static int TIME_OUT_SECONDS = 15;
+    public final static int TIME_OUT_SECONDS = 20;
 
     /**
      * 向指定URL发送GET方法的请求
@@ -91,8 +91,6 @@ public class HttpRequest {
         return result;
     }
 
-
-
     /**
      * 向指定URL发送POST方法的请求
      *
@@ -102,7 +100,8 @@ public class HttpRequest {
      *            请求参数，请求参数应该是name1=value1&name2=value2的形式。
      * @return URL所代表远程资源的响应
      */
-    public static String sendPost(String url, String param) {
+    public static String sendPost(String url, String param,int timeout)
+    {
         PrintWriter out = null;
         BufferedReader in = null;
         String result = "";
@@ -110,8 +109,9 @@ public class HttpRequest {
             URL realUrl = new URL(url);
             // 打开和URL之间的连接
             URLConnection conn = realUrl.openConnection();
-            conn.setConnectTimeout(TIME_OUT_SECONDS * 1000*30);
-            conn.setReadTimeout(TIME_OUT_SECONDS * 1000*30);
+            /**post 为什么延时要那么大，*30是为什么*/
+            conn.setConnectTimeout(timeout);
+            conn.setReadTimeout(timeout);
             // 设置通用的请求属性
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
@@ -151,6 +151,10 @@ public class HttpRequest {
             }
         }
         return result;
+    }
+
+    public static String sendPost(String url, String param) {
+        return sendPost(url, param,TIME_OUT_SECONDS*1000);
     }
 
 }
