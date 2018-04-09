@@ -254,68 +254,8 @@
                 app:sapcing="4dp"
                 />
 
-
-            <!--好看的分割线-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="17dp"
-                android:background="@color/colorMinorTitle" />
-
-            <!--评论标题-->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:text="评论"
-                android:textSize="17dp"
-                android:textColor="@color/colorTitle"
-                android:textStyle="bold" />
-
-            <!--用户的输入评论框-->
-            <LinearLayout
-                android:id="@+id/attract_focus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="12dp"
-                android:orientation="horizontal"
-                >
-                <!--Android取消EditText自动默认获取焦点行为-->
-
-                <!--左侧用户头像-->
-                <ImageView
-                    android:id="@+id/author_icon"
-                    android:layout_width="@dimen/comment.author.icon.width"
-                    android:layout_height="@dimen/comment.author.icon.height"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/author_head" />
-
-                <!--用户的输入评论框-->
-                <EditText
-                    android:id="@+id/input_comment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="3dp"
-                    android:background="@drawable/style_video_comment_input_sharp"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/colorMinorContent"
-                    android:imeOptions="actionSend"
-                    android:inputType="text"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:hint="快来说说你的感想吧"/>
-
-            </LinearLayout>
-
-            <!--评论列表-->
-
-            <com.pear.android.view.LinearLayoutLikeListView
-                android:id="@+id/comment_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp" />
+            <!--评论区域-->
+            <include layout="@layout/detail_comment_list" />
 
         </LinearLayout>
 

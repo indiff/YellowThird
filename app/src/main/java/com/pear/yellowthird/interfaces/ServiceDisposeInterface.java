@@ -1,7 +1,10 @@
 package com.pear.yellowthird.interfaces;
 
 import com.pear.yellowthird.vo.databases.BillVo;
+import com.pear.yellowthird.vo.databases.CommentVo;
+import com.pear.yellowthird.vo.databases.FastShakeVo;
 import com.pear.yellowthird.vo.databases.FriendsVo;
+import com.pear.yellowthird.vo.databases.TalkComment;
 import com.pear.yellowthird.vo.databases.UserVo;
 
 import java.util.List;
@@ -151,10 +154,9 @@ public interface ServiceDisposeInterface {
     Observable<Boolean> addFriendComment(Integer id,String content);
 
     /**
-     * 添加图片浏览次数
+     * 添加朋友圈浏览次数
      * */
     Boolean addFriendShowCount(Integer id);
-
 
     /**
      *  获取最新版本的更新包
@@ -171,5 +173,44 @@ public interface ServiceDisposeInterface {
      * 自动选择最好的服务器线路
      * */
     void autoChooseGoodService(Runnable success,Runnable fail);
+
+
+
+
+
+
+    /**获取快抖资源*/
+    /**
+     *  获取快抖集合
+     *  @return
+     * */
+    Observable<FastShakeVo[]> getFastShakeList();
+
+    /**
+     *  获取快抖指定视频的评论
+     *  @return
+     * */
+    Observable<String> getFastShakeCommentById(Integer id);
+
+    /**
+     * 给快抖指定视频添加评论
+     * */
+    Observable<Boolean> addFastShakeComment(Integer userId,Integer pid,String content);
+
+    /**
+     * 对某条快抖添加爱心
+     * */
+    Observable<Boolean> addFastShakeLove(Integer id);
+
+    /**
+     * 对某条快抖的评论点赞添加爱心
+     * */
+    Observable<Boolean> addFastShakeCommentGoodCount(Integer id);
+
+    /**
+     * 添加快抖浏览次数
+     * */
+    Observable<Boolean> addFastShakeShowCount(Integer id);
+
 
 }

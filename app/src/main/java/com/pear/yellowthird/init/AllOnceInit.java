@@ -19,7 +19,7 @@ public class AllOnceInit {
     /**
      * 初始化
      * */
-    public static void init(MainActivity activity)
+    public static void init(Activity activity)
     {
 
         SystemConfig.getInstance().init(activity);

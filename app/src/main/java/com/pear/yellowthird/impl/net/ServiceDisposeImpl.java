@@ -15,11 +15,16 @@ import com.pear.common.utils.net.FileUploadUtils;
 import com.pear.common.utils.net.HttpRequest;
 import com.pear.common.utils.strings.JasyptUtils;
 import com.pear.common.utils.strings.JsonUtil;
+import com.pear.databases.FastShakeDatabases;
 import com.pear.yellowthird.config.SystemConfig;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.interfaces.ServiceDisposeInterface;
 import com.pear.yellowthird.vo.databases.BillVo;
+import com.pear.yellowthird.vo.databases.CommentVo;
+import com.pear.yellowthird.vo.databases.FastShakeVo;
 import com.pear.yellowthird.vo.databases.FriendsVo;
+import com.pear.yellowthird.vo.databases.ImageIntroduceVo;
+import com.pear.yellowthird.vo.databases.TalkComment;
 import com.pear.yellowthird.vo.databases.UserVo;
 
 import org.apache.log4j.Logger;
@@ -76,10 +81,13 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
 
     //所有的备份域名
     private BlockingQueue<String> allHostQueue = new LinkedBlockingQueue<String>() {{
-        boolean localPcTest = false;
+        boolean localPcTest = true;
         if (localPcTest)
-            add("http://192.168.0.109:8080/");
-        else {
+        {
+            String localHost="http://192.168.0.109:8080/";
+            gServiceHost=localHost;
+            add(localHost);
+        }else {
             add("http://36.255.220.149/");
             add("http://smallkedou.cn/");
             add("http://smalltadpole.net/");
@@ -616,6 +624,110 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     }
 
 
+
+    @Override
+    public Observable<FastShakeVo[]> getFastShakeList() {
+        return Observable.create(new Observable.OnSubscribe<FastShakeVo[]>() {
+            @Override
+            public void call(Subscriber<? super FastShakeVo[]> subscriber) {
+                String data = requestByService(gServiceHost + "redbook/api/fast_shake/list");
+                if (!TextUtils.isEmpty(data))
+                {
+                    FastShakeVo[] list = JsonUtil.write2Class(data, FastShakeVo[].class);
+                    subscriber.onNext(list);
+                } else
+                    errorCommonTip();
+                subscriber.onCompleted();
+            }
+        }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<String> getFastShakeCommentById(final Integer id) {
+        return Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                String data = requestByService(gServiceHost + "redbook/api/fast_shake/listComment?id="+id);
+                if (!TextUtils.isEmpty(data))
+                    subscriber.onNext(data);
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
+            }
+        }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<Boolean> addFastShakeComment(final Integer userId,final Integer pid,final String content) {
+        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+            @Override
+            public void call(Subscriber<? super Boolean> subscriber) {
+                String data = "";
+                try {
+                    data = requestByService(gServiceHost + "redbook/api/fast_shake/addComment?user.id="+userId+"&pid="+pid+"&content="+URLEncoder.encode(content, "utf-8"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                if (!TextUtils.isEmpty(data)&&"true".equals(data))
+                    subscriber.onNext(true);
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
+            }
+        }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<Boolean> addFastShakeLove(final Integer id) {
+        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+            @Override
+            public void call(Subscriber<? super Boolean> subscriber) {
+                String data = requestByService(gServiceHost + "redbook/api/fast_shake/likeFastShake?id="+id);
+                if (!TextUtils.isEmpty(data)&&"true".equals(data))
+                    subscriber.onNext(true);
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
+            }
+        }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<Boolean> addFastShakeShowCount(final Integer id) {
+        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+            @Override
+            public void call(Subscriber<? super Boolean> subscriber) {
+                String data = requestByService(gServiceHost + "redbook/api/fast_shake/addPlayCount?id="+id);
+                if (!TextUtils.isEmpty(data)&&"true".equals(data))
+                    subscriber.onNext(true);
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<Boolean> addFastShakeCommentGoodCount(final Integer id) {
+        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+            @Override
+            public void call(Subscriber<? super Boolean> subscriber) {
+                String data = requestByService(gServiceHost + "redbook/api/fast_shake/addCommentGoodCount?id="+id);
+                if (!TextUtils.isEmpty(data)&&"true".equals(data))
+                    subscriber.onNext(true);
+                else
+                    errorCommonTip();
+                subscriber.onCompleted();
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     /**
      * 向服务器请求数据
      */
@@ -675,11 +787,8 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     public String getDebugPublicTimeParam() {
         /**是否启用调试时间*/
         Date queryDate = new Date(SystemConfig.getInstance().getDebugTimeSwitch() ? SystemConfig.getInstance().getQueryTime() : System.currentTimeMillis());
-        String dateFormat =
-                new SimpleDateFormat("yyyy-MM-dd").format(queryDate)
-                        + "%20"
-                        + new SimpleDateFormat("HH:mm:ss").format(queryDate);
-        return "&publishTime=" + dateFormat;
+        String dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(queryDate);
+        return "&publishTime=" + dateFormat.replace(" ","%20");
     }
 
 }

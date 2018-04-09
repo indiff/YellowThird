@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--仿制抖音的主界面-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/_image_sample_vertical"
+    >
+
+    <!--视频集合-->
+    <com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:rvp_triggerOffset="0.1"
+        app:rvp_singlePageFling="true"
+        android:clipToPadding="false"
+        />
+
+    <!--点击发表抖音-->
+    <ImageView
+        android:id="@+id/add_publish"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/common.screen.margin"
+        android:layout_marginRight="@dimen/common.screen.margin"
+        android:adjustViewBounds="true"
+        android:maxHeight="9999dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/_friend_take_picture" />
+
+</RelativeLayout>

@@ -45,7 +45,7 @@ import com.google.android.exoplayer2.util.Util;
 import com.pear.yellowthird.activitys.R;
 
 /** Manages the {@link ExoPlayer}, the IMA plugin and all video playback. */
-/* package */ final class PlayerManager implements AdsMediaSource.MediaSourceFactory {
+/* package */ public final class PlayerManager implements AdsMediaSource.MediaSourceFactory {
 
   private final DataSource.Factory manifestDataSourceFactory;
   private final DataSource.Factory mediaDataSourceFactory;

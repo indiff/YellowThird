@@ -9,6 +9,8 @@ import java.sql.Date;
 
 public class UserVo  implements Serializable {
 
+    Integer id;
+
     /**用户名称*/
     String name;
 
@@ -84,7 +86,18 @@ public class UserVo  implements Serializable {
     public void setExpire(Date expire) {
         this.expire = expire;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Boolean getIsVip() {
+        if(null==expire)
+            return false;
         return expire.getTime()>=new Date(System.currentTimeMillis()).getTime();
     }
 
@@ -98,9 +111,8 @@ public class UserVo  implements Serializable {
         if (name != null ? !name.equals(userVo.name) : userVo.name != null) return false;
         if (thumb != null ? !thumb.equals(userVo.thumb) : userVo.thumb != null) return false;
         if (gold != null ? !gold.equals(userVo.gold) : userVo.gold != null) return false;
-        if (isAdmin != null ? !isAdmin.equals(userVo.isAdmin) : userVo.isAdmin != null)
-            return false;
         if (isVip != null ? !isVip.equals(userVo.isVip) : userVo.isVip != null) return false;
+        if (isAdmin != null ? !isAdmin.equals(userVo.isAdmin) : userVo.isAdmin != null) return false;
         return expire != null ? expire.equals(userVo.expire) : userVo.expire == null;
     }
 
