@@ -251,6 +251,7 @@ public class PlaybackControlView extends FrameLayout {
   private final Formatter formatter;
   private final Timeline.Period period;
   private final Timeline.Window window;
+  private PlayPositionChangeInterface playPositionChange;
 
   private final Drawable repeatOffButtonDrawable;
   private final Drawable repeatOneButtonDrawable;
@@ -823,6 +824,8 @@ public class PlaybackControlView extends FrameLayout {
     }
     if (positionView != null && !scrubbing) {
       positionView.setText(Util.getStringForTime(formatBuilder, formatter, position));
+      if(null!=playPositionChange)
+        playPositionChange.change(position);
     }
     if (timeBar != null) {
       timeBar.setPosition(position);
@@ -1146,6 +1149,14 @@ public class PlaybackControlView extends FrameLayout {
 
   }
 
+  public PlayPositionChangeInterface getPlayPositionChange() {
+    return playPositionChange;
+  }
+
+  public void setPlayPositionChange(PlayPositionChangeInterface playPositionChange) {
+    this.playPositionChange = playPositionChange;
+  }
+
   public View getJumpButton() {
     return jumpButton;
   }
@@ -1170,5 +1181,16 @@ public class PlaybackControlView extends FrameLayout {
     return titleView;
   }
 
+
+  /**
+   * 播放进度的变更
+   * */
+  public interface PlayPositionChangeInterface
+  {
+    /**
+     * @param currentTimeMs 当前播放下标对应的毫秒数
+     * */
+    void change(long currentTimeMs);
+  }
 
 }
