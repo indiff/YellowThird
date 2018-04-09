@@ -18,9 +18,13 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
+import com.google.android.exoplayer2.ui.PlaybackControlView;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.pear.android.utils.DensityUtils;
+import com.pear.android.utils.GlideUtils;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.activitys.video.PlayerManager;
@@ -30,6 +34,7 @@ import com.pear.yellowthird.interfaces.CommentDisposeByServiceInterface;
 import com.pear.yellowthird.view.DetailCommentListView;
 import com.pear.yellowthird.vo.databases.FastShakeVo;
 import com.pear.yellowthird.vo.databases.TalkComment;
+import com.pear.yellowthird.vo.databases.UserVo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,14 +75,7 @@ public class FastShakeAdapter extends BaseRecycleViewAdapter implements View.OnC
 
         holder.fastShakeVo=fastShakeVo;
 
-        holder.playerView.getController().getCloseButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /**先停止播放*/
-                //holder.player.reset();
-                FastShakeAdapter.this.onClick(v);
-            }
-        });
+        holder.playerView.getController().getCloseButton().setOnClickListener(this);
 
         /**重复播放，妈的重复播放需要重新loading。流量伤不起啊。等以后有空优化好短视频全缓存再说吧。*/
 
@@ -90,11 +88,53 @@ public class FastShakeAdapter extends BaseRecycleViewAdapter implements View.OnC
                 holder.player.getPlayer().setPlayWhenReady(true);*/
             }
         });
-
+        trySeeImpose(holder);
         refreshComment(holder,fastShakeVo);
         loveOnClick(holder.loveIconView,holder,fastShakeVo);
         listenerClickShowComment(holder.commentIconView,holder);
     }
+
+    /**
+     * 非会员设置试看限制
+     */
+    void trySeeImpose(final FastShakeViewHolder holder)
+    {
+        ServiceDisposeFactory.getInstance().getServiceDispose()
+                .getUser()
+                .subscribe(new Action1<UserVo>() {
+                    @Override
+                    public void call(UserVo userVo) {
+                        if(userVo.getIsVip())
+                            return;
+                        setImpose();
+                    }
+
+                    /**
+                     * 设置限制
+                     * */
+                    void setImpose()
+                    {
+                        holder.playerView.getController().setPlayPositionChange(new PlaybackControlView.PlayPositionChangeInterface() {
+                            boolean hasTip=false;
+                            @Override
+                            public void change(long currentTimeMs) {
+                                int seconds20=1000*20;
+                                if(seconds20>=currentTimeMs)
+                                    return;
+                                if(!hasTip)
+                                {
+                                    hasTip=true;
+                                    Toast.makeText(activity,"由于视频带宽极其昂贵，非会员每部只能看前面20秒。请先充值会员",Toast.LENGTH_LONG).show();
+                                }
+                                if(null==holder.player||null==holder.player.getPlayer())
+                                    return;
+                                holder.player.getPlayer().setPlayWhenReady(false);
+                            }
+                        });
+                    }
+                });
+    }
+
 
     /**
      * 选择当前界面默认播放

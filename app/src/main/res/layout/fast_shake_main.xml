@@ -4,7 +4,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/_image_sample_vertical"
+    android:background="@drawable/_main_loading_3"
     >
 
     <!--视频集合-->

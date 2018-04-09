@@ -80,6 +80,8 @@ public class FastShakeActivity extends AppCompatActivity implements View.OnClick
                         adapter.setDatas(new ArrayList<>(Arrays.asList(data)));
                     }
                 });
+
+        Toast.makeText(this,"向下滑动切换短视频",Toast.LENGTH_LONG).show();
     }
 
     @Override

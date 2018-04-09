@@ -137,6 +137,21 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
                     System.out.println("is not null position:" + position);
                 } else
                     System.out.println("is null position:" + position);
+
+                selectActiveActivity(position);
+            }
+
+            /**
+             * 选中子页，默认激活指定活动
+             * */
+            void selectActiveActivity(int position)
+            {
+                BottomNavigationMenuVo menuVo=adapter.getData(position);
+                //选中快抖，默认激活快抖全屏活动
+                if("fast_shake".equals(menuVo.getStyle()))
+                {
+                    startActivity(new Intent(activity, FastShakeActivity.class));
+                }
             }
 
             @Override
@@ -273,6 +288,11 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
         public Fragment buildItem(int position) {
             StyleType styleType = mData[position];
             return StyleFragmentFactory.create(styleType);
+        }
+
+        public BottomNavigationMenuVo getData(int position)
+        {
+            return mData[position];
         }
 
         /**
