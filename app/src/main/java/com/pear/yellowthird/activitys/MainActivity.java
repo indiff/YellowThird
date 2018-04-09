@@ -302,6 +302,9 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
 
             else if ("introduction".equals(iconType))
                 return R.drawable.main_nav_introduction;
+
+            else if ("fast_shake".equals(iconType))
+                return R.drawable.main_nav_fast_shake;
             //TODO
             //先统一弄一张死的图标
             return R.drawable.main_nav_account;

@@ -30,7 +30,7 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
  * 评论的适配器
  */
 
-public abstract class CommentListAdapter extends BaseAdapter {
+public /*abstract*/ class CommentListAdapter extends BaseAdapter {
 
     /**
      * 日记
@@ -122,12 +122,13 @@ public abstract class CommentListAdapter extends BaseAdapter {
                 Integer position = (Integer) view.getTag();
                 final TalkComment currentData = mTalk.get(position);
                 changeToClickGood(currentData);
+                /*
                 addCommentClickGood(currentData.getId())
                         .subscribe(new Action1<Boolean>() {
                             @Override
                             public void call(Boolean result) {
                             }
-                        });
+                        });*/
             }
 
             /**
@@ -211,9 +212,10 @@ public abstract class CommentListAdapter extends BaseAdapter {
         }
     }
 
+    //如果之类加上抽象类，调试模式会无限卡死。我日。什么鬼
     /**
      * 给指定评论点赞
      */
-    public abstract Observable<Boolean> addCommentClickGood(Integer id);
+    //public abstract Observable<Boolean> addCommentClickGood(Integer id);
 
 }

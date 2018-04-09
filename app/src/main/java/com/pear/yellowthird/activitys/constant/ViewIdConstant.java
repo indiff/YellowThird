@@ -12,4 +12,6 @@ public class ViewIdConstant {
 
     public static int GCommunityPageId= GVideoPageId+1;
 
+    public static int GDetailCommentListId=100022301+1;
+
 }

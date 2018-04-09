@@ -148,7 +148,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                String response = requestByService(gServiceHost + "redbook/api/resourceType/list?1=1");
+                String response = requestByService(gServiceHost + "redbook/api/resourceType/list?version=" + SystemConfig.VERSION);
                 if (!TextUtils.isEmpty(response))
                     subscriber.onNext(response);
                 else

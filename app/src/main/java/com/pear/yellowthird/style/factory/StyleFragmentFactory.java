@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.yellowthird.activitys.fragments.detailContent.CommonContentFragment;
 import com.pear.yellowthird.activitys.fragments.detailContent.CommonPageFragment;
+import com.pear.yellowthird.activitys.fragments.detailContent.FastShakeFragment;
 import com.pear.yellowthird.activitys.fragments.detailContent.ImagePageFragment;
 import com.pear.yellowthird.activitys.fragments.detailContent.NewsFragment;
 import com.pear.yellowthird.activitys.fragments.detailContent.VideoIntroduceFragment;
@@ -79,6 +80,11 @@ public class StyleFragmentFactory {
      * 网页的界面
      * */
     public static final String WEB_STYLE = "web";
+
+    /**
+     * 快手的界面
+     * */
+    public static final String FAST_SHAKE_STYLE = "fast_shake";
 
     public static Fragment create(StyleType styleType) {
         String style = styleType.getStyle();
@@ -172,6 +178,11 @@ public class StyleFragmentFactory {
             case WEB_STYLE:
             {
                 WebFragment fragment= WebFragment.newInstance(data);
+                return fragment;
+            }
+            case FAST_SHAKE_STYLE:
+            {
+                Fragment fragment= FastShakeFragment.newInstance();
                 return fragment;
             }
             default:

@@ -15,8 +15,8 @@
         android:layout_height="match_parent"
         android:keepScreenOn="true"
         android:background="@android:color/black"
-        />
-
+        /><!--
+-->
     <!--作者和标题-->
     <LinearLayout
         android:id="@+id/_name_title_line"
@@ -24,42 +24,36 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="35dp"
         android:layout_marginLeft="@dimen/common.screen.margin"
         android:layout_marginRight="80dp"
         android:orientation="vertical">
 
-        <LinearLayout
+        <!--作者名称-->
+        <TextView
+            android:id="@+id/name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <!--作者名称-->
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="#ffffff"
-                android:textSize="15dp"
-                android:text="#含雪"
-                />
-            <!--播放次数-->
-            <TextView
-                android:id="@+id/play_count"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="top"
-                android:layout_marginLeft="10dp"
-                android:textColor="#f8fcfd"
-                android:textSize="11dp"
-                android:text="100次播放"
-                />
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:textColor="#ffffff"
+            android:textSize="15dp"
+            android:text="#含雪"
+            />
+        <!--播放次数-->
+        <TextView
+            android:id="@+id/play_count"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="3dp"
+            android:textColor="#f8fcfd"
+            android:textSize="11dp"
+            android:text="1小时前*100次播放"
+            />
         <!--标题-->
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="10dp"
             android:textColor="#f8fcfd"
             android:textSize="14dp"
             android:text="第一次陪大闺女完.闺女问我会不会有小爱心?来吧亲爱的逗游们。小爱心点起来"

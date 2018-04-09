@@ -66,7 +66,7 @@ public class FastShakeAdapter extends BaseRecycleViewAdapter implements View.OnC
         holder.nameView.setText("@"+fastShakeVo.getUser().getName());
         holder.loveCountView.setText(String.valueOf(fastShakeVo.getGoodCount()));
         holder.titleView.setText(fastShakeVo.getTitle());
-        holder.playCountView.setText(fastShakeVo.getPlayCount()+"次播放");
+        holder.playCountView.setText(fastShakeVo.getPublishTime()+"•"+fastShakeVo.getPlayCount()+"次播放");
 
         holder.fastShakeVo=fastShakeVo;
 
@@ -74,7 +74,7 @@ public class FastShakeAdapter extends BaseRecycleViewAdapter implements View.OnC
             @Override
             public void onClick(View v) {
                 /**先停止播放*/
-                holder.player.reset();
+                //holder.player.reset();
                 FastShakeAdapter.this.onClick(v);
             }
         });

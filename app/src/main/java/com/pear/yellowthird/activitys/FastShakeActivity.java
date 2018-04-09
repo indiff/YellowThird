@@ -22,8 +22,11 @@ import com.pear.yellowthird.init.AllOnceInit;
 import com.pear.yellowthird.style.vo.BottomNavigationMenuVo;
 import com.pear.yellowthird.vo.databases.FastShakeVo;
 
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import rx.Observable;
 import rx.functions.Action1;
@@ -44,6 +47,8 @@ public class FastShakeActivity extends AppCompatActivity implements View.OnClick
 
     /**点击发表抖音*/
     ImageView addPublishView;
+
+    private Logger log = Logger.getLogger(getClass().getSimpleName());
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -75,6 +80,19 @@ public class FastShakeActivity extends AppCompatActivity implements View.OnClick
                         adapter.setDatas(new ArrayList<>(Arrays.asList(data)));
                     }
                 });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        adapter.setDatas(new ArrayList<>());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        log.debug("onDestroy");
+
     }
 
     @Override

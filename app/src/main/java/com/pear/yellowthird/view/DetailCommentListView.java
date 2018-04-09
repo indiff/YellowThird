@@ -18,6 +18,7 @@ import com.pear.android.utils.SoftInputUtils;
 import com.pear.android.view.LinearLayoutLikeListView;
 import com.pear.common.utils.strings.JsonUtil;
 import com.pear.yellowthird.activitys.R;
+import com.pear.yellowthird.activitys.constant.ViewIdConstant;
 import com.pear.yellowthird.adapter.CommentListAdapter;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.interfaces.CommentDisposeByServiceInterface;
@@ -77,11 +78,11 @@ public class DetailCommentListView {
         this.contentView=contentView;
         this.seqId=seqId;
         this.commentDisposeByService=commentDisposeByService;
-        init();
+        initView();
     }
 
     /**初始化界面*/
-    void init()
+    private void initView()
     {
         /**左侧用户头像*/
         {
@@ -118,19 +119,25 @@ public class DetailCommentListView {
         {
 
             LinearLayoutLikeListView commentList = contentView.findViewById(R.id.comment_list);
-            mCommentAdapter = new CommentListAdapter(context) {
+
+            //如果之类加上抽象类，调试模式会无限卡死。我日。什么鬼
+            mCommentAdapter = new CommentListAdapter(context) ;{/*
                 @Override
                 public Observable<Boolean> addCommentClickGood(Integer id) {
                     return commentDisposeByService.addCommentClickGood(id);
-                }
+                }*/
             };
+
             commentList.setAdapter(mCommentAdapter);
+
         }
 
         onAddTalkComment();
         refreshUserIcon();
         refreshComment();
     }
+
+
 
     /**
      * 添加评 论
@@ -217,5 +224,4 @@ public class DetailCommentListView {
                     }
                 });
     }
-
 }

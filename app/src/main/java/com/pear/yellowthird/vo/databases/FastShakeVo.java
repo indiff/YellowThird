@@ -19,6 +19,9 @@ public class FastShakeVo {
     /**播放地址*/
     String videoUri;
 
+    /**发表时间*/
+    String publishTime;
+
     /**
      * 播放次数
      * */
@@ -80,5 +83,13 @@ public class FastShakeVo {
 
     public void setPlayCount(Integer playCount) {
         this.playCount = playCount;
+    }
+
+    public String getPublishTime() {
+        return publishTime;
+    }
+
+    public void setPublishTime(String publishTime) {
+        this.publishTime = publishTime;
     }
 }
