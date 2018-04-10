@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.pear.android.listener.RefreshPageChangeListener;
 import com.pear.yellowthird.activitys.R;
@@ -108,6 +109,8 @@ public class CommonPageFragment<DATA_TYPE> extends Fragment{
             public void onPageScrollStateChanged(int state) {
             }
         });
+
+        Toast.makeText(getContext(),"左右滑动切换资源",Toast.LENGTH_SHORT).show();
         //indicator.setViewPager(pager);
         //indicator.setOnPageChangeListener(new RefreshPageChangeListener(adapter));
         return mContentView;

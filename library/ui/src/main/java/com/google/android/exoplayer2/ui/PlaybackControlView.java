@@ -610,7 +610,8 @@ public class PlaybackControlView extends FrameLayout {
       if (visibilityListener != null) {
         visibilityListener.onVisibilityChange(getVisibility());
       }
-      removeCallbacks(updateProgressAction);
+      //隐藏控制器也要更新ui，否则播放进度监听就失效了
+      //removeCallbacks(updateProgressAction);
       removeCallbacks(hideAction);
       hideAtMs = C.TIME_UNSET;
     }
@@ -743,7 +744,8 @@ public class PlaybackControlView extends FrameLayout {
   }
 
   private void updateProgress() {
-    if (!isVisible() || !isAttachedToWindow) {
+    //隐藏控制器也要更新ui，否则播放进度监听就失效了
+    if (/*!isVisible() || */!isAttachedToWindow) {
       return;
     }
 
@@ -1181,6 +1183,14 @@ public class PlaybackControlView extends FrameLayout {
     return titleView;
   }
 
+  /**
+   * 取消进度更新定时器
+   * */
+  /*
+  public void removeProgressCallbacks()
+  {
+    removeCallbacks(updateProgressAction);
+  }*/
 
   /**
    * 播放进度的变更

@@ -22,11 +22,14 @@ import com.pear.yellowthird.activitys.video.GoogleExoVideoActivity;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.interfaces.CommentDisposeByServiceInterface;
 import com.pear.yellowthird.view.DetailCommentListView;
+import com.pear.yellowthird.vo.databases.FastShakeVo;
 import com.pear.yellowthird.vo.databases.VideoIntroduceVo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import rx.Observable;
@@ -156,8 +159,7 @@ public class VideoIntroduceFragment extends Fragment {
             TextView typeView = mRootView.findViewById(R.id.type);
             typeView.setText("•" + mData.getTopic());
         }
-
-        /**播放量*/
+       /**播放量*/
         {
             TextView allPlayCountView = mRootView.findViewById(R.id.all_play_count);
             allPlayCountView.setText("•" + mData.getPlayCount() + "次播放");

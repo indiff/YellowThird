@@ -247,7 +247,7 @@ public class AccountInfoFragment extends Fragment {
             return;
         refreshUserHeadIconView();
         userNameView.setText(user.getName());
-        goldView.setText(new SimpleDateFormat("yyyy/MM/dd").format(user.getExpire()));
+        goldView.setText(new SimpleDateFormat("yyyy/MM/dd HH:mm").format(user.getExpire()));
         debugView.setVisibility(user.getIsAdmin()?View.VISIBLE:View.GONE);
     }
 
