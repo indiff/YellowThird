@@ -44,6 +44,8 @@ import com.viewpagerindicator.MainNavPageIndicator;
 import org.apache.log4j.Logger;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 import rx.Observable;
@@ -191,6 +193,9 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
             restartApp();
         }
         lastUserUseMainViewTime = System.currentTimeMillis();
+
+        System.out.println("test time:" +  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())+",lastUserUseMainViewTime:"+lastUserUseMainViewTime);
+
     }
 
 
