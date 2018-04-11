@@ -110,7 +110,6 @@ public class CommonPageFragment<DATA_TYPE> extends Fragment{
             }
         });
 
-        Toast.makeText(getContext(),"左右滑动切换资源",Toast.LENGTH_SHORT).show();
         //indicator.setViewPager(pager);
         //indicator.setOnPageChangeListener(new RefreshPageChangeListener(adapter));
         return mContentView;

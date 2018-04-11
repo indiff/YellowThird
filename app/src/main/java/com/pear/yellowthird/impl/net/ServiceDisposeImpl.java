@@ -81,7 +81,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
 
     //所有的备份域名
     private BlockingQueue<String> allHostQueue = new LinkedBlockingQueue<String>() {{
-        boolean localPcTest = true;
+        boolean localPcTest = false;
         if (localPcTest)
         {
             String localHost="http://192.168.0.109:8080/";

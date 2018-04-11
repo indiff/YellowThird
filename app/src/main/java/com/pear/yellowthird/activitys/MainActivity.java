@@ -105,6 +105,10 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        loadingView = new LoadingView();
+        //先显示等待框,否则会白屏几秒
+        loadingView.showPrepareLoadingView();
+
         activity = this;
         setVersionCode();
         AllOnceInit.init(this);
@@ -116,8 +120,6 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
             /**几乎透明*/
             backgroundDrawable.setAlpha(40);
         }
-
-        loadingView = new LoadingView();
         adapter = new MainBottomMenuAdapter(getSupportFragmentManager());
         pager = findViewById(R.id.pager);
         pager.setAdapter(adapter);
@@ -204,11 +206,10 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
      */
     private void requestDataByService() {
 
+        final Context that=this;
         /**连接服务器测试*/
         boolean serviceTest = true;
         if (serviceTest) {
-            //先显示等待框
-            loadingView.showPrepareLoadingView();
 
             ServiceDisposeFactory.getInstance()
                     .getServiceDispose()
@@ -240,6 +241,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
                                                             loadingView.hide();
                                                         }
                                                     });
+                                            Toast.makeText(that,"左右滑动切换资源",Toast.LENGTH_LONG).show();
                                         }
                                     });
                         }
