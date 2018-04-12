@@ -53,18 +53,34 @@ import com.pear.yellowthird.activitys.R;
   private SimpleExoPlayer player;
   private long contentPosition;
 
+  /**
+   * 缓存进度控制
+   * */
+  public enum LoadingBuffer
+  {
+    fluencyLoadingBuffer, /**比较快速的*/
+    spareFlowLoadingBuffer/**节省流量的*/
+  }
+
+  LoadingBuffer loadingBuffer;
+
   String url;
 
   public PlayerManager(Context context,String url) {
+    this(context,url,LoadingBuffer.fluencyLoadingBuffer);
+  }
+
+  public PlayerManager(Context context,String url,LoadingBuffer loadingBuffer) {
     this.url=url;
+    this.loadingBuffer=loadingBuffer;
     manifestDataSourceFactory =
-        new DefaultDataSourceFactory(
-            context, Util.getUserAgent(context, context.getString(R.string.app_name)));
+            new DefaultDataSourceFactory(
+                    context, Util.getUserAgent(context, context.getString(R.string.app_name)));
     mediaDataSourceFactory =
-        new DefaultDataSourceFactory(
-            context,
-            Util.getUserAgent(context, context.getString(R.string.app_name)),
-            new DefaultBandwidthMeter());
+            new DefaultDataSourceFactory(
+                    context,
+                    Util.getUserAgent(context, context.getString(R.string.app_name)),
+                    new DefaultBandwidthMeter());
   }
 
   public void init(Context context, SimpleExoPlayerView simpleExoPlayerView) {
@@ -77,19 +93,13 @@ import com.pear.yellowthird.activitys.R;
     // Create a player instance.
 
     /*,new FullLoadControl() 如果全部加载，三级片百分百报内存溢出。我日，这里只能期望华为云中途不要关掉连接了，否则我就死定了。没法搞的定了*/
+    //全部加载。流量费你给的起吗？
     //其实这里控制好maxBufferMs和minBufferMs的差值就好了，其实就是一直在云端查数据
-    DefaultLoadControl loadControl=new DefaultLoadControl(
-            new DefaultAllocator(true, C.DEFAULT_BUFFER_SEGMENT_SIZE),
-            1000*90,
-            1000*105,
-            DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS,
-            DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_MS,
-            DefaultLoadControl.DEFAULT_TARGET_BUFFER_BYTES,
-            DefaultLoadControl.DEFAULT_PRIORITIZE_TIME_OVER_SIZE_THRESHOLDS);
+
     player = ExoPlayerFactory.newSimpleInstance(
             new DefaultRenderersFactory(context),
             trackSelector,
-            loadControl);
+            getLoadControl());
 
     //ExoPlayerFactory.newSimpleInstance(context, trackSelector);
 
@@ -109,6 +119,31 @@ import com.pear.yellowthird.activitys.R;
     // Prepare the player with the source.
     player.seekTo(contentPosition);
     player.prepare(contentMediaSource);
+  }
+
+  /**
+   * 获取缓存控制算法
+   * */
+  DefaultLoadControl getLoadControl()
+  {
+
+    /**比较流畅的可以播放的缓存设置*/
+    int minBufferMs=1000*90;
+    int maxBufferMs=1000*105;
+    if(loadingBuffer==LoadingBuffer.spareFlowLoadingBuffer)
+    {
+      minBufferMs=1000*10;
+      maxBufferMs=1000*15;
+    }
+
+    return new DefaultLoadControl(
+            new DefaultAllocator(true, C.DEFAULT_BUFFER_SEGMENT_SIZE),
+            minBufferMs,
+            maxBufferMs,
+            DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS,
+            DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_MS,
+            DefaultLoadControl.DEFAULT_TARGET_BUFFER_BYTES,
+            DefaultLoadControl.DEFAULT_PRIORITIZE_TIME_OVER_SIZE_THRESHOLDS);
   }
 
   public void reset() {

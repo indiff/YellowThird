@@ -118,13 +118,15 @@ public class FastShakeAdapter extends BaseRecycleViewAdapter implements View.OnC
                             boolean hasTip=false;
                             @Override
                             public void change(long currentTimeMs) {
-                                int seconds20=1000*20;
-                                if(seconds20>=currentTimeMs)
+                                //20秒太多了。没人充钱
+                                //10秒试试
+                                int seconds10=1000*10;
+                                if(seconds10>=currentTimeMs)
                                     return;
                                 if(!hasTip)
                                 {
                                     hasTip=true;
-                                    Toast.makeText(activity,"由于视频带宽极其昂贵，非会员每部只能看前面20秒。请先充值会员",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(activity,"由于视频带宽极其昂贵，非会员每部只能看前面10秒。请先充值会员",Toast.LENGTH_LONG).show();
                                 }
                                 if(null==holder.player||null==holder.player.getPlayer())
                                     return;
@@ -144,9 +146,12 @@ public class FastShakeAdapter extends BaseRecycleViewAdapter implements View.OnC
         //等真正选中了之后再暂停。实际上这个体验也还不错。暂时就这样吧
         /* */
         FastShakeViewHolder fastShakeHolder=((FastShakeViewHolder)holder);
-        fastShakeHolder.player=new PlayerManager(activity,fastShakeHolder.fastShakeVo.getVideoUri());
+        fastShakeHolder.player=new PlayerManager(activity,fastShakeHolder.fastShakeVo.getVideoUri(),PlayerManager.LoadingBuffer.spareFlowLoadingBuffer);
         fastShakeHolder.player.init(activity, fastShakeHolder.playerView);
         fastShakeHolder.player.getPlayer().setPlayWhenReady(true);
+
+        ///短视频还快进尼玛啊
+        fastShakeHolder.playerView.getController().getTimeBar().setEnabled(false);
 
         /**播放一次就添加一次浏览次数*/
         ServiceDisposeFactory.getInstance().getServiceDispose().addFastShakeShowCount(fastShakeHolder.fastShakeVo.getId())
