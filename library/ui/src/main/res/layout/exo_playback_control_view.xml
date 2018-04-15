@@ -86,7 +86,7 @@
             android:background="@drawable/btn_bg_black"
             android:textColor="#ffffff"
             android:textSize="15dp"
-            android:text="填满宽度"
+            android:text="左右全屏"
             />
         <Button
             android:id="@id/height_stretch"
@@ -97,7 +97,7 @@
             android:background="@drawable/btn_bg_black"
             android:textColor="#ffffff"
             android:textSize="15dp"
-            android:text="填满高度"
+            android:text="上下全屏"
             />
     </LinearLayout>
 
