@@ -371,6 +371,8 @@ public final class SimpleExoPlayerView extends FrameLayout {
     } else {
       this.controller = null;
     }
+
+    this.controller.setStretchViewOnClick(new StretchViewOnClick());
     this.controllerShowTimeoutMs = controller != null ? controllerShowTimeoutMs : 0;
     this.controllerHideOnTouch = controllerHideOnTouch;
     this.controllerAutoShow = controllerAutoShow;
@@ -1035,4 +1037,31 @@ public final class SimpleExoPlayerView extends FrameLayout {
   public void setPlayFinishListener(Runnable playFinishListener) {
     this.playFinishListener = playFinishListener;
   }
+
+
+
+
+
+
+
+
+  /**
+   * 拉伸页面点击
+   * */
+  class StretchViewOnClick implements View.OnClickListener
+  {
+    @Override
+    public void onClick(View view) {
+      int resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM;
+      if(view.getId()==R.id.full_stretch)
+        resizeMode=AspectRatioFrameLayout.RESIZE_MODE_ZOOM;
+      else if(view.getId()==R.id.width_stretch)
+        resizeMode=AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH;
+      else if(view.getId()==R.id.height_stretch)
+        resizeMode=AspectRatioFrameLayout.RESIZE_MODE_FIXED_HEIGHT;
+
+      setResizeMode(resizeMode);
+    }
+  };
+
 }

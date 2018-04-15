@@ -247,6 +247,16 @@ public class PlaybackControlView extends FrameLayout {
   private final TextView durationView;
   private final TextView positionView;
   private final TimeBar timeBar;
+
+  /**拉伸控制条*/
+  private View stretchLineView;
+  /**强制全屏*/
+  private TextView fullStretchView;
+  /**拉伸宽度*/
+  private TextView widthStretchView;
+  /**拉伸高度*/
+  private TextView heightStretchView;
+
   private final StringBuilder formatBuilder;
   private final Formatter formatter;
   private final Timeline.Period period;
@@ -354,6 +364,11 @@ public class PlaybackControlView extends FrameLayout {
     closeButton=findViewById(R.id.exo_close);
     loadingView=findViewById(R.id.exo_loading);
     errorView=findViewById(R.id.exo_error);
+
+    stretchLineView=findViewById(R.id.stretch_line);
+    fullStretchView=findViewById(R.id.full_stretch);
+    widthStretchView=findViewById(R.id.width_stretch);
+    heightStretchView=findViewById(R.id.height_stretch);
 
     if (timeBar != null) {
       timeBar.addListener(componentListener);
@@ -1201,6 +1216,24 @@ public class PlaybackControlView extends FrameLayout {
      * @param currentTimeMs 当前播放下标对应的毫秒数
      * */
     void change(long currentTimeMs);
+  }
+
+  /**
+   * 设置拉伸的监听器
+   * */
+  public void setStretchViewOnClick(View.OnClickListener listener)
+  {
+    fullStretchView.setOnClickListener(listener);
+    widthStretchView.setOnClickListener(listener);
+    heightStretchView.setOnClickListener(listener);
+  }
+
+  /**
+   * 隐藏拉伸的控制器
+   * */
+  public void hideStretchControl()
+  {
+    stretchLineView.setVisibility(View.GONE);
   }
 
 }

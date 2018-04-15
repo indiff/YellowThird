@@ -38,4 +38,10 @@
   <item name="exo_loading" type="id"/>
   <item name="exo_error" type="id"/>
   <item name="exo_title" type="id"/>
+
+  <item name="stretch_line" type="id"/>
+  <item name="full_stretch" type="id"/>
+  <item name="width_stretch" type="id"/>
+  <item name="height_stretch" type="id"/>
+
 </resources>

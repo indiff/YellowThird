@@ -120,13 +120,14 @@ public class FastShakeAdapter extends BaseRecycleViewAdapter implements View.OnC
                             public void change(long currentTimeMs) {
                                 //20秒太多了。没人充钱
                                 //10秒试试
-                                int seconds10=1000*10;
-                                if(seconds10>=currentTimeMs)
+                                //10秒都多了，弄个7秒
+                                int seconds7=1000*7;
+                                if(seconds7>=currentTimeMs)
                                     return;
                                 if(!hasTip)
                                 {
                                     hasTip=true;
-                                    Toast.makeText(activity,"由于视频带宽极其昂贵，非会员每部只能看前面10秒。请先充值会员",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(activity,"由于视频带宽极其昂贵，非会员每部只能看前面7秒。请先充值会员",Toast.LENGTH_LONG).show();
                                 }
                                 if(null==holder.player||null==holder.player.getPlayer())
                                     return;
@@ -149,9 +150,11 @@ public class FastShakeAdapter extends BaseRecycleViewAdapter implements View.OnC
         fastShakeHolder.player=new PlayerManager(activity,fastShakeHolder.fastShakeVo.getVideoUri(),PlayerManager.LoadingBuffer.spareFlowLoadingBuffer);
         fastShakeHolder.player.init(activity, fastShakeHolder.playerView);
         fastShakeHolder.player.getPlayer().setPlayWhenReady(true);
+        fastShakeHolder.playerView.getController().hideStretchControl();
 
         ///短视频还快进尼玛啊
-        fastShakeHolder.playerView.getController().getTimeBar().setEnabled(false);
+        //算了，还是保留快进吧。没快进实在不行啊
+        //fastShakeHolder.playerView.getController().getTimeBar().setEnabled(false);
 
         /**播放一次就添加一次浏览次数*/
         ServiceDisposeFactory.getInstance().getServiceDispose().addFastShakeShowCount(fastShakeHolder.fastShakeVo.getId())
