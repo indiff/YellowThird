@@ -1,8 +1,11 @@
 package com.pear.android.view;
 
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.View;
 import android.webkit.JsResult;
@@ -39,9 +42,29 @@ public class FullWebView extends WebView {
         setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
+                if(url.contains("alipays://platformapi")){
+                    boolean visit = checkAliPayInstalled(getContext());
+                    if(visit){
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        getContext().startActivity(intent);
+                    }
+                    else
+                        return false;
+                }
+                else{
+                    view.loadUrl(url);
+                }
                 return true;
             }
+
+            //判断是否安装支付宝app
+            public boolean checkAliPayInstalled(Context context) {
+                Uri uri = Uri.parse("alipays://platformapi/startApp");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                ComponentName componentName = intent.resolveActivity(context.getPackageManager());
+                return componentName != null;
+            }
+
         });
         compatibility();
         webSetting();

@@ -121,13 +121,15 @@ public class FastShakeAdapter extends BaseRecycleViewAdapter implements View.OnC
                                 //20秒太多了。没人充钱
                                 //10秒试试
                                 //10秒都多了，弄个7秒
-                                int seconds7=1000*7;
-                                if(seconds7>=currentTimeMs)
+                                //7秒太少了
+                                //13秒吧，太少吧客户度吓走了
+                                int seconds12=1000*12;
+                                if(seconds12>=currentTimeMs)
                                     return;
                                 if(!hasTip)
                                 {
                                     hasTip=true;
-                                    Toast.makeText(activity,"由于视频带宽极其昂贵，非会员每部只能看前面7秒。请先充值会员",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(activity,"由于视频带宽极其昂贵，非会员每部只能看前面12秒。请先充值会员",Toast.LENGTH_LONG).show();
                                 }
                                 if(null==holder.player||null==holder.player.getPlayer())
                                     return;
