@@ -278,7 +278,9 @@ public class GoogleExoVideoActivity extends AppCompatActivity implements View.On
     /**非会员免费试看5分钟*/
     @Override
     public void change(long currentTimeMs) {
-        int minute5milli=1000*60*5;
+        //5分钟流量伤不起
+        //1分钟就好了
+        int minute5milli=1000*60*1;
         if(minute5milli>=currentTimeMs)
             return;
 
@@ -291,7 +293,7 @@ public class GoogleExoVideoActivity extends AppCompatActivity implements View.On
 
                 .title("试看完毕。")
                 .content("由于视频在线播放会来带极其高昂的服务器成本，只有会员才能完整视频播放。\n现在充值会员有优惠，请给我们一些支持，让我们继续为你带更精彩的内容吧")
-                .positiveText("给你们支持去")
+                .positiveText("知道了")
                 .onAny(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {

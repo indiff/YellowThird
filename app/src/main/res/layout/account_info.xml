@@ -89,7 +89,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/account.function.first.margin.top"
             android:background="@color/colorNavBackground"
             android:orientation="vertical">
 
@@ -282,6 +281,62 @@
 
                 </LinearLayout>
 
+                <!--分享送会员-->
+                <LinearLayout
+                    android:id="@+id/shared"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--分享图标-->
+                    <ImageView
+                        android:layout_width="@dimen/account.function.icon"
+                        android:layout_height="@dimen/account.function.icon"
+                        android:layout_gravity="center_vertical"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/_account_shared" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/account.function.each.top.bottom"
+                            android:layout_marginTop="@dimen/account.function.each.top.bottom"
+
+                            >
+                            <!--分享标题-->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/common.screen.margin"
+                                android:gravity="center_vertical"
+                                android:text="分享送会员"
+                                android:textColor="@color/colorTitle"
+                                android:textSize="@dimen/account.function.title" />
+
+                            <!--分享右定位-->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="right|center_vertical">
+                                <!--右导向图标-->
+                                <ImageView
+                                    android:layout_width="@dimen/account.function.right.direct.icon.width"
+                                    android:layout_height="@dimen/account.function.right.direct.icon.height"
+                                    android:layout_marginRight="@dimen/account.function.content.right"
+                                    android:layout_gravity="center_vertical"
+                                    android:scaleType="fitXY"
+                                    android:src="@drawable/_account_right_direct" />
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
@@ -292,7 +347,6 @@
             android:layout_height="1px"
             android:layout_marginLeft="@dimen/common.screen.margin"
             android:background="@color/colorSubNavBackground" />
-
 
         <!--调试界面-->
         <LinearLayout

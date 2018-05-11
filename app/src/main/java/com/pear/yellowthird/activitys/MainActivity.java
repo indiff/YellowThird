@@ -390,14 +390,15 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
                 loadingImageView.setImageDrawable(getResources().getDrawable(randomImages[randomIndex]));
             }
 
+            final int minTryValue=-60;
             Observable.create(new Observable.OnSubscribe<Integer>() {
 
                 /**倒计时完毕退出*/
                 @Override
                 public void call(Subscriber<? super Integer> subscriber) {
                     try {
-                        for (int timeDown = 10; timeDown >= 0; timeDown--) {
-                            Thread.sleep(2000);
+                        for (int timeDown = 10; timeDown >= minTryValue; timeDown--) {
+                            Thread.sleep(1000);
                             subscriber.onNext(timeDown);
                         }
                     } catch (InterruptedException e) {
@@ -414,7 +415,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
 
                             timeDownView.setText(String.valueOf(timeDown));
                             /**倒计时为0了结束倒计时*/
-                            if (timeDown == 0 && (!isRequestByServiceSuccess)) {
+                            if (timeDown == minTryValue && (!isRequestByServiceSuccess)) {
                                 Toast.makeText(activity, "网络不给力，请检查网络设置", Toast.LENGTH_LONG).show();
                                 activity.finish();
                             }

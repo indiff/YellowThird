@@ -63,7 +63,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     /**
      * 当前设备的唯一ID
      */
-    private static String gDeviceId = "1";
+    private static String gDeviceId = "3";
 
     /**
      * 服务器的请求地址
@@ -73,6 +73,19 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     //也有可能是香港公网抖动的问题。两种都有
     private static String gServiceHost;//= "http://36.255.220.149/";
 
+    /**
+     * 007 =10<br>
+     luck =20<br>
+     jack =30<br>
+     35=40<br>
+     * */
+
+    /**所属主人*/
+    private static String MASTER="3";
+
+    /**来源 备注*/
+    private static String SOURCE_MEMO="11";
+
     private Handler mainHandler;
 
     public ServiceDisposeImpl() {
@@ -81,16 +94,21 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
 
     //所有的备份域名
     private BlockingQueue<String> allHostQueue = new LinkedBlockingQueue<String>() {{
-        boolean localPcTest = false;
+        boolean localPcTest = true;
         if (localPcTest)
         {
             String localHost="http://192.168.0.109:8080/";
             gServiceHost=localHost;
             add(localHost);
         }else {
+            add("http://kedouxiaoapi.top/");
+            add("http://xiaokedoutop.top/");
+            add("http://kedouxiao.com/");
+
+            //虚拟机域名转不了ip。不知道部分网络会不会。就是只有虚拟机会。
             add("http://36.255.220.149/");
+            add("http://128.1.136.193/");
             add("http://smallkedou.cn/");
-            add("http://smalltadpole.net/");
         }
     }};
 
@@ -100,7 +118,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     public static void initDeviceId(Activity activity) {
         String androidID = Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
         gDeviceId = androidID + "_" + Build.SERIAL;
-        //gDeviceId = "9a254d943767ea2b_94ec3090";
+        //gDeviceId = "e5730ad1177c48679b_98897a314c385137";
         log.info("gDeviceId" + gDeviceId);
     }
 
@@ -148,7 +166,10 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                String response = requestByService(gServiceHost + "redbook/api/resourceType/list?version=" + SystemConfig.VERSION);
+                String response = requestByService(
+                        gServiceHost + "redbook/api/resourceType/list?version=" + SystemConfig.VERSION
+                        +"&master="+MASTER+"&sourceMemo="+SOURCE_MEMO
+                );
                 if (!TextUtils.isEmpty(response))
                     subscriber.onNext(response);
                 else
@@ -363,6 +384,11 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     @Override
     public String getRechargeWebUrl() {
         return gServiceHost + "redbook/api/pay/index?deviceId=" + gDeviceId + "&random=" + System.currentTimeMillis();
+    }
+
+    @Override
+    public String getSharedWebUrl() {
+        return gServiceHost + "redbook/api/shared/index?deviceId=" + gDeviceId + "&random=" + System.currentTimeMillis();
     }
 
     @Override

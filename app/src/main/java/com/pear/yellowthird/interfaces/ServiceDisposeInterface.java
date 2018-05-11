@@ -94,6 +94,11 @@ public interface ServiceDisposeInterface {
     String getRechargeWebUrl();
 
     /**
+     *  获取分享的网页地址
+     */
+    String getSharedWebUrl();
+
+    /**
      *  获取账单信息
      *  @return
      * */

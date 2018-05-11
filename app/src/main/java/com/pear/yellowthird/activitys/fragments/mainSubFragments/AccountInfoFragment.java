@@ -29,6 +29,7 @@ import com.bumptech.glide.Glide;
 import com.pear.yellowthird.activitys.BillActivity;
 import com.pear.yellowthird.activitys.R;
 import com.pear.yellowthird.activitys.RechargeActivity;
+import com.pear.yellowthird.activitys.SharedActivity;
 import com.pear.yellowthird.config.SystemConfig;
 import com.pear.yellowthird.factory.ServiceDisposeFactory;
 import com.pear.yellowthird.vo.databases.UserVo;
@@ -154,6 +155,19 @@ public class AccountInfoFragment extends Fragment {
             });
         }
 
+        /**分享*/
+        {
+            LinearLayout sharedView = mRootView.findViewById(R.id.shared);
+            sharedView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    /**用户可能送成功了*/
+                    REFRESH_GOLD=true;
+                    startActivity(new Intent(getActivity(), SharedActivity.class));
+                }
+            });
+        }
+
         /**调试时间*/
         {
             debugView=mRootView.findViewById(R.id.debug_view);
@@ -173,7 +187,6 @@ public class AccountInfoFragment extends Fragment {
                     SystemConfig.getInstance().setDebugTimeSwitch(isChecked);
                 }
             });
-
         }
 
         refreshUserAllView();

@@ -128,12 +128,13 @@ import com.pear.yellowthird.activitys.R;
   {
 
     /**比较流畅的可以播放的缓存设置*/
-    int minBufferMs=1000*90;
-    int maxBufferMs=1000*105;
+    int minBufferMs=1000*8;
+    int maxBufferMs=1000*14;
     if(loadingBuffer==LoadingBuffer.spareFlowLoadingBuffer)
     {
-      minBufferMs=1000*10;
-      maxBufferMs=1000*15;
+      /**这里设置在笑也没有用了，好像默认值最少会加在30秒。而且是不固定的*/
+      minBufferMs=1000*4;
+      maxBufferMs=1000*6;
     }
 
     return new DefaultLoadControl(
