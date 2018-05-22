@@ -160,8 +160,15 @@ public class StyleFragmentFactory {
                 return fragment;
             }
             case ACCOUNT_INFO_STYLE: {
-                UserVo vo = JsonUtil.write2Class(data, UserVo.class);
-                return AccountInfoFragment.newInstance(vo);
+                final AccountInfoFragment fragment=AccountInfoFragment.newInstance();
+                JsonUtil.write2ClassAsync(data, UserVo.class)
+                        .subscribe(new Action1<UserVo>() {
+                            @Override
+                            public void call(UserVo userVo) {
+                                fragment.setUser(userVo);
+                            }
+                        });
+                return fragment;
             }
             case FRIEND_STYLE:
             {

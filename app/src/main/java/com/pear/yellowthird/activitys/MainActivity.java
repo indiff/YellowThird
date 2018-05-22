@@ -253,11 +253,6 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
                         {
                             new NewVersionInstall(MainActivity.this,MainActivity.this).checkAndInstall();
                         }
-                    }, new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(activity, "网络不给力，请检查网络设置", Toast.LENGTH_LONG).show();
-                        }
                     });
         } else {
             isRequestByServiceSuccess = true;
@@ -398,7 +393,7 @@ public class MainActivity extends AppCompatActivity implements UpdateVersion {
                 public void call(Subscriber<? super Integer> subscriber) {
                     try {
                         for (int timeDown = 10; timeDown >= minTryValue; timeDown--) {
-                            Thread.sleep(1000);
+                            Thread.sleep(3500);
                             subscriber.onNext(timeDown);
                         }
                     } catch (InterruptedException e) {

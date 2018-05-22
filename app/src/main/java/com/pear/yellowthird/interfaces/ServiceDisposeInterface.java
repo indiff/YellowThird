@@ -177,7 +177,7 @@ public interface ServiceDisposeInterface {
     /**
      * 自动选择最好的服务器线路
      * */
-    void autoChooseGoodService(Runnable success,Runnable fail);
+    void autoChooseGoodService(Runnable success);
 
 
 

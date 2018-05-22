@@ -56,10 +56,15 @@ public class AccountInfoFragment extends Fragment {
      * 不能直接提供构造器来实现。会出现编译错误。
      * 具体原因请参考 http://blog.csdn.net/chniccs/article/details/51258972
      */
-    public static Fragment newInstance(UserVo user) {
+    public static AccountInfoFragment newInstance() {
         AccountInfoFragment fragment = new AccountInfoFragment();
-        fragment.user = user;
         return fragment;
+    }
+
+    public void setUser(UserVo user)
+    {
+        this.user=user;
+        refreshUserAllView();
     }
 
     private View mRootView;
@@ -188,7 +193,6 @@ public class AccountInfoFragment extends Fragment {
                 }
             });
         }
-
         refreshUserAllView();
         return mRootView;
     }
@@ -256,7 +260,7 @@ public class AccountInfoFragment extends Fragment {
          * 如果还没有取到用户数据，还不如干脆跳过算了。
          * 这里拿到过用户数据，用户直接崩溃日志了。
          * */
-        if(null==user)
+        if(null==user||null==mRootView)
             return;
         refreshUserHeadIconView();
         userNameView.setText(user.getName());

@@ -78,8 +78,7 @@ public class NewVersionInstall {
                                             allNeedPermissions,
                                             "检测到新版本。",
                                             "自动更新程序需要用到读取sd卡权限,\n" +
-                                                    "如果有提示是否允许安装未知程序。\n" +
-                                                    "请给我这两个权限。让我给你更好的服务。\n" +
+                                                    "请给我这个权限。让我给你更好的服务。\n" +
                                                     "否则我将不能正常工作",
                                             new Runnable() {
                                                 @Override

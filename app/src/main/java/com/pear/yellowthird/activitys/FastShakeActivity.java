@@ -81,7 +81,7 @@ public class FastShakeActivity extends AppCompatActivity implements View.OnClick
                     }
                 });
 
-        Toast.makeText(this,"上下滑动切换短视频",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"上下滑动切换短视频，横屏视频把手机横过来观看更佳哦",Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -36,6 +36,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -81,10 +82,10 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
      * */
 
     /**所属主人*/
-    private static String MASTER="3";
+    private static String MASTER="2";
 
     /**来源 备注*/
-    private static String SOURCE_MEMO="11";
+    private static String SOURCE_MEMO="0";
 
     private Handler mainHandler;
 
@@ -93,12 +94,13 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     }
 
     //所有的备份域名
-    private BlockingQueue<String> allHostQueue = new LinkedBlockingQueue<String>() {{
-        boolean localPcTest = true;
+    private List<String> allHostList = new ArrayList<String>() {{
+        boolean localPcTest = false;
         if (localPcTest)
         {
             String localHost="http://192.168.0.109:8080/";
-            gServiceHost=localHost;
+            //gServiceHost=localHost;
+            add("127.0.0.1:8080/");
             add(localHost);
         }else {
             add("http://kedouxiaoapi.top/");
@@ -606,22 +608,47 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
     }
 
     /**
-     * 获取下一个服务器的host
+     * 获取最快连上服务器的host
      */
-    private String getNextHost() {
-        try {
-            return allHostQueue.take();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+    public void autoChooseGoodService(final Runnable success) {
+        /**
+         * 只选一个可以的就可以了
+         * */
+        class JustChooseOnce {
+            boolean hasChoose=false;
+            boolean hasFailTip=false;
+            Object lock=new Object();
 
-    public void autoChooseGoodService(final Runnable success, final Runnable fail) {
-        if (allHostQueue.isEmpty())
-            fail.run();
-        else {
-            final String testHost = getNextHost();
+            public void isGood(String ip) {
+                synchronized (lock) {
+                    if(hasChoose)
+                    {
+                        System.out.println("already has good ip :"+ip);
+                        return;
+                    }
+                    hasChoose=true;
+                    gServiceHost = ip;
+                    success.run();
+                    System.out.println("test good ip："+ip);
+                }
+            }
+            public void isFail(String ip)
+            {
+                synchronized (lock)
+                {
+                    if(hasChoose||hasFailTip)
+                        return;
+                    hasFailTip=true;
+                    Toast.makeText(GlobalApplication.getContext(),
+                            "网络不给力，请切换4g或wifi再试试！",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        };
+        final JustChooseOnce justOnce= new JustChooseOnce();
+        for(int i=0;i<allHostList.size();i++)
+        {
+            final String testHost=allHostList.get(i);
             Observable.create(new Observable.OnSubscribe<String>() {
                 @Override
                 public void call(Subscriber<? super String> subscriber) {
@@ -637,12 +664,11 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
                                 @Override
                                 public void call(String data) {
                                     if (!TextUtils.isEmpty(data) && "true".equals(data)) {
-                                        gServiceHost = testHost;
                                         log.error("测试 testHost成功:" + testHost);
-                                        success.run();
+                                        justOnce.isGood(testHost);
                                     } else {
                                         log.error("测试 testHost失败:" + testHost);
-                                        autoChooseGoodService(success, fail);
+                                        justOnce.isFail(testHost);
                                     }
                                 }
                             });
@@ -763,6 +789,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             boolean hasParam = url.contains("?");
 
             url += (hasParam ? "&" : "?") + "deviceId=" + gDeviceId + getDebugPublicTimeParam();
+            url+="&host="+gServiceHost;
             log.info("url:" + url);
 
             /*
