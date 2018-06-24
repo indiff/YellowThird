@@ -45,6 +45,13 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.2'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.2'
 
+    //最新版本 安卓5.0版本以下无法转数组的数组，例如新手简介就无法正常识别
+    //也无法解决问题，在云端解决算了。
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+    //compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.6.6'
+    //compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.6.6'
+    //compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.6.6'
+
     /**图片库*/
     /*
     compile 'com.github.bumptech.glide:glide:4.3.1'
@@ -143,6 +150,11 @@ dependencies {
     //compile 'com.github.Kshitij-Jain:IndicatorView:1.25'
     //compile 'com.romandanylyk:pageindicatorview:1.0.0@aar'
     //compile 'com.github.Kshitij-Jain:IndicatorView:1.25'
+
+    // https://mvnrepository.com/artifact/com.android.support/multidex
+    //安卓4.4 Didn't find class "android.support.v4.content.FileProvider" BUG
+    compile 'com.android.support:multidex:1.0.1'
+
 
     compile project(path: ':indicatorview')
 }
