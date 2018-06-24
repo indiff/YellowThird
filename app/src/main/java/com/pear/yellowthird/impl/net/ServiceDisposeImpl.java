@@ -82,10 +82,10 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
      * */
 
     /**所属主人*/
-    private static String MASTER="2";
+    private static String MASTER="";
 
     /**来源 备注*/
-    private static String SOURCE_MEMO="0";
+    private static String SOURCE_MEMO="";
 
     private Handler mainHandler;
 
@@ -100,9 +100,10 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
         {
             String localHost="http://192.168.0.109:8080/";
             //gServiceHost=localHost;
-            add("127.0.0.1:8080/");
+            //add("127.0.0.1:8080/");
             add(localHost);
         }else {
+
             add("http://kedouxiaoapi.top/");
             add("http://xiaokedoutop.top/");
             add("http://kedouxiao.com/");
@@ -111,6 +112,8 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
             add("http://36.255.220.149/");
             add("http://128.1.136.193/");
             add("http://smallkedou.cn/");
+
+//            add("http://36.255.220.149:83/");
         }
     }};
 
@@ -152,7 +155,7 @@ public class ServiceDisposeImpl implements ServiceDisposeInterface {
                         /*errorMsg*/"网络不给力，请检查网络设置",
                         Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
+                //toast.show();
             }
         });
 

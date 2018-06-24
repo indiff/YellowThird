@@ -32,14 +32,16 @@ public class RechargeActivity extends CommonHeadActivity {
         mWebView = findViewById(R.id.web_view);
         loadingProgress= findViewById(R.id.loading_progress);
         mWebView.setLoadingProgress(loadingProgress);
+
+        //提到这里来，充值到账了。不重新刷新页面。有点是本机充值的。
+        String url=ServiceDisposeFactory.getInstance().getServiceDispose().getRechargeWebUrl();
+        mWebView.loadUrl(url);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        String url=ServiceDisposeFactory.getInstance().getServiceDispose().getRechargeWebUrl();
-        //String url="https://www.baidu.com/";
-        mWebView.loadUrl(url);
+
     }
 
 }
